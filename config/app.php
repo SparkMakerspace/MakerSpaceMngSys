@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Scimone.net',
+    'name' => 'Spark.coop',
 
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://scimone.net'),
+    'url' => env('APP_URL', 'http://spark.coop'),
 
     /*
     |--------------------------------------------------------------------------
