@@ -47,7 +47,7 @@ class PostController extends Controller
     {
         if ($request->get('submit') != 'Cancel') {
             $post = new Post;
-            $this->validate($request,$post->validationRules);
+            $this->validate($request,Post::getValidationRules());
             $post->title = $request->title;
             $post->body = nl2br(e($request->body));
             $post->user_id = Auth::id();
@@ -93,6 +93,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $this->authorize('update',$post);
+        $this->validate($request, Post::getValidationRules());
         $post->title = $request->title;
         $post->body = nl2br(e($request->body));
         $post->save();
@@ -107,6 +109,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete',$post);
         $post->delete();
         return redirect(route('posts.index'))   ;
     }

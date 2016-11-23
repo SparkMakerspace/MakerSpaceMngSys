@@ -43,13 +43,20 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                            <li @if(Request::is('posts*')) class="active" @endif>
-                                <a href="{{URL::route('posts.index')}}">Posts</a>
-                            </li>
+                        <li @if(Request::is('posts*')) class="active" @endif>
+                            <a href="{{URL::route('posts.index')}}">Posts</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+                        @if(!is_null(Auth::user()))
+                            @if(Auth::user()->hasRole('admin'))
+                                <li @if(Request::is('admin*')) class="active" @endif>
+                                    <a href="/admin">Admin</a>
+                                </li>
+                            @endif
+                        @endif
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">Login</a></li>
@@ -85,5 +92,11 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        jQuery(document).ready(function() {
+            @yield('postJquery');
+        });
+    </script>
 </body>
 </html>

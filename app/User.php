@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use PhpParser\Node\Expr\Cast\String_;
 
 
 /**
@@ -53,6 +54,17 @@ class User extends Authenticatable
         'role', 'password', 'remember_token',
     ];
 
+    public static $roles = ['user', 'admin'];
+
+    public static function getValidationRules()
+    {
+        return array(
+        'name' => 'required|max:255',
+        'email' => 'required|email|unique:Users,email',
+        'role' => 'integer|min:0|max:'.(sizeof(self::$roles)-1)
+        );
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -61,12 +73,18 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
 
+
     /**
-     * @param $role
+     * @param string $role
      * @return bool
      */
-    public function hasRole($role)
+    public function hasRole(string $role)
     {
         return $this->role === $role;
+    }
+
+    public static function getRoles()
+    {
+        return self::$roles;
     }
 }

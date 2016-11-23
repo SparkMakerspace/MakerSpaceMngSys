@@ -32,14 +32,22 @@ class Post extends Model
         'updated_at'
     ];
 
-    public $validationRules = array(
-        'title' => 'required|max:255',
-        'body' => 'required'
-    );
+    public static function getValidationRules()
+    {
+        return array(
+            'title' => 'required|max:255',
+            'body' => 'required'
+        );
+    }
 
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function userExists()
+    {
+        return !is_null($this->user);
     }
 
 

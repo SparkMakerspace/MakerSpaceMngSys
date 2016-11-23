@@ -11,7 +11,7 @@
 |
 */
 
-use App\Http\Middleware\CheckRole;
+use App\User;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,4 +23,9 @@ Route::get('/home', 'HomeController@index');
 
 Route::resource('/posts', 'PostController');
 
-Route::get('/admin','PostController@index')->middleware('role:admin');
+Route::get('/admin',function ()
+{
+    return view('admin.home');
+})->middleware('role:admin');
+
+Route::resource('/admin/users', 'UserController');

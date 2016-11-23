@@ -34,7 +34,11 @@
                                     {{ $post->title}}
                                 </a>
                                 <small>
-                                    by {{$post->user->name}}
+                                    by @if ($post->userExists())
+                                        {{$post->user->name}}
+                                    @else
+                                        Deleted User
+                                    @endif
                                 </small>
                             </h4>
                         </div>
@@ -71,6 +75,10 @@
                     <!-- Post Body -->
                     <div class="list-group-item-text">
                         {!! html_entity_decode($post->body) !!}
+                        <br>
+                        <div  class="small">
+                            Posted: {{$post->post_time}}
+                        </div>
                     </div>
                 </div>
             @endforeach

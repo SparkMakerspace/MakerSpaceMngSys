@@ -1,7 +1,12 @@
 @extends('layouts.generalpage')
 
 @section('title')
-    <h1>{{$post->title}}<small><small> by {{$post->user->name}}</small></small></h1>
+    <h1>{{$post->title}}<small><small> by
+        @if ($post->userExists())
+            {{$post->user->name}}
+        @else
+            Deleted User
+        @endif</small></small></h1>
 
 @endsection
 

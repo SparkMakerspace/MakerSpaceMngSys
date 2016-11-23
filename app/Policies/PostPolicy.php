@@ -12,7 +12,7 @@ class PostPolicy
 
     public function before(User $user, $ability)
     {
-        if ($user->getAttribute('admin') == 1)
+        if ($user->getAttribute('role') == 'admin')
         {
             return true;
         }
