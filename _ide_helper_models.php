@@ -1,17 +1,46 @@
 <?php
+/**
+ * A helper file for your Eloquent Models
+ * Copy the phpDocs from this file to the correct Model,
+ * And remove them from this file, to prevent double declarations.
+ *
+ * @author Barry vd. Heuvel <barryvdh@gmail.com>
+ */
 
-namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+namespace App{
+/**
+ * App\Post
+ *
+ * @property-read \App\User $owner
+ * @mixin \Eloquent
+ * @property integer $id
+ * @property string $title
+ * @property string $body
+ * @property integer $user_id
+ * @property string $post_time
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Post whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Post whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Post whereBody($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Post whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Post wherePostTime($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Post whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Post whereUpdatedAt($value)
+ * @property-read \App\User $user
+ */
+	class Post extends \Eloquent {}
+}
 
+namespace App{
 /**
  * App\User
  *
  * @property integer $id
  * @property string $name
  * @property string $email
- * @property string $rolez
+ * @property string $role
  * @property string $password
  * @property string $remember_token
  * @property \Carbon\Carbon $created_at
@@ -30,65 +59,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Query\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class User extends Authenticatable
-{
-    use Notifiable;
-
-    protected $table = 'users';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'role', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'role', 'password', 'remember_token',
-    ];
-
-    public static $roles = ['user', 'lead', 'admin'];
-
-    public static function getValidationRules()
-    {
-        return array(
-        'name' => 'required|max:255',
-        'email' => 'required|email|unique:users,email',
-        'role' => 'integer|min:0|max:'.(sizeof(self::$roles)-1)
-        );
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function posts()
-    {
-        return $this->hasMany('App\Post');
-    }
-
-    public function topics()
-    {
-        return $this->hasMany('App\TopicUserConnection');
-    }
-
-    /**
-     * @param string $role
-     * @return bool
-     */
-    public function hasRole(string $role)
-    {
-        return $this->role === $role;
-    }
-
-    public static function getRoles()
-    {
-        return self::$roles;
-    }
+	class User extends \Eloquent {}
 }
+

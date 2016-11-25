@@ -32,10 +32,12 @@ class Post extends Model
         'updated_at'
     ];
 
+    protected $table = 'posts';
+
     public static function getValidationRules()
     {
         return array(
-            'title' => 'required|max:255',
+            'title' => 'required|max:140',
             'body' => 'required'
         );
     }

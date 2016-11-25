@@ -6,7 +6,7 @@
 
 @section('mainContent')
     {!! BootForm::open(['model'=>$user,'store'=>'users.store'])!!}
-    {!! BootForm::text('name','User Name') !!}
+    {!! BootForm::text('name','User Name',null,['id'=>'focus']) !!}
     {!! BootForm::email('email','Email Address') !!}
     {!! BootForm::select('role','Role',\App\User::getRoles()) !!}
     {!! BootForm::password('password','Password') !!}

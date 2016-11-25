@@ -5,29 +5,33 @@
 @endsection
 
 @section('mainContent')
-<form class="form" action="/admin/users/{{$user->id}}" method="post">
-    <input type="hidden" name="_method" value="put">
-    {{csrf_field()}}
 
-    <div class="form-group-sm">
-        <input class="form-control form" id="name" name="name" type="text" value="{{$user->name}}">
+    {!! BootForm::open(['model'=>$user,'update'=>'users.update']) !!}
+    {!! BootForm::text('name','Name') !!}
+    {!! BootForm::email('email','Email Address') !!}
+    {!! BootForm::select('role','Role',\App\User::getRoles(),array_search($user->role,\App\User::getRoles())) !!}
+    {!! BootForm::password('password','Password',['placeholder'=>'Leave blank to keep un-changed']) !!}
+    <div class="form-group">
+        {!! BootForm::submit('Submit',['class'=>'btn btn-primary col-md-2 col-sm-2','name'=>'submit']) !!}
+        {!! BootForm::submit('Cancel',['class'=>'btn btn-danger col-md-2 col-sm-2','name'=>'submit']) !!}
     </div>
-    <div class="form-group-sm">
-        <input class="form-control" id="email" name="email" type="email" value="{{$user->email}}">
-    </div>
-    <div class="form-group-sm">
-        <select class="form-control" id="role" name="role">
-            <option value="0">
-                user
-            </option>
-            <option value="1" @if($user->role == "admin")selected="selected"@endif>
-                admin
-            </option>
-        </select>
-    </div>
-    <div class="btn-group">
-        <input class="btn-link" type="submit" name="Save" value="Save" id="submit">
-        <input class="btn-link" type="submit" name="Cancel" value="Cancel" id="Cancel">
-    </div>
-</form>
+    {!! BootForm::close() !!}
+@endsection
+
+@section('postJquery')
+    @parent
+    //<script> //This is here for IDE syntax highlighting
+            if(!Modernizr.input.placeholder){
+                $("input").each(function(){
+                    if($(this).val()=="" &amp;&amp; $(this).attr("placeholder")!=""){
+                        $(this).val($(this).attr("placeholder"));
+                        $(this).focus(function(){
+                            if($(this).val()==$(this).attr("placeholder")) $(this).val("");
+                        });
+                        $(this).blur(function(){
+                            if($(this).val()=="") $(this).val($(this).attr("placeholder"));
+                        });
+                    }
+                });
+        }
 @endsection

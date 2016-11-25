@@ -6,7 +6,7 @@
 
 @section('mainContent')
     {!! BootForm::open(['model'=>$post,'store'=>'posts.store'])!!}
-    {!! BootForm::text('title','Post Title') !!}
+    {!! BootForm::text('title','Post Title','',['id'=>'focus']) !!}
     {!! BootForm::textarea('body','Post Body') !!}
 @endsection
 
