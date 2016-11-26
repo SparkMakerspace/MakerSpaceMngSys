@@ -15,7 +15,7 @@
 
         </div>
         @yield('mainContent')
-
+        <br>
         @yield('footer')
     </div>
 

@@ -14,9 +14,11 @@ class CreateTopicsUsersTable extends Migration
     public function up()
     {
         Schema::create('topics_users',function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id');
             $table->integer('topic_id');
             $table->boolean('is_lead');
+            $table->timestamps();
         });
     }
 

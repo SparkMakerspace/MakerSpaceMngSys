@@ -34,6 +34,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    /**
+     * @var string
+     */
     protected $table = 'users';
 
     /**
@@ -54,8 +57,14 @@ class User extends Authenticatable
         'role', 'password', 'remember_token',
     ];
 
+    /**
+     * @var array
+     */
     public static $roles = ['user', 'lead', 'admin'];
 
+    /**
+     * @return array
+     */
     public static function getValidationRules()
     {
         return array(
@@ -73,7 +82,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
 
-    public function topics()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function topicConnections()
     {
         return $this->hasMany('App\TopicUserConnection');
     }
@@ -87,6 +99,9 @@ class User extends Authenticatable
         return $this->role === $role;
     }
 
+    /**
+     * @return array
+     */
     public static function getRoles()
     {
         return self::$roles;

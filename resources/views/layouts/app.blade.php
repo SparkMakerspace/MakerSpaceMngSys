@@ -69,6 +69,11 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                        <a href="{{ url('/home') }}">
+                                            User Dashboard
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -95,7 +100,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
         jQuery(document).ready(function() {
-            $('#focus').focus();
+            $('.focus').focus();
             @yield('postJquery');
         });
     </script>

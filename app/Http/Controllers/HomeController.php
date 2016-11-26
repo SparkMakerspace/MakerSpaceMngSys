@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $topicConnections = User::with([
+                'topicConnections',
+                'topicConnections.topic'
+            ])->whereId(\Auth::user()->id)->first();
+//        return $topicConnections;
+        return view('dashboard.home')->with(compact('topicConnections'));
     }
 }

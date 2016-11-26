@@ -26,14 +26,23 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Post extends Model
 {
+    /**
+     * @var array
+     */
     protected $dates = [
         'post_time',
         'created_at',
         'updated_at'
     ];
 
+    /**
+     * @var string
+     */
     protected $table = 'posts';
 
+    /**
+     * @return array
+     */
     public static function getValidationRules()
     {
         return array(
@@ -42,11 +51,17 @@ class Post extends Model
         );
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
+    /**
+     * @return bool
+     */
     public function userExists()
     {
         return !is_null($this->user);

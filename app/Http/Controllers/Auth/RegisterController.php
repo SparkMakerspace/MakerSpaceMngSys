@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\TopicUserConnection;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -49,7 +50,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:user',
+            'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -58,15 +59,23 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return User
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'role' => "user",
             'password' => bcrypt($data['password']),
         ]);
+        foreach ($data['topic'] as $topic)
+        {
+            TopicUserConnection::create([
+                'user_id' =>  $user->id,
+                'topic_id' => $topic,
+                'is_lead' => false
+            ]);
+        }
+        return $user;
     }
 }

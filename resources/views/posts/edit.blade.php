@@ -7,7 +7,7 @@
 @section('mainContent')
     {!! BootForm::open(['model'=>$post,'update'=>'posts.update'])!!}
     {!! BootForm::text('title','Post Title') !!}
-    {!! BootForm::textarea('body','Post Body',null,['id'=>'focus']) !!}
+    {!! BootForm::textarea('body','Post Body',null,['class'=>'focus']) !!}
 @endsection
 
 @section('footer')
