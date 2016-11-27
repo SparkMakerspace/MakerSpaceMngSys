@@ -20,7 +20,7 @@ class CheckRole
         {
             return abort(401,'Sorry, you\'re not authorized to access this page.');
         }
-        if (! ($request->user()->hasRole($role)))
+        if (! ($request->user()->hasRole($role)) & $request->user() != \Auth::user())
         {
             return abort(401,'Sorry, you\'re not authorized to access this page.');
         }
