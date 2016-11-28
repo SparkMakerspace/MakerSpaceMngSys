@@ -51,6 +51,7 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->body = nl2br(e($request->body));
             $post->user_id = Auth::id();
+            $post->topic_id = 0;
             $post->post_time = time();
             $post->save();
         }
@@ -97,6 +98,7 @@ class PostController extends Controller
         $this->validate($request, Post::getValidationRules());
         $post->title = $request->title;
         $post->body = nl2br(e($request->body));
+        $post->topic_id = 0;
         $post->save();
         return redirect('/posts');
     }

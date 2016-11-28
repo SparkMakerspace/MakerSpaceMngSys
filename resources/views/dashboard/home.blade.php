@@ -30,7 +30,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <ul class="list-inline">
-                                @foreach($topicConnections->topicConnections as $topic)
+                                @foreach($topicConnections->workstationConnections as $topic)
                                     <li class="list-group-item hover">
                                         {{$topic->topic->name}}
                                     </li>

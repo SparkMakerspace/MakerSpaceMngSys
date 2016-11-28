@@ -24,10 +24,10 @@ class HomeController extends Controller
     public function index()
     {
         $topicConnections = User::with([
-                'topicConnections',
-                'topicConnections.topic'
+                'workstationConnections',
+                'workstationConnections.topic'
             ])->whereId(\Auth::user()->id)->first();
-//        return $topicConnections;
+//        return $workstationConnections;
         return view('dashboard.home')->with(compact('topicConnections'));
     }
 }

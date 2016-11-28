@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateTopicsUsersTable extends Migration
+class CreateWorkstationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTopicsUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('topics_users',function (Blueprint $table) {
+        Schema::create('workstations',function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('topic_id');
-            $table->boolean('is_lead');
+            $table->text('name');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateTopicsUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('topics_users');
+        Schema::drop('workstations');
     }
 }

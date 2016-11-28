@@ -23,6 +23,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Post wherePostTime($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Post whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Post whereUpdatedAt($value)
+ * @property string $deleted_at
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Query\Builder|\App\Post whereDeletedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Workstation[] $workstations
  */
 class Post extends Model
 {
@@ -57,6 +61,12 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function workstations()
+    {
+        return $this->morphToMany('App\Workstation','connection')
+            ->withTimestamps();
     }
 
     /**
