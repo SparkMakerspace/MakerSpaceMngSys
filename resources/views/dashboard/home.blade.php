@@ -21,8 +21,8 @@
                     {!! BootForm::password('password','Password',['placeholder'=>'Leave blank to keep un-changed','id'=>'password']) !!}
                     {!! BootForm::password('confirm_password','Confirm Password',['disabled','id' => 'confirm_password']) !!}
                     <div class="form-group row">
-                        {!! BootForm::submit('Submit',['class'=>'btn btn-primary col-md-2 col-sm-2 ','name'=>'submit']) !!}
-                        {!! BootForm::submit('Cancel',['class'=>'btn btn-danger col-md-2 col-sm-2','name'=>'submit']) !!}
+                        <div>{!! BootForm::submit('Submit',['class'=>'btn btn-primary col-md-2 col-sm-2 ','name'=>'submit']) !!}</div>
+                        <div>{!! BootForm::submit('Cancel',['class'=>'btn btn-danger col-md-2 col-sm-2','name'=>'submit']) !!}</div>
                     </div>
                     {!! BootForm::close() !!}
                     <hr>

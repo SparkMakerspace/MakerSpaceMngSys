@@ -91,14 +91,16 @@ class UserController extends Controller
 //            $this->validate($request,User::getValidationRules());
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->role = User::$roles[$request->role];
+            if ($request->exists('role')) {
+                $user->role = User::$roles[$request->role];
+            }
             if($request->password != '')
             {
                 $user->password = bcrypt($request->password);
             }
             $user->save();
         }
-        return redirect(route('users.index'));
+        return back();
     }
 
     /**
