@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateConnectionsTable extends Migration
+class CreateGroupPostTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,10 @@ class CreateConnectionsTable extends Migration
      */
     public function up()
     {
-        \Schema::create('connections',function (Blueprint $table) {
+        \Schema::create('group_post',function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('connection_id');
-            $table->integer('workstation_id');
-            $table->integer('permissionLevel')->nullable()->default(null);
-            $table->string('connection_type');
+            $table->integer('post_id');
+            $table->integer('group_id');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateConnectionsTable extends Migration
      */
     public function down()
     {
-        \Schema::drop('connections');
+        \Schema::drop('group_post');
     }
 }

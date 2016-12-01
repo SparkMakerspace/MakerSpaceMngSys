@@ -44,6 +44,9 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|\App\User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereDeletedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Group[] $groups
+ * @property string $hash_method
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereHashMethod($value)
  */
 class User extends Authenticatable
 {
@@ -111,9 +114,9 @@ class User extends Authenticatable
      * 
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function workstations()
+    public function groups()
     {
-        return $this->morphToMany('App\Workstation','connection')
+        return $this->belongsToMany('App\Group')
             ->withPivot('permissionLevel')
             ->withTimestamps();
     }

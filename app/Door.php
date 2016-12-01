@@ -72,7 +72,7 @@ class Door extends Model
         // Signal the door to unlock for a few seconds
     }
 
-    public function duringOpenHours ()
+    public function isDuringOpenHours ()
     {
         $currentDay = date('w'); // 0 = Sunday, 6 = Saturday
         switch ($currentDay){

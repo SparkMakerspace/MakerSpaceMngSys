@@ -58,21 +58,21 @@ class Post extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function owner()
     {
         return $this->belongsTo('App\User');
     }
 
     public function workstations()
     {
-        return $this->morphToMany('App\Workstation','connection')
+        return $this->belongsToMany('App\Group')
             ->withTimestamps();
     }
 
     /**
      * @return bool
      */
-    public function userExists()
+    public function ownerExists()
     {
         return !is_null($this->user);
     }

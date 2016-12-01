@@ -2,9 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+class CreateGroupUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +12,12 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        \Schema::create('group_user',function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->longText('body');
-            $table->integer('owner_id');
-            $table->dateTime('post_time');
+            $table->integer('user_id');
+            $table->integer('group_id');
+            $table->integer('permissionLevel')->default(1);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +28,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('posts');
+        \Schema::drop('group_user');
     }
 }

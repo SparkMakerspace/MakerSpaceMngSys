@@ -1,8 +1,8 @@
 <?php
 
 use App\Door;
+use App\Group;
 use App\User;
-use App\Workstation;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
             $user->username = $i.$i.$i.$i.$i.$i;
             $user->email = $i.'@user.com';
             $user->password = bcrypt('password');
+            $user->hash_method = 'NONE';
             $user->save();
             $i += 1;
         }
@@ -35,14 +36,15 @@ class UserSeeder extends Seeder
         $user->email = 'john@scimone.net';
         $user->role = 'admin';
         $user->password = bcrypt('password');
+        $user->hash_method = 'NONE';
         $user->save();
-        $user->workstations()->attach(Workstation::whereName('Electronics')
+        $user->groups()->attach(Group::whereName('Electronics')
             ->first(),['permissionLevel'=>5]);
-        $user->workstations()->attach(Workstation::whereName('3D Printing')
+        $user->groups()->attach(Group::whereName('3D Printing')
             ->first(),['permissionLevel'=>1]);
-        $user->workstations()->attach(Workstation::whereName('Coworking')
+        $user->groups()->attach(Group::whereName('Coworking')
             ->first(),['permissionLevel'=>1]);
-        $user->workstations()->attach(Workstation::whereName('Spark Emporium')
+        $user->groups()->attach(Group::whereName('Spark Emporium')
             ->first(),['permissionLevel'=>1]);
         $user->doors()->attach(Door::whereName('86 Front')->first(),
             ['allHoursAccess'=>true]);
@@ -54,10 +56,11 @@ class UserSeeder extends Seeder
         $user->email = 'spam@smbisoft.com';
         $user->role = 'admin';
         $user->password = bcrypt('password');
+        $user->hash_method = 'NONE';
         $user->save();
-        $user->workstations()->attach(Workstation::where('name','=','Electronics')
+        $user->groups()->attach(Group::where('name','=','Electronics')
             ->first(),['permissionLevel'=>5]);
-        $user->workstations()->attach(Workstation::where('name','=','3D Printing')
+        $user->groups()->attach(Group::where('name','=','3D Printing')
             ->first(),['permissionLevel'=>1]);
         $user = new User();
         $user->name = 'Drew Gates';
@@ -65,14 +68,15 @@ class UserSeeder extends Seeder
         $user->email = 'spark@drewgates.com';
         $user->role = 'admin';
         $user->password = bcrypt('password');
+        $user->hash_method = 'NONE';
         $user->save();
-        $user->workstations()->attach(Workstation::where('name','=','Electronics')
+        $user->groups()->attach(Group::where('name','=','Electronics')
         ->first(),['permissionLevel'=>1]);
-        $user->workstations()->attach(Workstation::where('name','=','3D Printing')
+        $user->groups()->attach(Group::where('name','=','3D Printing')
             ->first(),['permissionLevel'=>1]);
-        $user->workstations()->attach(Workstation::where('name','=','Audio & Video')
+        $user->groups()->attach(Group::where('name','=','Audio & Video')
             ->first(),['permissionLevel'=>5]);
-        $user->workstations()->attach(Workstation::where('name','=','Programming')
+        $user->groups()->attach(Group::where('name','=','Programming')
             ->first(),['permissionLevel'=>5]);
     }
 }

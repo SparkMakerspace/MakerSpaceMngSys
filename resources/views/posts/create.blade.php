@@ -1,11 +1,18 @@
 @extends('layouts.generalpage')
 
 @section('title')
-    <h1>Create Post</h1>
+
+    <h1>@if(is_null($post))
+            Create Post
+        @else
+            Edit Post
+        @endif
+    </h1>
+
 @endsection
 
 @section('mainContent')
-    {!! BootForm::open(['model'=>$post,'store'=>'posts.store'])!!}
+    {!! BootForm::open([(is_null($post))?'model'=>$post,'store'=>'posts.store'])!!}
     {!! BootForm::text('title','Post Title','',['class'=>'focus']) !!}
     {!! BootForm::textarea('body','Post Body') !!}
 @endsection

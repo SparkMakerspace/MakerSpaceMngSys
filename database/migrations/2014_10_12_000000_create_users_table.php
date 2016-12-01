@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('username')->unique();
+            $table->string('hash_method');
             $table->string('email')->unique();
             $table->string('keyCard')->unique()->nullable()->default(null);
             $table->string('publicKey')->nullable()->default(null);

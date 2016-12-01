@@ -18,24 +18,26 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Workstation whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Workstation whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Post[] $posts
  */
-class Workstation extends Model
+class Group extends Model
 {
     /**
      * @var string
      */
-    protected $table = 'workstations';
+    protected $table = 'groups';
 
     /**
      *
      */
     public function users()
     {
-        return $this->morphedByMany('App\User','connection')->withPivot('permissionLevel');
+        return $this->belongsToMany('App\User')->withPivot('permissionLevel');
     }
 
     public function posts()
     {
-        return $this->morphedByMany('App\Post','connection');
+        return $this->belongsToMany('App\Post');
     }
 }
