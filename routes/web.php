@@ -11,8 +11,6 @@
 |
 */
 
-use App\User;
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -29,3 +27,5 @@ Route::get('/admin',function ()
 })->middleware('role:admin');
 
 Route::resource('/admin/users', 'UserController');
+
+Route::post('/pclogin','PCAuthController@loginRequest');
