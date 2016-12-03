@@ -28,4 +28,4 @@ Route::get('/admin',function ()
 
 Route::resource('/admin/users', 'UserController');
 
-Route::post('/pclogin','PCAuthController@loginRequest');
+Route::post('/pclogin','PCAuthController@loginRequest')->middleware('ssl');
