@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-
 class HomeController extends Controller
 {
     /**
@@ -23,11 +21,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $topicConnections = User::with([
-                'workstationConnections',
-                'workstationConnections.topic'
-            ])->whereId(\Auth::user()->id)->first();
-//        return $workstationConnections;
-        return view('dashboard.home')->with(compact('topicConnections'));
+        return view('dashboard.home');
+    }
+
+    public function acctMgmt()
+    {
+        $user = \Auth::user();
+        $groups = $user->groups;
+        return view('dashboard.acctMgmt')->with(compact('user'))->with(compact('groups'));
     }
 }

@@ -3,7 +3,6 @@
 use App\Group;
 use App\Post;
 use App\User;
-use App\Workstation;
 use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
@@ -20,11 +19,11 @@ class PostSeeder extends Seeder
         $post->body = 'This is the first post EVER on the new Spark website. You\'ll
         notice that everything is now well integrated and functional! You can see
         everything going on at Spark in the calendar and see what\'s happening in
-        your favorite workstation! That\'s all for now.';
+        your favorite group! That\'s all for now.';
         $post->owner()->associate(User::whereUsername('johnsucks')->first());
         $post->post_time = time();
         $post->save();
-        $post->workstations()->attach(Group::whereName('Electronics')->first());
+        $post->groups()->attach(Group::whereName('Electronics')->first());
 
         $post = new Post();
         $post->title = 'Other Post';
@@ -32,6 +31,6 @@ class PostSeeder extends Seeder
         $post->owner()->associate(User::whereUsername('mikesucks')->first());
         $post->post_time = time();
         $post->save();
-        $post->workstations()->attach(Group::whereName('3D Printing')->first());
+        $post->groups()->attach(Group::whereName('3D Printing')->first());
     }
 }

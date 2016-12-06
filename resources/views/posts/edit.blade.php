@@ -1,10 +1,10 @@
-@extends('layouts.generalpage')
+@extends('layouts.app')
 
 @section('title')
     <h1>Edit Post</h1>
 @endsection
 
-@section('mainContent')
+@section('content')
     {!! BootForm::open(['model'=>$post,'update'=>'posts.update'])!!}
     {!! BootForm::text('title','Post Title') !!}
     {!! BootForm::textarea('body','Post Body',null,['class'=>'focus']) !!}

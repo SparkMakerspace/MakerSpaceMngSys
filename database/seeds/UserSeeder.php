@@ -26,7 +26,6 @@ class UserSeeder extends Seeder
             $user->username = $i.$i.$i.$i.$i.$i;
             $user->email = $i.'@user.com';
             $user->password = bcrypt('password');
-            $user->hash_method = 'NONE';
             $user->save();
             $i += 1;
         }
@@ -36,7 +35,6 @@ class UserSeeder extends Seeder
         $user->email = 'john@scimone.net';
         $user->role = 'admin';
         $user->password = bcrypt('password');
-        $user->hash_method = 'NONE';
         $user->save();
         $user->groups()->attach(Group::whereName('Electronics')
             ->first(),['permissionLevel'=>5]);
@@ -56,7 +54,6 @@ class UserSeeder extends Seeder
         $user->email = 'spam@smbisoft.com';
         $user->role = 'admin';
         $user->password = bcrypt('password');
-        $user->hash_method = 'NONE';
         $user->save();
         $user->groups()->attach(Group::where('name','=','Electronics')
             ->first(),['permissionLevel'=>5]);
@@ -68,7 +65,6 @@ class UserSeeder extends Seeder
         $user->email = 'spark@drewgates.com';
         $user->role = 'admin';
         $user->password = bcrypt('password');
-        $user->hash_method = 'NONE';
         $user->save();
         $user->groups()->attach(Group::where('name','=','Electronics')
         ->first(),['permissionLevel'=>1]);

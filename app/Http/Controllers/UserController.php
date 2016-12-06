@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(20);
-        return view('admin.users.index',compact('users'));
+        return view('users.index',compact('users'));
     }
 
     /**
@@ -32,7 +32,7 @@ class UserController extends Controller
     public function create()
     {
         $user = new User;
-        return view('admin.users.create',compact('user'));
+        return view('users.create',compact('user'));
     }
 
     /**
@@ -45,7 +45,12 @@ class UserController extends Controller
     {
         if ($request->get('submit') != 'Cancel') {
             $user = new User;
-            $this->validate($request,User::getValidationRules());
+            $this->validate($request,[
+                'name' => 'required|max:255',
+                'username' => 'required|min:6|unique:users,username',
+                'email' => 'required|email|max:255|unique:users,email',
+                'password' => 'required|min:6|confirmed',
+            ]);
             $user->name = $request->name;
             $user->email = $request->email;
             $user->role = User::$roles[$request->role];
@@ -61,9 +66,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('users.edit',compact('user'));
     }
 
     /**
@@ -74,7 +79,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit',compact('user'));
+        return view('users.edit',compact('user'));
     }
 
     /**
@@ -86,20 +91,40 @@ class UserController extends Controller
      */
     public function update(Request $request,$id)
     {
-        if ($request->get('submit') != 'Cancel') {
             $user = User::find($id);
-//            $this->validate($request,User::getValidationRules());
+
+            $this->validate($request,['name' => 'required|max:255']);
             $user->name = $request->name;
-            $user->email = $request->email;
+
+            if ($user->email != $request->email)
+            {
+                $this->validate($request,['email' => 'required|email|max:255|unique:users,email']);
+                $user->email = $request->email;
+            }
+
             if ($request->exists('role')) {
                 $user->role = User::$roles[$request->role];
             }
+
             if($request->password != '')
             {
+                $this->validate($request,['password' => 'required|min:6|confirmed']);
                 $user->password = bcrypt($request->password);
             }
+
             $user->save();
+
+
+        $newGroups = array_keys($request['group']);
+
+        $user->groups()->detach($user->groups()->get());
+
+        foreach ($newGroups as $group){
+            $user->groups()->attach($group);
         }
+
+        \Session::flash('flash_message','Changes Saved');
+
         return back();
     }
 

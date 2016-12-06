@@ -28,6 +28,11 @@ class Group extends Model
      */
     protected $table = 'groups';
 
+    public static function getGroups()
+    {
+        return Group::orderBy('name','asc')->get();
+    }
+
     /**
      *
      */

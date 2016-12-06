@@ -1,4 +1,4 @@
-@extends('layouts.generalpage')
+@extends('layouts.app')
 
 @section('title')
     <h1>{{$post->title}}<small><small> by
@@ -7,10 +7,6 @@
         @else
             Deleted User
         @endif</small></small></h1>
-
-@endsection
-
-@section('topButton')
     <div class="row">
     @can('update',$post)
         <form action="{{ URL::route('posts.edit',$post) }}" method="GET" class="col-md-3 col-sm-3 pull-right">
@@ -31,7 +27,7 @@
     </div>
 @endsection
 
-@section('mainContent')
+@section('content')
     {{--Posts List--}}
     <div class="list-group">
         <div class="list-group-item row">

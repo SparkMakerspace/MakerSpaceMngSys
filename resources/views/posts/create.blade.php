@@ -1,4 +1,4 @@
-@extends('layouts.generalpage')
+@extends('layouts.app')
 
 @section('title')
 
@@ -11,7 +11,7 @@
 
 @endsection
 
-@section('mainContent')
+@section('content')
     {!! BootForm::open([(is_null($post))?'model'=>$post,'store'=>'posts.store'])!!}
     {!! BootForm::text('title','Post Title','',['class'=>'focus']) !!}
     {!! BootForm::textarea('body','Post Body') !!}

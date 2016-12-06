@@ -1,6 +1,6 @@
-@extends('layouts.generalpage')
+@extends('layouts.app')
 
-@section('mainContent')
+@section('content')
     <div class="panel panel-default">
         <div class="panel-heading">Login</div>
         <div class="panel-body">
@@ -8,14 +8,14 @@
                 {{ csrf_field() }}
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                    <label for="username" class="col-md-4 control-label">Username</label>
 
                     <div class="col-md-6">
-                        <input id="email" type="email" class="form-control focus" name="email" value="{{ old('email') }}" required autofocus>
+                        <input id="username" type="text" class="form-control focus" name="username" value="{{ old('username') }}" required autofocus>
 
-                        @if ($errors->has('email'))
+                        @if ($errors->has('username'))
                             <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('username') }}</strong>
                                     </span>
                         @endif
                     </div>

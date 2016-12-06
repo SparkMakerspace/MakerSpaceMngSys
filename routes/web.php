@@ -11,21 +11,32 @@
 |
 */
 
+// Front-facing routes
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
+// Authentication routes
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+// Dashboard
+Route::get('/home', 'HomeController@index')->name('dashboard');
+Route::get('/acctMgmt', 'HomeController@acctMgmt')->name('dashboard.acctMgmt');
 
+// Posts
 Route::resource('/posts', 'PostController');
 
+// Groups
+Route::get('/groups', 'GroupController@index');
+Route::get('/groups/{group}', 'GroupController@show');
+
+// Admin section routes
 Route::get('/admin',function ()
 {
     return view('admin.home');
-})->middleware('role:admin');
+})->name('admin')->middleware('role:admin');
 
 Route::resource('/admin/users', 'UserController');
 
-Route::post('/pclogin','PCAuthController@loginRequest')->middleware('ssl');
+// PC login route
+Route::post('/pclogin','PCAuthController@loginRequest')->name('pclogin')->middleware('ssl');

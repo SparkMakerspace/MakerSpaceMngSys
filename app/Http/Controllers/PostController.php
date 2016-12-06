@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 
 /**
@@ -50,8 +49,9 @@ class PostController extends Controller
             $this->validate($request,Post::getValidationRules());
             $post->title = $request->title;
             $post->body = nl2br(e($request->body));
-            $post->user_id = Auth::id();
-            $post->topic_id = 0;
+            foreach ($request->groups as $group)
+                $post->groups()->attach($group);
+            $post->owner()->associate($request->user());
             $post->post_time = time();
             $post->save();
         }

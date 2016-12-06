@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -50,6 +51,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
+    use SoftDeletes;
     use Notifiable;
 
     /**
@@ -65,7 +67,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'active', 'role', 'password',
+        'name', 'username', 'email', 'password',
     ];
 
     /**
@@ -83,21 +85,6 @@ class User extends Authenticatable
      * @var array
      */
     public static $roles = ['user', 'admin'];
-
-    /**
-     * Provides the baseline User model validation rules.
-     * 
-     * @return array
-     */
-    public static function getValidationRules()
-    {
-        return array(
-        'name' => 'required|max:255',
-        'email' => 'required|email|unique:users,email',
-        'role' => 'integer|min:0|max:'.(sizeof(self::$roles)-1),
-        'username' => 'required|max:255|min:4|unique:users,username',
-        );
-    }
 
     /**
      * Defines the relationship: A user has many posts.
@@ -142,5 +129,10 @@ class User extends Authenticatable
     public static function getRoles()
     {
         return self::$roles;
+    }
+
+    public function isActive()
+    {
+        return $this->active;
     }
 }

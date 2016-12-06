@@ -6,15 +6,7 @@
 @import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-.navButton {
-  padding-top: 26px;
-  //padding-right: 26px;
-  margin-left: -15px;
-  margin-right: -15px;
-}
-
-.hover:hover {
-  background: #ecf2ec;
-}
+// W3.css
+@import "w3";

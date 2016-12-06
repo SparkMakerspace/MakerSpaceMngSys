@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\TopicUserConnection;
-use App\User;
-use Validator;
+use App\Group;
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -50,7 +52,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'username' => 'required|min:6|unique:users,username',
+            'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -62,20 +65,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'role' => "user",
-            'password' => bcrypt($data['password']),
-        ]);
-        foreach ($data['topic'] as $topic)
+        $user = User::create($data);
+        $groups = array_keys($data['group']);
+        foreach ($groups as $group)
         {
-            TopicUserConnection::create([
-                'user_id' =>  $user->id,
-                'topic_id' => $topic,
-                'is_lead' => false
-            ]);
+            $user->groups()->attach(Group::whereId($group)->first(),['permissionLevel'=>1]);
         }
         return $user;
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 }

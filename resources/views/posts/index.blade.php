@@ -1,13 +1,10 @@
-@extends('layouts.generalpage')
+@extends('layouts.app')
 
 @section('title')
     <h1>Posts</h1>
-@endsection
-
-@section('topButton')
     @can('create',\App\Post::class)
         <form action="{{ URL::route('posts.create') }}">
-            <div class="input-group pull-right">
+            <div class="input-group">
                 <button class="btn btn-primary">
                     New
                 </button>
@@ -16,7 +13,7 @@
     @endcan
 @endsection
 
-@section('mainContent')
+@section('content')
     {{-- Posts List --}}
     <div class="list-group">
         @if($posts->isEmpty())

@@ -1,22 +1,21 @@
-@extends('layouts.generalpage')
+@extends('layouts.app')
 
 @section('title')
-    <h1>User Management</h1>
+    <div class="row">
+            <h1>User Management</h1>
+            @can('create',\App\Post::class)
+                <form action="{{ URL::route('users.create') }}">
+                    <div class="input-group">
+                        <button class="btn btn-primary">
+                            New
+                        </button>
+                    </div>
+                </form>
+            @endcan
+    </div>
 @endsection
 
-@section('topButton')
-    @can('create',\App\Post::class)
-        <form action="{{ URL::route('users.create') }}">
-            <div class="input-group pull-right">
-                <button class="btn btn-primary">
-                    New
-                </button>
-            </div>
-        </form>
-    @endcan
-@endsection
-
-@section('mainContent')
+@section('content')
     {{-- Posts List --}}
     <table class="table table-hover text-center">
         @if($users->isEmpty())
@@ -48,7 +47,7 @@
                 </td>
             </tr>
 
-        <!-- User rows -->
+            <!-- User rows -->
             @foreach ($users as $user)
                 <tr id="user{{$user->id}}">
                     <td>
@@ -123,16 +122,16 @@
             $userTag = $userTag.concat($userID);
 
             $.post(
-                    $( this ).prop( "action" ),
-                    {
-                        "_token": $( this ).find( "input[name=_token]" ).val(),
-                        "_method": $( this ).find( "input[name=_method]" ).val(),
-                        "id": $userID
-                    },
-                    function(data, status){
-                        $( $userTag ).html("<td colspan=4 class='text-left bg-danger'>"+data+"</td>");
-                        $( $userTag ).fadeOut(5000);
-                    }
+                $( this ).prop( "action" ),
+                {
+                    "_token": $( this ).find( "input[name=_token]" ).val(),
+                    "_method": $( this ).find( "input[name=_method]" ).val(),
+                    "id": $userID
+                },
+                function(data, status){
+                    $( $userTag ).html("<td colspan=4 class='text-left bg-danger'>"+data+"</td>");
+                    $( $userTag ).fadeOut(5000);
+                }
             );
             //prevent the form from actually submitting in browser
             return false;

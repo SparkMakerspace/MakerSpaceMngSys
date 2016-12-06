@@ -1,10 +1,10 @@
-@extends('layouts.generalpage')
+@extends('layouts.app')
 
 @section('title')
     <h1>Edit User</h1>
 @endsection
 
-@section('mainContent')
+@section('content')
 
     {!! BootForm::open(['model'=>$user,'update'=>'users.update']) !!}
     {!! BootForm::text('name','Name') !!}
