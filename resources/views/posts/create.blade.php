@@ -2,7 +2,7 @@
 
 @section('title')
 
-    <h1>@if(is_null($post))
+    <h1>@if(!isset($post))
             Create Post
         @else
             Edit Post
@@ -12,9 +12,16 @@
 @endsection
 
 @section('content')
-    {!! BootForm::open([(is_null($post))?'model'=>$post,'store'=>'posts.store'])!!}
-    {!! BootForm::text('title','Post Title','',['class'=>'focus']) !!}
+    @if(!isset($post))
+        {!! BootForm::open(['route'=>'posts.store'])!!}
+    @else
+        {!! BootForm::open(['model'=>$post,'update'=>'posts.update'])!!}
+    @endif
+
+    {!! BootForm::text('title','Post Title') !!}
     {!! BootForm::textarea('body','Post Body') !!}
+
+    @include('bits.groupsSelector')
 @endsection
 
 @section('footer')

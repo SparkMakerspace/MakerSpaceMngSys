@@ -2,7 +2,7 @@
 
 @section('title')
     <h1>{{$post->title}}<small><small> by
-        @if ($post->userExists())
+        @if ($post->ownerExists())
             {{$post->user->name}}
         @else
             Deleted User

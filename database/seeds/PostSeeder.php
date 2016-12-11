@@ -16,10 +16,7 @@ class PostSeeder extends Seeder
     {
         $post = new Post();
         $post->title = 'First Post in the Electronics Area';
-        $post->body = 'This is the first post EVER on the new Spark website. You\'ll
-        notice that everything is now well integrated and functional! You can see
-        everything going on at Spark in the calendar and see what\'s happening in
-        your favorite group! That\'s all for now.';
+        $post->body = 'This is the first post EVER on the new Spark website. You\'ll notice that everything is now well integrated and functional! You can see everything going on at Spark in the calendar and see what\'s happening in your favorite group! That\'s all for now.';
         $post->owner()->associate(User::whereUsername('johnsucks')->first());
         $post->post_time = time();
         $post->save();

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 /**
  * App\Post
  *
@@ -76,7 +77,7 @@ class Post extends Model
      */
     public function ownerExists()
     {
-        return !is_null($this->user);
+        return !is_null($this->owner);
     }
 
 

@@ -6,13 +6,9 @@
     @endif
     <div class="btn-group" role="group">
         @if(!(isset($user) and isset($groups)))
-            <label class="btn btn-default btn-depressed-green">
                 <input type="checkbox" name="group[{{$group->id}}]" autocomplete="off"> {{$group->name}}
-            </label>
         @else
-            <label class="btn btn-default btn-depressed-green {{($groups->where('id','=',$group->id)->first())?'active':''}}">
                 <input type="checkbox" name="group[{{$group->id}}]" autocomplete="off" {{($groups->where('id','=',$group->id)->first())?'checked':''}}> {{$group->name}}
-            </label>
         @endif
     </div>
     @endforeach

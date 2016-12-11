@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -32,8 +33,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $post = new Post;
-        return view('posts.create',['post'=>$post]);
+        return view('posts.create');
     }
 
     /**
@@ -49,11 +49,12 @@ class PostController extends Controller
             $this->validate($request,Post::getValidationRules());
             $post->title = $request->title;
             $post->body = nl2br(e($request->body));
-            foreach ($request->groups as $group)
-                $post->groups()->attach($group);
             $post->owner()->associate($request->user());
             $post->post_time = time();
             $post->save();
+            $groups = array_keys($request['group']);
+            foreach ($groups as $group)
+                $post->groups()->attach(Group::whereId($group)->first());
         }
         return redirect('/posts');
     }
@@ -82,7 +83,7 @@ class PostController extends Controller
         $breaks = array("<br />","<br>","<br/>");
         $post->body = str_ireplace($breaks, "", $post->body);
 
-        return view('posts.edit',['post'=>$post]);
+        return view('posts.create',['post'=>$post]);
     }
 
     /**
@@ -98,7 +99,7 @@ class PostController extends Controller
         $this->validate($request, Post::getValidationRules());
         $post->title = $request->title;
         $post->body = nl2br(e($request->body));
-        $post->topic_id = 0;
+        $post->groups()->attach(2);
         $post->save();
         return redirect('/posts');
     }

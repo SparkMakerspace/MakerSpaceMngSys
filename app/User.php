@@ -48,6 +48,12 @@ use Illuminate\Notifications\Notifiable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Group[] $groups
  * @property string $hash_method
  * @method static \Illuminate\Database\Query\Builder|\App\User whereHashMethod($value)
+ * @property string $phone
+ * @property string $address
+ * @property string $contactPref
+ * @method static \Illuminate\Database\Query\Builder|\App\User wherePhone($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereAddress($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereContactPref($value)
  */
 class User extends Authenticatable
 {
