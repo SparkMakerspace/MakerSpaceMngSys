@@ -26,9 +26,12 @@ Route::get('/acctMgmt', 'HomeController@acctMgmt')->name('dashboard.acctMgmt');
 // Posts
 Route::resource('/posts', 'PostController');
 
+// Files
+Route::resource('/files', 'FileController');
+
 // Groups
-Route::get('/groups', 'GroupController@index');
-Route::get('/groups/{group}', 'GroupController@show');
+Route::get('/groups', 'GroupController@index')->name('groups.index');
+Route::get('/groups/{group}', 'GroupController@show')->name('groups.show');
 
 // Admin section routes
 Route::get('/admin',function ()

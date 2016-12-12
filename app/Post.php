@@ -43,11 +43,6 @@ class Post extends Model
     ];
 
     /**
-     * @var string
-     */
-    protected $table = 'posts';
-
-    /**
      * @return array
      */
     public static function getValidationRules()

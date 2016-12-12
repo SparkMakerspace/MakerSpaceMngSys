@@ -5,8 +5,8 @@
     </li>
     <li><a href="{{URL::route('welcome')}}">Spark Makerspace</a></li>
     <li class="w3-hide-small w3-dropdown-hover">
-        <a onclick="myFunction('groups')" href="javascript:void(0)">
-            Workspaces <i class="fa fa-space-shuttle"></i>
+        <a onclick="myFunction('groups')" href="{{route('groups.index')}}">
+            Workspaces {!!FA::icon('group')!!}
         </a>
         <div id="groups" class="w3-dropdown-content">
             @foreach(\App\Group::getGroups() as $group)
@@ -21,7 +21,7 @@
         @endif
         <li class="w3-hide-small w3-dropdown-hover w3-right">
             <a onclick="myFunction('loggedIn')" href="javascript:void(0)">
-                {{Auth::user()->name}} <i class="fa fa-cog fa-spin"></i>
+                {{Auth::user()->name}} {!! FA::icon('cog')->spin() !!}
             </a>
             <div id="loggedIn" class="w3-dropdown-content">
                 <a href="{{route('dashboard')}}">Dashboard</a>
@@ -42,7 +42,7 @@
     <ul class="w3-navbar w3-left-align w3-large w3-black">
         <li class="w3-dropdown-click">
             <a onclick="myFunction('groups2')" href="javascript:void(0)">
-                Workspaces <i class="fa fa-space-shuttle fa-spin"></i>
+                Workspaces {!! FA::icon('group') !!}
             </a>
             <div id="groups2" class="w3-dropdown-content">
                 @foreach(\App\Group::getGroups() as $group)
@@ -56,9 +56,9 @@
             @if(Auth::user()->hasRole('admin'))
                 <li><a href="{{route('admin')}}">Admin</a></li>
             @endif
-            <li class="w3-dropdown-hover w3-right">
+            <li class="w3-dropdown-click w3-right">
                 <a onclick="myFunction('loggedIn2')" href="javascript:void(0)">
-                    {{Auth::user()->name}} <i class="fa fa-cog fa-spin"></i>
+                    {{Auth::user()->name}} {!! FA::icon('cog')->spin() !!}
                 </a>
                 <div id="loggedIn2" class="w3-dropdown-content">
                     <a href="{{route('dashboard')}}">Dashboard</a>

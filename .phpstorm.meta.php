@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2016-12-08.
+    * Generated on 2016-12-11.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -38,6 +38,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' instanceof \Illuminate\View\Engines\EngineResolver,
             'view.finder' instanceof \Illuminate\View\FileViewFinder,
             'view' instanceof \Illuminate\View\Factory,
+            'fontawesome' instanceof \Khill\Fontawesome\FontAwesome,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,
@@ -124,7 +125,6 @@ namespace PHPSTORM_META {
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'html' instanceof \Collective\Html\HtmlBuilder,
             'form' instanceof \Collective\Html\FormBuilder,
-            'bootstrap_form' instanceof \Watson\BootstrapForm\BootstrapForm,
         ],
         \Illuminate\Contracts\Container\Container::make('') => [
             '' == '@',
@@ -155,6 +155,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' instanceof \Illuminate\View\Engines\EngineResolver,
             'view.finder' instanceof \Illuminate\View\FileViewFinder,
             'view' instanceof \Illuminate\View\Factory,
+            'fontawesome' instanceof \Khill\Fontawesome\FontAwesome,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,
@@ -241,7 +242,6 @@ namespace PHPSTORM_META {
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'html' instanceof \Collective\Html\HtmlBuilder,
             'form' instanceof \Collective\Html\FormBuilder,
-            'bootstrap_form' instanceof \Watson\BootstrapForm\BootstrapForm,
         ],
         \App::make('') => [
             '' == '@',
@@ -272,6 +272,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' instanceof \Illuminate\View\Engines\EngineResolver,
             'view.finder' instanceof \Illuminate\View\FileViewFinder,
             'view' instanceof \Illuminate\View\Factory,
+            'fontawesome' instanceof \Khill\Fontawesome\FontAwesome,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,
@@ -358,7 +359,6 @@ namespace PHPSTORM_META {
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'html' instanceof \Collective\Html\HtmlBuilder,
             'form' instanceof \Collective\Html\FormBuilder,
-            'bootstrap_form' instanceof \Watson\BootstrapForm\BootstrapForm,
         ],
         \app('') => [
             '' == '@',
@@ -389,6 +389,7 @@ namespace PHPSTORM_META {
             'view.engine.resolver' instanceof \Illuminate\View\Engines\EngineResolver,
             'view.finder' instanceof \Illuminate\View\FileViewFinder,
             'view' instanceof \Illuminate\View\Factory,
+            'fontawesome' instanceof \Khill\Fontawesome\FontAwesome,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'Illuminate\Broadcasting\BroadcastManager' instanceof \Illuminate\Broadcasting\BroadcastManager,
             'Illuminate\Contracts\Broadcasting\Broadcaster' instanceof \Illuminate\Broadcasting\Broadcasters\LogBroadcaster,
@@ -475,7 +476,6 @@ namespace PHPSTORM_META {
             'command.ide-helper.meta' instanceof \Barryvdh\LaravelIdeHelper\Console\MetaCommand,
             'html' instanceof \Collective\Html\HtmlBuilder,
             'form' instanceof \Collective\Html\FormBuilder,
-            'bootstrap_form' instanceof \Watson\BootstrapForm\BootstrapForm,
         ],
     ];
 }

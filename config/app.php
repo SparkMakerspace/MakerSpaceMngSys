@@ -169,7 +169,7 @@ return [
          */
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Watson\BootstrapForm\BootstrapFormServiceProvider::class,
+        \Khill\Fontawesome\FontAwesomeServiceProvider::class,
         //
 
         /*
@@ -200,7 +200,6 @@ return [
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
-        'BootForm' => Watson\BootstrapForm\Facades\BootstrapForm::class,
         'Bus' => Illuminate\Support\Facades\Bus::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
         'Config' => Illuminate\Support\Facades\Config::class,
@@ -209,6 +208,7 @@ return [
         'DB' => Illuminate\Support\Facades\DB::class,
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
         'Event' => Illuminate\Support\Facades\Event::class,
+        'FA' => \Khill\Fontawesome\FontAwesomeFacade::class,
         'File' => Illuminate\Support\Facades\File::class,
         'Form' => Collective\Html\FormFacade::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,

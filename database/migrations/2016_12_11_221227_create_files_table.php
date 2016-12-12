@@ -2,9 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
-class CreateGroupsTable extends Migration
+class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +12,14 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('groups',function (Blueprint $table) {
+        \Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('name');
-            $table->text('file_id')->nullable();
-            $table->timestamps();
+            $table->text('originalname');
+            $table->text('filename');
+            $table->integer('size');
+            $table->text('type');
+            $table->text('path');
+            $table->text('user_id');
         });
     }
 
@@ -28,6 +30,6 @@ class CreateGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('groups');
+        \Schema::drop('files');
     }
 }
