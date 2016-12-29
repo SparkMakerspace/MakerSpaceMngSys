@@ -7,13 +7,9 @@
 @section('content')
 
     @if(Session::has('flash_message'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">
-                    &times;
-                </span>
-            </button>
-            {{Session::get('flash_message')}}
+        <div class="w3-panel w3-pale-green">
+            <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">&times;</span>
+            <h4>{{Session::get('flash_message')}}</h4>
         </div>
     @endif
     {{--Profile Management Form--}}
@@ -89,9 +85,7 @@
     <h4>Choose Your Interests</h4>
     These interests are used to customize your experience.
     @include('bits.groupsSelector')
-@endsection
 
-@section('footer')
     {{--Submit and Cancel Buttons--}}
     <div class="btn-group" role="group" aria-label="...">
         {!! Form::submit('Create',['class'=>'btn btn-primary','name'=>'submit']) !!}

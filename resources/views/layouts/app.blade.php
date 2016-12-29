@@ -22,13 +22,13 @@
         ]); ?>
     </script>
 </head>
-<body class="w3-vivid-orange">
+<body class="spark-orange">
 
 @include('layouts.topnav')
 <!-- Page Container -->
 <div>
     <!-- Content -->
-    <div id="main">
+    <div id="main" class="w3-container w3-card-12 w3-white" style="min-height: 700px; min-width: 95%; max-width: 800px; margin:auto;">
         <div class="w3-margin-right w3-margin-left">
             @yield('title')
         </div>

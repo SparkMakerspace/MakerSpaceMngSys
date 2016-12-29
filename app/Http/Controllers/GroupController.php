@@ -47,7 +47,7 @@ namespace App\Http\Controllers;
      */
     public function show(Group $group)
     {
-        //
+        return view('groups.show',compact('group'));
     }
 
     /**

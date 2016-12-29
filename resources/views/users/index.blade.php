@@ -4,106 +4,17 @@
     <div class="row">
             <h1>User Management</h1>
             @can('create',\App\Post::class)
-                <form action="{{ URL::route('users.create') }}">
-                    <div class="input-group">
-                        <button class="btn btn-primary">
-                            New
-                        </button>
-                    </div>
-                </form>
+                <div class="w3-container">
+                    <a href="{{route('users.create')}}" class="w3-btn-floating w3-theme-d1">
+                        {!!FA::icon('plus')!!}
+                    </a>
+                </div>
             @endcan
     </div>
 @endsection
 
 @section('content')
-    {{-- Posts List --}}
-    <table class="table table-hover text-center">
-        @if($users->isEmpty())
-            <tr>
-                <td>Looks like there aren't any users quite yet...</td>
-            </tr>
-        @else
-        <!-- Header row -->
-            <tr class="info">
-                <td>
-                    <strong>
-                        User Name
-                    </strong>
-                </td>
-                <td>
-                    <strong>
-                        Email Address
-                    </strong>
-                </td>
-                <td>
-                    <strong>
-                        Role
-                    </strong>
-                </td>
-                <td>
-                    <strong>
-                        Admin Functions
-                    </strong>
-                </td>
-            </tr>
 
-            <!-- User rows -->
-            @foreach ($users as $user)
-                <tr id="user{{$user->id}}">
-                    <td>
-                        {{$user->name}}
-                    </td>
-                    <td>
-                        {{$user->email}}
-                    </td>
-                    <td>
-                        {{$user->role}}
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-sm-4 col-md-4">
-                                {!! BootForm::open([
-                                'route'=>['users.edit',$user->id],
-                                'method'=>'get',
-                                'id'=>'editUser',
-                                'class'=>'edit'
-                                ]) !!}
-                                {!! BootForm::submit('Edit',[
-                                'class'=>'btn-link'
-                                ]) !!}
-                                {!! BootForm::hidden('userID',$user->id) !!}
-                                {!! BootForm::close() !!}
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                {!! BootForm::open([
-                                'url'=> '/password/email',
-                                'method'=>'post'
-                                ]) !!}
-                                {!! BootForm::hidden('email',$user->email) !!}
-                                {!! BootForm::submit('Send Pwd Reset',[
-                                'class'=>'btn-link'
-                                ]) !!}
-                                {!! BootForm::close() !!}
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                {!! BootForm::open([
-                                'route'=>['users.destroy',$user->id],
-                                'method'=>'delete',
-                                'id'=>'deleteUser',
-                                'class'=>'delete'
-                                ]) !!}
-                                {!! BootForm::submit('Delete',[
-                                'class'=>'btn-link'
-                                ]) !!}
-                                {!! BootForm::hidden('userID',$user->id) !!}
-                                {!! BootForm::close() !!}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
-        @endif
-    </table>
 @endsection
 
 @section('footer')

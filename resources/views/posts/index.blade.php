@@ -28,27 +28,27 @@
                     </div><div class="w3-row-padding">
                 @endif
                 {{-- This div is the Post card --}}
-            <div class="w3-half">
-                <div class="w3-card-2 w3-light-gray w3-section">
+            <div class="w3-third">
+                <div class="w3-card-4 w3-theme-d1 w3-section">
 
                     {{-- This div is for the Post header --}}
-                    <div class="w3-border-bottom w3-row w3-padding-4">
+                    <div class="w3-row w3-padding-4">
 
                         {{-- This div is for the owner actions on the right of the header --}}
-                        <div class="w3-col m2 w3-right w3-btn-group">
+                        <div class="w3-col m2 w3-right w3-btn-group w3-container">
+                            @can('update',$post)
+                                <form action="{{ URL::route('posts.edit',$post) }}">
+                                    <button class="w3-btn w3-blue-grey w3-small w3-third w3-padding-small w3-border w3-border-black">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </button>
+                                </form>
+                            @endcan
                             @can('delete',$post)
                                 <form action="{{ URL::route('posts.destroy',$post) }}" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <button class="w3-btn w3-red w3-small w3-right w3-padding-small">
+                                    <button class="w3-btn w3-red w3-small w3-third w3-padding-small w3-border w3-border-black">
                                         <i class="fa fa-times"></i>
-                                    </button>
-                                </form>
-                            @endcan
-                            @can('update',$post)
-                                <form action="{{ URL::route('posts.edit',$post) }}">
-                                    <button class="w3-btn w3-blue-grey w3-small w3-right w3-padding-small">
-                                        <i class="fa fa-pencil-square-o"></i>
                                     </button>
                                 </form>
                             @endcan
@@ -77,13 +77,13 @@
                     </div>
 
                     <!-- Post Body -->
-                    <div class="w3-container w3-white">
+                    <div class="w3-container w3-white w3-border-top w3-border-bottom w3-border-black">
                         {!! html_entity_decode($post->body) !!}
                     {{-- /Post Body --}}
                     </div>
 
                     {{-- Post Footer --}}
-                    <div  class=" w3-container w3-row w3-border-top">
+                    <div  class=" w3-container w3-row">
                         <div class="w3-right w3-right-align w3-col m6">
                             Posted: {{$post->post_time}}
                         </div>

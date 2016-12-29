@@ -3,7 +3,7 @@
 @section('title')
     <h1>{{$post->title}}<small><small> by
         @if ($post->ownerExists())
-            {{$post->user->name}}
+            {{$post->owner->name}}
         @else
             Deleted User
         @endif</small></small></h1>

@@ -14,13 +14,9 @@
 @section('content')
 
     @if(Session::has('flash_message'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">
-                    &times;
-                </span>
-            </button>
-            {{Session::get('flash_message')}}
+        <div class="w3-panel w3-pale-green" role="alert">
+            <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">&times;</span>
+            <h4>{{Session::get('flash_message')}}</h4>
         </div>
     @endif
 
@@ -37,13 +33,8 @@
 
     @include('bits.groupsSelector')
 
-@endsection
-
-@section('footer')
     {{--Submit and Cancel Buttons--}}
-    <div class="btn-group" role="group" aria-label="...">
-        {!! Form::submit('Update Information',['class'=>'btn btn-primary','name'=>'submit']) !!}
-        {!! Html::link(URL::previous(),'Cancel',['class'=>'btn btn-danger']) !!}
-    </div>
+    <br>
+    {!! Form::submit('Update Information',['class'=>'w3-btn w3-blue','name'=>'submit']) !!}
     {!! Form::close() !!}
 @endsection

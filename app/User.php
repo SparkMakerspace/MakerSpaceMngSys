@@ -105,7 +105,7 @@ class User extends Authenticatable
     /**
      * Defines the relationship: A user has many 
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
     public function groups()
     {

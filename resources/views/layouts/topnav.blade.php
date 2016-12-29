@@ -8,7 +8,7 @@
         <a onclick="myFunction('groups')" href="{{route('groups.index')}}">
             Workspaces {!!FA::icon('group')!!}
         </a>
-        <div id="groups" class="w3-dropdown-content">
+        <div id="groups" class="w3-dropdown-content w3-theme-light">
             @foreach(\App\Group::getGroups() as $group)
                 <a href="/groups/{{$group->id}}">{{$group->name}}</a>
             @endforeach
@@ -21,13 +21,20 @@
         @endif
         <li class="w3-hide-small w3-dropdown-hover w3-right">
             <a onclick="myFunction('loggedIn')" href="javascript:void(0)">
-                {{Auth::user()->name}} {!! FA::icon('cog')->spin() !!}
+                {{Auth::user()->name}} {!! FA::icon('user') !!}
             </a>
-            <div id="loggedIn" class="w3-dropdown-content">
-                <a href="{{route('dashboard')}}">Dashboard</a>
+            <div id="loggedIn" class="w3-dropdown-content w3-theme-light">
+                <a href="{{route('dashboard')}}">
+                    Dashboard {!! FA::icon('desktop') !!}
+                </a>
+                <a href="{{route('dashboard.acctMgmt')}}">
+                    Manage {!! FA::icon('cog') !!}
+                </a>
                 <form id="myform" method="post" action="{{route('logout')}}">
                     {{csrf_field()}}
-                    <a onclick="document.getElementById('myform').submit();" href="javascript:void(0)">Logout</a>
+                    <a onclick="document.getElementById('myform').submit();" href="javascript:void(0)">
+                        Logout {!! FA::icon('sign-out') !!}
+                    </a>
                 </form>
             </div>
         </li>
@@ -44,7 +51,7 @@
             <a onclick="myFunction('groups2')" href="javascript:void(0)">
                 Workspaces {!! FA::icon('group') !!}
             </a>
-            <div id="groups2" class="w3-dropdown-content">
+            <div id="groups2" class="w3-dropdown-content w3-theme-light">
                 @foreach(\App\Group::getGroups() as $group)
                     <a href="/groups/{{$group->id}}">{{$group->name}}</a>
                 @endforeach
@@ -58,13 +65,20 @@
             @endif
             <li class="w3-dropdown-click w3-right">
                 <a onclick="myFunction('loggedIn2')" href="javascript:void(0)">
-                    {{Auth::user()->name}} {!! FA::icon('cog')->spin() !!}
+                    {{Auth::user()->name}} {!! FA::icon('user') !!}
                 </a>
-                <div id="loggedIn2" class="w3-dropdown-content">
-                    <a href="{{route('dashboard')}}">Dashboard</a>
+                <div id="loggedIn2" class="w3-dropdown-content w3-theme-light">
+                    <a href="{{route('dashboard')}}">
+                        Dashboard {!! FA::icon('desktop') !!}
+                    </a>
+                    <a href="{{route('dashboard.acctMgmt')}}">
+                        Manage {!! FA::icon('cog') !!}
+                    </a>
                     <form id="myform" method="post" action="{{route('logout')}}">
                         {{csrf_field()}}
-                        <a onclick="document.getElementById('myform').submit();">Logout</a>
+                        <a onclick="document.getElementById('myform').submit();">
+                            Logout {!! FA::icon('sign-out') !!}
+                        </a>
                     </form>
                 </div>
             </li>

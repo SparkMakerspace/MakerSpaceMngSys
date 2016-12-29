@@ -13,21 +13,19 @@
 
 @section('content')
     @if(!isset($post))
-        {!! BootForm::open(['route'=>'posts.store'])!!}
+        {!! Form::open(['route'=>'posts.store'])!!}
     @else
-        {!! BootForm::open(['model'=>$post,'update'=>'posts.update'])!!}
+        {!! Form::model($post,['method'=>'PUT','route'=>['posts.update',$post]])!!}
     @endif
 
-    {!! BootForm::text('title','Post Title') !!}
-    {!! BootForm::textarea('body','Post Body') !!}
+    {!! Form::text('title') !!}
+    {!! Form::textarea('body') !!}
 
     @include('bits.groupsSelector')
-@endsection
 
-@section('footer')
     <div class="form-group">
-        {!! BootForm::submit('Submit',['class'=>'btn btn-primary col-md-2 col-sm-2','name'=>'submit']) !!}
-        {!! BootForm::submit('Cancel',['class'=>'btn btn-danger col-md-2 col-sm-2','name'=>'submit']) !!}
+        {!! Form::submit('Submit',['class'=>'btn btn-primary col-md-2 col-sm-2','name'=>'submit']) !!}
+        {!! Form::submit('Cancel',['class'=>'btn btn-danger col-md-2 col-sm-2','name'=>'submit']) !!}
     </div>
-    {!! BootForm::close() !!}
+    {!! Form::close() !!}
 @endsection

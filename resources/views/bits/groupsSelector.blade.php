@@ -1,15 +1,23 @@
 
-<div class="btn-group btn-group-justified" data-toggle="buttons" role="group" aria-label="...">
+<div class="w3-btn-group w3-justify">
+    @php
+    if (isset($user)){
+        $checked = $user->groups()->get()->modelKeys();
+    } elseif (isset($post)){
+        $checked = $post->groups()->get()->modelKeys();
+    } else{
+        $checked = [];
+    }
+    @endphp
     @foreach(\App\Group::getGroups() as $group)
-        @if ($loop->index % 4 == 0) {{--This loop wraps the buttons to the next line after every 4th button--}}
-</div><div class="btn-group btn-group-justified" data-toggle="buttons" role="group" aria-label="...">
-    @endif
-    <div class="btn-group" role="group">
-        @if(!(isset($user) and isset($groups)))
-                <input type="checkbox" name="group[{{$group->id}}]" autocomplete="off"> {{$group->name}}
-        @else
-                <input type="checkbox" name="group[{{$group->id}}]" autocomplete="off" {{($groups->where('id','=',$group->id)->first())?'checked':''}}> {{$group->name}}
-        @endif
-    </div>
+        <div class="w3-col m2">
+            <input type="checkbox"
+                   name="group[{{$group->id}}]"
+                   autocomplete="off"
+                   class="w3-check"
+                   {{in_array($group->id,$checked)?'checked="checked"':''}}
+            >
+            <label class="w3-validate">{{$group->name}}</label>
+        </div>
     @endforeach
 </div>

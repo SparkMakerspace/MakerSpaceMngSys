@@ -18,7 +18,7 @@ class FileController extends Controller
         // getting all of the post data
         $file = array('image' => $request->file('image'));
         // setting up rules
-        $rules = array('image' => 'required',); //mimes:jpeg,bmp,png and for max size max:10000
+        $rules = array('image' => ['required', 'max:220000']); //mimes:jpeg,bmp,png and for max size max:10000
         // doing the validation, passing post data, rules and the messages
         $validator = Validator::make($file, $rules);
         if ($validator->fails()) {
@@ -28,10 +28,13 @@ class FileController extends Controller
         else {
             // checking file is valid.
             if ($request->file('image')->isValid()) {
-                $destinationPath = 'uploads'; // upload path
-                $extension = $request->file('image')->getClientOriginalExtension(); // getting image extension
-                $fileName = rand(11111,99999).'.'.$extension; // renameing image
-                $request->file('image')->move($destinationPath, $fileName); // uploading file to given path
+                $path = $request->file('image')->store('uploads'); // uploading file to given path
+                $originalFilename = $request->file('image')->getClientOriginalName();
+                $size = $request->file('image')->getSize();
+                $type = 'image';
+                $user_id = \Auth::user()->id;
+                $array = ['path'=>$path,'originalname'=>$originalFilename,'size'=>$size,'type'=>$type,'user_id'=>$user_id];
+                $file = File::create($array);
                 // sending back with message
                 Session::flash('success', 'File successfully uploaded!');
                 return back();

@@ -6,11 +6,9 @@
 
 @section('content')
 
-    {!! Form::model(\App\User::class, ['route'=>'register','class' => 'form-horizontal']) !!}
+    {!! Form::model(\App\User::class, ['route'=>'register']) !!}
 
     @include('bits.userForm')
-
-    <hr>
 
     {{--Interests Section--}}
     <h4>Choose Your Interests</h4>
@@ -18,14 +16,10 @@
 
     @include('bits.groupsSelector')
 
-@endsection
-
-@section('footer')
-    <div class="btn-group" role="group" aria-label="...">
-        {!! Form::submit('Register User',['class'=>'btn btn-primary','name'=>'submit']) !!}
-        {!! Html::link(URL::previous(),'Cancel',['class'=>'btn btn-danger']) !!}
+    <div class="w3-btn-group w3-section" role="group" aria-label="...">
+        {!! Form::submit('Register User',['class'=>'w3-btn w3-blue','name'=>'submit']) !!}
     </div>
 
     {!! Form::close() !!}
-
+<br>
 @endsection
