@@ -2,16 +2,16 @@
 
 
 @section('content')
-    <div class="w3-display-container w3-border-black w3-border w3-blue-grey w3-section" style="margin:auto; overflow: hidden; width: 95%; height:300px;">
+    <div class="w3-display-container w3-border-black w3-border w3-blue-grey w3-section" style="margin:auto; overflow: hidden; height: 400px">
         <img class="mySlides w3-display-middle" src="uploads/spark_people.jpg">
         <img class="mySlides w3-display-middle" src="uploads/86_with_Spark_sign.jpg">
         <img class="mySlides w3-display-middle" src="uploads/13_Golden_slider.jpg">
-        <a class="w3-btn-floating w3-display-left" onclick="plusDivs(-1)">&#10094;</a>
-        <a class="w3-btn-floating w3-display-right" onclick="plusDivs(+1)">&#10095;</a>
+        <a class="w3-btn-floating w3-display-left" style="z-index: 0" onclick="plusDivs(-1)">&#10094;</a>
+        <a class="w3-btn-floating w3-display-right" style="z-index: 0" onclick="plusDivs(+1)">&#10095;</a>
         <div class="w3-display-topmiddle bigShadow w3-center w3-xxxlarge" style="width:100%">SPARK MAKERSPACE</div>
     </div>
 
-    <p class="w3-content">Hey there.</p>
+    <p>Hey there. This is Spark.</p>
     <script>
         var slideIndex = 1;
         var timer;
@@ -24,7 +24,7 @@
         function carousel() {
             var i;
             var x = document.getElementsByClassName("mySlides");
-            for (i = 0; i < x.length; i++) {
+            for (i = 1; i < x.length; i++) {
                 x[i].style.display = "none";
             }
             slideIndex++;

@@ -2,142 +2,155 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Repositories\UserRepository;
+use Flash;
 use Illuminate\Http\Request;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Response;
 
-class UserController extends Controller
+class UserController extends AppBaseController
 {
+    /** @var  UserRepository */
+    private $userRepository;
 
-    public function __construct()
+    public function __construct(UserRepository $userRepo)
     {
-        $this->middleware('role:admin');
+        $this->userRepository = $userRepo;
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the User.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(20);
-        return view('users.index',compact('users'));
+        if(\Auth::guest())
+            return view('home');
+        $this->userRepository->pushCriteria(new RequestCriteria($request));
+        $users = $this->userRepository->all();
+
+        return view('users.index')
+            ->with('users', $users);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new User.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
-        $user = new User;
-        return view('users.create',compact('user'));
+        return view('users.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created User in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateUserRequest $request
+     *
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        if ($request->get('submit') != 'Cancel') {
-            $user = new User;
-            $this->validate($request,[
-                'name' => 'required|max:255',
-                'username' => 'required|min:6|unique:users,username',
-                'email' => 'required|email|max:255|unique:users,email',
-                'password' => 'required|min:6|confirmed',
-            ]);
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->role = User::$roles[$request->role];
-            $user->password = bcrypt($request->password);
-            $user->save();
-        }
-        return redirect('/admin/users');
+        $input = $request->all();
+
+        $user = $this->userRepository->create($input);
+
+        Flash::success('User saved successfully.');
+
+        return redirect(route('users.index'));
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified User.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        return view('users.edit',compact('user'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * @param  int $id
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function edit(User $user)
+    public function show($id)
     {
-        return view('users.edit',compact('user'));
-    }
+        $user = $this->userRepository->findWithoutFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request,$id)
-    {
-            $user = User::find($id);
+        if (empty($user)) {
+            Flash::error('User not found');
 
-            $this->validate($request,['name' => 'required|max:255']);
-            $user->name = $request->name;
-
-            if ($user->email != $request->email)
-            {
-                $this->validate($request,['email' => 'required|email|max:255|unique:users,email']);
-                $user->email = $request->email;
-            }
-
-            if ($request->exists('role')) {
-                $user->role = User::$roles[$request->role];
-            }
-
-            if($request->password != '')
-            {
-                $this->validate($request,['password' => 'required|min:6|confirmed']);
-                $user->password = bcrypt($request->password);
-            }
-
-            $user->save();
-
-
-        $newGroups = array_keys($request['group']);
-
-        $user->groups()->detach($user->groups()->get());
-
-        foreach ($newGroups as $group){
-            $user->groups()->attach($group);
+            return redirect(route('users.index'));
         }
 
-        \Session::flash('flash_message','Changes Saved');
-
-        return back();
+        return view('users.show')->with('user', $user);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Show the form for editing the specified User.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $user = $this->userRepository->findWithoutFail($id);
+
+        if (empty($user)) {
+            Flash::error('User not found');
+
+            return redirect(route('users.index'));
+        }
+
+        return view('users.edit')->with('user', $user);
+    }
+
+    /**
+     * Update the specified User in storage.
+     *
+     * @param  int              $id
+     * @param UpdateUserRequest $request
+     *
+     * @return Response
+     */
+    public function update($id, UpdateUserRequest $request)
+    {
+        $user = $this->userRepository->findWithoutFail($id);
+
+        if (empty($user)) {
+            Flash::error('User not found');
+
+            return redirect(route('users.index'));
+        }
+
+        $user = $this->userRepository->update($request->all(), $id);
+
+        Flash::success('User updated successfully.');
+
+        return redirect(route('users.index'));
+    }
+
+    /**
+     * Remove the specified User from storage.
+     *
+     * @param  int $id
+     *
+     * @return Response
      */
     public function destroy($id)
     {
-        $name = User::find($id)->name;
-        User::destroy($id);
-        return $name." successfully deleted.";
+        $user = $this->userRepository->findWithoutFail($id);
+
+        if (empty($user)) {
+            Flash::error('User not found');
+
+            return redirect(route('users.index'));
+        }
+
+        $this->userRepository->delete($id);
+
+        Flash::success('User deleted successfully.');
+
+        return redirect(route('users.index'));
     }
 }

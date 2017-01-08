@@ -1,5 +1,6 @@
 .mySlides{
-    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
 }
 
 .spark-orange{
@@ -76,4 +77,49 @@
     padding: 5px;
     background: #1abc9c;
     color: white !important
+}
+
+.full-height {
+    min-height: 90vh;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.flex-item:nth-child(1) {
+    order: 0;
+    flex: 0 0 10%;
+}
+
+.flex-item:nth-child(2) {
+    order: 0;
+    flex: 1 1 auto;
+}
+
+.flex-item:nth-child(3) {
+    order: 0;
+    flex: 0 0 10%;
+}
+
+.post-flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.post-flex-item:nth-child(1) {
+    order: 0;
+    flex: 0 0 auto;
+}
+
+.post-flex-item:nth-child(2) {
+    order: 0;
+    flex: 1 1 auto;
 }

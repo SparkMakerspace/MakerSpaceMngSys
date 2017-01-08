@@ -2,32 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
-use App\Post;
+use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+use App\Models\Post;
+use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Laracasts\Flash\Flash;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Response;
 
-
-/**
- * Class PostController
- * @package App\Http\Controllers
- */
-class PostController extends Controller
+class PostController extends AppBaseController
 {
+    /** @var  PostRepository */
+    private $postRepository;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    public function __construct(PostRepository $postRepo)
     {
-        $posts = Post::paginate(20);
-        return view('posts.index',compact('posts'));
+        $this->postRepository = $postRepo;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the Post.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|Response
+     */
+    public function index(Request $request)
+    {
+        $this->postRepository->pushCriteria(new RequestCriteria($request));
+        $posts = $this->postRepository->all();
+
+        return view('posts.index')
+            ->with('posts', $posts);
+    }
+
+    /**
+     * Show the form for creating a new Post.
      *
      * @return Response
      */
@@ -37,83 +47,119 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created Post in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreatePostRequest $request
+     *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
-        if ($request->get('submit') != 'Cancel') {
-            $post = new Post;
-            $this->validate($request,Post::getValidationRules());
-            $post->title = $request->title;
-            $post->body = nl2br(e($request->body));
-            $post->owner()->associate($request->user());
-            $post->post_time = time();
-            $post->save();
-            $groups = array_keys($request['group']);
-            foreach ($groups as $group)
-                $post->groups()->attach(Group::whereId($group)->first());
+        $stubAndBody = Post::stripBodyText($request->body);
+        $stub = $stubAndBody['stub'];
+        $body = $stubAndBody['body'];
+        $owner_id = \Auth::id();
+        $title = $request->title;
+        $image_id = $request->image_id;
+        $this->postRepository->create(['stub'=>$stub,
+            'body'=>$body,
+            'owner_id'=>$owner_id,
+            'title'=>$title,
+            'image_id'=>$image_id]);
+        Flash::success('Post saved successfully.');
+
+        return redirect(route('posts.index'));
+    }
+
+    /**
+     * Display the specified Post.
+     *
+     * @param  int $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|Response
+     */
+    public function show($id)
+    {
+        $post = $this->postRepository->findWithoutFail($id);
+
+        if (empty($post)) {
+            Flash::error('Post not found');
+
+            return redirect(route('posts.index'));
         }
-        return redirect('/posts');
+
+        return view('posts.show')->with('post', $post);
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified Post.
      *
-     * @param Post $post
-     * @return Response
+     * @param  int $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|Response
      */
-    public function show(Post $post)
+    public function edit($id)
     {
-        return view('posts.show', ['post'=>$post]);
+        $post = $this->postRepository->findWithoutFail($id);
+
+        if (empty($post)) {
+            Flash::error('Post not found');
+
+            return redirect(route('posts.index'));
+        }
+    $post->body = $post->stub.Post::$breakString.str_replace($post->stub,'',$post->body);
+
+        return view('posts.edit')->with('post', $post);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified Post in storage.
      *
-     * @param Post $post
+     * @param  int              $id
+     * @param UpdatePostRequest $request
+     *
      * @return Response
      */
-    public function edit(Post $post)
+    public function update($id, UpdatePostRequest $request)
     {
-        $this->authorize('update',$post);
-        // Replace html line-breaks with newlines
-        $breaks = array("<br />","<br>","<br/>");
-        $post->body = str_ireplace($breaks, "", $post->body);
+        $post = $this->postRepository->findWithoutFail($id);
 
-        return view('posts.create',['post'=>$post]);
+        if (empty($post)) {
+            Flash::error('Post not found');
+
+            return redirect(route('posts.index'));
+        }
+        $input = $request->all();
+        $stubAndBody = Post::stripBodyText($request->body);
+        $input = array_replace($input,$stubAndBody);
+        $post = $this->postRepository->update($input, $id);
+
+        Flash::success('Post updated successfully.');
+
+        return redirect(route('posts.index'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Remove the specified Post from storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param Post $post
+     * @param  int $id
+     *
      * @return Response
      */
-    public function update(Request $request, Post $post)
+    public function destroy($id)
     {
-        $this->authorize('update',$post);
-        $this->validate($request, Post::getValidationRules());
-        $post->title = $request->title;
-        $post->body = nl2br(e($request->body));
-        $post->groups()->attach(2);
-        $post->save();
-        return redirect('/posts');
-    }
+        $post = $this->postRepository->findWithoutFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Post $post
-     * @return Response
-     */
-    public function destroy(Post $post)
-    {
-        $this->authorize('delete',$post);
-        $post->delete();
-        return redirect(route('posts.index'))   ;
+        if (empty($post)) {
+            Flash::error('Post not found');
+
+            return redirect(route('posts.index'));
+        }
+
+        $this->postRepository->delete($id);
+
+        Flash::success('Post deleted successfully.');
+
+        return redirect(route('posts.index'));
     }
 }

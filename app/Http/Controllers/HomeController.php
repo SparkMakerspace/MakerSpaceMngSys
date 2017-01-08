@@ -9,10 +9,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
 
     /**
      * Show the application dashboard.
@@ -21,13 +21,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.home');
-    }
-
-    public function acctMgmt()
-    {
-        $user = \Auth::user();
-        $groups = $user->groups;
-        return view('dashboard.acctMgmt')->with(compact('user'))->with(compact('groups'));
+        return view('home');
     }
 }

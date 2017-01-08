@@ -2,7 +2,7 @@
 
 use App\Door;
 use App\Group;
-use App\User;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Group;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -30,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -66,11 +65,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create($data);
-        $groups = array_keys($data['group']);
-        foreach ($groups as $group)
-        {
-            $user->groups()->attach(Group::whereId($group)->first(),['permissionLevel'=>1]);
-        }
         return $user;
     }
 
@@ -83,8 +77,12 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request->all())));
+        $input = $request->all();
+        $input['password'] = bcrypt($request['password']);
+        $input['active'] = true;
+        $input['role'] = 'user';
+        $input['contactPref'] = 'Email';
+        event(new Registered($user = $this->create($input)));
 
         $this->guard()->login($user);
 
