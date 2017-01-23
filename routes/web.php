@@ -66,3 +66,10 @@ Route::group(['middleware'=> 'web'],function(){
 
 Route::group(['middleware'=> 'web'],function(){
 });
+//calendar Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('calendar','\App\Http\Controllers\CalendarController');
+  Route::post('calendar/{id}/update','\App\Http\Controllers\CalendarController@update');
+  Route::get('calendar/{id}/delete','\App\Http\Controllers\CalendarController@destroy');
+  Route::get('calendar/{id}/deleteMsg','\App\Http\Controllers\CalendarController@DeleteMsg');
+});

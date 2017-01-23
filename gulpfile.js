@@ -13,7 +13,20 @@ require('laravel-elixir-vue-2');
  |
  */
 
-elixir(mix => {
+elixir(function(mix) {
+    mix.copy(
+        'node_modules/fullcalendar/dist/fullcalendar.css',
+        'resources/assets/css'
+    ).copy(
+        'node_modules/fullcalendar/dist/fullcalendar.js',
+        'public/js'
+    ).copy(
+        'node_modules/moment/moment.js',
+        'public/js'
+    );
+
+    mix.styles('fullcalendar.css');
+
     mix.sass('app.scss')
        .webpack('app.js');
 });

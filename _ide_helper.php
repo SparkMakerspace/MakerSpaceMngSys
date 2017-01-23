@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.3.29 on 2017-01-18.
+ * Generated for Laravel 5.3.29 on 2017-01-23.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -2015,6 +2015,145 @@ namespace {
          */
         public static function map($map){
             return \Illuminate\Bus\Dispatcher::map($map);
+        }
+        
+    }
+
+
+    class FullCal extends \MaddHatter\LaravelFullcalendar\Facades\Calendar{
+        
+        /**
+         * Create an event DTO to add to a calendar
+         *
+         * @param string $title
+         * @param string $isAllDay
+         * @param string|\DateTime $start If string, must be valid datetime format: http://bit.ly/1z7QWbg
+         * @param string|\DateTime $end If string, must be valid datetime format: http://bit.ly/1z7QWbg
+         * @param string $id event Id
+         * @param array $options
+         * @return \MaddHatter\LaravelFullcalendar\SimpleEvent 
+         * @static 
+         */
+        public static function event($title, $isAllDay, $start, $end, $id = null, $options = array()){
+            return \MaddHatter\LaravelFullcalendar\Calendar::event($title, $isAllDay, $start, $end, $id, $options);
+        }
+        
+        /**
+         * Create the <div> the calendar will be rendered into
+         *
+         * @return string 
+         * @static 
+         */
+        public static function calendar(){
+            return \MaddHatter\LaravelFullcalendar\Calendar::calendar();
+        }
+        
+        /**
+         * Get the <script> block to render the calendar (as a View)
+         *
+         * @return \Illuminate\View\View 
+         * @static 
+         */
+        public static function script(){
+            return \MaddHatter\LaravelFullcalendar\Calendar::script();
+        }
+        
+        /**
+         * Customize the ID of the generated <div>
+         *
+         * @param string $id
+         * @return $this 
+         * @static 
+         */
+        public static function setId($id){
+            return \MaddHatter\LaravelFullcalendar\Calendar::setId($id);
+        }
+        
+        /**
+         * Get the ID of the generated <div>
+         * This value is randomized unless a custom value was set via setId
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getId(){
+            return \MaddHatter\LaravelFullcalendar\Calendar::getId();
+        }
+        
+        /**
+         * Add an event
+         *
+         * @param \Event $event
+         * @param array $customAttributes
+         * @return $this 
+         * @static 
+         */
+        public static function addEvent($event, $customAttributes = array()){
+            return \MaddHatter\LaravelFullcalendar\Calendar::addEvent($event, $customAttributes);
+        }
+        
+        /**
+         * Add multiple events
+         *
+         * @param array|\MaddHatter\LaravelFullcalendar\ArrayAccess $events
+         * @param array $customAttributes
+         * @return $this 
+         * @static 
+         */
+        public static function addEvents($events, $customAttributes = array()){
+            return \MaddHatter\LaravelFullcalendar\Calendar::addEvents($events, $customAttributes);
+        }
+        
+        /**
+         * Set fullcalendar options
+         *
+         * @param array $options
+         * @return $this 
+         * @static 
+         */
+        public static function setOptions($options){
+            return \MaddHatter\LaravelFullcalendar\Calendar::setOptions($options);
+        }
+        
+        /**
+         * Get the fullcalendar options (not including the events list)
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getOptions(){
+            return \MaddHatter\LaravelFullcalendar\Calendar::getOptions();
+        }
+        
+        /**
+         * Set fullcalendar callback options
+         *
+         * @param array $callbacks
+         * @return $this 
+         * @static 
+         */
+        public static function setCallbacks($callbacks){
+            return \MaddHatter\LaravelFullcalendar\Calendar::setCallbacks($callbacks);
+        }
+        
+        /**
+         * Get the callbacks currently defined
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getCallbacks(){
+            return \MaddHatter\LaravelFullcalendar\Calendar::getCallbacks();
+        }
+        
+        /**
+         * Get options+events JSON
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getOptionsJson(){
+            return \MaddHatter\LaravelFullcalendar\Calendar::getOptionsJson();
         }
         
     }

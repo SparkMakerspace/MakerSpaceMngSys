@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
     folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="{{url('css/fullcalendar.css')}}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -24,7 +25,10 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini" style="min-height: 100vh">
+<body class="hold-transition skin-blue sidebar-mini">
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{{url('/js/moment.js')}}"></script>
+<script src="{{url('/js/fullcalendar.js')}}"></script>
 <div class="wrapper" id="app">
     <header class="main-header">
         <!-- Logo -->
@@ -139,8 +143,6 @@
     </div>
 </div>
 <!-- Compiled and minified JavaScript -->
-<script src="{{url('/js/app.js')}}"></script>
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/js/demo.js"></script>
@@ -169,9 +171,9 @@
         );
     });
 </script>
+<script src="{{url('/js/app.js')}}"></script>
 @yield('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.js"></script>
-<script src="{{asset('js/app.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/js/app.min.js"></script>
 </body>
 </html>

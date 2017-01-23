@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-01-18.
+    * Generated on 2017-01-23.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -56,6 +56,7 @@ namespace PHPSTORM_META {
             'pusher' instanceof \Vinkla\Pusher\PusherManager,
             'pusher.connection' instanceof \Pusher,
             'image' instanceof \Intervention\Image\ImageManager,
+            'laravel-fullcalendar' instanceof \MaddHatter\LaravelFullcalendar\Calendar,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'cache' instanceof \Illuminate\Cache\CacheManager,
             'cache.store' instanceof \Illuminate\Cache\Repository,
@@ -190,6 +191,7 @@ namespace PHPSTORM_META {
             'pusher' instanceof \Vinkla\Pusher\PusherManager,
             'pusher.connection' instanceof \Pusher,
             'image' instanceof \Intervention\Image\ImageManager,
+            'laravel-fullcalendar' instanceof \MaddHatter\LaravelFullcalendar\Calendar,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'cache' instanceof \Illuminate\Cache\CacheManager,
             'cache.store' instanceof \Illuminate\Cache\Repository,
@@ -324,6 +326,7 @@ namespace PHPSTORM_META {
             'pusher' instanceof \Vinkla\Pusher\PusherManager,
             'pusher.connection' instanceof \Pusher,
             'image' instanceof \Intervention\Image\ImageManager,
+            'laravel-fullcalendar' instanceof \MaddHatter\LaravelFullcalendar\Calendar,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'cache' instanceof \Illuminate\Cache\CacheManager,
             'cache.store' instanceof \Illuminate\Cache\Repository,
@@ -458,6 +461,7 @@ namespace PHPSTORM_META {
             'pusher' instanceof \Vinkla\Pusher\PusherManager,
             'pusher.connection' instanceof \Pusher,
             'image' instanceof \Intervention\Image\ImageManager,
+            'laravel-fullcalendar' instanceof \MaddHatter\LaravelFullcalendar\Calendar,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'cache' instanceof \Illuminate\Cache\CacheManager,
             'cache.store' instanceof \Illuminate\Cache\Repository,

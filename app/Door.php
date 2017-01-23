@@ -47,6 +47,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Door whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Door whereDeletedAt($value)
  * @mixin \Eloquent
+ * @property string $name
+ * @property bool $unlocked
+ * @method static \Illuminate\Database\Query\Builder|\App\Door whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Door whereUnlocked($value)
  */
 class Door extends Model
 {
