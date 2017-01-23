@@ -1,15 +1,9 @@
 <?php
 
-use App\Door;
-use App\Group;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+class userSeeder extends Seeder
 {
-
-    public static $seededUsers = 5;
-
     /**
      * Run the database seeds.
      *
@@ -17,62 +11,42 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $seededUsers = self::$seededUsers;
-        $i = 1;
-        while ($i <= $seededUsers)
-        {
-            $user = new User();
-            $user->name = $i.$i.$i.$i.' User';
-            $user->username = $i.$i.$i.$i.$i.$i;
-            $user->email = $i.'@user.com';
-            $user->password = bcrypt('password');
+        $john = ['email'=>'john@scimone.net',
+            'name'=>'John Scimone',
+            'password'=>'secret',
+            'address1'=>'1 Some Rd',
+            'address2'=>'',
+            'city'=>'Waterford',
+            'state'=>'CT',
+            'zipcode'=>'06385',
+            'phone'=>'(203) 123-4567'
+        ];
+        
+        $mike = ['email'=>'mike@mmisuncool.com',
+            'name'=>'Mike Molinari',
+            'password'=>'secret',
+            'address1'=>'2 Another Rd',
+            'address2'=>'',
+            'city'=>'New London',
+            'state'=>'CT',
+            'zipcode'=>'06325',
+            'phone'=>'(860) 123-0000'
+        ];
+        
+        $users = [$john,$mike];
+        
+        foreach ($users as $u) {
+            $user = new \App\User;
+            $user->email = $u['email'];
+            $user->name = $u['name'];
+            $user->password = Hash::make($u['password']);
+            $user->address1 = $u['address1'];
+            $user->address2 = $u['address2'];
+            $user->city = $u['city'];
+            $user->state = $u['state'];
+            $user->zipcode = $u['zipcode'];
+            $user->phone = $u['phone'];
             $user->save();
-            $i += 1;
         }
-        $user = new User();
-        $user->name = 'John Scimone';
-        $user->username = 'johnsucks';
-        $user->email = 'john@scimone.net';
-        $user->role = 'admin';
-        $user->password = bcrypt('password');
-        $user->save();
-        $user->groups()->attach(Group::whereName('Electronics')
-            ->first(),['permissionLevel'=>5]);
-        $user->groups()->attach(Group::whereName('3D Printing')
-            ->first(),['permissionLevel'=>1]);
-        $user->groups()->attach(Group::whereName('Coworking')
-            ->first(),['permissionLevel'=>1]);
-        $user->groups()->attach(Group::whereName('Spark Emporium')
-            ->first(),['permissionLevel'=>1]);
-        $user->doors()->attach(Door::whereName('86 Front')->first(),
-            ['allHoursAccess'=>true]);
-        $user->doors()->attach(Door::whereName('86 Stairwell')->first(),
-            ['allHoursAccess'=>false]);
-        $user = new User();
-        $user->name = 'Mike Molinari';
-        $user->username = 'mikesucks';
-        $user->email = 'spam@smbisoft.com';
-        $user->role = 'admin';
-        $user->password = bcrypt('password');
-        $user->save();
-        $user->groups()->attach(Group::where('name','=','Electronics')
-            ->first(),['permissionLevel'=>5]);
-        $user->groups()->attach(Group::where('name','=','3D Printing')
-            ->first(),['permissionLevel'=>1]);
-        $user = new User();
-        $user->name = 'Drew Gates';
-        $user->username = 'drewsucks';
-        $user->email = 'spark@drewgates.com';
-        $user->role = 'admin';
-        $user->password = bcrypt('password');
-        $user->save();
-        $user->groups()->attach(Group::where('name','=','Electronics')
-        ->first(),['permissionLevel'=>1]);
-        $user->groups()->attach(Group::where('name','=','3D Printing')
-            ->first(),['permissionLevel'=>1]);
-        $user->groups()->attach(Group::where('name','=','Audio & Video')
-            ->first(),['permissionLevel'=>5]);
-        $user->groups()->attach(Group::where('name','=','Programming')
-            ->first(),['permissionLevel'=>5]);
     }
 }

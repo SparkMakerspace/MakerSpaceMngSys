@@ -2,153 +2,185 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateGroupRequest;
-use App\Http\Requests\UpdateGroupRequest;
-use App\Repositories\GroupRepository;
-use Flash;
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
+use App\Http\Controllers\Controller;
+use App\Group;
+use Amranidev\Ajaxis\Ajaxis;
+use URL;
 
-class GroupController extends AppBaseController
+/**
+ * Class GroupController.
+ *
+ * @author  The scaffold-interface created at 2017-01-18 02:37:47am
+ * @link  https://github.com/amranidev/scaffold-interface
+ */
+class GroupController extends Controller
 {
-    /** @var  GroupRepository */
-    private $groupRepository;
-
-    public function __construct(GroupRepository $groupRepo)
-    {
-        $this->groupRepository = $groupRepo;
-    }
-
     /**
-     * Display a listing of the Group.
+     * Display a listing of the resource.
      *
-     * @param Request $request
-     * @return Response
+     * @return  \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->groupRepository->pushCriteria(new RequestCriteria($request));
-        $groups = $this->groupRepository->all();
-
-        return view('groups.index')
-            ->with('groups', $groups);
+        $title = 'Index - group';
+        $groups = Group::paginate(6);
+        return view('group.index',compact('groups','title'));
     }
 
     /**
-     * Show the form for creating a new Group.
+     * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return  \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('groups.create');
+        $title = 'Create - group';
+        
+        return view('group.create');
     }
 
     /**
-     * Store a newly created Group in storage.
+     * Store a newly created resource in storage.
      *
-     * @param CreateGroupRequest $request
-     *
-     * @return Response
+     * @param    \Illuminate\Http\Request  $request
+     * @return  \Illuminate\Http\Response
      */
-    public function store(CreateGroupRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        $group = new Group();
 
-        $group = $this->groupRepository->create($input);
+        
+        $group->name = $request->name;
 
-        Flash::success('Group saved successfully.');
+        
+        $group->stub = $request->stub;
 
-        return redirect(route('groups.index'));
+        
+        $group->about = $request->about;
+
+        
+        $group->image = $request->image;
+
+        
+        $group->contactUser = $request->contactUser;
+
+        
+        $group->visibility = $request->visibility;
+
+        
+        
+        $group->save();
+
+        $pusher = App::make('pusher');
+
+        //default pusher notification.
+        //by default channel=test-channel,event=test-event
+        //Here is a pusher notification example when you create a new resource in storage.
+        //you can modify anything you want or use it wherever.
+        $pusher->trigger('test-channel',
+                         'test-event',
+                        ['message' => 'A new group has been created !!']);
+
+        return redirect('group');
     }
 
     /**
-     * Display the specified Group.
+     * Display the specified resource.
      *
-     * @param  int $id
-     *
-     * @return Response
+     * @param    \Illuminate\Http\Request  $request
+     * @param    int  $id
+     * @return  \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
-        $group = $this->groupRepository->findWithoutFail($id);
+        $title = 'Show - group';
 
-        if (empty($group)) {
-            Flash::error('Group not found');
-
-            return redirect(route('groups.index'));
+        if($request->ajax())
+        {
+            return URL::to('group/'.$id);
         }
 
-        return view('groups.show')->with('group', $group);
+        $group = Group::findOrfail($id);
+        return view('group.show',compact('title','group'));
     }
 
     /**
-     * Show the form for editing the specified Group.
-     *
-     * @param  int $id
-     *
-     * @return Response
+     * Show the form for editing the specified resource.
+     * @param    \Illuminate\Http\Request  $request
+     * @param    int  $id
+     * @return  \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,Request $request)
     {
-        $group = $this->groupRepository->findWithoutFail($id);
-
-        if (empty($group)) {
-            Flash::error('Group not found');
-
-            return redirect(route('groups.index'));
+        $title = 'Edit - group';
+        if($request->ajax())
+        {
+            return URL::to('group/'. $id . '/edit');
         }
 
-        return view('groups.edit')->with('group', $group);
+        
+        $group = Group::findOrfail($id);
+        return view('group.edit',compact('title','group'  ));
     }
 
     /**
-     * Update the specified Group in storage.
+     * Update the specified resource in storage.
      *
-     * @param  int              $id
-     * @param UpdateGroupRequest $request
-     *
-     * @return Response
+     * @param    \Illuminate\Http\Request  $request
+     * @param    int  $id
+     * @return  \Illuminate\Http\Response
      */
-    public function update($id, UpdateGroupRequest $request)
+    public function update($id,Request $request)
     {
-        $group = $this->groupRepository->findWithoutFail($id);
+        $group = Group::findOrfail($id);
+    	
+        $group->name = $request->name;
+        
+        $group->stub = $request->stub;
+        
+        $group->about = $request->about;
+        
+        $group->image = $request->image;
+        
+        $group->contactUser = $request->contactUser;
+        
+        $group->visibility = $request->visibility;
+        
+        
+        $group->save();
 
-        if (empty($group)) {
-            Flash::error('Group not found');
-
-            return redirect(route('groups.index'));
-        }
-
-        $group = $this->groupRepository->update($request->all(), $id);
-
-        Flash::success('Group updated successfully.');
-
-        return redirect(route('groups.index'));
+        return redirect('group');
     }
 
     /**
-     * Remove the specified Group from storage.
+     * Delete confirmation message by Ajaxis.
      *
-     * @param  int $id
+     * @link      https://github.com/amranidev/ajaxis
+     * @param    \Illuminate\Http\Request  $request
+     * @return  String
+     */
+    public function DeleteMsg($id,Request $request)
+    {
+        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/group/'. $id . '/delete');
+
+        if($request->ajax())
+        {
+            return $msg;
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
      *
-     * @return Response
+     * @param    int $id
+     * @return  \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $group = $this->groupRepository->findWithoutFail($id);
-
-        if (empty($group)) {
-            Flash::error('Group not found');
-
-            return redirect(route('groups.index'));
-        }
-
-        $this->groupRepository->delete($id);
-
-        Flash::success('Group deleted successfully.');
-
-        return redirect(route('groups.index'));
+     	$group = Group::findOrfail($id);
+     	$group->delete();
+        return URL::to('group');
     }
 }

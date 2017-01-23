@@ -1,49 +1,91 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <title>Laravel</title>
 
-@section('content')
-    <div class="w3-display-container w3-border-black w3-border w3-blue-grey w3-section" style="margin:auto; overflow: hidden; height: 400px">
-        <img class="mySlides w3-display-middle" src="uploads/spark_people.jpg">
-        <img class="mySlides w3-display-middle" src="uploads/86_with_Spark_sign.jpg">
-        <img class="mySlides w3-display-middle" src="uploads/13_Golden_slider.jpg">
-        <a class="w3-btn-floating w3-display-left" style="z-index: 0" onclick="plusDivs(-1)">&#10094;</a>
-        <a class="w3-btn-floating w3-display-right" style="z-index: 0" onclick="plusDivs(+1)">&#10095;</a>
-        <div class="w3-display-topmiddle bigShadow w3-center w3-xxxlarge" style="width:100%">SPARK MAKERSPACE</div>
-    </div>
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-    <p>Hey there. This is Spark.</p>
-    <script>
-        var slideIndex = 1;
-        var timer;
-        carousel();
-
-        function plusDivs(n) {
-            showDivs(slideIndex += n);
-        }
-
-        function carousel() {
-            var i;
-            var x = document.getElementsByClassName("mySlides");
-            for (i = 1; i < x.length; i++) {
-                x[i].style.display = "none";
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Raleway', sans-serif;
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
             }
-            slideIndex++;
-            if (slideIndex > x.length) {slideIndex = 1}
-            x[slideIndex-1].style.display = "block";
-            timer = setTimeout(carousel, 5000); // Change image every 5 seconds
-        }
 
-        function showDivs(n) {
-            var i;
-            var x = document.getElementsByClassName("mySlides");
-            if (n > x.length) {slideIndex = 1}
-            if (n < 1) {slideIndex = x.length} ;
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
+            .full-height {
+                height: 100vh;
             }
-            x[slideIndex-1].style.display = "block";
-            clearTimeout(timer);
-            timer = setTimeout(carousel, 5000);
-        }
-    </script>
-@endsection
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 84px;
+            }
+
+            .links > a {
+                color: #636b6f;
+                padding: 0 25px;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+            .m-b-md {
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    <a href="{{ url('/login') }}">Login</a>
+                    <a href="{{ url('/register') }}">Register</a>
+                </div>
+            @endif
+
+            <div class="content">
+                <div class="title m-b-md">
+                    Laravel
+                </div>
+
+                <div class="links">
+                    <a href="https://laravel.com/docs">Documentation</a>
+                    <a href="https://laracasts.com">Laracasts</a>
+                    <a href="https://laravel-news.com">News</a>
+                    <a href="https://forge.laravel.com">Forge</a>
+                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

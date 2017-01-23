@@ -2,164 +2,175 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatePostRequest;
-use App\Http\Requests\UpdatePostRequest;
-use App\Models\Post;
-use App\Repositories\PostRepository;
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
-use Laracasts\Flash\Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
-use Response;
+use App\Http\Controllers\Controller;
+use App\Post;
+use Amranidev\Ajaxis\Ajaxis;
+use URL;
 
-class PostController extends AppBaseController
+/**
+ * Class PostController.
+ *
+ * @author  The scaffold-interface created at 2017-01-18 02:52:09am
+ * @link  https://github.com/amranidev/scaffold-interface
+ */
+class PostController extends Controller
 {
-    /** @var  PostRepository */
-    private $postRepository;
-
-    public function __construct(PostRepository $postRepo)
-    {
-        $this->postRepository = $postRepo;
-    }
-
     /**
-     * Display a listing of the Post.
+     * Display a listing of the resource.
      *
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|Response
+     * @return  \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->postRepository->pushCriteria(new RequestCriteria($request));
-        $posts = $this->postRepository->all();
-
-        return view('posts.index')
-            ->with('posts', $posts);
+        $title = 'Index - post';
+        $posts = Post::paginate(6);
+        return view('post.index',compact('posts','title'));
     }
 
     /**
-     * Show the form for creating a new Post.
+     * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return  \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('posts.create');
+        $title = 'Create - post';
+        
+        return view('post.create');
     }
 
     /**
-     * Store a newly created Post in storage.
+     * Store a newly created resource in storage.
      *
-     * @param CreatePostRequest $request
-     *
-     * @return Response
+     * @param    \Illuminate\Http\Request  $request
+     * @return  \Illuminate\Http\Response
      */
-    public function store(CreatePostRequest $request)
+    public function store(Request $request)
     {
-        $stubAndBody = Post::stripBodyText($request->body);
-        $stub = $stubAndBody['stub'];
-        $body = $stubAndBody['body'];
-        $owner_id = \Auth::id();
-        $title = $request->title;
-        $image_id = $request->image_id;
-        $this->postRepository->create(['stub'=>$stub,
-            'body'=>$body,
-            'owner_id'=>$owner_id,
-            'title'=>$title,
-            'image_id'=>$image_id]);
-        Flash::success('Post saved successfully.');
+        $post = new Post();
 
-        return redirect(route('posts.index'));
+        
+        $post->posted_at = $request->posted_at;
+
+        
+        $post->title = $request->title;
+
+        
+        $post->body = $request->body;
+
+        
+        $post->image = $request->image;
+
+        
+        
+        $post->save();
+
+        $pusher = App::make('pusher');
+
+        //default pusher notification.
+        //by default channel=test-channel,event=test-event
+        //Here is a pusher notification example when you create a new resource in storage.
+        //you can modify anything you want or use it wherever.
+        $pusher->trigger('test-channel',
+                         'test-event',
+                        ['message' => 'A new post has been created !!']);
+
+        return redirect('post');
     }
 
     /**
-     * Display the specified Post.
+     * Display the specified resource.
      *
-     * @param  int $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|Response
+     * @param    \Illuminate\Http\Request  $request
+     * @param    int  $id
+     * @return  \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
-        $post = $this->postRepository->findWithoutFail($id);
+        $title = 'Show - post';
 
-        if (empty($post)) {
-            Flash::error('Post not found');
-
-            return redirect(route('posts.index'));
+        if($request->ajax())
+        {
+            return URL::to('post/'.$id);
         }
 
-        return view('posts.show')->with('post', $post);
+        $post = Post::findOrfail($id);
+        return view('post.show',compact('title','post'));
     }
 
     /**
-     * Show the form for editing the specified Post.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|Response
+     * Show the form for editing the specified resource.
+     * @param    \Illuminate\Http\Request  $request
+     * @param    int  $id
+     * @return  \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,Request $request)
     {
-        $post = $this->postRepository->findWithoutFail($id);
-
-        if (empty($post)) {
-            Flash::error('Post not found');
-
-            return redirect(route('posts.index'));
+        $title = 'Edit - post';
+        if($request->ajax())
+        {
+            return URL::to('post/'. $id . '/edit');
         }
-    $post->body = $post->stub.Post::$breakString.str_replace($post->stub,'',$post->body);
 
-        return view('posts.edit')->with('post', $post);
+        
+        $post = Post::findOrfail($id);
+        return view('post.edit',compact('title','post'  ));
     }
 
     /**
-     * Update the specified Post in storage.
+     * Update the specified resource in storage.
      *
-     * @param  int              $id
-     * @param UpdatePostRequest $request
-     *
-     * @return Response
+     * @param    \Illuminate\Http\Request  $request
+     * @param    int  $id
+     * @return  \Illuminate\Http\Response
      */
-    public function update($id, UpdatePostRequest $request)
+    public function update($id,Request $request)
     {
-        $post = $this->postRepository->findWithoutFail($id);
+        $post = Post::findOrfail($id);
+    	
+        $post->posted_at = $request->posted_at;
+        
+        $post->title = $request->title;
+        
+        $post->body = $request->body;
+        
+        $post->image = $request->image;
+        
+        
+        $post->save();
 
-        if (empty($post)) {
-            Flash::error('Post not found');
-
-            return redirect(route('posts.index'));
-        }
-        $input = $request->all();
-        $stubAndBody = Post::stripBodyText($request->body);
-        $input = array_replace($input,$stubAndBody);
-        $post = $this->postRepository->update($input, $id);
-
-        Flash::success('Post updated successfully.');
-
-        return redirect(route('posts.index'));
+        return redirect('post');
     }
 
     /**
-     * Remove the specified Post from storage.
+     * Delete confirmation message by Ajaxis.
      *
-     * @param  int $id
+     * @link      https://github.com/amranidev/ajaxis
+     * @param    \Illuminate\Http\Request  $request
+     * @return  String
+     */
+    public function DeleteMsg($id,Request $request)
+    {
+        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/post/'. $id . '/delete');
+
+        if($request->ajax())
+        {
+            return $msg;
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
      *
-     * @return Response
+     * @param    int $id
+     * @return  \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $post = $this->postRepository->findWithoutFail($id);
-
-        if (empty($post)) {
-            Flash::error('Post not found');
-
-            return redirect(route('posts.index'));
-        }
-
-        $this->postRepository->delete($id);
-
-        Flash::success('Post deleted successfully.');
-
-        return redirect(route('posts.index'));
+     	$post = Post::findOrfail($id);
+     	$post->delete();
+        return URL::to('post');
     }
 }

@@ -11,19 +11,58 @@
 |
 */
 
-// Front-facing routes
-Route::get('/','HomeController@index');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Authentication routes
 Auth::routes();
 
-// PC login route
-Route::post('pclogin','PCAuthController@loginRequest')->name('pclogin')->middleware('ssl');
+Route::get('/home', 'HomeController@index');
 
-Route::resource('posts', 'PostController');
+//post Routes
+Route::resource('post','\App\Http\Controllers\PostController');
+Route::post('post/{id}/update','\App\Http\Controllers\PostController@update');
+Route::get('post/{id}/delete','\App\Http\Controllers\PostController@destroy');
+Route::get('post/{id}/deleteMsg','\App\Http\Controllers\PostController@DeleteMsg');
+//group Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('group','\App\Http\Controllers\GroupController');
+  Route::post('group/{id}/update','\App\Http\Controllers\GroupController@update');
+  Route::get('group/{id}/delete','\App\Http\Controllers\GroupController@destroy');
+  Route::get('group/{id}/deleteMsg','\App\Http\Controllers\GroupController@DeleteMsg');
+});
 
-Route::resource('users', 'UserController');
+//group Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('group','\App\Http\Controllers\GroupController');
+  Route::post('group/{id}/update','\App\Http\Controllers\GroupController@update');
+  Route::get('group/{id}/delete','\App\Http\Controllers\GroupController@destroy');
+  Route::get('group/{id}/deleteMsg','\App\Http\Controllers\GroupController@DeleteMsg');
+});
 
-Route::resource('groups', 'GroupController');
+//post Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('post','\App\Http\Controllers\PostController');
+  Route::post('post/{id}/update','\App\Http\Controllers\PostController@update');
+  Route::get('post/{id}/delete','\App\Http\Controllers\PostController@destroy');
+  Route::get('post/{id}/deleteMsg','\App\Http\Controllers\PostController@DeleteMsg');
+});
 
-Route::resource('groups', 'GroupController');
+//door Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('door','\App\Http\Controllers\DoorController');
+  Route::post('door/{id}/update','\App\Http\Controllers\DoorController@update');
+  Route::get('door/{id}/delete','\App\Http\Controllers\DoorController@destroy');
+  Route::get('door/{id}/deleteMsg','\App\Http\Controllers\DoorController@DeleteMsg');
+});
+
+//resource Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('resource','\App\Http\Controllers\ResourceController');
+  Route::post('resource/{id}/update','\App\Http\Controllers\ResourceController@update');
+  Route::get('resource/{id}/delete','\App\Http\Controllers\ResourceController@destroy');
+  Route::get('resource/{id}/deleteMsg','\App\Http\Controllers\ResourceController@DeleteMsg');
+});
+
+Route::group(['middleware'=> 'web'],function(){
+});

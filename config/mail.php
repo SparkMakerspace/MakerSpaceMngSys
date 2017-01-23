@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'mail'),
+    'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -110,7 +110,6 @@ return [
     |
     */
 
-    'sendmail' => 'C:/laragon/bin/sendmail/sendmail.exe -bs',
+    'sendmail' => '/usr/sbin/sendmail -bs',
 
-    'pretend' => false
 ];

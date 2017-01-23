@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DoorSeeder extends Seeder
+class doorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,107 +11,27 @@ class DoorSeeder extends Seeder
      */
     public function run()
     {
-        $door = new \App\Door();
-        $door->name = '86 Front';
-        $door->sundayOpen = '10:00:00';
-        $door->sundayClose = '22:00:00';
-        $door->mondayOpen = '10:00:00';
-        $door->mondayClose = '22:00:00';
-        $door->tuesdayOpen = '10:00:00';
-        $door->tuesdayClose = '22:00:00';
-        $door->wednesdayOpen = '10:00:00';
-        $door->wednesdayClose = '22:00:00';
-        $door->thursdayOpen = '10:00:00';
-        $door->thursdayClose = '22:00:00';
-        $door->fridayOpen = '10:00:00';
-        $door->fridayClose = '22:00:00';
-        $door->saturdayOpen = '10:00:00';
-        $door->saturdayClose = '22:00:00';
-        $door->save();
-        $door = new \App\Door();
-        $door->name = '86 Stairwell';
-        $door->sundayOpen = '10:00:00';
-        $door->sundayClose = '22:00:00';
-        $door->mondayOpen = '10:00:00';
-        $door->mondayClose = '22:00:00';
-        $door->tuesdayOpen = '10:00:00';
-        $door->tuesdayClose = '22:00:00';
-        $door->wednesdayOpen = '10:00:00';
-        $door->wednesdayClose = '22:00:00';
-        $door->thursdayOpen = '10:00:00';
-        $door->thursdayClose = '22:00:00';
-        $door->fridayOpen = '10:00:00';
-        $door->fridayClose = '22:00:00';
-        $door->saturdayOpen = '10:00:00';
-        $door->saturdayClose = '22:00:00';
-        $door->save();
-        $door = new \App\Door();
-        $door->name = '86 Artspace';
-        $door->sundayOpen = '10:00:00';
-        $door->sundayClose = '22:00:00';
-        $door->mondayOpen = '10:00:00';
-        $door->mondayClose = '22:00:00';
-        $door->tuesdayOpen = '10:00:00';
-        $door->tuesdayClose = '22:00:00';
-        $door->wednesdayOpen = '10:00:00';
-        $door->wednesdayClose = '22:00:00';
-        $door->thursdayOpen = '10:00:00';
-        $door->thursdayClose = '22:00:00';
-        $door->fridayOpen = '10:00:00';
-        $door->fridayClose = '22:00:00';
-        $door->saturdayOpen = '10:00:00';
-        $door->saturdayClose = '22:00:00';
-        $door->save();
-        $door = new \App\Door();
-        $door->name = '86 Woodshop';
-        $door->sundayOpen = '10:00:00';
-        $door->sundayClose = '22:00:00';
-        $door->mondayOpen = '10:00:00';
-        $door->mondayClose = '22:00:00';
-        $door->tuesdayOpen = '10:00:00';
-        $door->tuesdayClose = '22:00:00';
-        $door->wednesdayOpen = '10:00:00';
-        $door->wednesdayClose = '22:00:00';
-        $door->thursdayOpen = '10:00:00';
-        $door->thursdayClose = '22:00:00';
-        $door->fridayOpen = '10:00:00';
-        $door->fridayClose = '22:00:00';
-        $door->saturdayOpen = '10:00:00';
-        $door->saturdayClose = '22:00:00';
-        $door->save();
-        $door = new \App\Door();
-        $door->name = '13 Emporium';
-        $door->sundayOpen = '10:00:00';
-        $door->sundayClose = '22:00:00';
-        $door->mondayOpen = '10:00:00';
-        $door->mondayClose = '22:00:00';
-        $door->tuesdayOpen = '10:00:00';
-        $door->tuesdayClose = '22:00:00';
-        $door->wednesdayOpen = '10:00:00';
-        $door->wednesdayClose = '22:00:00';
-        $door->thursdayOpen = '10:00:00';
-        $door->thursdayClose = '22:00:00';
-        $door->fridayOpen = '10:00:00';
-        $door->fridayClose = '22:00:00';
-        $door->saturdayOpen = '10:00:00';
-        $door->saturdayClose = '22:00:00';
-        $door->save();
-        $door = new \App\Door();
-        $door->name = '13 Coworking';
-        $door->sundayOpen = '10:00:00';
-        $door->sundayClose = '22:00:00';
-        $door->mondayOpen = '10:00:00';
-        $door->mondayClose = '22:00:00';
-        $door->tuesdayOpen = '10:00:00';
-        $door->tuesdayClose = '22:00:00';
-        $door->wednesdayOpen = '10:00:00';
-        $door->wednesdayClose = '22:00:00';
-        $door->thursdayOpen = '10:00:00';
-        $door->thursdayClose = '22:00:00';
-        $door->fridayOpen = '10:00:00';
-        $door->fridayClose = '22:00:00';
-        $door->saturdayOpen = '10:00:00';
-        $door->saturdayClose = '22:00:00';
-        $door->save();
+        $openTime = '10:00';
+        $closeTime = '22:00';
+        $doors = ['86 Makerspace','86 Woodshop','86 Stairwell','86 Artspace','13 Emporium','13 Coworking'];
+        foreach ($doors as $door) {
+            \App\Door::create(['name' => $door,
+                'sundayOpen' => $openTime,
+                'sundayClose' => $closeTime,
+                'mondayOpen' => $openTime,
+                'mondayClose' => $closeTime,
+                'tuesdayOpen' => $openTime,
+                'tuesdayClose' => $closeTime,
+                'wednesdayOpen' => $openTime,
+                'wednesdayClose' => $closeTime,
+                'thursdayOpen' => $openTime,
+                'thursdayClose' => $closeTime,
+                'fridayOpen' => $openTime,
+                'fridayClose' => $closeTime,
+                'saturdayOpen' => $openTime,
+                'saturdayClose' => $closeTime,
+                'unlocked' => false
+            ]);
+        }
     }
 }
