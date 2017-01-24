@@ -51,6 +51,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property bool $unlocked
  * @method static \Illuminate\Database\Query\Builder|\App\Door whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Door whereUnlocked($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
  */
 class Door extends Model
 {
@@ -63,4 +64,36 @@ class Door extends Model
     protected $table = 'doors';
 
 	
+
+	/**
+     * user.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
+    /**
+     * Assign a user.
+     *
+     * @param  $user
+     * @return  mixed
+     */
+    public function assignUser($user)
+    {
+        return $this->users()->attach($user);
+    }
+    /**
+     * Remove a user.
+     *
+     * @param  $user
+     * @return  mixed
+     */
+    public function removeUser($user)
+    {
+        return $this->users()->detach($user);
+    }
+
 }

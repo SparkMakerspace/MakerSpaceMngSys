@@ -5,17 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Resource;
+use App\Event;
 use Amranidev\Ajaxis\Ajaxis;
 use URL;
 
 /**
- * Class ResourceController.
+ * Class EventController.
  *
- * @author  The scaffold-interface created at 2017-01-21 05:15:33am
+ * @author  The scaffold-interface created at 2017-01-24 02:17:15am
  * @link  https://github.com/amranidev/scaffold-interface
  */
-class ResourceController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,9 +24,9 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        $title = 'Index - resource';
-        $resources = Resource::paginate(6);
-        return view('resource.index',compact('resources','title'));
+        $title = 'Index - event';
+        $events = Event::paginate(6);
+        return view('event.index',compact('events','title'));
     }
 
     /**
@@ -36,9 +36,9 @@ class ResourceController extends Controller
      */
     public function create()
     {
-        $title = 'Create - resource';
+        $title = 'Create - event';
         
-        return view('resource.create');
+        return view('event.create');
     }
 
     /**
@@ -49,29 +49,22 @@ class ResourceController extends Controller
      */
     public function store(Request $request)
     {
-        $resource = new Resource();
+        $event = new Event();
 
         
-        $resource->name = $request->name;
+        $event->name = $request->name;
 
         
-        $resource->location = $request->location;
+        $event->startDateTime = $request->startDateTime;
 
         
-        $resource->type = $request->type;
+        $event->endDateTime = $request->endDateTime;
 
         
-        $resource->description = $request->description;
-
-        if($request->requiresAuth) {
-            $resource->requiresAuth = 1;
-        } else {
-            $resource->requiresAuth = 0;
-        }
+        $event->description = $request->description;
 
         
-        
-        $resource->save();
+        $event->save();
 
         $pusher = App::make('pusher');
 
@@ -81,9 +74,9 @@ class ResourceController extends Controller
         //you can modify anything you want or use it wherever.
         $pusher->trigger('test-channel',
                          'test-event',
-                        ['message' => 'A new resource has been created !!']);
+                        ['message' => 'A new event has been created !!']);
 
-        return redirect('resource');
+        return redirect('event');
     }
 
     /**
@@ -95,15 +88,15 @@ class ResourceController extends Controller
      */
     public function show($id,Request $request)
     {
-        $title = 'Show - resource';
+        $title = 'Show - event';
 
         if($request->ajax())
         {
-            return URL::to('resource/'.$id);
+            return URL::to('event/'.$id);
         }
 
-        $resource = Resource::findOrfail($id);
-        return view('resource.show',compact('title','resource'));
+        $event = Event::findOrfail($id);
+        return view('event.show',compact('title','event'));
     }
 
     /**
@@ -114,15 +107,15 @@ class ResourceController extends Controller
      */
     public function edit($id,Request $request)
     {
-        $title = 'Edit - resource';
+        $title = 'Edit - event';
         if($request->ajax())
         {
-            return URL::to('resource/'. $id . '/edit');
+            return URL::to('event/'. $id . '/edit');
         }
 
         
-        $resource = Resource::findOrfail($id);
-        return view('resource.edit',compact('title','resource'  ));
+        $event = Event::findOrfail($id);
+        return view('event.edit',compact('title','event'  ));
     }
 
     /**
@@ -134,25 +127,20 @@ class ResourceController extends Controller
      */
     public function update($id,Request $request)
     {
-        $resource = Resource::findOrfail($id);
+        $event = Event::findOrfail($id);
     	
-        $resource->name = $request->name;
+        $event->name = $request->name;
         
-        $resource->location = $request->location;
+        $event->startDateTime = $request->startDateTime;
         
-        $resource->type = $request->type;
+        $event->endDateTime = $request->endDateTime;
         
-        $resource->description = $request->description;
+        $event->description = $request->description;
+        
+        
+        $event->save();
 
-        if($request->requiresAuth) {
-            $resource->requiresAuth = 1;
-        } else {
-            $resource->requiresAuth = 0;
-        }
-        
-        $resource->save();
-
-        return redirect('resource');
+        return redirect('event');
     }
 
     /**
@@ -164,7 +152,7 @@ class ResourceController extends Controller
      */
     public function DeleteMsg($id,Request $request)
     {
-        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/resource/'. $id . '/delete');
+        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/event/'. $id . '/delete');
 
         if($request->ajax())
         {
@@ -180,8 +168,8 @@ class ResourceController extends Controller
      */
     public function destroy($id)
     {
-     	$resource = Resource::findOrfail($id);
-     	$resource->delete();
-        return URL::to('resource');
+     	$event = Event::findOrfail($id);
+     	$event->delete();
+        return URL::to('event');
     }
 }

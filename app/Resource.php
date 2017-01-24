@@ -41,4 +41,36 @@ class Resource extends Model
     protected $table = 'resources';
 
 	
+
+	/**
+     * event.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function events()
+    {
+        return $this->belongsToMany('App\Event');
+    }
+
+    /**
+     * Assign a event.
+     *
+     * @param  $event
+     * @return  mixed
+     */
+    public function assignEvent($event)
+    {
+        return $this->events()->attach($event);
+    }
+    /**
+     * Remove a event.
+     *
+     * @param  $event
+     * @return  mixed
+     */
+    public function removeEvent($event)
+    {
+        return $this->events()->detach($event);
+    }
+
 }

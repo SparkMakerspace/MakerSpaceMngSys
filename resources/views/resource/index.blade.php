@@ -17,7 +17,7 @@
             <th>location</th>
             <th>type</th>
             <th>description</th>
-            <th>requiresAuth</th>
+            <th>Requires Training</th>
             <th>actions</th>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                 <td>{!!$resource->location!!}</td>
                 <td>{!!$resource->type!!}</td>
                 <td>{!!$resource->description!!}</td>
-                <td>{!!$resource->requiresAuth!!}</td>
+                <td>@if($resource->requiresAuth) Yes @else No @endif</td>
                 <td>
                     <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/resource/{!!$resource->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
                     <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/resource/{!!$resource->id!!}/edit'><i class = 'material-icons'>edit</i></a>

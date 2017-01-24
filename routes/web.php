@@ -73,3 +73,23 @@ Route::group(['middleware'=> 'web'],function(){
   Route::get('calendar/{id}/delete','\App\Http\Controllers\CalendarController@destroy');
   Route::get('calendar/{id}/deleteMsg','\App\Http\Controllers\CalendarController@DeleteMsg');
 });
+
+Route::group(['middleware'=> 'web'],function(){
+});
+
+Route::group(['middleware'=> 'web'],function(){
+});
+//resource_type Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('resource_type','\App\Http\Controllers\Resource_typeController');
+  Route::post('resource_type/{id}/update','\App\Http\Controllers\Resource_typeController@update');
+  Route::get('resource_type/{id}/delete','\App\Http\Controllers\Resource_typeController@destroy');
+  Route::get('resource_type/{id}/deleteMsg','\App\Http\Controllers\Resource_typeController@DeleteMsg');
+});
+//event Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('event','\App\Http\Controllers\EventController');
+  Route::post('event/{id}/update','\App\Http\Controllers\EventController@update');
+  Route::get('event/{id}/delete','\App\Http\Controllers\EventController@destroy');
+  Route::get('event/{id}/deleteMsg','\App\Http\Controllers\EventController@DeleteMsg');
+});

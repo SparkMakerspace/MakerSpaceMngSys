@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Post whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Post whereDeletedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
  */
 class Post extends Model
 {
@@ -39,4 +40,36 @@ class Post extends Model
     protected $table = 'posts';
 
 	
+
+	/**
+     * user.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
+    /**
+     * Assign a user.
+     *
+     * @param  $user
+     * @return  mixed
+     */
+    public function assignUser($user)
+    {
+        return $this->users()->attach($user);
+    }
+    /**
+     * Remove a user.
+     *
+     * @param  $user
+     * @return  mixed
+     */
+    public function removeUser($user)
+    {
+        return $this->users()->detach($user);
+    }
+
 }

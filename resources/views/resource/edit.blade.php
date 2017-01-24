@@ -33,10 +33,8 @@
             <input id="description" name = "description" type="text" class="form-control" value="{!!$resource->
             description!!}"> 
         </div>
-        <div class="form-group">
-            <label for="requiresAuth">requiresAuth</label>
-            <input id="requiresAuth" name = "requiresAuth" type="text" class="form-control" value="{!!$resource->
-            requiresAuth!!}"> 
+        <div class="checkbox">
+            <label><input type="checkbox" name="requiresAuth" value="true">Requires Training</label>
         </div>
         <button class = 'btn btn-primary' type ='submit'>Update</button>
     </form>

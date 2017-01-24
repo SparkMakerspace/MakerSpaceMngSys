@@ -51,6 +51,9 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Query\Builder|\App\User whereAccountType($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereBio($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereImage($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $events
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Post[] $posts
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Door[] $doors
  */
 class User extends Authenticatable
 {
@@ -102,6 +105,102 @@ class User extends Authenticatable
     public function removeGroup($group)
     {
         return $this->groups()->detach($group);
+    }
+
+
+	/**
+     * event.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function events()
+    {
+        return $this->belongsToMany('App\Event')->withPivot('eventOwner');
+    }
+
+    /**
+     * Assign a event.
+     *
+     * @param  $event
+     * @return  mixed
+     */
+    public function assignEvent($event)
+    {
+        return $this->events()->attach($event);
+    }
+    /**
+     * Remove a event.
+     *
+     * @param  $event
+     * @return  mixed
+     */
+    public function removeEvent($event)
+    {
+        return $this->events()->detach($event);
+    }
+
+
+	/**
+     * post.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function posts()
+    {
+        return $this->belongsToMany('App\Post')->withPivot('postOwner');
+    }
+
+    /**
+     * Assign a post.
+     *
+     * @param  $post
+     * @return  mixed
+     */
+    public function assignPost($post)
+    {
+        return $this->posts()->attach($post);
+    }
+    /**
+     * Remove a post.
+     *
+     * @param  $post
+     * @return  mixed
+     */
+    public function removePost($post)
+    {
+        return $this->posts()->detach($post);
+    }
+
+
+	/**
+     * door.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function doors()
+    {
+        return $this->belongsToMany('App\Door');
+    }
+
+    /**
+     * Assign a door.
+     *
+     * @param  $door
+     * @return  mixed
+     */
+    public function assignDoor($door)
+    {
+        return $this->doors()->attach($door);
+    }
+    /**
+     * Remove a door.
+     *
+     * @param  $door
+     * @return  mixed
+     */
+    public function removeDoor($door)
+    {
+        return $this->doors()->detach($door);
     }
 
 }

@@ -5,17 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Resource;
+use App\Resource_type;
 use Amranidev\Ajaxis\Ajaxis;
 use URL;
 
 /**
- * Class ResourceController.
+ * Class Resource_typeController.
  *
- * @author  The scaffold-interface created at 2017-01-21 05:15:33am
+ * @author  The scaffold-interface created at 2017-01-24 12:34:59am
  * @link  https://github.com/amranidev/scaffold-interface
  */
-class ResourceController extends Controller
+class Resource_typeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,9 +24,9 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        $title = 'Index - resource';
-        $resources = Resource::paginate(6);
-        return view('resource.index',compact('resources','title'));
+        $title = 'Index - resource_type';
+        $resource_types = Resource_type::paginate(6);
+        return view('resource_type.index',compact('resource_types','title'));
     }
 
     /**
@@ -36,9 +36,9 @@ class ResourceController extends Controller
      */
     public function create()
     {
-        $title = 'Create - resource';
+        $title = 'Create - resource_type';
         
-        return view('resource.create');
+        return view('resource_type.create');
     }
 
     /**
@@ -49,29 +49,14 @@ class ResourceController extends Controller
      */
     public function store(Request $request)
     {
-        $resource = new Resource();
+        $resource_type = new Resource_type();
 
         
-        $resource->name = $request->name;
-
-        
-        $resource->location = $request->location;
-
-        
-        $resource->type = $request->type;
-
-        
-        $resource->description = $request->description;
-
-        if($request->requiresAuth) {
-            $resource->requiresAuth = 1;
-        } else {
-            $resource->requiresAuth = 0;
-        }
+        $resource_type->value = $request->value;
 
         
         
-        $resource->save();
+        $resource_type->save();
 
         $pusher = App::make('pusher');
 
@@ -81,9 +66,9 @@ class ResourceController extends Controller
         //you can modify anything you want or use it wherever.
         $pusher->trigger('test-channel',
                          'test-event',
-                        ['message' => 'A new resource has been created !!']);
+                        ['message' => 'A new resource_type has been created !!']);
 
-        return redirect('resource');
+        return redirect('resource_type');
     }
 
     /**
@@ -95,15 +80,15 @@ class ResourceController extends Controller
      */
     public function show($id,Request $request)
     {
-        $title = 'Show - resource';
+        $title = 'Show - resource_type';
 
         if($request->ajax())
         {
-            return URL::to('resource/'.$id);
+            return URL::to('resource_type/'.$id);
         }
 
-        $resource = Resource::findOrfail($id);
-        return view('resource.show',compact('title','resource'));
+        $resource_type = Resource_type::findOrfail($id);
+        return view('resource_type.show',compact('title','resource_type'));
     }
 
     /**
@@ -114,15 +99,15 @@ class ResourceController extends Controller
      */
     public function edit($id,Request $request)
     {
-        $title = 'Edit - resource';
+        $title = 'Edit - resource_type';
         if($request->ajax())
         {
-            return URL::to('resource/'. $id . '/edit');
+            return URL::to('resource_type/'. $id . '/edit');
         }
 
         
-        $resource = Resource::findOrfail($id);
-        return view('resource.edit',compact('title','resource'  ));
+        $resource_type = Resource_type::findOrfail($id);
+        return view('resource_type.edit',compact('title','resource_type'  ));
     }
 
     /**
@@ -134,25 +119,14 @@ class ResourceController extends Controller
      */
     public function update($id,Request $request)
     {
-        $resource = Resource::findOrfail($id);
+        $resource_type = Resource_type::findOrfail($id);
     	
-        $resource->name = $request->name;
+        $resource_type->value = $request->value;
         
-        $resource->location = $request->location;
         
-        $resource->type = $request->type;
-        
-        $resource->description = $request->description;
+        $resource_type->save();
 
-        if($request->requiresAuth) {
-            $resource->requiresAuth = 1;
-        } else {
-            $resource->requiresAuth = 0;
-        }
-        
-        $resource->save();
-
-        return redirect('resource');
+        return redirect('resource_type');
     }
 
     /**
@@ -164,7 +138,7 @@ class ResourceController extends Controller
      */
     public function DeleteMsg($id,Request $request)
     {
-        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/resource/'. $id . '/delete');
+        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/resource_type/'. $id . '/delete');
 
         if($request->ajax())
         {
@@ -180,8 +154,8 @@ class ResourceController extends Controller
      */
     public function destroy($id)
     {
-     	$resource = Resource::findOrfail($id);
-     	$resource->delete();
-        return URL::to('resource');
+     	$resource_type = Resource_type::findOrfail($id);
+     	$resource_type->delete();
+        return URL::to('resource_type');
     }
 }

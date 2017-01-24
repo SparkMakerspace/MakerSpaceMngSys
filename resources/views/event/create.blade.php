@@ -4,32 +4,29 @@
 
 <section class="content">
     <h1>
-        Create resource
+        Create event
     </h1>
-    <form method = 'get' action = '{!!url("resource")!!}'>
-        <button class = 'btn btn-danger'>resource Index</button>
+    <form method = 'get' action = '{!!url("event")!!}'>
+        <button class = 'btn btn-danger'>event Index</button>
     </form>
     <br>
-    <form method = 'POST' action = '{!!url("resource")!!}'>
+    <form method = 'POST' action = '{!!url("event")!!}'>
         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
         <div class="form-group">
             <label for="name">name</label>
             <input id="name" name = "name" type="text" class="form-control">
         </div>
         <div class="form-group">
-            <label for="location">location</label>
-            <input id="location" name = "location" type="text" class="form-control">
+            <label for="startDateTime">startDateTime</label>
+            <input id="startDateTime" name = "startDateTime" type="text" class="form-control">
         </div>
         <div class="form-group">
-            <label for="type">type</label>
-            <input id="type" name = "type" type="text" class="form-control">
+            <label for="endDateTime">endDateTime</label>
+            <input id="endDateTime" name = "endDateTime" type="text" class="form-control">
         </div>
         <div class="form-group">
             <label for="description">description</label>
             <input id="description" name = "description" type="text" class="form-control">
-        </div>
-        <div class="checkbox">
-            <label><input type="checkbox" name="requiresAuth" value="true">Requires Training</label>
         </div>
         <button class = 'btn btn-primary' type ='submit'>Create</button>
     </form>
