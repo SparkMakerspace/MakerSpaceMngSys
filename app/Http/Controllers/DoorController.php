@@ -51,6 +51,8 @@ class DoorController extends Controller
     {
         $door = new Door();
 
+        $door->name = $request->name;
+
         
         $door->sundayOpen = $request->sundayOpen;
 

@@ -29,6 +29,8 @@ class Events extends Migration
         $table->dateTime('endDateTime');
         
         $table->String('description');
+
+        $table->boolean('allDay');
         
         /**
          * Foreignkeys section

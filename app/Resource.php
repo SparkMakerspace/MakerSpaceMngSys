@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Resource whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Resource whereDeletedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $events
  */
 class Resource extends Model
 {

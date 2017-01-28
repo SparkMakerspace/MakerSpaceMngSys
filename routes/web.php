@@ -24,6 +24,7 @@ Route::resource('post','\App\Http\Controllers\PostController');
 Route::post('post/{id}/update','\App\Http\Controllers\PostController@update');
 Route::get('post/{id}/delete','\App\Http\Controllers\PostController@destroy');
 Route::get('post/{id}/deleteMsg','\App\Http\Controllers\PostController@DeleteMsg');
+
 //group Routes
 Route::group(['middleware'=> 'web'],function(){
   Route::resource('group','\App\Http\Controllers\GroupController');
@@ -64,21 +65,11 @@ Route::group(['middleware'=> 'web'],function(){
   Route::get('resource/{id}/deleteMsg','\App\Http\Controllers\ResourceController@DeleteMsg');
 });
 
-Route::group(['middleware'=> 'web'],function(){
-});
 //calendar Routes
 Route::group(['middleware'=> 'web'],function(){
-  Route::resource('calendar','\App\Http\Controllers\CalendarController');
-  Route::post('calendar/{id}/update','\App\Http\Controllers\CalendarController@update');
-  Route::get('calendar/{id}/delete','\App\Http\Controllers\CalendarController@destroy');
-  Route::get('calendar/{id}/deleteMsg','\App\Http\Controllers\CalendarController@DeleteMsg');
+  Route::get('calendar','\App\Http\Controllers\CalendarController@show');
 });
 
-Route::group(['middleware'=> 'web'],function(){
-});
-
-Route::group(['middleware'=> 'web'],function(){
-});
 //resource_type Routes
 Route::group(['middleware'=> 'web'],function(){
   Route::resource('resource_type','\App\Http\Controllers\Resource_typeController');
@@ -86,6 +77,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::get('resource_type/{id}/delete','\App\Http\Controllers\Resource_typeController@destroy');
   Route::get('resource_type/{id}/deleteMsg','\App\Http\Controllers\Resource_typeController@DeleteMsg');
 });
+
 //event Routes
 Route::group(['middleware'=> 'web'],function(){
   Route::resource('event','\App\Http\Controllers\EventController');
