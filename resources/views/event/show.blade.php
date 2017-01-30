@@ -41,6 +41,14 @@
                 </td>
                 <td>{!!$event->description!!}</td>
             </tr>
+            <tr>
+                <td>
+                    <b><i>groups : </i></b>
+                </td>
+                <td>@foreach($event->groups()->get() as $group)
+                {{$group->id}}
+                @endforeach</td>
+            </tr>
         </tbody>
     </table>
 </section>

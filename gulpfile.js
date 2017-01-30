@@ -23,9 +23,13 @@ elixir(function(mix) {
     ).copy(
         'node_modules/moment/moment.js',
         'public/js'
+    ).copy(
+        'resources/assets/js/bootstrap-datetimepicker.min.js',
+        'public/js'
     );
 
     mix.styles('fullcalendar.css');
+    mix.styles('bootstrap-datetimepicker.min.css');
 
     mix.sass('app.scss')
        .webpack('app.js');

@@ -55,17 +55,25 @@ class EventController extends Controller
         
         $event->name = $request->name;
 
-        
-        $event->startDateTime = $request->startDateTime;
+        if ($request->allDay){
+            $event->startDateTime = $request->startDateTime.' 00:00:00';
+        }else {
+            $event->startDateTime = $request->startDateTime.':00';
+        }
 
-        
-        $event->endDateTime = $request->endDateTime;
+        if ($request->allDay) {
+            $event->endDateTime = $request->endDateTime.' 23:59:00';
+        } else {
+            $event->endDateTime = $request->endDateTime.':00';
+        }
 
-        
         $event->description = $request->description;
 
-        
+        $event->allDay = ($request->allDay) ? true : false;
+
         $event->save();
+
+        $event->groups()->sync($request->group);
 
         $pusher = App::make('pusher');
 
@@ -129,17 +137,28 @@ class EventController extends Controller
     public function update($id,Request $request)
     {
         $event = Event::findOrfail($id);
-    	
+
         $event->name = $request->name;
-        
-        $event->startDateTime = $request->startDateTime;
-        
-        $event->endDateTime = $request->endDateTime;
-        
+
+        if ($request->allDay){
+            $event->startDateTime = $request->startDateTime.' 00:00:00';
+        }else {
+            $event->startDateTime = $request->startDateTime.':00';
+        }
+
+        if ($request->allDay) {
+            $event->endDateTime = $request->endDateTime.' 23:59:00';
+        } else {
+            $event->endDateTime = $request->endDateTime.':00';
+        }
+
         $event->description = $request->description;
-        
-        
+
+        $event->allDay = ($request->allDay) ? true : false;
+
         $event->save();
+
+        $event->groups()->sync($request->group);
 
         return redirect('event');
     }

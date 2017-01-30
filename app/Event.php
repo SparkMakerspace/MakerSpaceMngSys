@@ -29,13 +29,19 @@ use MaddHatter\LaravelFullcalendar\IdentifiableEvent;
  * @method static \Illuminate\Database\Query\Builder|\App\Event whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Event whereDeletedAt($value)
  * @mixin \Eloquent
+ * @property bool $allDay
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $groups
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereAllDay($value)
  */
 class Event extends Model implements IdentifiableEvent
 {
 	
 	use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
+	protected $dates = ['deleted_at','startDateTime','endDateTime'];
+
+
+    protected $dateFormat = 'Y-m-d H:i:s';
     
 	
     protected $table = 'events';
@@ -52,13 +58,6 @@ class Event extends Model implements IdentifiableEvent
      */
     public function owner() {
         return $this->attendees()->wherePivot('eventOwner','=',true)->first();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function groups() {
-        return $this->belongsToMany('App\Event','events_groups');
     }
 
     public function getId()
@@ -102,35 +101,36 @@ class Event extends Model implements IdentifiableEvent
         return $this->endDateTime;
     }
 
+
 	/**
-     * calendar.
+     * group.
      *
      * @return  \Illuminate\Support\Collection;
      */
-    public function calendars()
+    public function groups()
     {
-        return $this->belongsToMany('App\Calendar');
+        return $this->belongsToMany('App\Group','events_groups');
     }
 
     /**
-     * Assign a calendar.
+     * Assign a group.
      *
-     * @param  $calendar
+     * @param  $group
      * @return  mixed
      */
-    public function assignCalendar($calendar)
+    public function assignGroup($group)
     {
-        return $this->calendars()->attach($calendar);
+        return $this->groups()->attach($group);
     }
     /**
-     * Remove a calendar.
+     * Remove a group.
      *
-     * @param  $calendar
+     * @param  $group
      * @return  mixed
      */
-    public function removeCalendar($calendar)
+    public function removeGroup($group)
     {
-        return $this->calendars()->detach($calendar);
+        return $this->groups()->detach($group);
     }
 
 }

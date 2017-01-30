@@ -20,20 +20,54 @@
         </div>
         <div class="form-group">
             <label for="startDateTime">startDateTime</label>
-            <input id="startDateTime" name = "startDateTime" type="text" class="form-control" value="{!!$event->
-            startDateTime!!}"> 
+            @include('partials.datepicker',['fieldName'=>'startDateTime','value'=>$event->
+            startDateTime])
         </div>
         <div class="form-group">
             <label for="endDateTime">endDateTime</label>
-            <input id="endDateTime" name = "endDateTime" type="text" class="form-control" value="{!!$event->
-            endDateTime!!}"> 
+            @include('partials.datepicker',['fieldName'=>'endDateTime','value'=>$event->
+            endDateTime])
         </div>
         <div class="form-group">
             <label for="description">description</label>
             <input id="description" name = "description" type="text" class="form-control" value="{!!$event->
             description!!}"> 
         </div>
+        <div class="checkbox">
+            <label><input type="checkbox" id="allDay" name="allDay"
+                @if($event->allDay) checked @endif >All Day Event?</label>
+        </div>
+        @include('partials.groupselector',['selectedGroups'=>$event->groups()->get()])
         <button class = 'btn btn-primary' type ='submit'>Update</button>
     </form>
+    <script>
+        $(function () {
+            $('#startDateTime').datetimepicker({
+                format:'YYYY-MM-DD' @if(!$event->allDay) +' HH:mm' @endif
+            });
+            $('#startDateTime').on("dp.change", function (e) {
+                $('#endDateTime').data("DateTimePicker").minDate(e.date);
+            });
+            $('#endDateTime').datetimepicker({
+                format:'YYYY-MM-DD' @if(!$event->allDay) +' HH:mm' @endif,
+                useCurrent: false
+            });
+            $('#endDateTime').on("dp.change", function (e) {
+                $('#startDateTime').data("DateTimePicker").maxDate(e.date);
+            });
+        });
+        $(function(){
+            $('#allDay').click(function () {
+                if (this.checked){
+                    $('#startDateTime').data('DateTimePicker').format('YYYY-MM-DD');
+                    $('#endDateTime').data('DateTimePicker').format('YYYY-MM-DD');
+                }
+                else {
+                    $('#startDateTime').data('DateTimePicker').format('YYYY-MM-DD HH:mm');
+                    $('#endDateTime').data('DateTimePicker').format('YYYY-MM-DD HH:mm');
+                }
+            })
+        })
+    </script>
 </section>
 @endsection

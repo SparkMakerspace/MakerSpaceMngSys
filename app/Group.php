@@ -43,7 +43,6 @@ class Group extends Model
 	
     protected $table = 'groups';
 
-	
 
 	/**
      * event.
@@ -52,7 +51,7 @@ class Group extends Model
      */
     public function events()
     {
-        return $this->belongsToMany('App\Event');
+        return $this->belongsToMany('App\Event','events_groups');
     }
 
     /**

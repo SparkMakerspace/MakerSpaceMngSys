@@ -175,12 +175,26 @@ class GroupController extends Controller
      * Remove the specified resource from storage.
      *
      * @param    int $id
-     * @return  \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|string
      */
     public function destroy($id)
     {
      	$group = Group::findOrfail($id);
      	$group->delete();
         return URL::to('group');
+    }
+
+    /**
+     * Compile everything needed to display the group page
+     *
+     * @param    string $stub
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function dashboard($stub)
+    {
+        $group = Group::whereStub($stub)->first();
+        dump($group);
+        die();
+        return view('group.dashboard')->with(compact('calendar','posts','group'));
     }
 }
