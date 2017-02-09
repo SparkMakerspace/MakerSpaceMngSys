@@ -193,8 +193,8 @@ class GroupController extends Controller
     public function dashboard($stub)
     {
         $group = Group::whereStub($stub)->first();
-        dump($group);
-        die();
+        $calendar = \FullCal::addEvents($group->events()->get());
+        $posts = [];
         return view('group.dashboard')->with(compact('calendar','posts','group'));
     }
 }

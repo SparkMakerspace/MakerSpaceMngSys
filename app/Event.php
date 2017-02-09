@@ -32,6 +32,24 @@ use MaddHatter\LaravelFullcalendar\IdentifiableEvent;
  * @property bool $allDay
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $groups
  * @method static \Illuminate\Database\Query\Builder|\App\Event whereAllDay($value)
+ * @property string $type
+ * @property bool $nonMembersAllowed
+ * @property float $materialCostPerAttendee
+ * @property float $percentCostToSpark
+ * @property float $memberTicketPrice
+ * @property float $additionalNonMemberTicketPrice
+ * @property int $maxAttendance
+ * @property int $memberAttendees
+ * @property int $nonMemberAttendees
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereNonMembersAllowed($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereMaterialCostPerAttendee($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event wherePercentCostToSpark($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereMemberTicketPrice($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereAdditionalNonMemberTicketPrice($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereMaxAttendance($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereMemberAttendees($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereNonMemberAttendees($value)
  */
 class Event extends Model implements IdentifiableEvent
 {
@@ -50,7 +68,7 @@ class Event extends Model implements IdentifiableEvent
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function attendees() {
-        return $this->belongsToMany('App\User','events_users')->withPivot('eventOwner');
+        return $this->belongsToMany('App\User','events_users')->withPivot(['eventOwner','status','paid']);
     }
 
     /**
@@ -131,6 +149,31 @@ class Event extends Model implements IdentifiableEvent
     public function removeGroup($group)
     {
         return $this->groups()->detach($group);
+    }
+
+    /**
+     * Assign a user.
+     *
+     * @param $user
+     * @param bool $eventOwner
+     * @param string $status
+     * @param bool $paid
+     * @return void
+     */
+    public function assignAttendee($user, $eventOwner = false, $status = 'attending', $paid = true)
+    {
+        $this->attendees()->attach($user, compact('eventOwner','$status','paid'));
+    }
+
+    /**
+     * Remove a user.
+     *
+     * @param  $user
+     * @return  mixed
+     */
+    public function removeAttendee($user)
+    {
+        return $this->attendees()->detach($user);
     }
 
 }

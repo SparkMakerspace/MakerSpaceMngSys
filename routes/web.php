@@ -10,6 +10,14 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+
+Route::group(['domain'=>str_replace('http://','','{stub}.'.env('APP_URL'))],function(){
+    Route::get('/','GroupController@dashboard');
+    Route::any('/login',function ($stub){
+        return redirect()->away(env('APP_URL').'/login');
+    });
+});
+
 Route::group(['domain'=>'makerspacemngsys.dev'], function (){
     Route::get('/', function () {
         return view('welcome');
@@ -85,8 +93,5 @@ Route::group(['domain'=>'makerspacemngsys.dev'], function (){
         Route::get('event/{id}/delete','\App\Http\Controllers\EventController@destroy');
         Route::get('event/{id}/deleteMsg','\App\Http\Controllers\EventController@DeleteMsg');
     });
-});
 
-Route::group(['domain'=>'{stub}.makerspacemngsys.dev'],function(){
-    Route::get('/','GroupController@dashboard');
 });

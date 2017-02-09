@@ -1,6 +1,6 @@
 @extends('scaffold-interface.layouts.app')
 @section('title')
-    <h1>{{$group->stub}}</h1>
+    {{$group->stub}}
 @endsection
 @section('content')
 

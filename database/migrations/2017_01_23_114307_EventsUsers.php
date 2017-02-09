@@ -17,6 +17,8 @@ class EventsUsers extends Migration
 			$table->integer('event_id')->unsigned()->index();
 			$table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
 			$table->boolean('eventOwner')->default(false);
+			$table->string('status')->default('attending');
+			$table->string('paid')->default(false);
 			$table->integer('user_id')->unsigned()->index();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			/**

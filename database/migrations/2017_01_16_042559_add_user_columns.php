@@ -35,7 +35,7 @@ class AddUserColumns extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-           $table->dropColumn(['address1','address2','city','state','zipcode','phone','active','paidThrough','accountType']);
+           $table->dropColumn(['address1','address2','city','state','zipcode','phone','active','paidThrough','accountType','bio','image']);
         });
     }
 }

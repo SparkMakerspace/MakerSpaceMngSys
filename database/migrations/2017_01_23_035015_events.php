@@ -28,9 +28,27 @@ class Events extends Migration
         
         $table->dateTime('endDateTime');
         
-        $table->String('description');
+        $table->String('description')->nullable();
 
-        $table->boolean('allDay');
+        $table->boolean('allDay')->default(false);
+
+        $table->string('type')->default('meetup');
+
+        $table->boolean('nonMembersAllowed')->default(true);
+
+        $table->float('materialCostPerAttendee')->default(0.0);
+
+        $table->float('percentCostToSpark')->default(0.0);
+
+        $table->float('memberTicketPrice')->default(0.0);
+
+        $table->float('additionalNonMemberTicketPrice')->default(0.0);
+
+        $table->integer('maxAttendance')->nullable();
+
+        $table->integer('memberAttendees')->default(1);
+
+        $table->integer('nonMemberAttendees')->default(0);
         
         /**
          * Foreignkeys section

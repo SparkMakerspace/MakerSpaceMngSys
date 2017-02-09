@@ -22,7 +22,7 @@ class userSeeder extends Seeder
             'phone'=>'(203) 123-4567'
         ];
         
-        $mike = ['email'=>'mike@mmisuncool.com',
+        $mike = ['email'=>'spark@smbisoft.com',
             'name'=>'Mike Molinari',
             'password'=>'secret',
             'address1'=>'2 Another Rd',
