@@ -29,26 +29,10 @@ Route::group(['domain'=>'makerspacemngsys.dev'], function (){
 
 //group Routes
     Route::group(['middleware'=> 'web'],function(){
-        Route::resource('group','\App\Http\Controllers\GroupController');
-        Route::post('group/{id}/update','\App\Http\Controllers\GroupController@update');
-        Route::get('group/{id}/delete','\App\Http\Controllers\GroupController@destroy');
-        Route::get('group/{id}/deleteMsg','\App\Http\Controllers\GroupController@DeleteMsg');
-    });
-
-//group Routes
-    Route::group(['middleware'=> 'web'],function(){
-        Route::resource('group','\App\Http\Controllers\GroupController');
-        Route::post('group/{id}/update','\App\Http\Controllers\GroupController@update');
-        Route::get('group/{id}/delete','\App\Http\Controllers\GroupController@destroy');
-        Route::get('group/{id}/deleteMsg','\App\Http\Controllers\GroupController@DeleteMsg');
-    });
-
-//post Routes
-    Route::group(['middleware'=> 'web'],function(){
-        Route::resource('post','\App\Http\Controllers\PostController');
-        Route::post('post/{id}/update','\App\Http\Controllers\PostController@update');
-        Route::get('post/{id}/delete','\App\Http\Controllers\PostController@destroy');
-        Route::get('post/{id}/deleteMsg','\App\Http\Controllers\PostController@DeleteMsg');
+        Route::resource('g','\App\Http\Controllers\GroupController');
+        Route::post('g/{id}/update','\App\Http\Controllers\GroupController@update');
+        Route::get('g/{id}/delete','\App\Http\Controllers\GroupController@destroy');
+        Route::get('g/{id}/deleteMsg','\App\Http\Controllers\GroupController@DeleteMsg');
     });
 
 //door Routes
