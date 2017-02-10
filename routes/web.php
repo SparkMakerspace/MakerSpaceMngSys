@@ -33,7 +33,7 @@ Route::group(['domain'=>'makerspacemngsys.dev'], function (){
         Route::get('g/{id}/delete','\App\Http\Controllers\GroupController@destroy');
         Route::get('g/{id}/deleteMsg','\App\Http\Controllers\GroupController@DeleteMsg');
     });
-    Route::get('/g/{stub}','GroupController@dashboard');
+
 //door Routes
     Route::group(['middleware'=> 'web'],function(){
         Route::resource('door','\App\Http\Controllers\DoorController');

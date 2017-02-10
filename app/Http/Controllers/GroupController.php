@@ -87,26 +87,6 @@ class GroupController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param    \Illuminate\Http\Request  $request
-     * @param    int  $id
-     * @return  \Illuminate\Http\Response
-     */
-    public function show($id,Request $request)
-    {
-        $title = 'Show - group';
-
-        if($request->ajax())
-        {
-            return URL::to('group/'.$id);
-        }
-
-        $group = Group::findOrfail($id);
-        return view('group.show',compact('title','group'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      * @param    \Illuminate\Http\Request  $request
      * @param    int  $id
@@ -190,7 +170,7 @@ class GroupController extends Controller
      * @param    string $stub
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function dashboard($stub)
+    public function show($stub)
     {
         $group = Group::whereStub($stub)->first();
         $calendar = \FullCal::addEvents($group->events()->get());
