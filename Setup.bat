@@ -2,10 +2,11 @@ cp ".env.example" ".env"
 
 mysql -u root -e "CREATE DATABASE homestead" 
 
+
 cmd /c npm install
 
 
-
+cmd /c composer update
 
 php artisan key:generate
 
