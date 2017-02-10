@@ -96,6 +96,7 @@ class User extends Authenticatable
     {
         return $this->groups()->attach($group);
     }
+
     /**
      * Remove a group.
      *
@@ -128,6 +129,7 @@ class User extends Authenticatable
     {
         return $this->events()->attach($event);
     }
+
     /**
      * Remove a event.
      *
@@ -160,6 +162,7 @@ class User extends Authenticatable
     {
         return $this->posts()->attach($post);
     }
+
     /**
      * Remove a post.
      *
@@ -192,6 +195,7 @@ class User extends Authenticatable
     {
         return $this->doors()->attach($door);
     }
+
     /**
      * Remove a door.
      *

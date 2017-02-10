@@ -11,17 +11,11 @@
 |
 */
 
-Route::group(['domain'=>str_replace('http://','','{stub}.'.env('APP_URL'))],function(){
-    Route::get('/','GroupController@dashboard');
-    Route::any('/login',function ($stub){
-        return redirect()->away(env('APP_URL').'/login');
-    });
-});
-
 Route::group(['domain'=>'makerspacemngsys.dev'], function (){
     Route::get('/', function () {
         return view('welcome');
     });
+    Route::get('/g/{stub}','GroupController@dashboard');
 
     Auth::routes();
 
