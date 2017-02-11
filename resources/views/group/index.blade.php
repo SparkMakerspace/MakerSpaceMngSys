@@ -6,7 +6,7 @@
     <h1>
         Group Index
     </h1>
-    <form class = 'col s3' method = 'get' action = '{!!url("group")!!}/create'>
+    <form class = 'col s3' method = 'get' action = '{!!url("g")!!}/create'>
         <button class = 'btn btn-primary' type = 'submit'>Create New group</button>
     </form>
     <br>
@@ -31,9 +31,9 @@
                 <td>{!!$group->contactUser!!}</td>
                 <td>{!!$group->visibility!!}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/group/{!!$group->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
-                    <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/group/{!!$group->id!!}/edit'><i class = 'material-icons'>edit</i></a>
-                    <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/group/{!!$group->id!!}'><i class = 'material-icons'>info</i></a>
+                    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/g/{!!$group->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
+                    <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/g/{!!$group->id!!}/edit'><i class = 'material-icons'>edit</i></a>
+                    <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/g/{!!$group->stub!!}'><i class = 'material-icons'>info</i></a>
                 </td>
             </tr>
             @endforeach 

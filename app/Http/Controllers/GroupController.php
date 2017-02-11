@@ -83,7 +83,25 @@ class GroupController extends Controller
                          'test-event',
                         ['message' => 'A new group has been created !!']);
 
-        return redirect('group');
+        return redirect('g');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param    \Illuminate\Http\Request  $request
+     * @param    int  $id
+     * @return  \Illuminate\Http\Response
+     */
+    public function show($stub,Request $request)
+    {
+
+        if($request->ajax())
+        {
+            return URL::to('g/'.$stub);
+        }
+
+        return $this->dashboard($stub);
     }
 
     /**
@@ -97,7 +115,7 @@ class GroupController extends Controller
         $title = 'Edit - group';
         if($request->ajax())
         {
-            return URL::to('group/'. $id . '/edit');
+            return URL::to('g/'. $id . '/edit');
         }
 
         
@@ -131,7 +149,7 @@ class GroupController extends Controller
         
         $group->save();
 
-        return redirect('group');
+        return redirect('g');
     }
 
     /**
@@ -143,7 +161,7 @@ class GroupController extends Controller
      */
     public function DeleteMsg($id,Request $request)
     {
-        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/group/'. $id . '/delete');
+        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/g/'. $id . '/delete');
 
         if($request->ajax())
         {
@@ -161,7 +179,7 @@ class GroupController extends Controller
     {
      	$group = Group::findOrfail($id);
      	$group->delete();
-        return URL::to('group');
+        return URL::to('g');
     }
 
     /**
@@ -170,10 +188,11 @@ class GroupController extends Controller
      * @param    string $stub
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($stub)
+    public function dashboard($stub)
     {
         $group = Group::whereStub($stub)->first();
-        $calendar = \FullCal::addEvents($group->events()->get());
+        $events = $group->events()->get();
+        $calendar = \FullCal::addEvents($events);
         $posts = [];
         return view('group.dashboard')->with(compact('calendar','posts','group'));
     }

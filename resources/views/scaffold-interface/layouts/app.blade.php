@@ -31,11 +31,11 @@
 <div class="wrapper" id="app">
     <header class="main-header">
         <!-- Logo -->
-        <a href="{{url('dashboard')}}" class="logo">
+        <a href="{{url('')}}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>S</b>IN</span>
+            <span class="logo-mini"><b>Spark</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>ScaffoldInterface</b></span>
+            <span class="logo-lg"><b>Spark Makerspace</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -43,6 +43,7 @@
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
+            <div class="nav navbar-brand">@yield('title')</div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Notification Navbar List-->
@@ -120,7 +121,7 @@
                 {{--<li class="header">MAIN NAVIGATION</li>--}}
                 <li class="active treeview">
                     <a href="{{url('dashboard')}}">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>
                 @hasanyrole(['superadmin','admin'])

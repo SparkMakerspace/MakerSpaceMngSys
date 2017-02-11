@@ -47,7 +47,7 @@ class Group extends Model
 	/**
      * event.
      *
-     * @return  \Illuminate\Support\Collection;
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany|
      */
     public function events()
     {
