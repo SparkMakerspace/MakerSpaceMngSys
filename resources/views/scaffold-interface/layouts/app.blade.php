@@ -171,6 +171,11 @@
         );
     });
 </script>
+<script>
+    $(document).ready(function(){
+        @stack('jquery.ready')
+    });
+</script>
 <script src="{{url('/js/app.js')}}"></script>
 @yield('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.js"></script>

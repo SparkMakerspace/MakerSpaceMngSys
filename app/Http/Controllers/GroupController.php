@@ -37,7 +37,7 @@ class GroupController extends Controller
     public function create()
     {
         $title = 'Create - group';
-        
+
         return view('group.create');
     }
 
@@ -51,26 +51,26 @@ class GroupController extends Controller
     {
         $group = new Group();
 
-        
+
         $group->name = $request->name;
 
-        
+
         $group->stub = $request->stub;
 
-        
+
         $group->about = $request->about;
 
-        
+
         $group->image = $request->image;
 
-        
+
         $group->contactUser = $request->contactUser;
 
-        
+
         $group->visibility = $request->visibility;
 
-        
-        
+
+
         $group->save();
 
         $pusher = App::make('pusher');
@@ -80,8 +80,8 @@ class GroupController extends Controller
         //Here is a pusher notification example when you create a new resource in storage.
         //you can modify anything you want or use it wherever.
         $pusher->trigger('test-channel',
-                         'test-event',
-                        ['message' => 'A new group has been created !!']);
+            'test-event',
+            ['message' => 'A new group has been created !!']);
 
         return redirect('g');
     }
@@ -118,7 +118,7 @@ class GroupController extends Controller
             return URL::to('g/'. $id . '/edit');
         }
 
-        
+
         $group = Group::findOrfail($id);
         return view('group.edit',compact('title','group'  ));
     }
@@ -133,20 +133,20 @@ class GroupController extends Controller
     public function update($id,Request $request)
     {
         $group = Group::findOrfail($id);
-    	
+
         $group->name = $request->name;
-        
+
         $group->stub = $request->stub;
-        
+
         $group->about = $request->about;
-        
+
         $group->image = $request->image;
-        
+
         $group->contactUser = $request->contactUser;
-        
+
         $group->visibility = $request->visibility;
-        
-        
+
+
         $group->save();
 
         return redirect('g');
@@ -177,8 +177,8 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-     	$group = Group::findOrfail($id);
-     	$group->delete();
+        $group = Group::findOrfail($id);
+        $group->delete();
         return URL::to('g');
     }
 
@@ -192,7 +192,10 @@ class GroupController extends Controller
     {
         $group = Group::whereStub($stub)->first();
         $events = $group->events()->get();
-        $calendar = \FullCal::addEvents($events);
+        $calendar = \FullCal::addEvents($events)->setCallbacks([
+            'eventClick'=> 'function(calEvent, jsEvent, view) {
+        window.location.assign(calEvent.url);
+    }']);
         $posts = [];
         return view('group.dashboard')->with(compact('calendar','posts','group'));
     }

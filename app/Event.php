@@ -60,7 +60,8 @@ class Event extends Model implements IdentifiableEvent
 
 
     protected $dateFormat = 'Y-m-d H:i:s';
-    
+
+
 	
     protected $table = 'events';
 
