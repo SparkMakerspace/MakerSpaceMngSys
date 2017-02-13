@@ -130,6 +130,8 @@
                 <li class="treeview"><a href="{{url('/roles')}}"><i class="fa fa-user-plus"></i> <span>Role</span></a></li>
                 <li class="treeview"><a href="{{url('/permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
                 @endhasanyrole
+                @yield('someSideBarJunk')
+
             </ul>
         </section>
         <!-- /.sidebar -->
