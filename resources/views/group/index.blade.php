@@ -3,6 +3,20 @@
 @section('content')
 
 <section class="content">
+    @foreach($groups as $group)
+    <Div style="width">
+        <a href="/g/{!!$group->stub!!}">
+            <img src="{!!$group->image!!}" alt="{!!$group->name!!}" >
+            {!!$group->name!!}</a>
+        <br>{!!$group->about!!}
+    </Div>
+    @endforeach
+
+
+
+
+
+    @hasanyrole(['superadmin','admin'])
     <h1>
         Group Index
     </h1>
@@ -40,6 +54,8 @@
         </tbody>
     </table>
     {!! $groups->render() !!}
+    @endhasanyrole
+
 
 </section>
 @endsection
