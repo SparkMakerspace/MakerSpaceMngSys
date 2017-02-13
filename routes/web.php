@@ -71,4 +71,9 @@ Route::group(['domain'=>'makerspacemngsys.dev'], function (){
         Route::get('event/{id}/deleteMsg','\App\Http\Controllers\EventController@DeleteMsg');
     });
 
+//image Routes
+    Route::group(['middleware'=> 'web'],function(){
+        Route::resource('image','\App\Http\Controllers\ImageController');
+    });
+
 });

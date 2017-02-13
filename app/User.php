@@ -54,6 +54,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $events
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Post[] $posts
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Door[] $doors
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Image[] $images
  */
 class User extends Authenticatable
 {
@@ -205,6 +206,11 @@ class User extends Authenticatable
     public function removeDoor($door)
     {
         return $this->doors()->detach($door);
+    }
+
+    public function images()
+    {
+        return $this->hasMany('App\Image');
     }
 
 }
