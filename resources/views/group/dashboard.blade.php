@@ -19,6 +19,10 @@
 
 @endsection
 
+@section('adminBar')
+    SOME JUNK GOES HERE FOR ADMINS
+@endsection
+
 @push('jquery.ready')
 $('[data-toggle="popover"]').popover();
 @endpush

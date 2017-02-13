@@ -1,7 +1,7 @@
 @extends('scaffold-interface.layouts.app')
 
 @section('someSideBarJunk')
-    <li class="treeview"><a href="{{url('./event')}}"></i> <span>Callender</span></a></li>
+    <li class="treeview"><a href="{{url('./event')}}"></i> <span>Calender</span></a></li>
     <li class="treeview"><a href="{{url('./g/')}}"></i> <span>Groups</span></a></li>
 
 @endsection

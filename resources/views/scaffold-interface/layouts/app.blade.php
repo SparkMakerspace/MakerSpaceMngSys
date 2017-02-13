@@ -62,6 +62,11 @@
                             <li class="footer"><a href="#">View all</a></li>
                         </ul>
                     </li>
+                    @hasanyrole(['superadmin','admin'])
+                    <li class="">
+                        <button class="nav navbar-brand btn-link" data-toggle="control-sidebar"><i class="fa fa-cog"></i></button>
+                    </li>
+                    @endhasanyrole
                     <!-- END notification navbar list-->
                     @if(Auth::user())
                         <li class="dropdown user user-menu">
@@ -139,6 +144,13 @@
     <div class="content-wrapper">
         @yield('content')
     </div>
+    <!-- The Right Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        @yield('adminBar')
+    </aside>
+    <!-- The sidebar's background -->
+    <!-- This div must placed right after the sidebar for it to work-->
+    <div class="control-sidebar-bg"></div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class = 'AjaxisModal'>
