@@ -1,15 +1,17 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Index')
+@section('title','Groups')
 @section('content')
 
 <section class="content">
     @foreach($groups as $group)
-    <Div style="width">
         <a href="/g/{!!$group->stub!!}">
-            <img src="{!!$group->image!!}" alt="{!!$group->name!!}" >
-            {!!$group->name!!}</a>
-        <br>{!!$group->about!!}
-    </Div>
+        <div class="info-box">
+            <span class="info-box-icon bg-red"><img src="{!!$group->image!!}" alt="{!!$group->name!!}" ></span>
+            <div class="info-box-content">
+                <span class="info-box-text">{!!$group->name!!}</span>
+                <span class="progress-description">{!!$group->about!!}</span>
+            </div><!-- /.info-box-content -->
+        </Div></a>
     @endforeach
 
 
