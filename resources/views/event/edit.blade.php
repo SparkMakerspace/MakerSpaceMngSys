@@ -20,12 +20,12 @@
         </div>
         <div class="form-group">
             <label for="startDateTime">startDateTime</label>
-            @include('partials.datepicker',['fieldName'=>'startDateTime','value'=>$event->
+            @include('partials.datePicker',['fieldName'=>'startDateTime','value'=>$event->
             startDateTime])
         </div>
         <div class="form-group">
             <label for="endDateTime">endDateTime</label>
-            @include('partials.datepicker',['fieldName'=>'endDateTime','value'=>$event->
+            @include('partials.datePicker',['fieldName'=>'endDateTime','value'=>$event->
             endDateTime])
         </div>
         <div class="form-group">
@@ -37,7 +37,7 @@
             <label><input type="checkbox" id="allDay" name="allDay"
                 @if($event->allDay) checked @endif >All Day Event?</label>
         </div>
-        @include('partials.groupselector',['selectedGroups'=>$event->groups()->get()])
+        @include('partials.groupSelector',['selectedGroups'=>$event->groups()->get()])
         <button class = 'btn btn-primary' type ='submit'>Update</button>
     </form>
     <script>

@@ -11,6 +11,6 @@ class CalendarController extends Controller
         array_push($widgets,\View::make('group.create')->render());
         array_push($widgets,\View::make('post.create')->render());
         $widgetListView = \View::make('test')->with(compact('widgets'));
-        return $widgetListView;
+        return view('partials.userSelector');
     }
 }

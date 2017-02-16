@@ -18,11 +18,11 @@
             </div>
             <div class="form-group">
                 <label for="startDateTime">startDateTime</label>
-                @include('partials.datepicker',['fieldName'=>'startDateTime'])
+                @include('partials.datePicker',['fieldName'=>'startDateTime'])
             </div>
             <div class="form-group">
                 <label for="endDateTime">endDateTime</label>
-                @include('partials.datepicker',['fieldName'=>'endDateTime'])
+                @include('partials.datePicker',['fieldName'=>'endDateTime'])
             </div>
             <div class="form-group">
                 <label for="description">description</label>
@@ -31,7 +31,7 @@
             <div class="checkbox">
                 <label><input type="checkbox" id="allDay" name="allDay">All Day Event?</label>
             </div>
-            @include('partials.groupselector')
+            @include('partials.groupSelector')
             <button class = 'btn btn-primary' type ='submit'>Create</button>
         </form>
         <script>
