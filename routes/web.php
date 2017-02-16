@@ -50,11 +50,6 @@ Route::group(['domain'=>'makerspacemngsys.dev'], function (){
         Route::get('resource/{id}/deleteMsg','\App\Http\Controllers\ResourceController@DeleteMsg');
     });
 
-//calendar Routes
-    Route::group(['middleware'=> 'web'],function(){
-        Route::get('calendar','\App\Http\Controllers\CalendarController@show');
-    });
-
 //resource_type Routes
     Route::group(['middleware'=> 'web'],function(){
         Route::resource('resource_type','\App\Http\Controllers\Resource_typeController');
@@ -74,6 +69,10 @@ Route::group(['domain'=>'makerspacemngsys.dev'], function (){
 //image Routes
     Route::group(['middleware'=> 'web'],function(){
         Route::resource('image','\App\Http\Controllers\ImageController');
+    });
+
+    Route::group(['middleware'=>'web'],function (){
+        Route::get('test','CalendarController@show');
     });
 
 });
