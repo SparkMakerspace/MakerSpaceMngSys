@@ -26,6 +26,12 @@ Route::group(['domain'=>'makerspacemngsys.dev'], function (){
     Route::get('post/{id}/delete','\App\Http\Controllers\PostController@destroy');
     Route::get('post/{id}/deleteMsg','\App\Http\Controllers\PostController@DeleteMsg');
 
+//comment Routes
+    Route::resource('comment','\App\Http\Controllers\CommentController');
+    Route::post('comment/{id}/update','\App\Http\Controllers\CommentController@update');
+    Route::get('comment/{id}/delete','\App\Http\Controllers\CommentController@destroy');
+    Route::get('comment/{id}/deleteMsg','\App\Http\Controllers\CommentController@DeleteMsg');
+
 //group Routes
     Route::group(['middleware'=> 'web'],function(){
         Route::resource('g','\App\Http\Controllers\GroupController');

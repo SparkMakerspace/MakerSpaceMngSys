@@ -177,4 +177,9 @@ class Event extends Model implements IdentifiableEvent
         return $this->attendees()->detach($user);
     }
 
+    public function comments()
+    {
+        return $this->morphMany('App\Comment','commentable');
+    }
+
 }

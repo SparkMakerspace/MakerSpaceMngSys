@@ -72,4 +72,9 @@ class Post extends Model
         return $this->users()->detach($user);
     }
 
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
+    }
+
 }

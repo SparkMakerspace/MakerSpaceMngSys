@@ -13,6 +13,7 @@ class AddUserColumns extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('username')->unique();
             $table->string('address1');
             $table->string('address2')->nullable();
             $table->string('city');
