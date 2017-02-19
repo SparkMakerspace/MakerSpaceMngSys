@@ -44,13 +44,24 @@ class CommentController extends Controller
 
         $comment->body = $request->body;
 
-        $comment->user_id = \Auth::user();
+        $comment->user_id = \Auth::user()->id;
 
-        $type = $request->type;
+        $comment->commentable_id = $request->id;
+
+        $comment->commentable_type = $request->type;
+
+
+
 
         $id = $request->id;
+        $type = $request->type;
 
-        $type::find($id)->comments()->save($comment);
+       try{
+           $id = $request->id;
+           $type = $request->type;
+
+           $type::find($id)->comments()->save($comment);
+       }catch (Exception $e) {return redirect()->back();}
 
         $pusher = App::make('pusher');
 
@@ -62,7 +73,7 @@ class CommentController extends Controller
             'test-event',
             ['message' => 'A new comment has been created !!']);
 
-        return redirect('comment');
+        return redirect()->back();
     }
 
     /**

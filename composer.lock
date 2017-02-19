@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "525be02021e487531db67abf2e24eda7",
+    "hash": "bb4f67e279908a88618d8fccc6affcf3",
     "content-hash": "1a70a856f075e59cbef2755823824589",
     "packages": [
         {
@@ -2109,16 +2109,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.5",
+            "version": "v5.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "cd142238a339459b10da3d8234220963f392540c"
+                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/cd142238a339459b10da3d8234220963f392540c",
-                "reference": "cd142238a339459b10da3d8234220963f392540c",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
+                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
                 "shasum": ""
             },
             "require": {
@@ -2159,11 +2159,11 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-12-29 10:02:40"
+            "time": "2017-02-13 07:52:53"
         },
         {
             "name": "symfony/class-loader",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/class-loader.git",
@@ -2337,7 +2337,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -4334,16 +4334,16 @@
         },
         {
             "name": "sebastian/object-enumerator",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/object-enumerator.git",
-                "reference": "96f8a3f257b69e8128ad74d3a7fd464bcbaa3b35"
+                "reference": "1311872ac850040a79c3c058bea3e22d0f09cbb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/object-enumerator/zipball/96f8a3f257b69e8128ad74d3a7fd464bcbaa3b35",
-                "reference": "96f8a3f257b69e8128ad74d3a7fd464bcbaa3b35",
+                "url": "https://api.github.com/repos/sebastianbergmann/object-enumerator/zipball/1311872ac850040a79c3c058bea3e22d0f09cbb7",
+                "reference": "1311872ac850040a79c3c058bea3e22d0f09cbb7",
                 "shasum": ""
             },
             "require": {
@@ -4376,7 +4376,7 @@
             ],
             "description": "Traverses array structures and object graphs to enumerate all referenced objects",
             "homepage": "https://github.com/sebastianbergmann/object-enumerator/",
-            "time": "2016-11-19 07:35:10"
+            "time": "2017-02-18 15:18:39"
         },
         {
             "name": "sebastian/recursion-context",
@@ -4627,16 +4627,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "e1718c6bf57e1efbb8793ada951584b2ab27775b"
+                "reference": "9724c684646fcb5387d579b4bfaa63ee0b0c64c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/e1718c6bf57e1efbb8793ada951584b2ab27775b",
-                "reference": "e1718c6bf57e1efbb8793ada951584b2ab27775b",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/9724c684646fcb5387d579b4bfaa63ee0b0c64c8",
+                "reference": "9724c684646fcb5387d579b4bfaa63ee0b0c64c8",
                 "shasum": ""
             },
             "require": {
@@ -4678,7 +4678,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-21 17:06:35"
+            "time": "2017-02-16 22:46:52"
         },
         {
             "name": "webmozart/assert",

@@ -78,7 +78,9 @@ Route::group(['domain'=>'makerspacemngsys.dev'], function (){
     });
 
     Route::group(['middleware'=>'web'],function (){
-        Route::get('test','CalendarController@show');
+        Route::get('test',function () {
+            return view('partials.comments',['type'=>'app/posts','id'=>1]);
+        });
     });
 
 });
