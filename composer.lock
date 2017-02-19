@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "24ff64f60bc08c17b24c7915d1aa2bf1",
-    "content-hash": "2d56f7ab36c23c74592a855303c61547",
+    "hash": "525be02021e487531db67abf2e24eda7",
+    "content-hash": "1a70a856f075e59cbef2755823824589",
     "packages": [
         {
             "name": "amranidev/ajaxis",
@@ -3258,6 +3258,49 @@
                 "test"
             ],
             "time": "2015-05-11 14:41:42"
+        },
+        {
+            "name": "ignasbernotas/laravel-model-generator",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ignasbernotas/laravel-model-generator.git",
+                "reference": "343ad81e5ec64b224aff01e7054e98faf98f1c61"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ignasbernotas/laravel-model-generator/zipball/343ad81e5ec64b224aff01e7054e98faf98f1c61",
+                "reference": "343ad81e5ec64b224aff01e7054e98faf98f1c61",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Iber\\Generator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ignas Bernotas",
+                    "email": "ignas@iber.lt"
+                }
+            ],
+            "description": "Laravel 5 model generator from existing schema",
+            "keywords": [
+                "generator",
+                "laravel",
+                "model",
+                "schema"
+            ],
+            "time": "2016-05-24 16:57:40"
         },
         {
             "name": "mockery/mockery",

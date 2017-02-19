@@ -213,4 +213,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Image');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
 }
