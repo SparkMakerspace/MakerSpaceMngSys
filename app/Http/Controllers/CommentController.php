@@ -44,7 +44,13 @@ class CommentController extends Controller
 
         $comment->body = $request->body;
 
-        $comment->save();
+        $comment->user_id = \Auth::user();
+
+        $type = $request->type;
+
+        $id = $request->id;
+
+        $type::find($id)->comments()->save($comment);
 
         $pusher = App::make('pusher');
 

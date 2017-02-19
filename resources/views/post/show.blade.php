@@ -42,6 +42,8 @@
                 <td>{!!$post->image!!}</td>
             </tr>
         </tbody>
+
     </table>
 </section>
+    {!!$comments!!}
 @endsection

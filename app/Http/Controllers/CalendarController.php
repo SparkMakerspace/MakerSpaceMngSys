@@ -8,9 +8,8 @@ class CalendarController extends Controller
 {
     public function show(){
         $widgets = [];
-        array_push($widgets,\View::make('group.create')->render());
+        array_push($widgets,\View::make('group.create',['type'=>'App/Post','id'=>2])->render());
         array_push($widgets,\View::make('post.create')->render());
-        $widgetListView = \View::make('test')->with(compact('widgets'));
-        return view('partials.userSelector');
+        \View::make('test')->with(compact('widgets'));
     }
 }
