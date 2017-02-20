@@ -32,10 +32,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Group whereDeletedAt($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $events
+ * @property int $image_id
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
+ * @method static \Illuminate\Database\Query\Builder|\App\Group whereImageId($value)
  */
 class Group extends Model
 {
-	
+	use HasImage;
 	use SoftDeletes;
 
 	protected $dates = ['deleted_at'];

@@ -50,6 +50,7 @@ class userSeeder extends Seeder
             $user->zipcode = $u['zipcode'];
             $user->phone = $u['phone'];
             $user->save();
+            $user->assignRole('superadmin');
         }
     }
 }

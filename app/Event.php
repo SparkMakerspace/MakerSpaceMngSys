@@ -50,10 +50,14 @@ use MaddHatter\LaravelFullcalendar\IdentifiableEvent;
  * @method static \Illuminate\Database\Query\Builder|\App\Event whereMaxAttendance($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Event whereMemberAttendees($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Event whereNonMemberAttendees($value)
+ * @property int $image_id
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereImageId($value)
  */
 class Event extends Model implements IdentifiableEvent
 {
-	
+	use Commentable;
+	use HasImage;
 	use SoftDeletes;
 
 	protected $dates = ['deleted_at','startDateTime','endDateTime'];
@@ -176,10 +180,4 @@ class Event extends Model implements IdentifiableEvent
     {
         return $this->attendees()->detach($user);
     }
-
-    public function comments()
-    {
-        return $this->morphMany('App\Comment','commentable');
-    }
-
 }

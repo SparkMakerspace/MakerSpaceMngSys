@@ -28,11 +28,11 @@ class Groups extends Migration
         
         $table->longText('about');
         
-        $table->String('image');
+        $table->integer('user_id')->nullable();
         
-        $table->integer('contactUser');
-        
-        $table->String('visibility');
+        $table->String('visibility')->default('all');
+
+        $table->integer('image_id')->nullable();
         
         /**
          * Foreignkeys section

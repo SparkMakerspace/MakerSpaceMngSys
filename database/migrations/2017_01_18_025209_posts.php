@@ -28,7 +28,7 @@ class Posts extends Migration
         
         $table->longText('body');
         
-        $table->String('image');
+        $table->integer('image_id')->nullable();
         
         /**
          * Foreignkeys section

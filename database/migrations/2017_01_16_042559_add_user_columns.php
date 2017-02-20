@@ -24,7 +24,7 @@ class AddUserColumns extends Migration
             $table->dateTime('paidThrough')->nullable();
             $table->string('accountType')->default('member');
             $table->longText('bio')->nullable();
-            $table->text('image')->nullable();
+            $table->integer('image_id')->nullable();
         });
     }
 
@@ -36,7 +36,7 @@ class AddUserColumns extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-           $table->dropColumn(['address1','address2','city','state','zipcode','phone','active','paidThrough','accountType','bio','image']);
+           $table->dropColumn(['address1','address2','city','state','zipcode','phone','active','paidThrough','accountType','bio','image_id']);
         });
     }
 }

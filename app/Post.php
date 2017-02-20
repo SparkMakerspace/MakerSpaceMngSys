@@ -28,10 +28,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Post whereDeletedAt($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property int $image_id
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
+ * @method static \Illuminate\Database\Query\Builder|\App\Post whereImageId($value)
  */
 class Post extends Model
 {
-	
+    use HasImage;
+	use Commentable;
 	use SoftDeletes;
 
 	protected $dates = ['deleted_at'];
@@ -71,10 +75,4 @@ class Post extends Model
     {
         return $this->users()->detach($user);
     }
-
-    public function comments()
-    {
-        return $this->morphMany('App\Comment', 'commentable');
-    }
-
 }

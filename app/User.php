@@ -55,9 +55,15 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Post[] $posts
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Door[] $doors
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Image[] $images
+ * @property string $username
+ * @property int $image_id
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereUsername($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\User whereImageId($value)
  */
 class User extends Authenticatable
 {
+    use HasImage;
     use Notifiable;
     use HasRoles;
 

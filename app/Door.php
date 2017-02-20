@@ -52,10 +52,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Door whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Door whereUnlocked($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property int $image_id
+ * @method static \Illuminate\Database\Query\Builder|\App\Door whereImageId($value)
  */
 class Door extends Model
 {
-	
+	use HasImage;
 	use SoftDeletes;
 
 	protected $dates = ['deleted_at'];

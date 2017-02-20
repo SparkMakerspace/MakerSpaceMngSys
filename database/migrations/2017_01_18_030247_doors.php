@@ -53,6 +53,8 @@ class Doors extends Migration
         $table->time('saturdayClose');
 
         $table->boolean('unlocked')->default(false);
+
+        $table->integer('image_id')->nullable();
         
         /**
          * Foreignkeys section

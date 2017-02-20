@@ -31,6 +31,8 @@ class Resources extends Migration
         $table->String('description');
         
         $table->boolean('requiresAuth');
+
+        $table->integer('image_id')->nullable();
         
         /**
          * Foreignkeys section
