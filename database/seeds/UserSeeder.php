@@ -13,6 +13,7 @@ class userSeeder extends Seeder
     {
         $john = ['email'=>'john@scimone.net',
             'name'=>'John Scimone',
+            'username'=>'jjfs85',
             'password'=>'secret',
             'address1'=>'1 Some Rd',
             'address2'=>'',
@@ -24,6 +25,7 @@ class userSeeder extends Seeder
         
         $mike = ['email'=>'spark@smbisoft.com',
             'name'=>'Mike Molinari',
+            'username'=>'mmiscool',
             'password'=>'secret',
             'address1'=>'2 Another Rd',
             'address2'=>'',
@@ -39,6 +41,7 @@ class userSeeder extends Seeder
             $user = new \App\User;
             $user->email = $u['email'];
             $user->name = $u['name'];
+            $user->username = $u['username'];
             $user->password = Hash::make($u['password']);
             $user->address1 = $u['address1'];
             $user->address2 = $u['address2'];
