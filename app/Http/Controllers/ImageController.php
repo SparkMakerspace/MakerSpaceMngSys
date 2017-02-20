@@ -47,7 +47,7 @@ class ImageController extends Controller
         $image = new Image();
         $image->path = $path;
         $image->user_id = \Auth::user()->id;
-        $image->originalname = $request->file('upload')->getClientOriginalName();
+        $image->name = $request->file('upload')->getClientOriginalName();
         $image->size = $request->file('upload')->getClientSize();
         $image->save();
 

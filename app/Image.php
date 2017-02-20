@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Image extends Model
 {
+    use Commentable;
     use SoftDeletes;
 
     public $table = 'images';
@@ -50,10 +51,4 @@ class Image extends Model
     {
         return '<img src="'.$this->path.'">';
     }
-
-    public function comments()
-    {
-        return $this->morphMany('App\Comment','commentable');
-    }
-    
 }

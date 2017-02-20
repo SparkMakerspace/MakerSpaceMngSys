@@ -38,7 +38,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Group extends Model
 {
-	use HasImage;
+    use Commentable;
+    use HasImage;
 	use SoftDeletes;
 
 	protected $dates = ['deleted_at'];
@@ -76,11 +77,6 @@ class Group extends Model
     public function removeEvent($event)
     {
         return $this->events()->detach($event);
-    }
-
-    public function comments()
-    {
-        return $this->morphMany('App\Comment','commentable');
     }
 
 }

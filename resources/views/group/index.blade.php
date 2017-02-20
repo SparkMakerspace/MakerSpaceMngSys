@@ -6,7 +6,7 @@
     @foreach($groups as $group)
         <a href="/g/{!!$group->stub!!}">
         <div class="info-box">
-            <span class="info-box-icon bg-red"><img src="{!!$group->image()->path!!}" alt="{!!$group->name!!}" ></span>
+            <span class="info-box-icon bg-red"><img src="{{Storage::url($group->image()->first()->path)}}" alt="{!!$group->name!!}" ></span>
             <div class="info-box-content">
                 <span class="info-box-text">{!!$group->name!!}</span>
                 <span class="progress-description">{!!$group->about!!}</span>
