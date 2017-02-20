@@ -46,32 +46,20 @@ class CommentController extends Controller
 
         $comment->user_id = \Auth::user()->id;
 
-        $comment->commentable_id = $request->id;
-
-        $comment->commentable_type = $request->type;
-
-
-
-
         $id = $request->id;
         $type = $request->type;
 
-       try{
-           $id = $request->id;
-           $type = $request->type;
+        $type::find($id)->comments()->save($comment);
 
-           $type::find($id)->comments()->save($comment);
-       }catch (Exception $e) {return redirect()->back();}
-
-        $pusher = App::make('pusher');
-
-        //default pusher notification.
-        //by default channel=test-channel,event=test-event
-        //Here is a pusher notification example when you create a new resource in storage.
-        //you can modify anything you want or use it wherever.
-        $pusher->trigger('test-channel',
-            'test-event',
-            ['message' => 'A new comment has been created !!']);
+//        $pusher = App::make('pusher');
+//
+//        //default pusher notification.
+//        //by default channel=test-channel,event=test-event
+//        //Here is a pusher notification example when you create a new resource in storage.
+//        //you can modify anything you want or use it wherever.
+//        $pusher->trigger('test-channel',
+//            'test-event',
+//            ['message' => 'A new comment has been created !!']);
 
         return redirect()->back();
     }

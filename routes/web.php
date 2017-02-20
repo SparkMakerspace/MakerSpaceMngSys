@@ -79,7 +79,7 @@ Route::group(['domain'=>'makerspacemngsys.dev'], function (){
 
     Route::group(['middleware'=>'web'],function (){
         Route::get('test',function () {
-            return view('partials.comments',['type'=>'app/posts','id'=>1]);
+            return view('partials.comments',['commentable'=>App\Post::first()]);
         });
     });
 

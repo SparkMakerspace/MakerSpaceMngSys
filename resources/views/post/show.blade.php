@@ -45,5 +45,5 @@
 
     </table>
 </section>
-    {!!$comments!!}
+    @include('partials.Comments',['commentable'=>$post])
 @endsection

@@ -74,4 +74,9 @@ class Resource extends Model
         return $this->events()->detach($event);
     }
 
+    public function comments()
+    {
+        return $this->morphMany('App\Comment','commentable');
+    }
+
 }

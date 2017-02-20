@@ -1,7 +1,10 @@
 {{--
 
 Drop down selector for a user.
-NOTE: cannot be instantiated more than once in the same form.
+
+Required Parameter:
+    $users: collection of users to select from
+        else, all users selectable
 
 Optional Parameters:
     $name: name of this instance
@@ -10,18 +13,12 @@ Optional Parameters:
         else, field label is "Select User"
     $selectedUser: the default selection
         else, no user selected
-    $users: collection of users to select from
-        else, all users selectable
 --}}
 
 @php
     if(!isset($selectedUser))
     {
     $selectedUser = null;
-    }
-    if(!isset($users))
-    {
-    $users = \App\User::all();
     }
     if(!isset($name))
     {
