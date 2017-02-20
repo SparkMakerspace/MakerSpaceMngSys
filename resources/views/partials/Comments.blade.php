@@ -19,10 +19,10 @@ Required Parameter:
             @foreach($commentable->comments  as $comment)
                 <div class="direct-chat-msg">
                     <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-left">{{$comment->user()->first()->name}}</span>
+                        <span class="direct-chat-name pull-left">{{$comment->user()->first()->username}}</span>
                         <span class="direct-chat-timestamp pull-right">{{ $comment->created_at }}</span>
                     </div><!-- /.direct-chat-info -->
-                    <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
+                    <img class="direct-chat-img" src="{{$comment->user()->first()->image()->path}}" alt="{{$comment->user()->first()->username}}"><!-- /.direct-chat-img -->
                     <div class="direct-chat-text">
                         {{ $comment->body}}
                     </div><!-- /.direct-chat-text -->
