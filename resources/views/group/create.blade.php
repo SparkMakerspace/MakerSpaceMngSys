@@ -6,11 +6,11 @@
     <h1>
         Create group
     </h1>
-    <form method = 'get' action = '{!!url("group")!!}'>
+    <form method = 'get' action = '{!!url("g")!!}'>
         <button class = 'btn btn-danger'>group Index</button>
     </form>
     <br>
-    <form method = 'POST' action = '{!!url("group")!!}'>
+    <form method = 'POST' action = '{!!url("g")!!}'>
         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
         <div class="form-group">
             <label for="name">name</label>

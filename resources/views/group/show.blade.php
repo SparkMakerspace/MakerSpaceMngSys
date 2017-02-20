@@ -7,7 +7,7 @@
         Show group
     </h1>
     <br>
-    <form method = 'get' action = '{!!url("group")!!}'>
+    <form method = 'get' action = '{!!url("g")!!}'>
         <button class = 'btn btn-primary'>group Index</button>
     </form>
     <br>
