@@ -33,7 +33,7 @@
                 <td>
                     <b><i>type : </i></b>
                 </td>
-                <td>{!!$resource->type!!}</td>
+                <td>{!!\App\resource_type::findOrfail($resource->type)->value!!}</td>
             </tr>
             <tr>
                 <td>
