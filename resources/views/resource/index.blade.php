@@ -25,7 +25,7 @@
             <tr>
                 <td>{!!$resource->name!!}</td>
                 <td>{!!$resource->location!!}</td>
-                <td>{!!$resource->type!!}</td>
+                <td>{!!\App\resource_type::findOrfail($resource->type)->value!!}</td>
                 <td>{!!$resource->description!!}</td>
                 <td>@if($resource->requiresAuth) Yes @else No @endif</td>
                 <td>

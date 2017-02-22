@@ -22,7 +22,12 @@
         </div>
         <div class="form-group">
             <label for="type">type</label>
-            <input id="type" name = "type" type="text" class="form-control">
+            <select id="type" class="form-control" name="type">
+                <option selected></option>
+                @foreach(\App\resource_type::all() as $resource_type)
+                    <option value="{{$resource_type->id}}">{{$resource_type->value}}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="description">description</label>
