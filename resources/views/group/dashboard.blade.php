@@ -7,8 +7,14 @@
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    What's Goin on in {{$group->name}}
+                    <div style="display: inline-block">
+                        <img src="{{Storage::url($group->image()->first()->path)}}" alt="{!!$group->name!!}" style="max-height: 200px;" >
+                    </div>
+                    <div style="display: inline-block">
+                        {!!$group->about!!}
+                    </div>
                 </div>
+
                 <div class="panel-body">
                     {!! $calendar->calendar() !!}
                     {!! $calendar->script() !!}
@@ -20,7 +26,10 @@
 @endsection
 
 @section('adminBar')
-    SOME JUNK GOES HERE FOR ADMINS
+    @hasanyrole(['superadmin','admin'])
+    <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/g/{!!$group->id!!}/edit'><i class = 'material-icons'>edit</i></a>
+    <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/g/{!!$group->stub!!}'><i class = 'material-icons'>info</i></a>
+    @endhasanyrole
 @endsection
 
 @push('jquery.ready')

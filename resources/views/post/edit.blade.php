@@ -1,6 +1,15 @@
 @extends('scaffold-interface.layouts.app')
 @section('title','Edit')
 @section('content')
+    <script src="{{url('/js/tinymce/tinymce.min.js')}}"></script>
+
+    <script>tinymce.init({
+            mode : "exact",
+            elements : "body",
+            height: 300,
+            menubar: 'edit insert view format table tools'
+        });
+    </script>
 
 <section class="content">
     <h1>

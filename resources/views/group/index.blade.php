@@ -61,3 +61,12 @@
 
 </section>
 @endsection
+
+
+@section('adminBar')
+    @hasanyrole(['superadmin','admin'])
+    <form class = 'col s3' method = 'get' action = '{!!url("g")!!}/create'>
+        <button class = 'btn btn-primary' type = 'submit'>Create New group</button>
+    </form>
+    @endhasanyrole
+@endsection
