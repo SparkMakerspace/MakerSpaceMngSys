@@ -1,6 +1,17 @@
 @extends('scaffold-interface.layouts.app')
 @section('title','Edit')
 @section('content')
+<script src="{{url('/js/tinymce/tinymce.min.js')}}"></script>
+
+<script>tinymce.init({
+        mode : "exact",
+        elements : "about",
+        height: 500,
+        menubar: 'edit insert view format table tools'
+    });
+</script>
+
+
 
 <section class="content">
     <h1>
@@ -15,8 +26,7 @@
         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
         <div class="form-group">
             <label for="name">name</label>
-            <input id="name" name = "name" type="text" class="form-control" value="{!!$group->
-            name!!}"> 
+            <input id="name" name = "name" type="text" class="form-control" value="{!!$group->name!!}">
         </div>
         <div class="form-group">
             <label for="stub">stub</label>
@@ -25,13 +35,13 @@
         </div>
         <div class="form-group">
             <label for="about">about</label>
-            <input id="about" name = "about" type="text" class="form-control" value="{!!$group->
-            about!!}"> 
+            <textarea  id="about" name = "about" type="text" class="form-control" value="{!!$group->
+            about!!}"></textarea>
         </div>
         <div class="form-group">
             <label for="image">image</label>
             <input id="image" name = "image" type="text" class="form-control" value="{!!$group->
-            image!!}"> 
+            image->id!!}">
         </div>
         <div class="form-group">
             <label for="contactUser">contactUser</label>
