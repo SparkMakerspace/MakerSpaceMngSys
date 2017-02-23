@@ -1,5 +1,5 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Edit')
+@section('title','Group - Edit')
 @section('content')
 <script src="{{url('/js/tinymce/tinymce.min.js')}}"></script>
 

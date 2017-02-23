@@ -1,5 +1,5 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Edit')
+@section('title','Equipment and Resources - Edit')
 @section('content')
 
 <section class="content">
@@ -40,3 +40,14 @@
     </form>
 </section>
 @endsection
+
+@section('adminBar')
+    @hasanyrole(['superadmin','admin'])
+    <form class = 'col s3' method = 'get' action = '{!!url("g")!!}/create'>
+        <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/resource/{!!$resource->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
+        <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/resource/{!!$resource->id!!}/edit'><i class = 'material-icons'>edit</i></a>
+        <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/resource/{!!$resource->id!!}'><i class = 'material-icons'>info</i></a>
+    </form>
+    @endhasanyrole
+@endsection
+

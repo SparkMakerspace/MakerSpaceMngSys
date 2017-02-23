@@ -1,13 +1,10 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Index')
 @section('content')
 
 <section class="content">
-    <h1>
-        Resource Index
-    </h1>
     <form class = 'col s3' method = 'get' action = '{!!url("resource")!!}/create'>
         <button class = 'btn btn-primary' type = 'submit'>Create New resource</button>
+        <a href = '{!!url('/resource_type')!!}' class = 'btn btn-danger' >Manage Resource Types</a>
     </form>
     <br>
     <br>
@@ -23,7 +20,7 @@
         <tbody>
             @foreach($resources as $resource) 
             <tr>
-                <td>{!!$resource->name!!}</td>
+                <td><a href =  '{!!url('resource')!!}/{!!$resource->id!!}'>{!!$resource->name!!}</a></td>
                 <td>{!!$resource->location!!}</td>
                 <td>{!!\App\resource_type::findOrfail($resource->type)->value!!}</td>
                 <td>{!!$resource->description!!}</td>
@@ -41,3 +38,5 @@
 
 </section>
 @endsection
+
+

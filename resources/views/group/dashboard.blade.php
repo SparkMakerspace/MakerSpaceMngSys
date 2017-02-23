@@ -1,5 +1,5 @@
 @extends('scaffold-interface.layouts.app')
-@section('title')
+@section('title') Group -
     {{$group->name}}
 @endsection
 @section('content')
@@ -27,6 +27,7 @@
 
 @section('adminBar')
     @hasanyrole(['superadmin','admin'])
+    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/g/{!!$group->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
     <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/g/{!!$group->id!!}/edit'><i class = 'material-icons'>edit</i></a>
     <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/g/{!!$group->stub!!}'><i class = 'material-icons'>info</i></a>
     @endhasanyrole

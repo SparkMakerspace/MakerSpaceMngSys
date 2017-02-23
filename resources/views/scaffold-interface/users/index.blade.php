@@ -9,15 +9,19 @@
 		<a href="{{url('/users/create')}}" class = "btn btn-success"><i class="fa fa-plus fa-md" aria-hidden="true"></i> New</a>
 		<table class = "table table-hover">
 		<thead>
+			<th>Actions</th>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Roles</th>
 			<th>Permissions</th>
-			<th>Actions</th>
 		</thead>
 		<tbody>
 			@foreach($users as $user)
 			<tr>
+				<td>
+					<a href="{{url('/users/edit')}}/{{$user->id}}" class = 'btn btn-primary btn-sm'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+					<a href="{{url('users/delete')}}/{{$user->id}}" class = "btn btn-danger btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+				</td>
 				<td>{{$user->name}}</td>
 				<td>{{$user->email}}</td>
 				<td>
@@ -37,10 +41,6 @@
 				@else
 					<small class = 'label bg-red'>No Permissions</small>
 				@endif
-				</td>
-				<td>
-					<a href="{{url('/users/edit')}}/{{$user->id}}" class = 'btn btn-primary btn-sm'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-					<a href="{{url('users/delete')}}/{{$user->id}}" class = "btn btn-danger btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 				</td>
 			</tr>
 			@endforeach

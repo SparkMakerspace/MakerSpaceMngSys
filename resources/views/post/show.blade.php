@@ -1,10 +1,10 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Show')
+@section('title','Post - View')
 @section('content')
 
 <section class="content">
     <h1>
-        Show post
+        <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/post/{!!$post->id!!}/edit'><i class = 'material-icons'>edit</i></a>
     </h1>
     <br>
     <form method = 'get' action = '{!!url("post")!!}'>

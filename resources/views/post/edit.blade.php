@@ -1,5 +1,5 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Edit')
+@section('title','Posts - Edit')
 @section('content')
     <script src="{{url('/js/tinymce/tinymce.min.js')}}"></script>
 
@@ -13,7 +13,7 @@
 
 <section class="content">
     <h1>
-        Edit post
+        <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/post/{!!$post->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
     </h1>
     <form method = 'get' action = '{!!url("post")!!}'>
         <button class = 'btn btn-danger'>post Index</button>
