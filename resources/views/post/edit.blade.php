@@ -40,7 +40,7 @@
         <div class="form-group">
             <label for="image">image</label>
             <input id="image" name = "image" type="text" class="form-control" value="{!!$post->
-            image!!}"> 
+            image->id!!}">
         </div>
         <button class = 'btn btn-primary' type ='submit'>Update</button>
     </form>
