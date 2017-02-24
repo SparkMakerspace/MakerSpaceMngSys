@@ -115,6 +115,10 @@ class ResourceController extends Controller
         if(!is_null($id)) {
             $title = 'Edit Resource';
             $submit = 'Update';
+            if($request->ajax())
+            {
+                return URL::to('resource/'. $id . '/edit');
+            }
         }
         else {
             $title = 'Create Resource';
