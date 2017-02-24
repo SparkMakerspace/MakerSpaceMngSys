@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -61,7 +62,7 @@ class PostController extends Controller
         $post->body = $request->body;
 
         
-        $post->image = $request->image;
+        $post->image()->associate(Image::findOrFail($request->image));
 
         
         
@@ -135,8 +136,10 @@ class PostController extends Controller
         $post->title = $request->title;
         
         $post->body = $request->body;
-        
-        $post->image = $request->image;
+
+        $post->image()->dissociate();
+        $post->image()->associate(Image::findOrFail($request->id));
+//        $post->image = $request->image;
         
         
         $post->save();
