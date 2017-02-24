@@ -137,7 +137,7 @@
 
                 <li class="treeview"><a href="{{url('./comment/')}}"></i> <span>Comments</span></a></li>
 
-                <li class="treeview"><a href="{{url('./Door/')}}"></i> <span>Doors</span></a></li>
+                <li class="treeview"><a href="{{url('./door/')}}"></i> <span>Doors</span></a></li>
 
                 <li class="treeview"><a href="{{url('./image/')}}"></i> <span>Images</span></a></li>
 
