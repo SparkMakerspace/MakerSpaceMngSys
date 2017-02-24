@@ -115,17 +115,18 @@ class ResourceController extends Controller
         if(!is_null($id)) {
             $title = 'Edit Resource';
             $submit = 'Update';
+            $resource = Resource::firstOrNew(['id'=>$id]);
             if($request->ajax())
             {
                 return URL::to('resource/'. $id . '/edit');
             }
+            return view('resource.edit', compact('title','resource','submit'));
         }
         else {
             $title = 'Create Resource';
             $submit = 'Create';
+            return view('resource.edit', compact('title','submit'));
         }
-        $resource = Resource::firstOrNew(['id'=>$id]);
-        return view('resource.edit', compact('title','resource','submit'));
     }
 
     /**

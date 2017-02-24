@@ -11,7 +11,11 @@
     </form>
     <br>
 
-    {!! Form::model($resource, ['action' => ['ResourceController@update', $resource->id]]) !!}
+    @if(isset($resource))
+        {!! Form::model($resource, ['action' => ['ResourceController@update', $resource->id]]) !!}
+    @else
+        {!! Form::open(['action' => 'ResourceController@store']) !!}
+    @endif
     <div class="form-group">
         {!! Form::label('name', 'Name') !!}
         {!! Form::text('name') !!}
