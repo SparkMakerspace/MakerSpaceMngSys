@@ -12,11 +12,6 @@
     <br>
 
     {!! Form::model($resource, ['action' => ['ResourceController@update', $resource->id]]) !!}
-
-    <div class="form-group">
-        {!! Form::label('id', 'Recorrd ID') !!}
-        {!! Form::text('id') !!}
-    </div>
     <div class="form-group">
         {!! Form::label('name', 'Name') !!}
         {!! Form::text('name') !!}
@@ -30,38 +25,14 @@
         {!! Form::text('description') !!}
     </div>
     <div class="form-group">
-        {!! Form::label('description', 'Description') !!}
-        {!! Form::text('description') !!}
+        {!! Form::label('requiresAuth', 'Required Training') !!}
+        {!! Form::checkbox('requiresAuth', 'value') !!}
     </div>
 
-    {{--<form method = 'POST' action = '{!! url("resource")!!}/{!!$resource->--}}
-        {{--id!!}/update'> --}}
-        {{--<input type = 'hidden' name = '_token' value = '{{Session::token()}}'>--}}
-        {{--<div class="form-group">--}}
-            {{--<label for="name">name</label>--}}
-            {{--<input id="name" name = "name" type="text" class="form-control" value="{!!$resource->--}}
-            {{--name!!}"> --}}
-        {{--</div>--}}
-        {{--<div class="form-group">--}}
-            {{--<label for="location">location</label>--}}
-            {{--<input id="location" name = "location" type="text" class="form-control" value="{!!$resource->--}}
-            {{--location!!}"> --}}
-        {{--</div>--}}
-        {{--<div class="form-group">--}}
-            {{--<label for="type">type</label>--}}
-            {{--<input id="type" name = "type" type="text" class="form-control" value="{!!$resource->--}}
-            {{--type!!}"> --}}
-        {{--</div>--}}
-        {{--<div class="form-group">--}}
-            {{--<label for="description">description</label>--}}
-            {{--<input id="description" name = "description" type="text" class="form-control" value="{!!$resource->--}}
-            {{--description!!}"> --}}
-        {{--</div>--}}
-        {{--<div class="checkbox">--}}
-            {{--<label><input type="checkbox" name="requiresAuth" value="true">Requires Training</label>--}}
-        {{--</div>--}}
-        {{--<button class = 'btn btn-primary' type ='submit'>Update</button>--}}
-    {{--</form>--}}
+    <div class="form-group">
+        {!! Form::submit('Submit') !!}
+    </div>
+
 
 
     {!! Form::close() !!}
