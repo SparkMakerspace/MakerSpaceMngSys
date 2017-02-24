@@ -36,9 +36,7 @@ class ResourceController extends Controller
      */
     public function create()
     {
-        $title = 'Create - resource';
-        
-        return view('resource.create');
+        $this->edit();
     }
 
     /**
@@ -112,17 +110,16 @@ class ResourceController extends Controller
      * @param    int  $id
      * @return  \Illuminate\Http\Response
      */
-    public function edit($id,Request $request)
+    public function edit($id = null,Request $request = null)
     {
-        $title = 'Edit - resource';
-        if($request->ajax())
-        {
-            return URL::to('resource/'. $id . '/edit');
+        if($id) {
+            $title = 'Edit Resource';
         }
-
-        
-        $resource = Resource::findOrfail($id);
-        return view('resource.edit',compact('title','resource'  ));
+        else {
+            $title = 'Create Resource';
+        }
+        $resource = Resource::firstOrNew($id);
+        return view('resource.edit', compact('title','resource'));
     }
 
     /**
@@ -132,7 +129,7 @@ class ResourceController extends Controller
      * @param    int  $id
      * @return  \Illuminate\Http\Response
      */
-    public function update($id,Request $request)
+    public function update($id = null,Request $request)
     {
         $resource = Resource::findOrfail($id);
     	
