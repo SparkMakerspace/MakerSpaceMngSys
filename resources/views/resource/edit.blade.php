@@ -4,7 +4,7 @@
 
 <section class="content">
     <h1>
-        Edit resource
+        {{$title}}
     </h1>
     <form method = 'get' action = '{!!url("resource")!!}'>
         <button class = 'btn btn-danger'>resource Index</button>
@@ -14,23 +14,23 @@
     {!! Form::model($resource, ['action' => ['ResourceController@update', $resource->id]]) !!}
 
     <div class="form-group">
-        {!! Form::label('id', 'Recorrd ID'); !!}
+        {!! Form::label('id', 'Recorrd ID') !!}
         {!! Form::text('id') !!}
     </div>
     <div class="form-group">
-        {!! Form::label('name', 'Name'); !!}
+        {!! Form::label('name', 'Name') !!}
         {!! Form::text('name') !!}
     </div>
     <div class="form-group">
-        {!! Form::label('type', 'Type'); !!}
+        {!! Form::label('type', 'Type') !!}
         {!! Form::text('type') !!}
     </div>
     <div class="form-group">
-        {!! Form::label('description', 'Description'); !!}
+        {!! Form::label('description', 'Description') !!}
         {!! Form::text('description') !!}
     </div>
     <div class="form-group">
-        {!! Form::label('description', 'Description'); !!}
+        {!! Form::label('description', 'Description') !!}
         {!! Form::text('description') !!}
     </div>
 
