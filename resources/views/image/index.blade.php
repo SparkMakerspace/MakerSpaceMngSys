@@ -7,9 +7,11 @@
         <h1>
             Uploaded Images
         </h1>
+        @if(Auth::check())
         <form class = 'col s3' method = 'get' action = '{!!url("image")!!}/create'>
             <button class = 'btn btn-primary' type = 'submit'>Upload New Image</button>
         </form>
+        @endif
         <br>
         <br>
         <div class="row">
