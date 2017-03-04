@@ -11,6 +11,19 @@ class userSeeder extends Seeder
      */
     public function run()
     {
+
+        $builtIn = ['email'=>'builtin@mail.com',
+            'name'=>'Built In Account',
+            'username'=>'builtIn',
+            'password'=>'secret',
+            'address1'=>'',
+            'address2'=>'',
+            'city'=>'',
+            'state'=>'',
+            'zipcode'=>'',
+            'phone'=>'(000) 000-0000'
+        ];
+
         $john = ['email'=>'john@scimone.net',
             'name'=>'John Scimone',
             'username'=>'jjfs85',
@@ -35,7 +48,7 @@ class userSeeder extends Seeder
             'phone'=>'(860) 123-0000'
         ];
         
-        $users = [$john,$mike];
+        $users = [$builtIn,$john,$mike];
         
         foreach ($users as $u) {
             $user = new \App\User;

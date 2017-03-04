@@ -1,4 +1,5 @@
+@extends('scaffold-interface.layouts.app')
 
-    @foreach($widgets as $widget)
-        {!! $widget !!}
-    @endforeach
+@section('content')
+    <img src="{{url(asset(\App\Image::first()->path))}}">
+@endsection
