@@ -8,7 +8,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div>
-                        <img src="{{url(asset($group->image()->first()->path))}}" alt="{!!$group->name!!}" style="max-height: 200px;" >
+                        <div style="width: 40px">
+                            @if ($group->image_id != null)
+                                <img src="{{url(asset($group->image->path))}}" alt="{!!$group->name!!}">
+                            @else
+                                <img src="{{url(asset(App\Image::whereName('groupNoImage.svg')->first()->path))}}" alt="{!! $group->name !!}">
+                            @endif
+                        </div>
                         {!!$group->about!!}
                     </div>
 
