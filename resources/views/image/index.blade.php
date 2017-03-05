@@ -18,8 +18,8 @@
             @foreach($images as $image)
                 <div class="col-md-2">
                     <div class="thumbnail" style="overflow: hidden;">
-                        <a href="{{Storage::url($image->path)}}">
-                            <img src="{{Storage::url($image->path)}}" style="width: 100%;">
+                        <a href="{{url(asset($image->path))}}">
+                            <img src="{{url(asset($image->path))}}" style="width: 100%;">
                             <div class="caption">
                                 <p>{{$image->originalname}}</p>
                                 <p><b>{{$image->user()->first()->name}}</b></p>
