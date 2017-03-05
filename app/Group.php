@@ -35,6 +35,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $image_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
  * @method static \Illuminate\Database\Query\Builder|\App\Group whereImageId($value)
+ * @property int $user_id
+ * @method static \Illuminate\Database\Query\Builder|\App\Group whereUserId($value)
  */
 class Group extends Model
 {
@@ -77,6 +79,24 @@ class Group extends Model
     public function removeEvent($event)
     {
         return $this->events()->detach($event);
+    }
+
+    public static function create(array $attributes = [])
+    {
+        if (!array_has($attributes,'image_id')) {
+            return parent::create($attributes);
+        } else {
+            array_push($attributes,['image_id'=>Image::whereName('groupNoImage.svg')->first()->id]);
+            return parent::create($attributes);
+        }
+    }
+
+    public function save(array $options = [])
+    {
+        if (is_null($this->image_id)){
+            $this->image_id = Image::whereName('groupNoImage.svg')->first()->id;
+        }
+        return parent::save($options);
     }
 
 }

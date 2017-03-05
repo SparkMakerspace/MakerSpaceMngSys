@@ -53,6 +53,7 @@ use MaddHatter\LaravelFullcalendar\IdentifiableEvent;
  * @property int $image_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
  * @method static \Illuminate\Database\Query\Builder|\App\Event whereImageId($value)
+ * @property-read \App\Image $image
  */
 class Event extends Model implements IdentifiableEvent
 {

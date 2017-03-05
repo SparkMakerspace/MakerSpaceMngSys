@@ -7,13 +7,10 @@
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div style="display: inline-block">
-                        <img src="{{Storage::url($group->image()->first()->path)}}" alt="{!!$group->name!!}" style="max-height: 200px;" >
-                    </div>
-                    <div style="display: inline-block">
+                    <div>
+                        <img src="{{url(asset($group->image()->first()->path))}}" alt="{!!$group->name!!}" style="max-height: 200px;" >
                         {!!$group->about!!}
                     </div>
-                </div>
 
                 <div class="panel-body">
                     {!! $calendar->calendar() !!}

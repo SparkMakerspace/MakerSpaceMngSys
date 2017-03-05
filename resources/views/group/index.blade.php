@@ -7,7 +7,7 @@
         <a href="/g/{!!$group->stub!!}">
         <div class="info-box">
             <span class="info-box-icon bg-red">
-                <img src="{{url(asset($group->image()->path))}}" alt="{!!$group->name!!}">
+                <img src="{{url(asset($group->image->path))}}" alt="{!!$group->name!!}">
             </span>
             <div class="info-box-content">
                 <span class="info-box-text">{!!$group->name!!}</span>

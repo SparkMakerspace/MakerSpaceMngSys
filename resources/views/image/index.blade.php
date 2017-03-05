@@ -22,7 +22,8 @@
                             <img src="{{url(asset($image->path))}}" style="width: 100%;">
                             <div class="caption">
                                 <p>{{$image->name}}</p>
-                                <p><b>{{$image->user()->first()->name}}</b></p>
+                                <p>{{$image->description}}</p>
+                                <p><b>{{$image->user->name}}</b></p>
                             </div>
                         </a>
                     </div>
