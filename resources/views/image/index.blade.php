@@ -21,7 +21,8 @@
                         <a href="{{url(asset($image->path))}}">
                             <img src="{{url(asset($image->path))}}" style="width: 100%;">
                             <div class="caption">
-                                <p>{{$image->originalname}}</p>
+                                <p>{{$image->name}}</p>
+                                <p>{{$image->description}}</p>
                                 <p><b>{{$image->user()->first()->name}}</b></p>
                             </div>
                         </a>
