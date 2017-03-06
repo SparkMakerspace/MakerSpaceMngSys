@@ -24,7 +24,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue">
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="{{url('/js/moment.js')}}"></script>
 <script src="{{url('/js/fullcalendar.js')}}"></script>
@@ -71,13 +71,13 @@
                     @if(Auth::user())
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="http://ahloman.net/wp-content/uploads/2013/06/user.jpg" class="user-image" alt="User Image">
+                                <img src="{{url(Auth::user()->image->path)}}" class="user-image" alt="User Image">
                                 <span class="hidden-xs">{{Auth::user()->name}}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="http://ahloman.net/wp-content/uploads/2013/06/user.jpg" class="img-circle" alt="User Image">
+                                    <img src="{{url(Auth::user()->image->path)}}" class="img-circle" alt="User Image">
                                     <p>
                                         {{Auth::user()->name}}
                                     </p>
@@ -110,17 +110,6 @@
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
-        {{--<!-- search form -->--}}
-        {{--<form action="#" method="get" class="sidebar-form">--}}
-        {{--<div class="input-group">--}}
-        {{--<input type="text" name="q" class="form-control" placeholder="Search...">--}}
-        {{--<span class="input-group-btn">--}}
-        {{--<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>--}}
-        {{--</button>--}}
-        {{--</span>--}}
-        {{--</div>--}}
-        {{--</form>--}}
-        {{--<!-- /.search form -->--}}
         <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 {{--<li class="header">MAIN NAVIGATION</li>--}}

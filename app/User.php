@@ -224,4 +224,22 @@ class User extends Authenticatable
         return $this->hasMany('App\Comment');
     }
 
+    public static function create(array $attributes = [])
+    {
+        if (!array_has($attributes,'image_id')) {
+            return parent::create($attributes);
+        } else {
+            $attributes['image_id'] = Image::whereName('userNoImage.svg')->first()->id;
+            return parent::create($attributes);
+        }
+    }
+
+    public function save(array $options = [])
+    {
+        if (is_null($this->image_id)){
+            $this->image_id = Image::whereName('userNoImage.svg')->first()->id;
+        }
+        return parent::save($options);
+    }
+
 }

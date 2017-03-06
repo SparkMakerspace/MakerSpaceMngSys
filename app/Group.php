@@ -86,7 +86,7 @@ class Group extends Model
         if (!array_has($attributes,'image_id')) {
             return parent::create($attributes);
         } else {
-            array_push($attributes,['image_id'=>Image::whereName('groupNoImage.svg')->first()->id]);
+            $attributes['image_id'] = Image::whereName('groupNoImage.svg')->first()->id;
             return parent::create($attributes);
         }
     }

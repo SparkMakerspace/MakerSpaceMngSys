@@ -1,5 +1,10 @@
 @extends('scaffold-interface.layouts.app')
 @section('title','Posts - Edit')
+@section('adminBar')
+    @hasanyrole(['superadmin','admin'])
+    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/post/{!!$post->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
+    @endhasanyrole
+@endsection
 @section('content')
     <script src="{{url('/js/tinymce/tinymce.min.js')}}"></script>
 
@@ -12,9 +17,6 @@
     </script>
 
 <section class="content">
-    <h1>
-        <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/post/{!!$post->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
-    </h1>
     <form method = 'get' action = '{!!url("post")!!}'>
         <button class = 'btn btn-danger'>post Index</button>
     </form>

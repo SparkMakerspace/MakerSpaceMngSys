@@ -63,11 +63,8 @@ class Event extends Model implements IdentifiableEvent
 
 	protected $dates = ['deleted_at','startDateTime','endDateTime'];
 
-
     protected $dateFormat = 'Y-m-d H:i:s';
 
-
-	
     protected $table = 'events';
 
     /**
@@ -180,5 +177,17 @@ class Event extends Model implements IdentifiableEvent
     public function removeAttendee($user)
     {
         return $this->attendees()->detach($user);
+    }
+
+    /**
+     * Optional FullCalendar.io settings for this event
+     *
+     * @return array
+     */
+    public function getEventOptions()
+    {
+        return [
+            'url' => url('event/'.$this->id)
+        ];
     }
 }

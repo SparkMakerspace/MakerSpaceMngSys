@@ -7,7 +7,7 @@
 <li class="treeview"><a href="{{url('./g/')}}"></i> <span>Groups</span></a></li>
 <li class="treeview"><a href="{{url('./post/')}}"></i> <span>Posts</span></a></li>
 <li class="treeview"><a href="{{url('./resource/')}}"></i> <span>Resources</span></a></li>
-
+<li class="treeview"><a href="{{url('./event/')}}"></i> <span>Events</span></a></li>
 <li class="treeview"><a href="{{url('./comment/')}}"></i> <span>Comments</span></a></li>
 
 <li class="treeview"><a href="{{url('./door/')}}"></i> <span>Doors</span></a></li>

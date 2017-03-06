@@ -50,7 +50,7 @@ class Events extends Migration
 
         $table->integer('nonMemberAttendees')->default(0);
 
-        $table->integer('image_id');
+        $table->integer('image_id')->nullable();
         
         /**
          * Foreignkeys section

@@ -1,11 +1,15 @@
 @extends('scaffold-interface.layouts.app')
 @section('title','Post - View')
+@section('adminBar')
+    @hasanyrole(['superadmin','admin'])
+    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/post/{!!$post->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
+    <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/post/{!!$post->id!!}/edit'><i class = 'material-icons'>edit</i></a>
+    @endhasanyrole
+@endsection
 @section('content')
 
 <section class="content">
-    <h1>
-        <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/post/{!!$post->id!!}/edit'><i class = 'material-icons'>edit</i></a>
-    </h1>
+
     <br>
     <form method = 'get' action = '{!!url("post")!!}'>
         <button class = 'btn btn-primary'>post Index</button>
