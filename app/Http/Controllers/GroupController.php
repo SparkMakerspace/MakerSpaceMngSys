@@ -197,8 +197,8 @@ class GroupController extends Controller
             'eventClick'=> 'function(calEvent, jsEvent, view) {
         window.location.assign(calEvent.url);
     }'])->setOptions([
-        'defaultView'=>'listMonth',
-            'header'=>['left'=>'title','center'=>'','right'=>'today prev,next']
+        'defaultView'=>'month',
+            'header'=>['left'=>'title','center'=>'','right'=>'today prev,next'],
         ]);
         $posts = [];
         return view('group.dashboard')->with(compact('calendar','posts','group'));

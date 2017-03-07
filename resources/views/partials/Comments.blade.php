@@ -16,7 +16,7 @@ Required Parameter:
         <!-- Conversations are loaded here -->
         <div >
 
-            @foreach($commentable->comments  as $comment)
+            @forelse($commentable->comments  as $comment)
                 <div class="direct-chat-msg">
                     <div class="direct-chat-info clearfix">
                         <span class="direct-chat-name pull-left">{{$comment->user()->first()->username}}</span>
@@ -27,7 +27,9 @@ Required Parameter:
                         {{ $comment->body}}
                     </div><!-- /.direct-chat-text -->
                 </div><!-- /.direct-chat-msg -->
-            @endforeach
+            @empty
+                No Comments Yet
+            @endforelse
 
         </div><!-- /.box-body -->
         @can('create comments')

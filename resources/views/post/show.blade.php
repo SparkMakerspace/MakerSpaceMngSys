@@ -48,6 +48,6 @@
         </tbody>
 
     </table>
-</section>
     @include('partials.Comments',['commentable'=>$post])
+</section>
 @endsection
