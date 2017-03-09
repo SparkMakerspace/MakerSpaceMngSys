@@ -1,50 +1,78 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Posts - Edit')
-@section('adminBar')
-    @hasanyrole(['superadmin','admin'])
-    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/post/{!!$post->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
-    @endhasanyrole
-@endsection
+@section('title','Post - Edit')
 @section('content')
+
     <script src="{{url('/js/tinymce/tinymce.min.js')}}"></script>
 
     <script>tinymce.init({
             mode : "exact",
             elements : "body",
-            height: 300,
+            height: 200,
             menubar: 'edit insert view format table tools'
         });
     </script>
 
-<section class="content">
-    <form method = 'get' action = '{!!url("post")!!}'>
-        <button class = 'btn btn-danger'>post Index</button>
-    </form>
-    <br>
-    <form method = 'POST' action = '{!! url("post")!!}/{!!$post->
-        id!!}/update'> 
-        <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
+    <section class="content">
+        <h1>
+            {{$title}}
+        </h1>
+        <form method = 'get' action = '{!!url("post")!!}'>
+            <button class = 'btn btn-danger'>Post Index</button>
+        </form>
+        <br>
+
+        @if(isset($post))
+            {!! Form::model($post, ['action' => ['PostController@update', $post->id]]) !!}
+        @else
+            {!! Form::open(['action' => 'PostController@store']) !!}
+        @endif
         <div class="form-group">
-            <label for="posted_at">posted_at</label>
-            <input id="posted_at" name = "posted_at" type="text" class="form-control" value="{!!$post->
-            posted_at!!}"> 
+            {!! Form::label('title', 'Title:') !!}
+            {!! Form::text('title',null,['class'=>'form-control']) !!}
         </div>
         <div class="form-group">
-            <label for="title">title</label>
-            <input id="title" name = "title" type="text" class="form-control" value="{!!$post->
-            title!!}"> 
+            {!! Form::label('body', 'Body:') !!}
+            {!! Form::textarea('body',null,['class'=>'form-control']) !!}
         </div>
         <div class="form-group">
-            <label for="body">body</label>
-            <input id="body" name = "body" type="text" class="form-control" value="{!!$post->
-            body!!}"> 
+            {!! Form::label('posted_at','Publish post at:') !!}
+            @include('partials.datePicker',['fieldName'=>'posted_at'])
         </div>
         <div class="form-group">
-            <label for="image">image</label>
-            <input id="image" name = "image" type="text" class="form-control" value="{!!$post->
-            image->id!!}">
+            {!! Form::label('group','Post in groups:') !!}
+            @if(isset($post))
+                @include('partials.groupSelector',['selectedGroups'=>$post->groups])
+            @else
+                @include('partials.groupSelector')
+            @endif
         </div>
-        <button class = 'btn btn-primary' type ='submit'>Update</button>
-    </form>
-</section>
+
+
+        <div class="form-group">
+            {!! Form::submit('Submit') !!}
+        </div>
+
+        <script>
+            $(function () {
+                $('#posted_at').datetimepicker({
+                    format: 'YYYY-MM-DD HH:mm'
+                });
+            });
+        </script>
+
+
+        {!! Form::close() !!}
+    </section>
+@endsection
+
+@section('adminBar')
+    @hasanyrole(['superadmin','admin'])
+    @if(isset($post))
+        <form class = 'col s3' method = 'get' action = '{!!url("g")!!}/create'>
+            <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/post/{!!$post->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
+            <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/post/{!!$post->id!!}/edit'><i class = 'material-icons'>edit</i></a>
+            <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/post/{!!$post->id!!}'><i class = 'material-icons'>info</i></a>
+        </form>
+    @endif
+    @endhasanyrole
 @endsection

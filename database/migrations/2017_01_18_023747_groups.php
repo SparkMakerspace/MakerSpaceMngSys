@@ -28,7 +28,7 @@ class Groups extends Migration
         
         $table->longText('about');
         
-        $table->integer('user_id')->nullable();
+        $table->longText('contactInfo')->nullable();
         
         $table->String('visibility')->default('all');
 

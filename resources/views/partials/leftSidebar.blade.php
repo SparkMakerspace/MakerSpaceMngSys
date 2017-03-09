@@ -3,7 +3,6 @@
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
     </a>
 </li>
-<li class="treeview"><a href="{{url('./event')}}"></i> <span>Calendar</span></a></li>
 <li class="treeview"><a href="{{url('./g/')}}"></i> <span>Groups</span></a></li>
 <li class="treeview"><a href="{{url('./post/')}}"></i> <span>Posts</span></a></li>
 <li class="treeview"><a href="{{url('./resource/')}}"></i> <span>Resources</span></a></li>

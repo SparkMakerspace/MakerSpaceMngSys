@@ -52,7 +52,7 @@ class Post extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User','posts_users');
     }
 
     /**
@@ -75,4 +75,36 @@ class Post extends Model
     {
         return $this->users()->detach($user);
     }
+
+	/**
+     * group.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function groups()
+    {
+        return $this->belongsToMany('App\Group','groups_posts');
+    }
+
+    /**
+     * Assign a group.
+     *
+     * @param  $group
+     * @return  mixed
+     */
+    public function assignGroup($group)
+    {
+        return $this->groups()->attach($group);
+    }
+    /**
+     * Remove a group.
+     *
+     * @param  $group
+     * @return  mixed
+     */
+    public function removeGroup($group)
+    {
+        return $this->groups()->detach($group);
+    }
+
 }

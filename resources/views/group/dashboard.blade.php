@@ -54,9 +54,11 @@
                     <ul class="products-list">
                         @foreach($posts as $post)
                         <li class="item">
+                            @if($post->image()->first())
                             <div class="product-img">
                                 <img src="{{url($post->image()->first()->path)}}">
                             </div>
+                            @endif
                             <div class="product-info">
                                 {{$post->title}}
                                 <span class="pull-right">

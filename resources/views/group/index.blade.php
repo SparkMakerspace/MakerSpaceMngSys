@@ -45,7 +45,7 @@
                 <td>{!!$group->name!!}</td>
                 <td>{!!$group->stub!!}</td>
                 <td>{!!$group->about!!}</td>
-                <td>{!!$group->image!!}</td>
+                <td><img src="{!!$group->image->path!!}"></td>
                 <td>{!!$group->contactUser!!}</td>
                 <td>{!!$group->visibility!!}</td>
                 <td>

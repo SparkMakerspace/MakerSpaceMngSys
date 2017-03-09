@@ -99,4 +99,36 @@ class Group extends Model
         return parent::save($options);
     }
 
+
+	/**
+     * post.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function posts()
+    {
+        return $this->belongsToMany('App\Post','groups_posts');
+    }
+
+    /**
+     * Assign a post.
+     *
+     * @param  $post
+     * @return  mixed
+     */
+    public function assignPost($post)
+    {
+        return $this->posts()->attach($post);
+    }
+    /**
+     * Remove a post.
+     *
+     * @param  $post
+     * @return  mixed
+     */
+    public function removePost($post)
+    {
+        return $this->posts()->detach($post);
+    }
+
 }

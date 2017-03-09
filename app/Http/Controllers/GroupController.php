@@ -69,8 +69,6 @@ class GroupController extends Controller
 
         $group->visibility = $request->visibility;
 
-
-
         $group->save();
 
         $pusher = App::make('pusher');
@@ -200,7 +198,7 @@ class GroupController extends Controller
         'defaultView'=>'month',
             'header'=>['left'=>'title','center'=>'','right'=>'today prev,next'],
         ]);
-        $posts = [];
+        $posts = $group->posts()->paginate(8);
         return view('group.dashboard')->with(compact('calendar','posts','group'));
     }
 }

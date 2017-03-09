@@ -156,7 +156,7 @@ class User extends Authenticatable
      */
     public function posts()
     {
-        return $this->belongsToMany('App\Post')->withPivot('postOwner');
+        return $this->belongsToMany('App\Post','posts_users')->withPivot('postOwner');
     }
 
     /**

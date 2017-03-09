@@ -37,9 +37,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $title = 'Create - post';
-        
-        return view('post.create');
+        return $this->edit();
     }
 
     /**
@@ -62,11 +60,11 @@ class PostController extends Controller
         $post->body = $request->body;
 
         
-        $post->image()->associate(Image::findOrFail($request->image));
-
-        
+        $post->image()->associate(Image::find($request->image));
         
         $post->save();
+
+        $post->groups()->sync($request->group);
 
         $pusher = App::make('pusher');
 
@@ -101,23 +99,23 @@ class PostController extends Controller
         return view('post.show',compact('title','post'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param    \Illuminate\Http\Request  $request
-     * @param    int  $id
-     * @return  \Illuminate\Http\Response
-     */
-    public function edit($id,Request $request)
+    public function edit($id = null, Request $request = null)
     {
-        $title = 'Edit - post';
-        if($request->ajax())
-        {
-            return URL::to('post/'. $id . '/edit');
+        if(!is_null($id)) {
+            $title = 'Edit Post';
+            $submit = 'Update';
+            $post = Post::firstOrNew(['id'=>$id]);
+            if($request->ajax())
+            {
+                return URL::to('post/'. $id . '/edit');
+            }
+            return view('post.edit', compact('title','post','submit'));
         }
-
-        
-        $post = Post::findOrfail($id);
-        return view('post.edit',compact('title','post'));
+        else {
+            $title = 'Create Post';
+            $submit = 'Create';
+            return view('post.edit', compact('title','submit'));
+        }
     }
 
     /**
