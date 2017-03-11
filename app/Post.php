@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Helpers\Strings;
 
 /**
  * Class Post.
@@ -35,24 +36,73 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
     use HasImage;
-	use Commentable;
-	use SoftDeletes;
+    use Commentable;
+    use SoftDeletes;
 
-	protected $dates = ['deleted_at'];
-    
-	
+    protected $dates = ['deleted_at'];
+
     protected $table = 'posts';
 
-	
+    protected $break = '!!BREAK!!';
 
-	/**
+    protected $excerptLength = 50;
+
+    /**
+     * Get the excerpt for the post
+     *
+     * @return mixed|string
+     */
+    public function getExcerpt()
+    {
+        // fetch the text in the body of the post
+        $body = $this->body;
+
+        $readMore = ' ... <a href="'.route('post.show', [$this->id]).'">READ MORE</a>';
+
+        // look for the break string - if it exists, set the excerpt as everything
+        // up until the break string. Otherwise, just use the first $excerptLength words
+
+        if (str_contains($body,$this->break))
+        {
+            $excerpt = strstr($body, $this->break,true);
+            $excerpt = $excerpt.$readMore;
+        }
+        else {
+            $excerpt = Strings::shorten_string($body,$this->excerptLength);
+
+            // If the excerpt has fewer than $excerptLength words, make sure the READ MORE string is placed within the <p> tags.
+            if(strrpos($excerpt,'</p>') == (strlen($excerpt)-4)){
+                $excerpt = substr_replace($excerpt, $readMore, strlen($excerpt)-4, 0);
+            }
+            else
+            {
+                $excerpt = $excerpt.$readMore;
+            }
+        }
+
+        // Now append the 'read more' link
+
+        return $excerpt;
+    }
+
+    /**
      * user.
      *
-     * @return  \Illuminate\Support\Collection;
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
-        return $this->belongsToMany('App\User','posts_users');
+        return $this->belongsToMany('App\User','posts_users')->withPivot(['postOwner']);
+    }
+
+    /**
+     * returns the owner of the post
+     *
+     * @return Model|static
+     */
+    public function getOwner()
+    {
+        return $this->users()->wherePivot('postOwner','=','1')->firstOrFail();
     }
 
     /**
@@ -76,10 +126,10 @@ class Post extends Model
         return $this->users()->detach($user);
     }
 
-	/**
+    /**
      * group.
      *
-     * @return  \Illuminate\Support\Collection;
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function groups()
     {
@@ -96,6 +146,7 @@ class Post extends Model
     {
         return $this->groups()->attach($group);
     }
+
     /**
      * Remove a group.
      *
@@ -105,6 +156,15 @@ class Post extends Model
     public function removeGroup($group)
     {
         return $this->groups()->detach($group);
+    }
+
+    /**
+     * @return string
+     */
+    public function getBody()
+    {
+        $body = $this->body;
+        return str_replace($this->break,'',$body);
     }
 
 }

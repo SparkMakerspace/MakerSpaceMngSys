@@ -8,46 +8,52 @@
 @endsection
 @section('content')
 
-<section class="content">
+    <section class="content">
 
-    <br>
-    <form method = 'get' action = '{!!url("post")!!}'>
-        <button class = 'btn btn-primary'>post Index</button>
-    </form>
-    <br>
-    <table class = 'table table-bordered'>
-        <thead>
-            <th>Key</th>
-            <th>Value</th>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <b><i>posted_at : </i></b>
-                </td>
-                <td>{!!$post->posted_at!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>title : </i></b>
-                </td>
-                <td>{!!$post->title!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>body : </i></b>
-                </td>
-                <td>{!!$post->body!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>image : </i></b>
-                </td>
-                <td>{!!$post->image!!}</td>
-            </tr>
-        </tbody>
+        <br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3>
+                            {!! $post->title !!}
+                        </h3>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="visible-sm visible-xs">
+                            <h4>
+                                <small>
+                                    <b>Posted by: </b>{!! $post->getOwner()->name !!}
+                                    <br>
+                                    <b>Posted at: </b>{!! $post->posted_at !!}
+                                    @if($post->created_at != $post->updated_at)
+                                        <br>
+                                        <b>Updated at: </b>{!! $post->updated_at !!}
+                                    @endif
+                                </small>
+                            </h4>
+                        </div>
+                        <div class="hidden-sm hidden-xs pull-right">
+                            <h4>
+                                <small>
+                                    <b>Posted by: </b>{!! $post->getOwner()->name !!}
+                                    <br>
+                                    <b>Posted at: </b>{!! $post->posted_at !!}
+                                    @if($post->created_at != $post->updated_at)
+                                        <br>
+                                        <b>Updated at: </b>{!! $post->updated_at !!}
+                                    @endif
+                                </small>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                {!! $post->getBody() !!}
+            </div>
+        </div>
 
-    </table>
-    @include('partials.Comments',['commentable'=>$post])
-</section>
+        @include('partials.Comments',['commentable'=>$post])
+    </section>
 @endsection

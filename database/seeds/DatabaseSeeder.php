@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(resourceTypeSeeder::class);
         $this->call(groupSeeder::class);
         $this->call(doorSeeder::class);
+        $this->call(postSeeder::class);
     }
 }

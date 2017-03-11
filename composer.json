@@ -14,7 +14,8 @@
         "pusher/pusher-php-server": "^2.6",
         "maddhatter/laravel-fullcalendar": "^1.2",
         "laravelcollective/html": "^5.3.0",
-        "stripe/stripe-php": "^4.4"
+        "stripe/stripe-php": "^4.4",
+        "jjfs85/laradrop": "^1.0.6"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

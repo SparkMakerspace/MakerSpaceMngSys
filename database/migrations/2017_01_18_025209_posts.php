@@ -22,13 +22,11 @@ class Posts extends Migration
 
         $table->increments('id');
         
-        $table->date('posted_at');
+        $table->dateTime('posted_at');
         
         $table->String('title');
         
         $table->longText('body');
-        
-        $table->integer('image_id')->nullable();
         
         /**
          * Foreignkeys section
