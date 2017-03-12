@@ -184,8 +184,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        jjfs85\Laradrop\LaradropServiceProvider::class,
-
+        Bestmomo\Filemanager\FilemanagerServiceProvider::class,
     ],
 
     /*

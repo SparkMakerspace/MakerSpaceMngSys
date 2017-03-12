@@ -62,11 +62,6 @@ return [
             'bucket' => 'your-bucket',
         ],
 
-        'laradrop' => [
-            'driver' => 'local',
-            'root' => public_path('uploads'), // will put files in 'public/upload' directory
-        ],
-
     ],
 
 ];

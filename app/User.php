@@ -242,4 +242,16 @@ class User extends Authenticatable
         return parent::save($options);
     }
 
+    public function accessMediasAll()
+    {
+        // return true for access to all medias
+        return $this->hasAnyRole(['admin','superadmin']);
+    }
+
+    public function accessMediasFolder()
+    {
+        // return true for access to one folder
+        return $this->hasAnyRole('nonmember');
+    }
+
 }

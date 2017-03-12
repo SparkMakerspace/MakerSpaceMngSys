@@ -24,7 +24,8 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="{{url('/js/moment.js')}}"></script>
 <script src="{{url('/js/fullcalendar.js')}}"></script>
-<div class="wrapper" id="app">
+<script src="{{url('/js/app.js')}}"></script>
+<div class="wrapper">
     <header class="main-header">
         <!-- Logo -->
         <a href="{{url('')}}" class="logo">
@@ -166,7 +167,6 @@
         @stack('jquery.ready')
     });
 </script>
-<script src="{{url('/js/app.js')}}"></script>
 @yield('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.js"></script>
 <script src="{{url('js/bootstrap-datetimepicker.min.js')}}"></script>
