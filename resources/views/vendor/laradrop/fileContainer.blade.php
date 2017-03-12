@@ -1,9 +1,7 @@
 <div class="col-md-2 laradrop-thumbnail laradrop-droppable laradrop-draggable" file-id="[[id]]">
         <div class="panel panel-default">
                 <div class="panel-body">
-                    <a href="[[public_resource_url]]" class="laradrop-file">
                         <img src="[[fileSrc]]" alt="[[alias]]" class="img-responsive">
-                    </a>
                         <div class="text-center">
                                 <p class="laradrop-filealias">[[alias]]</p>
                             </div>
