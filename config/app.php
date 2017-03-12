@@ -184,7 +184,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Bestmomo\Filemanager\FilemanagerServiceProvider::class,
+        Cognitus\Richfilemanager\RichfilemanagerServiceProvider::class,
     ],
 
     /*

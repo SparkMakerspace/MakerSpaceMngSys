@@ -49,7 +49,6 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $post = new Post();
-
         
         $post->posted_at = $request->posted_at;
 
@@ -58,13 +57,12 @@ class PostController extends Controller
 
         
         $post->body = $request->body;
-
-        
-        $post->image()->associate(Image::find($request->image));
         
         $post->save();
 
         $post->groups()->sync($request->group);
+
+        $post->setOwner(\Auth::user());
 
         $pusher = App::make('pusher');
 
@@ -128,17 +126,14 @@ class PostController extends Controller
     public function update($id,Request $request)
     {
         $post = Post::findOrfail($id);
+
+        $post->setOwner(\Auth::user());
     	
         $post->posted_at = $request->posted_at;
         
         $post->title = $request->title;
         
         $post->body = $request->body;
-
-        $post->image()->dissociate();
-        $post->image()->associate(Image::findOrFail($request->id));
-//        $post->image = $request->image;
-        
         
         $post->save();
 

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -37,6 +38,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Group whereImageId($value)
  * @property int $user_id
  * @method static \Illuminate\Database\Query\Builder|\App\Group whereUserId($value)
+ * @property string $contactInfo
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Post[] $posts
+ * @method static \Illuminate\Database\Query\Builder|\App\Group whereContactInfo($value)
  */
 class Group extends Model
 {
@@ -49,12 +53,6 @@ class Group extends Model
 	
     protected $table = 'groups';
 
-
-	/**
-     * event.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany|
-     */
     public function events()
     {
         return $this->belongsToMany('App\Event','events_groups');
@@ -99,12 +97,6 @@ class Group extends Model
         return parent::save($options);
     }
 
-
-	/**
-     * post.
-     *
-     * @return  \Illuminate\Support\Collection;
-     */
     public function posts()
     {
         return $this->belongsToMany('App\Post','groups_posts');

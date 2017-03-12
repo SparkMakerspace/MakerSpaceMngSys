@@ -32,6 +32,7 @@ use App\Helpers\Strings;
  * @property int $image_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
  * @method static \Illuminate\Database\Query\Builder|\App\Post whereImageId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Group[] $groups
  */
 class Post extends Model
 {
@@ -102,7 +103,20 @@ class Post extends Model
      */
     public function getOwner()
     {
-        return $this->users()->wherePivot('postOwner','=','1')->firstOrFail();
+        return $this->users()->wherePivot('postOwner','=','1')->first();
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function setOwner(User $user)
+    {
+        if($this->getOwner()){
+            $this->users()->detach([$this->getOwner()]);
+        }
+        $this->users()->attach($user,['postOwner'=>'1']);
+        return true;
     }
 
     /**

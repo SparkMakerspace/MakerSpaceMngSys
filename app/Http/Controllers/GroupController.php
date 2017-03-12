@@ -195,10 +195,10 @@ class GroupController extends Controller
             'eventClick'=> 'function(calEvent, jsEvent, view) {
         window.location.assign(calEvent.url);
     }'])->setOptions([
-        'defaultView'=>'month',
+            'defaultView'=>'month',
             'header'=>['left'=>'title','center'=>'','right'=>'today prev,next'],
         ]);
-        $posts = $group->posts()->paginate(8);
+        $posts = $group->posts()->paginate(10);
         return view('group.dashboard')->with(compact('calendar','posts','group'));
     }
 }
