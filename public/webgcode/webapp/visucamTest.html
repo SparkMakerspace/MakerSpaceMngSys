@@ -1,0 +1,326 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Visual CAM</title>
+    <script src="libs/require.js"></script>
+    <script src="config.js"></script>
+    <script src="visucam.js"></script>
+    <link rel="shortcut icon" href="images/icon_fraise_48.png"/>
+    <link rel="stylesheet" href="twoDView.css" type="text/css">
+    <link rel="stylesheet" href="threeDView.css" type="text/css">
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/font-awesome-4.2.0/css/font-awesome.min.css">
+    <style>
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background: #fafafa;
+            color: #444;
+        }
+
+        body {
+            font-family: sans-serif;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        #loader {
+            display: inline-block;
+            background-size: 100% 100%;
+            background-image: url(images/spinner.svg);
+            width: 20px;
+            height: 20px;
+        }
+
+        .boundsTable {
+            border-collapse: collapse;
+        }
+
+        .boundsTable td {
+            border: dashed gray 1px;
+            padding: 3px;
+        }
+
+        .rootview {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            display: -webkit-flex;
+            -webkit-flex-direction: column;
+        }
+
+        .header {
+            background: #ffe9e6;
+            border-bottom-color: #dd4c2f;
+            display: flex;
+            display: -webkit-flex;
+            justify-content: flex-end;
+            -webkit-justify-content: flex-end;
+        }
+
+        .topMenu {
+            flex: 1;
+            -webkit-flex: 1;
+        }
+
+        .job {
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+            overflow: hidden;
+            -webkit-flex: 1;
+            display: -webkit-flex;
+            -webkit-align-items: stretch;
+        }
+
+        .job.is-busy {
+            cursor: wait;
+        }
+
+        .viewContainer {
+            flex-basis: 320px;
+            flex-grow: 1;
+            flex-shrink: 0;
+            height: 100vh;
+            -webkit-flex-basis: 320px;
+            -webkit-flex-grow: 1;
+            -webkit-flex-shrink: 0;
+        }
+
+        .jobDetail, .operation {
+            flex-basis: 320px;
+            flex-grow: 0;
+            flex-shrink: 1;
+            overflow: scroll;
+            -webkit-flex-basis: 320px;
+            -webkit-flex-grow: 0;
+            -webkit-flex-shrink: 1;
+        }
+
+        .ThreeDView {
+            background: linear-gradient(to bottom, #eee, #ddd);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            height: 100%;
+        }
+
+        .TwoDView {
+            border: none;
+            height: calc(40% - 2px);
+            background: #eee;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        ul.operations {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .operations li {
+            padding: 3px;
+            cursor: pointer;
+            list-style: none;
+            margin: 0;
+            display: flex;
+            display: -webkit-flex;
+            border-right: 3px solid transparent;
+        }
+
+        .operations li.current {
+            color: #000;
+            border-right-color: #dd4c2f;
+            background-color: #ffe9e6;
+        }
+
+        .operations a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            flex: 2;
+            -webkit-flex: 2;
+        }
+
+        .operations .delete {
+            text-decoration: none;
+            display: block;
+            flex: inherit;
+            -webkit-flex: inherit;
+
+        }
+
+        .delete:hover {
+            color: black;
+        }
+
+        .list-group-item.active a {
+            color: white;
+        }
+
+        .highlight {
+            fill: none;
+            stroke: rgba(255, 0, 255, 0.5);
+            stroke-width: 6;
+            stroke-linecap: round;
+        }
+
+        .travel {
+            fill: none;
+            stroke: rgba(255, 0, 0, 1);
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .form {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: none;
+            width: 100%;
+        }
+
+        .form th {
+            text-align: right;
+            white-space: nowrap;
+            padding: 0.4em 0.5em;
+            font-weight: normal;
+        }
+
+        .form td {
+            padding: 0.4em 0.5em;
+        }
+
+        .form td input[type="number"], select, input[type="text"] {
+            display: block;
+            width: 100%;
+        }
+
+        .form td input[type="number"] {
+            text-align: right;
+        }
+
+        .form td input {
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        .form tr.speedComputerForm {
+            border-left: solid 3px #dd4c2f;
+        }
+
+        .form tr.speedComputerFormFirst {
+            border-top: solid 3px #dd4c2f;
+        }
+
+        .form .input-group-addon {
+            min-width: 3em;
+            font-size: 10px;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+
+        .form-header {
+            color: #000;
+            background: #ffe9e6;
+            border-top: 3px solid #dd4c2f;
+        }
+
+        .loginFrame {
+            width: 640px;
+            height: 480px;
+        }
+
+        .shapeView {
+            height: 200px;
+            background-color: black;
+        }
+
+        .shapeView canvas {
+            background-color: black;
+        }
+
+        #deleteBlock {
+            text-align: right;
+            display: inline-block;
+            float: right;
+            width: 170px;
+            height: 37px;
+        }
+
+        .shape-hidden {
+            color: lightgrey;
+        }
+
+        .arrow-button {
+            color: #555;
+        }
+
+        .arrow-button:hover {
+            color: black;
+        }
+
+        .enable-button {
+            display: inline-block;
+            width: 16px;
+            text-align: center;
+        }
+
+        .enable-button:hover {
+            color: black;
+        }
+
+        .visibility-button {
+            display: inline-block;
+            width: 16px;
+        }
+
+        .visibility-button:hover {
+            color: black;
+        }
+
+        .arrow-panel {
+            float: left;
+            margin-left: -15px;
+            margin-top: -10px;
+            vertical-align: bottom;
+            height: 40px;
+            cursor: move;
+            width: 15px;
+            color: lightgray;
+        }
+
+        .arrow-panel:hover {
+            color: black;
+        }
+
+        .drag-ghost {
+            background-color: lightcyan;
+            opacity: 0.4;
+        }
+
+        .add-button {
+            float: right;
+        }
+
+        .add-button {
+            float: right;
+        }
+
+        .job-duration {
+            float: right;
+            font-weight: normal;
+            font-size: 60%;
+            display: inline-block;
+            line-height: 40px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+</body>
+</html>

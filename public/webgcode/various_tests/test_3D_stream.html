@@ -1,0 +1,114 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Height field computation demo</title>
+    <script src="../webapp/libs/require.js"></script>
+    <script src="../webapp/config.js"></script>
+    <script>
+        requirejs.config({
+            baseUrl: '../webapp'
+        });
+    </script>
+    <link rel="shortcut icon" href="../webapp/images/icon_fraise_48.png"/>
+    <link rel="stylesheet" href="../webapp/twoDView.css" type="text/css">
+    <link rel="stylesheet" href="../webapp/threeDView.css" type="text/css">
+    <link rel="stylesheet" href="../webapp/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../webapp/libs/font-awesome-4.2.0/css/font-awesome.min.css">
+    <style>
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background: #fafafa;
+            color: #444;
+        }
+
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        canvas {
+            flex: 1;
+        }
+
+        .moving {
+            cursor: move;
+        }
+    </style>
+    <script>
+        require(['jQuery', 'THREE', 'cnc/cam/3D/3Dcomputer2', 'cnc/cam/3D/toolProfile', 'cnc/cam/3D/minkowskiPass',
+                    'libs/threejs/STLLoader', 'cnc/cam/3D/modelProjector', 'libs/threejs/postprocessing/ShaderPass',
+                    'libs/threejs/postprocessing/CopyShader', 'text!shaders/minkowski.frag'],
+                function ($, THREE, computer, toolProfile, MinkowskiPass, STLLoader, ModelProjector, ShaderPass, CopyShader,
+                          minkowskiFrag) {
+                    if (window['Notification'] && Notification.permission === 'default') {
+                        Notification.requestPermission(function (permission) {
+                            console.log('Notification.permision', permission);
+                        });
+                    }
+                    var $container = $('body');
+                    var renderer = new THREE.WebGLRenderer({
+                        antialias: false,
+                        alpha: true,
+                        precision: 'highp',
+                        autoClear: false,
+                        preserveDrawingBuffer: true
+                    });
+                    $container.append(renderer.domElement);
+                    var outputWidth = $container.width();
+                    var outputHeight = $container.height();
+                    renderer.sortObjects = false;
+                    renderer.setSize(outputWidth, outputHeight);
+                    renderer.setViewport(0, 0, outputWidth, outputHeight);
+
+                    function loadStlFile(url, callback) {
+                        function onloaded(event) {
+                            callback(event.target.response || event.target.responseText);
+                        }
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.addEventListener('load', onloaded, false);
+                        if (xhr.overrideMimeType) xhr.overrideMimeType('text/plain; charset=x-user-defined');
+                        xhr.open('GET', url, true);
+                        xhr.responseType = 'arraybuffer';
+                        xhr.send(null);
+                    }
+
+                    loadStlFile('../webapp/samples/soap.stl', function (stlData) {
+                        console.log('hello');
+                        var p = new ModelProjector();
+                        var buffGeom = new STLLoader().parse(stlData);
+
+                        var theComputer = new computer.ToolPathComputer();
+                        p.setGeometry(buffGeom);
+                        var tooldef = {type: 'ball', diameter: 2};
+                        var copyPass = new ShaderPass(CopyShader);
+                        copyPass.renderToScreen = true;
+                        var hf = theComputer.computeHeightField(buffGeom, 0.1, tooldef, 1, 0, 0, 1, null, false);
+                        hf.start();
+                        hf.get('promise').then(function (heightField) {
+                            console.log('DOOOONE', heightField);
+                            var texture = new THREE.DataTexture(heightField.data, heightField.samplesX, heightField.samplesY,
+                                    THREE.LuminanceFormat, THREE.FloatType, THREE.Texture.DEFAULT_MAPPING, THREE.ClampToEdgeWrapping,
+                                    THREE.ClampToEdgeWrapping, THREE.NearestFilter, THREE.NearestFilter);
+                            texture.generateMipmaps = false;
+                            texture.needsUpdate = true;
+                            copyPass.render(renderer, null, texture);
+                        });
+                    });
+                });
+    </script>
+</head>
+<body>
+<div class="btn-toolbar" role="toolbar">
+
+</div>
+</body>
+
+</html>

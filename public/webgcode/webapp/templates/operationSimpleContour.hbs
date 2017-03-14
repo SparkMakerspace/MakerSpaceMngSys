@@ -1,0 +1,40 @@
+<tr>
+    <th>Inside Shape</th>
+    <td>{{input type="checkbox" checked=contour_inside}}</td>
+</tr>
+<tr>
+    <th>Climb Milling</th>
+    <td>{{input type="checkbox" checked=contour_climbMilling}}</td>
+</tr>
+<tr>
+    <th title="How far the tool should stay away from the line in X-Y plane">Leave Stock:</th>
+    <td class="input-group input-group-sm">{{number-input numericValue=leaveStock min="0"}} <span
+            class="input-group-addon">mm</span></td>
+</tr>
+<tr>
+    <th>Contour Z:</th>
+    <td class="input-group input-group-sm">{{number-input numericValue=bottom_Z}} <span
+            class="input-group-addon">mm</span></td>
+</tr>
+<tr>
+    <th>Multiple Passes:</th>
+    <td class="input-group input-group-sm">{{input type="checkbox" checked=contour_multipass}}</td>
+</tr>
+{{#if contour_multipass}}
+    <tr>
+        <th title="Engagement in %">Radial<br>Engagement:</th>
+        <td class="input-group input-group-sm">{{number-input numericValue=pocket_engagement min="0" increment="1" max="100"}}
+            <span class="input-group-addon">%</span></td>
+    </tr>
+    <tr>
+        <th>Up to Distance:</th>
+        <td class="input-group input-group-sm">{{number-input numericValue=contour_upTo}} <span
+                class="input-group-addon">mm</span></td>
+    </tr>
+    <tr>
+        <th title="Direction of cut: from outside towards the final line or from the final line towards outside">Towards
+            Contour:
+        </th>
+        <td class="input-group input-group-sm">{{input type="checkbox" checked=contour_towardsFinal}}</td>
+    </tr>
+{{/if}}

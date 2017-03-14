@@ -1,111 +1,214 @@
+@extends('scaffold-interface.layouts.app')
+@section('title','Show')
+@section('content')
 
-        <!DOCTYPE html>
-
-
-<script>
-
-    var config = {
-        lastImportedKey: 'last-imported',
-        notFirstVisitKey: 'not-first-visit',
-        defaultFilePath: './gcode.gcode'
-        //defaultFilePath: './gcode.gcode'
-    }
-</script>
-
-
-
+<!DOCTYPE html >
+<html>
 <head>
-    <meta http-equiv="Access-Control-Allow-Origin" content="*">
-    <meta charset="utf-8">
-    <title>GCode Viewer</title>
-    <link rel="stylesheet" href="../../../../gcode-viewer-master/web/lib/bootstrap.min.css">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>g-code simulator</title>
+    <script src="../../../../webgcode/webapp/libs/require.js"></script>
+    <script src="../../../../webgcode/webapp/config.js"></script>
+    <script>
+        requirejs.config({
+            baseUrl: '../../../../webgcode/webapp'
+        });
+    </script>
+
+    <link rel="shortcut icon" href="../../../../webgcode/webapp/images/icon_fraise_48.png"/>
+    <link rel="stylesheet" href="../../../../webgcode/webapp/twoDView.css" type="text/css">
+    <link rel="stylesheet" href="../../../../webgcode/webapp/threeDView.css" type="text/css">
     <style>
-        #renderArea {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            top: 40px;
-            background-color: #000000;
+
+        body, html {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            margin: 0;
         }
-        .dg.main {
-            margin-top:40px;
+
+        body {
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .editBlock {
+            position: relative;
+            float: left;
+            width: 39%;
+            height: 90%;
+            padding: 1px;
+            margin: 0;
+        }
+
+        .editBlock pre {
+            width: 100%;
+            height: 500px;
+            margin: 0;
+        }
+
+        .viewContainer {
+            float: right;
+            width: 60%;
+        }
+
+        #loader {
+            display: inline-block;
+            background-size: 100% 100%;
+            background-image: url(../../../../webgcode/webapp/images/spinner.svg);
+            width: 20px;
+            height: 20px;
+        }
+
+        .boundsTable {
+            border-collapse: collapse;
+        }
+
+        .boundsTable td {
+            border: dashed gray 1px;
+            padding: 3px;
+        }
+
+        .ThreeDView {
+            border: solid gray 1px;
+            background: #000;
+            height: 400px;
+            position: relative;
+        }
+
+        .TwoDView {
+            border: solid gray 1px;
+            background: #000;
+            height: 400px;
+        }
+
+        #app {
+            position: relative;
         }
     </style>
-    <!-- 3rd party libs -->
-    <script src="../../../../gcode-viewer-master/web/lib/modernizr.custom.93389.js"></script>
-    <script src="../../../../gcode-viewer-master/web/lib/jquery-1.7.1.min.js"></script>
-    <script src="../../../../gcode-viewer-master/web/lib/bootstrap-modal.js"></script>
-    <script src="../../../../gcode-viewer-master/web/lib/sugar-1.2.4.min.js"></script>
-    <script src="../../../../gcode-viewer-master/web/lib/three.js"></script>
-    <script src="../../../../gcode-viewer-master/web/lib/TrackballControls.js"></script>
-
-    <script src="../../../../gcode-viewer-master/web/js/ShaderExtras.js"></script>
-    <script src="../../../../gcode-viewer-master/web/js/postprocessing/EffectComposer.js"></script>
-    <script src="../../../../gcode-viewer-master/web/js/postprocessing/MaskPass.js"></script>
-    <script src="../../../../gcode-viewer-master/web/js/postprocessing/RenderPass.js"></script>
-    <script src="../../../../gcode-viewer-master/web/js/postprocessing/ShaderPass.js"></script>
-    <script src="../../../../gcode-viewer-master/web/js/postprocessing/BloomPass.js"></script>
-
-    <script src="../../../../gcode-viewer-master/web/js/Stats.js"></script>
-    <script src="../../../../gcode-viewer-master/web/js/DAT.GUI.min.js"></script>
-    <!-- Custom code -->
-    <script type="text/javascript" src="../../../../gcode-viewer-master/web/gcode_model.js"></script>
-    <script type="text/javascript" src="../../../../gcode-viewer-master/web/gcode_parser.js"></script>
-    <script type="text/javascript" src="../../../../gcode-viewer-master/web/gcode_interpreter.js"></script>
-    <script type="text/javascript" src="../../../../gcode-viewer-master/web/gcode_importer.js"></script>
-    <script type="text/javascript" src="../../../../gcode-viewer-master/web/gcode_renderer.js"></script>
-    <script src="../../../../gcode-viewer-master/web/renderer.js"></script>
-    <script src="../../../../gcode-viewer-master/web/ui.js"></script>
-
 </head>
 <body>
+<div id="app">
 
-<!-- Top bar -->
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <span class="brand" href="#">GCode Viewer</span>
-            <ul class="nav">
-                <li><a href="javascript:openDialog()">Load Model</a></li>
-                <li><a href="javascript:about()">About</a></li>
-            </ul>
-            <ul class="nav pull-right">
-                <li><a href="https://github.com/jherrm/gcode-viewer" target="_blank">Code on GitHub</a></li>
-                <li><a href="http://twitter.com/jherrm" target="_blank">@jherrm</a></li>
-            </ul>
-        </div>
-    </div>
 </div>
+<script id="demoCode" type="application/gcode">
+{{$MyGcode}}
+</script>
+<script>
+    require(['Ember', 'cnc/ui/graphicView', 'cnc/cam/cam', 'cnc/util', 'cnc/ui/gcodeEditor', 'cnc/gcode/gcodeSimulation', 'templates'],
+        function (Ember, GraphicView, cam, util, gcodeEditor, gcodeSimulation) {
+            var demoCode = $('#demoCode').text();
 
-<!-- WebGL rendering area -->
-<div id="renderArea"></div>
+            Ember.Handlebars.helper('num', function (value) {
+                return new Handlebars.SafeString(Handlebars.Utils.escapeExpression(util.formatCoord(value)));
+            });
+            Ember.TEMPLATES['application'] = Ember.TEMPLATES['camApp'];
 
-<div class="modal" id="openModal" style="display: none">
-    <div class="modal-header">
-        <a class="close" data-dismiss="modal">&times;</a>
-        <h3>Open GCode</h3>
-    </div>
-    <div class="modal-body">
-        <h4>Examples</h4>
-        <ul class="gcode_examples">
-            <li><a href="examples/15mm_cube.gcode">15mm_cube.gcode</a></li>
-            <li><a href="examples/octocat.gcode">octocat.gcode</a></li>
-            <li><a href="examples/part.gcode">part.gcode</a></li>
-        </ul>
-        <p>To view your own model, drag a gcode file from your desktop and drop it in this window.</p>
-    </div>
-    <div class="modal-footer">
-        <a class="btn" data-dismiss="modal">Cancel</a>
-    </div>
-</div>
+            window.Simulator = Ember.Application.create({
+                rootElement: '#app'
+            });
 
-<!-- 'About' dialog'-->
-<div class="modal fade" id="aboutModal" style="display: none">
-    <div class="modal-header">
-        <a class="close" data-dismiss="modal">&times;</a>
-        <h3>About GCode Viewer</h3>
-    </div>
+            Simulator.GcodeEditorComponent = gcodeEditor.GcodeEditorComponent;
+            Simulator.GraphicView = GraphicView;
 
+            Simulator.ApplicationController = Ember.ObjectController.extend({
+                init: function () {
+                    this._super();
+                    var _this = this;
+                    $(window).on('dragover', function (event) {
+                        event.preventDefault();
+                        event.dataTransfer.dropEffect = 'move';
+                    });
 
-</body>
+                    $(window).on('drop', function (evt) {
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        var files = evt.dataTransfer.files;
+                        var file = files[0];
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            _this.set('code', e.target.result);
+                            _this.launchSimulation();
+                        };
+                        reader.readAsText(file);
+                    });
+                    this.launchSimulation();
+                },
+                    actions: {
+                        simulate: function () {
+                            this.launchSimulation();
+                        },
+                        loadBigSample: function () {
+                            this.set('computing', true);
+                            var _this = this;
+                            require(['text!samples/aztec_calendar.ngc'], function (text) {
+                                _this.set('code', text);
+                                _this.launchSimulation();
+                            });
+                        }
+                    },
+                launchSimulation: function () {
+                    var _this = this;
+
+                    function handleResult(result) {
+                        _this.flushFragmentFile();
+                        var errors = [];
+                        for (var i = 0; i < result.errors.length; i++) {
+                            var error = result.errors[i];
+                            errors.push({row: error.lineNo, text: error.message, type: "error"});
+                        }
+                        _this.set('errors', errors);
+                        _this.set('bbox', {min: result.min, max: result.max});
+                        _this.set('totalTime', result.totalTime);
+                        _this.set('lineSegmentMap', result.lineSegmentMap);
+                        _this.set('computing', false);
+                        console.timeEnd('simulation');
+                    }
+
+                    console.time('simulation');
+                    this.set('computing', true);
+                    _this.set('lineSegmentMap', []);
+                    this.get('simulatedPath').clear();
+                    gcodeSimulation.parseInWorker(this.get('code'), new util.Point(0, 0, 0),
+                        Ember.run.bind(_this, handleResult),
+                        Ember.run.bind(_this, function (fragment) {
+                            _this.get('fragmentFile').pushObject(fragment);
+                            Ember.run.throttle(_this, _this.flushFragmentFile, 500);
+                        }));
+                },
+                flushFragmentFile: function () {
+                    this.get('simulatedPath').pushObjects(this.get('fragmentFile'));
+                    this.get('fragmentFile').clear();
+                },
+                formattedTotalTime: function () {
+                    var totalTime = this.get('totalTime');
+                    var humanized = util.humanizeDuration(totalTime);
+                    return {humanized: humanized, detailed: Math.round(totalTime) + 's'};
+                }.property('totalTime'),
+                currentHighLight: function () {
+                    return this.get('lineSegmentMap')[this.get('currentRow')];
+                }.property('currentRow', 'lineSegmentMap').readOnly(),
+                code: demoCode,
+                errors: [],
+                bbox: {},
+                totalTime: 0,
+                lineSegmentMap: [],
+                currentRow: null,
+                simulatedPath: [],
+                computing: false,
+                fragmentFile: [],
+                canSelectLanguage: false,
+                usingGcode: true,
+                decorations: []
+            });
+        });
+</script>
+@endsection('content')

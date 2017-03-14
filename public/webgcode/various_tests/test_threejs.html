@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Sample Three.min.js</title>
+    <style>
+        #container {
+            float: right;
+            background: #000;
+            width: 600px;
+            height: 400px;
+        }
+
+        #map-canvas {
+            float: left;
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing,geometry"></script>
+    <link rel="stylesheet" href="../webapp/threeDView.css" type="text/css">
+</head>
+<body>
+
+<div id="map-canvas"></div>
+<div id="container"></div>
+<a id="downloadLink" href='#'>Download .stl</a>
+
+</body>
+<script src="../webapp/cnc/maths/delaunay.js"></script>
+<script src="../webapp/libs/require.js"></script>
+<script src="../webapp/config.js"></script>
+<script>
+    requirejs.config({
+        baseUrl: '../webapp'
+    });
+</script>
+<script type="text/javascript">
+
+    function ShuffledGrid(rows, columns) {
+        this.rows = rows;
+        this.columns = columns;
+        this.sampleCount = columns * rows;
+        this.shuffledIndices = randomOrderRange(0, this.sampleCount);
+    }
+    ShuffledGrid.prototype = {
+        iToXRatio: function (i) {
+            return (this.shuffledIndices[i] % this.columns) / this.columns;
+        },
+        iToYRatio: function (i) {
+            return Math.floor(this.shuffledIndices[i] / this.columns) / this.rows;
+        }
+    };
+
+
+    function randomOrderRange(start, stop, cseed, aseed, first) {
+        function randomInt(min, max, seed) {
+            if (seed === undefined)
+                seed = Math.random();
+            return Math.floor(seed * (max - min + 1)) + min;
+        }
+
+        var result = [];
+        var N = stop - start;
+        var M = Math.ceil(Math.pow(2, Math.ceil(Math.log(N + 1) / Math.LN2)));
+        var c = randomInt(0, M / 2 - 1, cseed) * 2 + 1;
+        var a = randomInt(0, M / 4 - 1, aseed) * 4 + 1;
+        if (first === undefined)
+            first = randomInt(0, M - 1);
+        var x = first;
+        for (; ;) {
+            x = (a * x + c) % M;
+            if (x < N)
+                result.push(start + x);
+            if (x === first)
+                break;
+        }
+        return result;
+    }
+
+    require(['jQuery', 'cnc/ui/threeDView', 'cnc/maths/slicer'], function ($, threeDView, slicer) {
+        var view = new threeDView.ThreeDView($('#container'));
+        var elevator;
+        var map;
+        var currentQueryId = 0;
+        var center = new google.maps.LatLng(43.78025958500131, 3.814994812011694);
+        var initialSelection = new google.maps.Rectangle({
+            bounds: new google.maps.LatLngBounds(
+                    new google.maps.LatLng(43.771465691445044, 3.7871932983398438),
+                    new google.maps.LatLng(43.80356206947803, 3.850879669189453))
+        });
+        var currentSelection;
+        var mesh;
+        var contourMesh = null;
+        var contourLines = [];
+
+        function displayContours(altitude, geom) {
+            if (contourMesh)
+                view.drawing.remove(contourMesh);
+            if (contourLines.length) {
+                $.each(contourLines, function (_, line) {
+                    view.drawing.remove(line);
+                });
+                contourLines = [];
+            }
+            var res = slicer.slice(altitude, geom);
+            var geom2 = new THREE.Geometry();
+            geom2.vertices = geom.vertices.concat();
+            $.each(res.triangles, function (_, triangle) {
+                geom2.faces.push(triangle);
+            });
+            $.each(res.contours, function (_, contour) {
+                var lineGeom = new THREE.Geometry();
+                lineGeom.vertices = contour.concat();
+                var line = new THREE.Line(lineGeom, new THREE.LineBasicMaterial({color: 0x00CC00, linewidth: 3}));
+                view.drawing.add(line);
+                contourLines.push(line);
+            });
+            geom2.computeFaceNormals();
+            geom2.computeVertexNormals();
+            geom2.computeBoundingSphere();
+            contourMesh = new THREE.Mesh(geom2);
+            view.drawing.add(new THREE.WireframeHelper(contourMesh, 0x00FFFF));
+        }
+
+        function delaunayToGeom(delaunay, geom) {
+            $.each(delaunay.vertices, function (_, vertex) {
+                if (vertex.fromSuper)
+                    geom.vertices.push(new THREE.Vector3(0, 0, 0));
+                else
+                    geom.vertices.push(new THREE.Vector3(vertex.x, vertex.y, vertex.z));
+            });
+            $.each(delaunay.triangles, function (_, triangle) {
+                if (!triangle.fromSuper)
+                    geom.faces.push(new THREE.Face3(triangle.verticesIndexes[1], triangle.verticesIndexes[0], triangle.verticesIndexes[2]));
+            });
+            return geom;
+        }
+
+        function displayResults(startI, batchSize, grid, xspan, yspan, delaunayState, results) {
+            for (var j = 0, i = startI; j < batchSize && i < grid.sampleCount; i++, j++) {
+                var vertex = appendVertex(
+                        (grid.iToXRatio(i) * xspan - xspan / 2),
+                        (grid.iToYRatio(i) * yspan - yspan / 2),
+                        delaunayState);
+                vertex.z = results[j].elevation;
+            }
+            var delaunayGeom = new THREE.Geometry();
+            delaunayToGeom(delaunayState, delaunayGeom);
+            delaunayGeom.computeBoundingBox();
+            displayContours(325, delaunayGeom);
+            if (mesh != null)
+                view.drawing.remove(mesh);
+            mesh = new THREE.Mesh(delaunayGeom, new THREE.MeshBasicMaterial({
+                wireframe: false,
+                color: 0xAA0000,
+                side: THREE.DoubleSide
+            }));
+            view.drawing.add(mesh);
+            view.zoomExtent();
+        }
+
+        function initialize() {
+            console.log('initialize');
+            function geomToStl(geom) {
+                geom.computeBoundingBox();
+                geom.computeFaceNormals();
+                var min = geom.boundingBox.min;
+                var file = 'solid OBJECT\n';
+
+                function printVector(v0) {
+                    return [v0.x.toExponential(), v0.y.toExponential(), v0.z.toExponential()].join(' ');
+                }
+
+                $.each(geom.faces, function (_, face) {
+                    geom.faces.push(face);
+                    file += '  facet normal ' + printVector(face.normal) + '\n    outer loop\n';
+                    $.each([face.a, face.b, face.c], function (_, vIndex) {
+                        var v0 = geom.vertices[vIndex].clone().sub(min);
+                        file += '      vertex ' + printVector(v0) + '\n';
+                    });
+                    file += '    endloop\n  endfacet\n';
+                });
+
+                file += 'endsolid OBJECT\n';
+                return 'data:application/sla;base64,' + window.btoa(file);
+            }
+
+            function geomToBinSTL(geom) {
+                //http://buildaweso.me/project/2014/10/26/writing-binary-stl-files-from-threejs-objects
+                var writeVector = function (dataview, offset, vector, isLittleEndian) {
+                    offset = writeFloat(dataview, offset, vector.x, isLittleEndian);
+                    offset = writeFloat(dataview, offset, vector.y, isLittleEndian);
+                    return writeFloat(dataview, offset, vector.z, isLittleEndian);
+                };
+
+                var writeFloat = function (dataview, offset, float, isLittleEndian) {
+                    dataview.setFloat32(offset, float, isLittleEndian);
+                    return offset + 4;
+                };
+
+                var geometryToDataView = function (geometry) {
+                    var tris = geometry.faces;
+                    var verts = geometry.vertices;
+
+                    var isLittleEndian = true; // STL files assume little endian, see wikipedia page
+
+                    var bufferSize = 84 + (50 * tris.length);
+                    var buffer = new ArrayBuffer(bufferSize);
+                    var dv = new DataView(buffer);
+                    var offset = 0;
+
+                    offset += 80; // Header is empty
+
+                    dv.setUint32(offset, tris.length, isLittleEndian);
+                    offset += 4;
+
+                    for (var n = 0; n < tris.length; n++) {
+                        offset = writeVector(dv, offset, tris[n].normal, isLittleEndian);
+                        offset = writeVector(dv, offset, verts[tris[n].a], isLittleEndian);
+                        offset = writeVector(dv, offset, verts[tris[n].b], isLittleEndian);
+                        offset = writeVector(dv, offset, verts[tris[n].c], isLittleEndian);
+                        offset += 2; // unused 'attribute byte count' is a Uint16
+                    }
+
+                    return dv;
+                };
+                var g = geom.clone();
+                var scale = 60;
+                g.applyMatrix(new THREE.Matrix4().makeScale(1 / scale, 1 / scale, 1 / scale));
+                g.computeBoundingBox();
+                console.log(g.boundingBox);
+                var dv = geometryToDataView(g);
+                var blob = new Blob([dv], {type: 'application/octet-binary'});
+                return window.URL.createObjectURL(blob);
+            }
+
+            $('#downloadLink').click(function (e) {
+                e.preventDefault();
+                if (mesh)
+                    $('<a download="test.stl"></a>').attr('href', geomToBinSTL(mesh.geometry))[0].click();
+            });
+            var mapOptions = {
+                zoom: 13,
+                center: center,
+                mapTypeId: 'terrain'
+            };
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            initialSelection.setMap(map);
+            elevator = new google.maps.ElevationService();
+            var drawingManager = new google.maps.drawing.DrawingManager({
+                drawingControl: true,
+                drawingControlOptions: {
+                    position: google.maps.ControlPosition.TOP_CENTER,
+                    drawingModes: [
+                        google.maps.drawing.OverlayType.RECTANGLE
+                    ]
+                }
+            });
+
+            function handleSelection(rectangle) {
+                currentQueryId++;
+                if (currentSelection)
+                    currentSelection.setMap(null);
+                currentSelection = rectangle;
+                drawingManager.setDrawingMode(null);
+                var grid = new ShuffledGrid(300, 300);
+                var batchSize = 200;
+                if (mesh != null)
+                    view.drawing.remove(mesh);
+                var south = rectangle.getBounds().getSouthWest().lat();
+                var north = rectangle.getBounds().getNorthEast().lat();
+                var west = rectangle.getBounds().getSouthWest().lng();
+                var east = rectangle.getBounds().getNorthEast().lng();
+                var xspan = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(north, west), new google.maps.LatLng(north, east));
+                var yspan = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(south, west), new google.maps.LatLng(north, west));
+                var delaunayState = createDelaunay(-xspan / 2, -yspan / 2, xspan, yspan);
+                var workList = [];
+                var i = 0;
+                for (; i < grid.sampleCount;) {
+                    var locations = [];
+                    var startI = i;
+                    for (var j = 0; j < batchSize && i < grid.sampleCount; i++, j++) {
+                        var xratio = grid.iToXRatio(i);
+                        var yratio = grid.iToYRatio(i);
+                        locations.push(new google.maps.LatLng(yratio * north + (1 - yratio) * south, xratio * east + (1 - xratio) * west));
+                    }
+                    workList.push(
+                            (function (startI, locations, queryId) {
+                                return function (onQueryLimit) {
+                                    elevator.getElevationForLocations({'locations': locations}, function (results, status) {
+                                        //if we were called back after this query has been superseded
+                                        if (queryId != currentQueryId)
+                                            return;
+                                        if (status == google.maps.ElevationStatus.OK) {
+                                            if (results)
+                                                displayResults(startI, batchSize, grid, xspan, yspan, delaunayState, results);
+                                            else
+                                                console.log('No results found');
+                                        } else if (status == google.maps.ElevationStatus.OVER_QUERY_LIMIT) {
+                                            onQueryLimit();
+                                        }
+                                        else
+                                            console.log('Elevation service failed due to: ' + status);
+                                    });
+                                };
+                            })(startI, locations, currentQueryId));
+                }
+                setInterval(function () {
+                    if (workList.length) {
+                        var work = workList.splice(0, 1)[0];
+                        work(function () {
+                            console.log("query limit, re-trying a batch");
+                            workList.push(work);
+                        });
+                    }
+                }, 100);
+            }
+
+            handleSelection(initialSelection);
+            google.maps.event.addListener(drawingManager, 'rectanglecomplete', function (rectangle) {
+                handleSelection(rectangle);
+            });
+            drawingManager.setMap(map);
+        }
+
+        console.log('google.maps.event.addDomListener');
+        initialize();
+    });
+</script>
+</html>

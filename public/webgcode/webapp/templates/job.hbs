@@ -1,0 +1,103 @@
+<div class="jobDetail">
+    <button class="btn btn-default" {{action "save"}} {{bind-attr disabled=saveDisabled}}>Save</button>
+    <button class="btn btn-default" {{action "getGcode"}}>GCode</button>
+    <div id="deleteBlock">
+        <div id="realDelete" style="display: none;">
+            {{input id="deleteSlider" type="range" min=0 max=1 step="0.1" value=deleteSlider}}
+            <span id="slideToDelete">Slide right deletes the job</span>
+            <span id="releaseToDelete" style="display: none;font-weight: bold">Release mouse to delete</span>
+        </div>
+        <div id="fakeDelete">
+            <button class="btn btn-default">Delete</button>
+        </div>
+    </div>
+    <table class="form">
+        <tbody>
+        <tr>
+            <th>{{#if computing}}<i class="fa fa-cog fa-spin" title="computing..."></i> {{/if}}Name:</th>
+            <td>{{input value=name classNames="form-control"}}</td>
+        </tr>
+        <tr>
+            <th>Safety Z:</th>
+            <td>{{number-input numericValue=safetyZ}}</td>
+        </tr>
+        <tr>
+            <th title="in mm">Tool Diameter:</th>
+            <td class="input-group input-group-sm">{{number-input numericValue=toolDiameter min="0.001" step="0.001"}}
+                <span class="input-group-addon">mm</span></td>
+        </tr>
+        <tr>
+            <th title="in mm/min">Feedrate:</th>
+            <td class="input-group input-group-sm">{{number-input numericValue=userFeedrate min=10 max=3000 step=10}}
+                <span class="input-group-addon">mm/min</span></td>
+        </tr>
+        <tr>
+            <th title="start the spindle before the job, then stop it after completion">Start Spindle</th>
+            <td>{{input type="checkbox" checked=startSpindle}}</td>
+        </tr>
+        <tr>
+            <th title="switch on the front socket on the controller box during the job">Switch Socket On</th>
+            <td>{{input type="checkbox" checked=startSocket}}</td>
+        </tr>
+        <tr>
+            <th title="travel path is displayed in red">Display Travel</th>
+            <td>{{input type="checkbox" checked=showTravel}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <h2>Shapes
+        <button title="create new shape" class="btn btn-default add-button" {{action "createShape"}}>+</button>
+    </h2>
+    <ul class="list-group shapeList">
+        {{#each shapes itemController="shapeListItem"}}
+            {{#link-to "shape" this classNames="list-group-item"}} <span {{action "toggleHide"}}
+                    title="Toggle Visibility" class="visibility-button"><i
+                    class="fa fa-eye"></i></span>
+                <span {{bind-attr class="visible:shape-visible:shape-hidden"}}>{{name}}</span>
+                {{#if computing}}<i class="fa fa-cog fa-spin" title="computing..."></i> {{/if}}
+                <span class="delete" {{action "delete"}} title="Delete Shape" style="float:right"><i
+                        class="fa fa-times"></i></span>{{/link-to}}
+        {{else}}
+            No shape yet. Try dropping a SVG or STL file on the window.
+        {{/each}}
+    </ul>
+    <h2>Operations
+        <button title="create new operation" class="btn btn-default add-button" {{action "createOperation"}}>+</button>
+        <span class="job-duration">{{duration}}</span>
+    </h2>
+    <div id="operationList" class="list-group">
+        {{#each orderedOperations itemController="operationListItem"}}
+            {{#link-to "operation" this classNames="list-group-item" title=operationDuration}}
+                <div class="arrow-panel">
+                    {{#if isNotFirst}}
+                        <div title="move operation one position earlier" {{action "moveEarlier"}}
+                             class="arrow-button arrow-up">
+                            <i class="fa fa-arrow-up"></i></div>
+                    {{else}}
+                        <div class="arrow-button">&nbsp;</div>
+                    {{/if}}
+                    {{#if isNotLast}}
+                        <div title="move operation one position later" {{action "moveLater"}}
+                             class="arrow-button arrow-down">
+                            <i class="fa fa-arrow-down"></i></div>
+                    {{/if}}
+                </div>
+                <span {{action "toggleEnabled"}} title="include or exclude from job" class="enable-button"
+                                                 style=""> <i
+                    {{bind-attr class="enabled:fa-check-square-o:fa-square-o :fa"}}></i></span>
+                {{name}}
+                {{#if isRunning}}<i class="fa fa-play-circle" title="operation currently running"></i>{{/if}}
+                {{#if computing}}<i class="fa fa-cog fa-spin" title="computing..."></i>{{/if}}
+                <span class="delete" {{action "delete"}} title="Delete Operation" style="float:right"><i
+                        class="fa fa-times"></i></span>{{/link-to}}
+        {{else}}
+            No operation yet.
+        {{/each}}
+    </div>
+</div>
+<div class="viewContainer">
+    {{view Visucam.ThreeDView}}
+</div>
+<div class="operation">
+    {{outlet}}
+</div>

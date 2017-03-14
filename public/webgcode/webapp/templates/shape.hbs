@@ -1,0 +1,184 @@
+<div>
+    <table class="form">
+        <tbody>
+        <tr class="form-header">
+            <th>{{#if computing}}<i class="fa fa-cog fa-spin" title="computing..."></i> {{/if}}Name:</th>
+            <td>{{input value=name placeholder="name"}}</td>
+        </tr>
+        {{#if isManual}}
+            <tr>
+                <th>Shape:</th>
+                <td class="input-group input-group-sm">{{view Ember.Select value=manualDefinition.type content=shapeTypes}}</td>
+            </tr>
+            {{#if isRectangle}}
+                <tr>
+                    <th>Width:</th>
+                    <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.width}} <span
+                            class="input-group-addon">mm</span></td>
+                </tr>
+                <tr>
+                    <th>Height:</th>
+                    <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.height}} <span
+                            class="input-group-addon">mm</span></td>
+                </tr>
+                <tr>
+                    <th>X Offset:</th>
+                    <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.x}} <span
+                            class="input-group-addon">mm</span></td>
+                </tr>
+                <tr>
+                    <th>Y Offset:</th>
+                    <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.y}} <span
+                            class="input-group-addon">mm</span></td>
+                </tr>
+            {{else}}
+                {{#if isCircle}}
+                    <tr>
+                        <th>Radius:</th>
+                        <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.radius}}
+                            <span class="input-group-addon">mm</span></td>
+                    </tr>
+                    <tr>
+                        <th>X:</th>
+                        <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.x}} <span
+                                class="input-group-addon">mm</span></td>
+                    </tr>
+                    <tr>
+                        <th>Y:</th>
+                        <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.y}} <span
+                                class="input-group-addon">mm</span></td>
+                    </tr>
+                {{else}}
+                    {{#if isText}}
+                        <tr>
+                            <th>Text:</th>
+                            <td class="input-group input-group-sm">{{input value=manualDefinition.text}}</td>
+                        </tr>
+                        <tr>
+                            <th>X:</th>
+                            <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.x}}
+                                <span class="input-group-addon">mm</span></td>
+                        </tr>
+                        <tr>
+                            <th>Y:</th>
+                            <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.y}}
+                                <span class="input-group-addon">mm</span></td>
+                        </tr>
+                        <tr>
+                            <th>Font:</th>
+                            <td class="input-group input-group-sm">{{view Ember.Select content=fonts
+                            value=manualDefinition.fontName optionLabelPath="content.family" optionValuePath="content.family"}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Size:</th>
+                            <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.fontSize}}
+                                <span class="input-group-addon">mm</span></td>
+                        </tr>
+                    {{else}}
+                        {{#if isPoint}}
+                            <tr>
+                                <th>X:</th>
+                                <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.x}}
+                                    <span class="input-group-addon">mm</span></td>
+                            </tr>
+                            <tr>
+                                <th>Y:</th>
+                                <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.y}}
+                                    <span class="input-group-addon">mm</span></td>
+                            </tr>
+                        {{else}}
+                            {{#if isSlice}}
+                                <tr>
+                                    <th>Outline:</th>
+                                    <td class="input-group input-group-sm">{{view Ember.Select
+                                    value=manualDefinition.threeDmodelID content=stlShapes optionValuePath="content.id"
+                                    optionLabelPath="content.name"}}</td>
+                                </tr>
+                                <tr>
+                                    <th>slice Z:</th>
+                                    <td class="input-group input-group-sm">{{number-input numericValue=manualDefinition.sliceZ}}
+                                        <span class="input-group-addon">mm</span></td>
+                                </tr>
+                            {{else}}
+                                <tr>
+                                    <th>well well well</th>
+                                    <td>
+                                        {{manualDefinition.type}}
+                                    </td>
+                                </tr>
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+        {{else}}
+            <tr>
+                <th title="the plane of symmetry is along the Y axis and passes by the center of the bbox">Flipped:</th>
+                <td>
+                    {{input type="checkbox" checked=flipped}}
+                </td>
+            </tr>
+        {{/if}}
+        {{#if isPoint}}
+        {{! repetition doesn't work for points yet}}
+        {{else}}
+            <tr>
+                <th>X repetition:</th>
+                <td>
+                    {{number-input numericValue=repetitionX min=1 step=1}}
+                </td>
+            </tr>
+            <tr>
+                <th>Y repetition:</th>
+                <td>
+                    {{number-input numericValue=repetitionY min=1 step=1}}
+                </td>
+            </tr>
+            <tr>
+                <th>X Spacing:</th>
+                <td>
+                    {{number-input numericValue=repetitionSpacingX}}
+                </td>
+            </tr>
+            <tr>
+                <th>Y Spacing:</th>
+                <td>
+                    {{number-input numericValue=repetitionSpacingY}}
+                </td>
+            </tr>
+        {{/if}}
+        <tr>
+            <th>Bounds:</th>
+            <td>
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>X:</th>
+                        <td>{{number boundingBox.x.min}}</td>
+                        <td>→</td>
+                        <td>{{number boundingBox.x.max}}</td>
+                        <td title="span">[{{number boundingBox.x.range}}]</td>
+                    </tr>
+                    <tr>
+                        <th>Y:</th>
+                        <td>{{number boundingBox.y.min}}</td>
+                        <td>→</td>
+                        <td>{{number boundingBox.y.max}}</td>
+                        <td title="span">[{{number boundingBox.y.range}}]</td>
+                    </tr>
+                    <tr>
+                        <th>Z:</th>
+                        <td>{{number boundingBox.z.min}}</td>
+                        <td>→</td>
+                        <td>{{number boundingBox.z.max}}</td>
+                        <td title="span">[{{number boundingBox.z.range}}]</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

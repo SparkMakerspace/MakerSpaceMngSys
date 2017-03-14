@@ -150,7 +150,7 @@ class Auto3dprintqueueController extends Controller
 
 
 
-        return response($myyfileout, 200)->header('Content-Type', 'application/text');
+        return view('auto3dprintqueue.showGcode',['$MyGcode' => $myyfileout ]);
     }
 
 
@@ -164,7 +164,7 @@ class Auto3dprintqueueController extends Controller
         }
 
         $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
-        return view('auto3dprintqueue.showGcode',compact('title','auto3dprintqueue'));
+        return view('auto3dprintqueue.showGcode') ->with('MyGcode', $myyfileout);
     }
 
 
