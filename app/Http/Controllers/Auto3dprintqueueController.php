@@ -99,7 +99,7 @@ class Auto3dprintqueueController extends Controller
 
         $pusher = App::make('pusher');
 
-        $output = shell_exec("..\\slic3r\\slic3r-console.exe ..\\".$path."");
+        $output = shell_exec("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path);
 
         //default pusher notification.
         //by default channel=test-channel,event=test-event
@@ -131,6 +131,29 @@ class Auto3dprintqueueController extends Controller
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
         return view('auto3dprintqueue.show',compact('title','auto3dprintqueue'));
     }
+
+
+
+
+
+
+    public function showGcode($id,Request $request)
+    {
+        $title = 'Show - auto3dprintcue';
+
+        if($request->ajax())
+        {
+            return URL::to('auto3dprintcue/'.$id);
+        }
+
+        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
+        return $myyfileout;
+    }
+
+
+
+
+
 
     /**
      * Show the form for editing the specified resource.
