@@ -6,15 +6,13 @@
     <h1>
         Create auto3dprintcue
     </h1>
-    <form method = 'get' action = '{!!url("auto3dprintcue")!!}' enctype="multipart/form-data">
+
         <button class = 'btn btn-danger'>auto3dprintcue Index</button>
-    </form>
-    <br>
-    <form method = 'POST' action = '{!!url("auto3dprintcue")!!}'>
-        <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
+        {!! Form::open(array('route' => 'auto3dprintcue.store', 'files'=>true)) !!}
+    {{csrf_field()}}
         <div class="form-group">
-            <label for="Name">Name</label>
-            <input id="Name" name = "Name" type="text" class="form-control">
+            <label>Select File</label>
+            {!! Form::file('upload') !!}
         </div>
         <div class="form-group">
             <label for="Infill">Infill</label>
@@ -37,14 +35,7 @@
                 @endforeach 
             </select>
         </div>
-        <div class="form-group">
-            <label>Upload File</label>
-            {!! Form::file('upload') !!}
-        </div>
-
-
-
-        <button class = 'btn btn-primary' type ='submit'>Create</button>
-    </form>
+    {!! Form::submit() !!}
+    {!! Form::close() !!}
 </section>
 @endsection

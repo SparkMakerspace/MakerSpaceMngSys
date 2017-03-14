@@ -26,7 +26,7 @@ class Auto3dprintcues extends Migration
         
         $table->integer('Infill');
         
-        $table->String('Status');
+        $table->String('Status')->nullable();
         
         $table->boolean('Notified');
         

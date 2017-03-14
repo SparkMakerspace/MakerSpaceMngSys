@@ -14,7 +14,7 @@ use App\Auto3dprintercolor;
 
 use App\Auto3dprintmaterial;
 
-
+use Storage;
 use App\User;
 
 
@@ -34,7 +34,7 @@ class Auto3dprintcueController extends Controller
     public function index()
     {
         $title = 'Index - auto3dprintcue';
-        $auto3dprintcues = Auto3dprintcue::paginate(6);
+        $auto3dprintcues = Auto3dprintcue::paginate(20);
         return view('auto3dprintcue.index',compact('auto3dprintcues','title'));
     }
 
@@ -64,10 +64,11 @@ class Auto3dprintcueController extends Controller
      */
     public function store(Request $request)
     {
+
         $auto3dprintcue = new Auto3dprintcue();
 
         
-        $auto3dprintcue->Name = $request->Name;
+        $auto3dprintcue->Name = $request->file('upload')->getClientOriginalName();
 
         
         $auto3dprintcue->Infill = $request->Infill;
@@ -90,6 +91,8 @@ class Auto3dprintcueController extends Controller
 
         
         $auto3dprintcue->save();
+
+        $path = Storage::putFile('public', $request->file('upload'), 'public');
 
         $pusher = App::make('pusher');
 
