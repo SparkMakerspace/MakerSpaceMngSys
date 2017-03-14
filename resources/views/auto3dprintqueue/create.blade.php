@@ -4,11 +4,11 @@
 
 <section class="content">
     <h1>
-        Create auto3dprintcue
+        Create auto3dprintqueue
     </h1>
 
-        <button class = 'btn btn-danger'>auto3dprintcue Index</button>
-        {!! Form::open(array('route' => 'auto3dprintcue.store', 'files'=>true)) !!}
+        <button class = 'btn btn-danger'>auto3dprintqueue Index</button>
+        {!! Form::open(array('route' => 'auto3dprintqueue.store', 'files'=>true)) !!}
     {{csrf_field()}}
         <div class="form-group">
             <label>Select File</label>

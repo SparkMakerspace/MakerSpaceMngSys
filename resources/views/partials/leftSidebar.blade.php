@@ -13,7 +13,11 @@
 
 <li class="treeview"><a href="{{url('./image/')}}"></i> <span>Images</span></a></li>
 
+<li class="treeview"><a href="{{url('./auto3dprintqueue/')}}"></i> <span>3D Printer Queue</span></a></li>
+
 <li class="treeview"><a href="{{url('./test/')}}"></i> <span>TEST!!</span></a></li>
+
+@yield('sidebar.specific')
 
 @hasanyrole(['superadmin','admin'])
 <li class="header">ADMINISTRATOR</li>

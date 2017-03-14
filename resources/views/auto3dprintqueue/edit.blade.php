@@ -4,34 +4,34 @@
 
 <section class="content">
     <h1>
-        Edit auto3dprintcue
+        Edit auto3dprintqueue
     </h1>
-    <form method = 'get' action = '{!!url("auto3dprintcue")!!}'>
-        <button class = 'btn btn-danger'>auto3dprintcue Index</button>
+    <form method = 'get' action = '{!!url("auto3dprintqueue")!!}'>
+        <button class = 'btn btn-danger'>auto3dprintqueue Index</button>
     </form>
     <br>
-    <form method = 'POST' action = '{!! url("auto3dprintcue")!!}/{!!$auto3dprintcue->
+    <form method = 'POST' action = '{!! url("auto3dprintqueue")!!}/{!!$auto3dprintqueue->
         id!!}/update'> 
         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
         <div class="form-group">
             <label for="Name">Name</label>
-            <input id="Name" name = "Name" type="text" class="form-control" value="{!!$auto3dprintcue->
+            <input id="Name" name = "Name" type="text" class="form-control" value="{!!$auto3dprintqueue->
             Name!!}"> 
         </div>
         <div class="form-group">
             <label for="Infill">Infill</label>
-            <input id="Infill" name = "Infill" type="range"  min="20" max="100"  oninput="InfillOutput.value = Infill.value +'%'" value="{!!$auto3dprintcue->
+            <input id="Infill" name = "Infill" type="range"  min="20" max="100"  oninput="InfillOutput.value = Infill.value +'%'" value="{!!$auto3dprintqueue->
             Infill!!}">
-            <output name="InfillOutput" id="InfillOutput">{!!$auto3dprintcue->Infill!!}%</output>
+            <output name="InfillOutput" id="InfillOutput">{!!$auto3dprintqueue->Infill!!}%</output>
         </div>
         <div class="form-group">
             <label for="Status">Status</label>
-            <input id="Status" name = "Status" type="text" class="form-control" value="{!!$auto3dprintcue->
+            <input id="Status" name = "Status" type="text" class="form-control" value="{!!$auto3dprintqueue->
             Status!!}"> 
         </div>
         <div class="form-group">
             <label for="Notified">Notified</label>
-            <input id="Notified" name = "Notified" type="text" class="form-control" value="{!!$auto3dprintcue->
+            <input id="Notified" name = "Notified" type="text" class="form-control" value="{!!$auto3dprintqueue->
             Notified!!}"> 
         </div>
         <div class="form-group">

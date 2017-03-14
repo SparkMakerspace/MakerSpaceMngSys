@@ -4,12 +4,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class Auto3dprintcues.
+ * Class Auto3dprintqueues.
  *
  * @author  The scaffold-interface created at 2017-03-14 06:02:31am
  * @link  https://github.com/amranidev/scaffold-interface
  */
-class Auto3dprintcues extends Migration
+class Auto3dprintqueues extends Migration
 {
     /**
      * Run the migrations.
@@ -18,7 +18,7 @@ class Auto3dprintcues extends Migration
      */
     public function up()
     {
-        Schema::create('auto3dprintcues',function (Blueprint $table){
+        Schema::create('auto3dprintqueues',function (Blueprint $table){
 
         $table->increments('id');
         
@@ -63,6 +63,6 @@ class Auto3dprintcues extends Migration
      */
     public function down()
     {
-        Schema::drop('auto3dprintcues');
+        Schema::drop('auto3dprintqueues');
     }
 }

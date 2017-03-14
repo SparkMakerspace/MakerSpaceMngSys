@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Auto3dprintcue.
+ * Class Auto3dprintqueue.
  *
  * @author  The scaffold-interface created at 2017-03-14 06:02:31am
  * @link  https://github.com/amranidev/scaffold-interface
  */
-class Auto3dprintcue extends Model
+class Auto3dprintqueue extends Model
 {
 	
 	use SoftDeletes;
@@ -19,7 +19,7 @@ class Auto3dprintcue extends Model
 	protected $dates = ['deleted_at'];
     
 	
-    protected $table = 'auto3dprintcues';
+    protected $table = 'auto3dprintqueues';
 
 	
 	public function auto3dprintercolor()

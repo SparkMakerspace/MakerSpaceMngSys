@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Auto3dprintcue;
+use App\Auto3dprintqueue;
 use Amranidev\Ajaxis\Ajaxis;
 use URL;
 
@@ -19,12 +19,12 @@ use App\User;
 
 
 /**
- * Class Auto3dprintcueController.
+ * Class Auto3dprintqueueController.
  *
  * @author  The scaffold-interface created at 2017-03-14 06:02:31am
  * @link  https://github.com/amranidev/scaffold-interface
  */
-class Auto3dprintcueController extends Controller
+class Auto3dprintqueueController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,9 +33,9 @@ class Auto3dprintcueController extends Controller
      */
     public function index()
     {
-        $title = 'Index - auto3dprintcue';
-        $auto3dprintcues = Auto3dprintcue::paginate(20);
-        return view('auto3dprintcue.index',compact('auto3dprintcues','title'));
+        $title = 'Index - auto3dprintqueue';
+        $auto3dprintqueues = Auto3dprintqueue::paginate(20);
+        return view('auto3dprintqueue.index',compact('auto3dprintqueues','title'));
     }
 
     /**
@@ -45,7 +45,7 @@ class Auto3dprintcueController extends Controller
      */
     public function create()
     {
-        $title = 'Create - auto3dprintcue';
+        $title = 'Create - auto3dprintqueue';
         
         $auto3dprintercolors = Auto3dprintercolor::all()->pluck('color','id');
         
@@ -53,7 +53,7 @@ class Auto3dprintcueController extends Controller
         
         $users = User::all()->pluck('name','id');
         
-        return view('auto3dprintcue.create',compact('title','auto3dprintercolors' , 'auto3dprintmaterials' , 'users'  ));
+        return view('auto3dprintqueue.create',compact('title','auto3dprintercolors' , 'auto3dprintmaterials' , 'users'  ));
     }
 
     /**
@@ -68,40 +68,38 @@ class Auto3dprintcueController extends Controller
 
 
 
-        $auto3dprintcue = new Auto3dprintcue();
+        $auto3dprintqueue = new Auto3dprintqueue();
 
         
-        $auto3dprintcue->Name = $request->file('upload')->getClientOriginalName();
+        $auto3dprintqueue->Name = $request->file('upload')->getClientOriginalName();
 
-        $auto3dprintcue->Path = $path;
+        $auto3dprintqueue->path = '';
 
-        $auto3dprintcue->Infill = $request->Infill;
+        $auto3dprintqueue->Infill = $request->Infill;
 
-        
-        $auto3dprintcue->Status = "";
 
-        
-        $auto3dprintcue->Notified = 0;
+        $auto3dprintqueue->Status = "";
 
         
-        
-        $auto3dprintcue->auto3dprintercolor_id = $request->auto3dprintercolor_id;
+        $auto3dprintqueue->Notified = 0;
+
+
+        $auto3dprintqueue->auto3dprintercolor_id = $request->auto3dprintercolor_id;
 
         
-        $auto3dprintcue->auto3dprintmaterial_id = $request->auto3dprintmaterial_id;
+        $auto3dprintqueue->auto3dprintmaterial_id = $request->auto3dprintmaterial_id;
 
         
-        $auto3dprintcue->user_id = \Auth::user()->id;
+        $auto3dprintqueue->user_id = \Auth::user()->id;
 
         
-        $auto3dprintcue->save();
+        $auto3dprintqueue->save();
 
-        $path = Storage::putFileAs('3dPrintFiles', $request->file('upload'),$auto3dprintcue->id.".stl", 'public');
+        $path = Storage::putFileAs('3dPrintFiles', $request->file('upload'),$auto3dprintqueue->id.".stl", 'public');
 
         $pusher = App::make('pusher');
 
         $output = shell_exec("..\\slic3r\\slic3r-console.exe ..\\".$path."");
-
 
         //default pusher notification.
         //by default channel=test-channel,event=test-event
@@ -109,9 +107,9 @@ class Auto3dprintcueController extends Controller
         //you can modify anything you want or use it wherever.
         $pusher->trigger('test-channel',
                          'test-event',
-                        ['message' => 'A new auto3dprintcue has been created !!']);
+                        ['message' => 'A new auto3dprintqueue has been created !!']);
 
-        return redirect('auto3dprintcue');
+        return redirect('auto3dprintqueue');
     }
 
     /**
@@ -123,15 +121,15 @@ class Auto3dprintcueController extends Controller
      */
     public function show($id,Request $request)
     {
-        $title = 'Show - auto3dprintcue';
+        $title = 'Show - auto3dprintqueue';
 
         if($request->ajax())
         {
-            return URL::to('auto3dprintcue/'.$id);
+            return URL::to('auto3dprintqueue/'.$id);
         }
 
-        $auto3dprintcue = Auto3dprintcue::findOrfail($id);
-        return view('auto3dprintcue.show',compact('title','auto3dprintcue'));
+        $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+        return view('auto3dprintqueue.show',compact('title','auto3dprintqueue'));
     }
 
     /**
@@ -142,10 +140,10 @@ class Auto3dprintcueController extends Controller
      */
     public function edit($id,Request $request)
     {
-        $title = 'Edit - auto3dprintcue';
+        $title = 'Edit - auto3dprintqueue';
         if($request->ajax())
         {
-            return URL::to('auto3dprintcue/'. $id . '/edit');
+            return URL::to('auto3dprintqueue/'. $id . '/edit');
         }
 
         
@@ -158,8 +156,8 @@ class Auto3dprintcueController extends Controller
         $users = User::all()->pluck('name','id');
 
         
-        $auto3dprintcue = Auto3dprintcue::findOrfail($id);
-        return view('auto3dprintcue.edit',compact('title','auto3dprintcue' ,'auto3dprintercolors', 'auto3dprintmaterials', 'users' ) );
+        $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+        return view('auto3dprintqueue.edit',compact('title','auto3dprintqueue' ,'auto3dprintercolors', 'auto3dprintmaterials', 'users' ) );
     }
 
     /**
@@ -171,29 +169,29 @@ class Auto3dprintcueController extends Controller
      */
     public function update($id,Request $request)
     {
-        $auto3dprintcue = Auto3dprintcue::findOrfail($id);
+        $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
     	
-        $auto3dprintcue->Name = $request->Name;
+        $auto3dprintqueue->Name = $request->Name;
         
-        $auto3dprintcue->Infill = $request->Infill;
+        $auto3dprintqueue->Infill = $request->Infill;
         
-        $auto3dprintcue->Status = $request->Status;
+        $auto3dprintqueue->Status = $request->Status;
         
-        $auto3dprintcue->Notified = $request->Notified;
+        $auto3dprintqueue->Notified = $request->Notified;
         
         
-        $auto3dprintcue->auto3dprintercolor_id = $request->auto3dprintercolor_id;
+        $auto3dprintqueue->auto3dprintercolor_id = $request->auto3dprintercolor_id;
 
         
-        $auto3dprintcue->auto3dprintmaterial_id = $request->auto3dprintmaterial_id;
+        $auto3dprintqueue->auto3dprintmaterial_id = $request->auto3dprintmaterial_id;
 
         
-        $auto3dprintcue->user_id = $request->user_id;
+        $auto3dprintqueue->user_id = $request->user_id;
 
         
-        $auto3dprintcue->save();
+        $auto3dprintqueue->save();
 
-        return redirect('auto3dprintcue');
+        return redirect('auto3dprintqueue');
     }
 
     /**
@@ -205,7 +203,7 @@ class Auto3dprintcueController extends Controller
      */
     public function DeleteMsg($id,Request $request)
     {
-        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/auto3dprintcue/'. $id . '/delete');
+        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/auto3dprintqueue/'. $id . '/delete');
 
         if($request->ajax())
         {
@@ -221,8 +219,8 @@ class Auto3dprintcueController extends Controller
      */
     public function destroy($id)
     {
-     	$auto3dprintcue = Auto3dprintcue::findOrfail($id);
-     	$auto3dprintcue->delete();
-        return URL::to('auto3dprintcue');
+     	$auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+     	$auto3dprintqueue->delete();
+        return URL::to('auto3dprintqueue');
     }
 }

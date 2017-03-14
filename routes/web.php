@@ -112,10 +112,10 @@ Route::group(['middleware'=> ['web', 'auth']],function(){
 
 Route::group(['middleware'=> 'web'],function(){
 });
-//auto3dprintcue Routes
+//auto3dprintqueue Routes
 Route::group(['middleware'=> ['web', 'auth']],function(){
-  Route::resource('auto3dprintcue','\App\Http\Controllers\Auto3dprintcueController');
-  Route::post('auto3dprintcue/{id}/update','\App\Http\Controllers\Auto3dprintcueController@update');
-  Route::get('auto3dprintcue/{id}/delete','\App\Http\Controllers\Auto3dprintcueController@destroy');
-  Route::get('auto3dprintcue/{id}/deleteMsg','\App\Http\Controllers\Auto3dprintcueController@DeleteMsg');
+  Route::resource('auto3dprintqueue','\App\Http\Controllers\Auto3dprintqueueController');
+  Route::post('auto3dprintqueue/{id}/update','\App\Http\Controllers\Auto3dprintqueueController@update');
+  Route::get('auto3dprintqueue/{id}/delete','\App\Http\Controllers\Auto3dprintqueueController@destroy');
+  Route::get('auto3dprintqueue/{id}/deleteMsg','\App\Http\Controllers\Auto3dprintqueueController@DeleteMsg');
 });
