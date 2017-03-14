@@ -162,9 +162,9 @@ class Auto3dprintqueueController extends Controller
         {
             return URL::to('auto3dprintcue/'.$id);
         }
-
+        $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
         $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
-        return view('auto3dprintqueue.showGcode') ->with('MyGcode', $myyfileout);
+        return view('auto3dprintqueue.showGcode',compact('title','auto3dprintqueue')) ->with('MyGcode', $myyfileout);
     }
 
 

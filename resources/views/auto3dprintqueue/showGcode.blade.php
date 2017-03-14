@@ -95,13 +95,12 @@
         }
     </style>
 </head>
-<body>
-<div id="app">
 
-</div>
+
 <script id="demoCode" type="application/gcode">
 {{$MyGcode}}
 </script>
+<div id="app"></div>
 <script>
     require(['Ember', 'cnc/ui/graphicView', 'cnc/cam/cam', 'cnc/util', 'cnc/ui/gcodeEditor', 'cnc/gcode/gcodeSimulation', 'templates'],
         function (Ember, GraphicView, cam, util, gcodeEditor, gcodeSimulation) {
@@ -211,4 +210,12 @@
             });
         });
 </script>
+<div>Name: {!!$auto3dprintqueue->Name!!}</div>
+<div>Infill: {!!$auto3dprintqueue->Infill!!}</div>div>
+<div>Status: {!!$auto3dprintqueue->Status!!}</div>
+<div>Notified: {!!$auto3dprintqueue->Notified!!}</div>
+<div>color: {!!$auto3dprintqueue->auto3dprintercolor->color!!}</div>
+<div>material: {!!$auto3dprintqueue->auto3dprintmaterial->material!!} </div>
+<div>name: {!!$auto3dprintqueue->user->name!!}</div>
+
 @endsection('content')
