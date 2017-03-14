@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(imageSeeder::class);
+        $this->call(Auto3dprintercolorSeeder::class);
         $this->call(permissionSeeder::class);
         $this->call(roleSeeder::class);
         $this->call(userSeeder::class);
@@ -19,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(groupSeeder::class);
         $this->call(doorSeeder::class);
         $this->call(postSeeder::class);
+
     }
 }

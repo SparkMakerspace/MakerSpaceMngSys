@@ -23,6 +23,8 @@ class Auto3dprintcues extends Migration
         $table->increments('id');
         
         $table->String('Name');
+
+        $table->String('Path')->nullable();
         
         $table->integer('Infill');
         

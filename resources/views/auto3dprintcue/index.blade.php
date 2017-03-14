@@ -32,7 +32,9 @@
         <tbody>
             @foreach($auto3dprintcues as $auto3dprintcue) 
             <tr>
-                <td>{!!$auto3dprintcue->Name!!}</td>
+                <td>
+                    <a href="{{url(asset($auto3dprintcue->Path))}}"> {!!$auto3dprintcue->Name!!}</a>
+                </td>
                 <td>{!!$auto3dprintcue->Infill!!}</td>
                 <td>{!!$auto3dprintcue->Status!!}</td>
                 <td>{!!$auto3dprintcue->Notified!!}</td>
