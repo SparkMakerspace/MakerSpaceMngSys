@@ -100,6 +100,9 @@ class Auto3dprintcueController extends Controller
 
         $pusher = App::make('pusher');
 
+        $output = shell_exec("..\\slic3r\\slic3r-console.exe ..\\".$path."");
+
+
         //default pusher notification.
         //by default channel=test-channel,event=test-event
         //Here is a pusher notification example when you create a new resource in storage.
