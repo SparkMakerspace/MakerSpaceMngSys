@@ -1,191 +1,111 @@
-@extends('scaffold-interface.layouts.app')
-@section('title','Show')
-@section('content')
 
-<section class="content">
-    <h1>
-        Show auto3dprintqueue
-    </h1>
-    <br>
-    <form method = 'get' action = '{!!url("auto3dprintqueue")!!}'>
-        <button class = 'btn btn-primary'>auto3dprintqueue Index</button>
-    </form>
-    <br>
-    <table class = 'table table-bordered'>
-        <thead>
-            <th>Key</th>
-            <th>Value</th>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <b><i>Name : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->Name!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>Infill : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->Infill!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>Status : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->Status!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>Notified : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->Notified!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>color : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->auto3dprintercolor->color!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>created_at : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->auto3dprintercolor->created_at!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>updated_at : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->auto3dprintercolor->updated_at!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>deleted_at : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->auto3dprintercolor->deleted_at!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>material : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->auto3dprintmaterial->material!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>created_at : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->auto3dprintmaterial->created_at!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>updated_at : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->auto3dprintmaterial->updated_at!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>deleted_at : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->auto3dprintmaterial->deleted_at!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>name : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->name!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>email : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->email!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>password : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->password!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>remember_token : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->remember_token!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>created_at : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->created_at!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>updated_at : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->updated_at!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>username : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->username!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>address1 : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->address1!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>address2 : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->address2!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>city : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->city!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>state : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->state!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>zipcode : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->zipcode!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>phone : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->phone!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>active : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->active!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>accountType : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->accountType!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>bio : </i></b>
-                </td>
-                <td>{!!$auto3dprintqueue->user->bio!!}</td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-@endsection
+        <!DOCTYPE html>
+
+
+<script>
+
+    var config = {
+        lastImportedKey: 'last-imported',
+        notFirstVisitKey: 'not-first-visit',
+        defaultFilePath: './gcode.gcode'
+        //defaultFilePath: './gcode.gcode'
+    }
+</script>
+
+
+
+<head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta charset="utf-8">
+    <title>GCode Viewer</title>
+    <link rel="stylesheet" href="../../../../gcode-viewer-master/web/lib/bootstrap.min.css">
+    <style>
+        #renderArea {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 40px;
+            background-color: #000000;
+        }
+        .dg.main {
+            margin-top:40px;
+        }
+    </style>
+    <!-- 3rd party libs -->
+    <script src="../../../../gcode-viewer-master/web/lib/modernizr.custom.93389.js"></script>
+    <script src="../../../../gcode-viewer-master/web/lib/jquery-1.7.1.min.js"></script>
+    <script src="../../../../gcode-viewer-master/web/lib/bootstrap-modal.js"></script>
+    <script src="../../../../gcode-viewer-master/web/lib/sugar-1.2.4.min.js"></script>
+    <script src="../../../../gcode-viewer-master/web/lib/three.js"></script>
+    <script src="../../../../gcode-viewer-master/web/lib/TrackballControls.js"></script>
+
+    <script src="../../../../gcode-viewer-master/web/js/ShaderExtras.js"></script>
+    <script src="../../../../gcode-viewer-master/web/js/postprocessing/EffectComposer.js"></script>
+    <script src="../../../../gcode-viewer-master/web/js/postprocessing/MaskPass.js"></script>
+    <script src="../../../../gcode-viewer-master/web/js/postprocessing/RenderPass.js"></script>
+    <script src="../../../../gcode-viewer-master/web/js/postprocessing/ShaderPass.js"></script>
+    <script src="../../../../gcode-viewer-master/web/js/postprocessing/BloomPass.js"></script>
+
+    <script src="../../../../gcode-viewer-master/web/js/Stats.js"></script>
+    <script src="../../../../gcode-viewer-master/web/js/DAT.GUI.min.js"></script>
+    <!-- Custom code -->
+    <script type="text/javascript" src="../../../../gcode-viewer-master/web/gcode_model.js"></script>
+    <script type="text/javascript" src="../../../../gcode-viewer-master/web/gcode_parser.js"></script>
+    <script type="text/javascript" src="../../../../gcode-viewer-master/web/gcode_interpreter.js"></script>
+    <script type="text/javascript" src="../../../../gcode-viewer-master/web/gcode_importer.js"></script>
+    <script type="text/javascript" src="../../../../gcode-viewer-master/web/gcode_renderer.js"></script>
+    <script src="../../../../gcode-viewer-master/web/renderer.js"></script>
+    <script src="../../../../gcode-viewer-master/web/ui.js"></script>
+
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <span class="brand" href="#">GCode Viewer</span>
+            <ul class="nav">
+                <li><a href="javascript:openDialog()">Load Model</a></li>
+                <li><a href="javascript:about()">About</a></li>
+            </ul>
+            <ul class="nav pull-right">
+                <li><a href="https://github.com/jherrm/gcode-viewer" target="_blank">Code on GitHub</a></li>
+                <li><a href="http://twitter.com/jherrm" target="_blank">@jherrm</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- WebGL rendering area -->
+<div id="renderArea"></div>
+
+<div class="modal" id="openModal" style="display: none">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3>Open GCode</h3>
+    </div>
+    <div class="modal-body">
+        <h4>Examples</h4>
+        <ul class="gcode_examples">
+            <li><a href="examples/15mm_cube.gcode">15mm_cube.gcode</a></li>
+            <li><a href="examples/octocat.gcode">octocat.gcode</a></li>
+            <li><a href="examples/part.gcode">part.gcode</a></li>
+        </ul>
+        <p>To view your own model, drag a gcode file from your desktop and drop it in this window.</p>
+    </div>
+    <div class="modal-footer">
+        <a class="btn" data-dismiss="modal">Cancel</a>
+    </div>
+</div>
+
+<!-- 'About' dialog'-->
+<div class="modal fade" id="aboutModal" style="display: none">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3>About GCode Viewer</h3>
+    </div>
+
+
+</body>
