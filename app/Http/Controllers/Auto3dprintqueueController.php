@@ -109,7 +109,7 @@ class Auto3dprintqueueController extends Controller
                          'test-event',
                         ['message' => 'A new auto3dprintqueue has been created !!']);
 
-        return redirect('auto3dprintqueue');
+        return redirect('auto3dprintqueue/'.$auto3dprintqueue->id."/viewer");
     }
 
     /**
