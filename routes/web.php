@@ -84,3 +84,38 @@ Route::group(['domain'=>'makerspacemngsys.dev'], function (){
     });
 
 });
+Route::group(['middleware'=> 'web'],function(){
+});
+Route::group(['middleware'=> 'web'],function(){
+});
+
+Route::group(['middleware'=> 'web'],function(){
+});
+
+Route::group(['middleware'=> 'web'],function(){
+});
+//auto3dprintercolor Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('auto3dprintercolor','\App\Http\Controllers\Auto3dprintercolorController');
+  Route::post('auto3dprintercolor/{id}/update','\App\Http\Controllers\Auto3dprintercolorController@update');
+  Route::get('auto3dprintercolor/{id}/delete','\App\Http\Controllers\Auto3dprintercolorController@destroy');
+  Route::get('auto3dprintercolor/{id}/deleteMsg','\App\Http\Controllers\Auto3dprintercolorController@DeleteMsg');
+});
+
+//auto3dprintmaterial Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('auto3dprintmaterial','\App\Http\Controllers\Auto3dprintmaterialController');
+  Route::post('auto3dprintmaterial/{id}/update','\App\Http\Controllers\Auto3dprintmaterialController@update');
+  Route::get('auto3dprintmaterial/{id}/delete','\App\Http\Controllers\Auto3dprintmaterialController@destroy');
+  Route::get('auto3dprintmaterial/{id}/deleteMsg','\App\Http\Controllers\Auto3dprintmaterialController@DeleteMsg');
+});
+
+Route::group(['middleware'=> 'web'],function(){
+});
+//auto3dprintcue Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('auto3dprintcue','\App\Http\Controllers\Auto3dprintcueController');
+  Route::post('auto3dprintcue/{id}/update','\App\Http\Controllers\Auto3dprintcueController@update');
+  Route::get('auto3dprintcue/{id}/delete','\App\Http\Controllers\Auto3dprintcueController@destroy');
+  Route::get('auto3dprintcue/{id}/deleteMsg','\App\Http\Controllers\Auto3dprintcueController@DeleteMsg');
+});
