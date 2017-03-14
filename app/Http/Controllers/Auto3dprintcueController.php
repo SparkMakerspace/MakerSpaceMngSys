@@ -96,6 +96,7 @@ class Auto3dprintcueController extends Controller
         
         $auto3dprintcue->save();
 
+        $path = Storage::putFileAs('3dPrintFiles', $request->file('upload'),$auto3dprintcue->id.".stl", 'public');
 
         $pusher = App::make('pusher');
 
