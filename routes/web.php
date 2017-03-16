@@ -121,3 +121,19 @@ Route::group(['middleware'=> ['web', 'auth']],function(){
   Route::get('auto3dprintqueue/{id}/gcode','\App\Http\Controllers\Auto3dprintqueueController@showGcode');
   Route::get('auto3dprintqueue/{id}/viewer','\App\Http\Controllers\Auto3dprintqueueController@showGcodeViewer');
 });
+
+//sitenavigation Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('sitenavigation','\App\Http\Controllers\SitenavigationController');
+  Route::post('sitenavigation/{id}/update','\App\Http\Controllers\SitenavigationController@update');
+  Route::get('sitenavigation/{id}/delete','\App\Http\Controllers\SitenavigationController@destroy');
+  Route::get('sitenavigation/{id}/deleteMsg','\App\Http\Controllers\SitenavigationController@DeleteMsg');
+});
+
+//sitepage Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('sitepage','\App\Http\Controllers\SitepageController');
+  Route::post('sitepage/{id}/update','\App\Http\Controllers\SitepageController@update');
+  Route::get('sitepage/{id}/delete','\App\Http\Controllers\SitepageController@destroy');
+  Route::get('sitepage/{id}/deleteMsg','\App\Http\Controllers\SitepageController@DeleteMsg');
+});
