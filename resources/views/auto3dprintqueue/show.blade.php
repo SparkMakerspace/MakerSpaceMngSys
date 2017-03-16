@@ -12,6 +12,7 @@
             <form method = 'get' action = '{!!url("auto3dprintqueue")!!}'>
                 <button class = 'btn btn-primary'>auto3dprintqueue Index</button>
             </form>
+            <img src="../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/thumb.png" width="20%" height="20%" style="border:none;float:left"></img>
             <br>
             <table class = 'table table-bordered'>
                 <thead>
@@ -192,7 +193,7 @@
         </section>
     </div>
 
-        <iframe src="../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/viewer" width="50%" height="500" style="border:none;float:right"></iframe>
+    <iframe src="../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/viewer" width="50%" height="500" style="border:none;float:right"></iframe>
 
 
 

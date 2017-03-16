@@ -97,9 +97,16 @@ class Auto3dprintqueueController extends Controller
 
         $path = Storage::putFileAs('3dPrintFiles', $request->file('upload'),$auto3dprintqueue->id.".stl", 'public');
 
+        Storage::disk('local')->put("3dPrintFiles\\".$auto3dprintqueue->id.".scad", "import(\"".$auto3dprintqueue->id.".stl\");");
+
+
         $pusher = App::make('pusher');
 
         $output = execInBackground("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path);
+
+
+
+        $outputb = execInBackground("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
 
         //default pusher notification.
         //by default channel=test-channel,event=test-event
@@ -137,6 +144,23 @@ class Auto3dprintqueueController extends Controller
 
 
 
+    public function showPNG($id,Request $request)
+    {
+        $title = 'Show - auto3dprintcue';
+
+        if($request->ajax())
+        {
+            return URL::to('auto3dprintcue/'.$id);
+        }
+
+
+        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".png");
+        return response($myyfileout, 200)->header('Content-Type', 'image/png');
+    }
+
+
+
+
     public function showGcode($id,Request $request)
     {
         $title = 'Show - auto3dprintcue';
@@ -147,11 +171,10 @@ class Auto3dprintqueueController extends Controller
         }
 
         $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
-
-
-        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
         return response($myyfileout, 200)->header('Content-Type', 'text/text');
     }
+
+
 
 
     public function showGcodeViewer($id,Request $request)

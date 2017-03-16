@@ -21,6 +21,7 @@
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
         <thead>
             <th>Name</th>
+            <th>Thumbnail</th>
             <th>Infill</th>
             <th>Status</th>
             <th>Notified</th>
@@ -34,6 +35,9 @@
             <tr>
                 <td>
                     <a href="{{"../../../../auto3dprintqueue/".$auto3dprintqueue->id}}"> {!!$auto3dprintqueue->Name!!}</a>
+                </td>
+                <td>
+                    <img src="../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/thumb.png" width="20%" height="20%" style="border:none;float:left"></img>
                 </td>
                 <td>{!!$auto3dprintqueue->Infill!!}</td>
                 <td>{!!$auto3dprintqueue->Status!!}</td>
