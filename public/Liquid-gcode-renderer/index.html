@@ -1,0 +1,53 @@
+<html>
+<head>
+
+  <link rel="stylesheet" href="assets/stylesheets/application.css" />
+
+  <title>Liquid: Gcode Renderer</title>
+
+</head>
+<body>
+
+  <div id="overlay"></div>
+  <div id="interface">
+    Analyzing Path <span id="readpathcur">0</span> / <span id="readpathtot">?</span><br />
+    Rendering Path <span id="rendpathcur">0</span> / <span id="rendpathtot">?</span><br />
+    Extruder temp. <span id="tempextrude">?</span>C<br />
+    Bed temp. <span id="tempheatbed">?</span>C<br />
+    Layer <span id="fltlayermin">?</span> - <span id="fltlayermax">?</span>
+  </div>
+  <div id="scene"></div>
+
+  <script type="text/javascript" src="assets/vendor/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/vendor/three.min.js"></script>
+  <script type="text/javascript" src="assets/vendor/three-orbitcontrols.js"></script>
+  <script type="text/javascript" src="assets/javascripts/event.js"></script>
+  <script type="text/javascript" src="assets/javascripts/user.js"></script>
+  <script type="text/javascript" src="assets/javascripts/gclib.js"></script>
+  <script type="text/javascript" src="assets/javascripts/gcview.js"></script>
+  <script type="text/javascript" src="assets/javascripts/gcparse.js"></script>
+
+  <script type="text/javascript" src="printers/ultimaker2.js"></script>
+
+  <script type="text/javascript">
+
+
+      var printer = printerultimaker2;
+      var model = window.location.hash.substr(1);
+
+      $('#overlay')
+        .text('Loading model: '+model)
+        .css('line-height', window.innerHeight+'px');
+
+      $.get("../auto3dprintqueue/5/gcode", function(payload){
+        $('#overlay').hide();
+        $('#interface').show();
+        gcview._init();
+        alert(payload);
+        gcparse._parse(payload);
+      });
+
+  </script>
+
+</body>
+</html>

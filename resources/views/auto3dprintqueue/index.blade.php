@@ -33,7 +33,7 @@
             @foreach($auto3dprintqueues as $auto3dprintqueue)
             <tr>
                 <td>
-                    <a href="{{"../../../../auto3dprintqueue/".$auto3dprintqueue->id."/viewer"}}"> {!!$auto3dprintqueue->Name!!}</a>
+                    <a href="{{"../../../../auto3dprintqueue/".$auto3dprintqueue->id}}"> {!!$auto3dprintqueue->Name!!}</a>
                 </td>
                 <td>{!!$auto3dprintqueue->Infill!!}</td>
                 <td>{!!$auto3dprintqueue->Status!!}</td>
