@@ -99,7 +99,7 @@ class Auto3dprintqueueController extends Controller
 
         $pusher = App::make('pusher');
 
-        $output = shell_exec("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path);
+        $output = execInBackground("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path);
 
         //default pusher notification.
         //by default channel=test-channel,event=test-event
@@ -109,7 +109,7 @@ class Auto3dprintqueueController extends Controller
                          'test-event',
                         ['message' => 'A new auto3dprintqueue has been created !!']);
 
-        return redirect('auto3dprintqueue/'.$auto3dprintqueue->id."/viewer");
+        return redirect('auto3dprintqueue/'.$auto3dprintqueue->id."/");
     }
 
     /**
@@ -150,7 +150,7 @@ class Auto3dprintqueueController extends Controller
 
 
         $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
-        return response($myyfileout, 200)->header('Content-Type', 'application/text');
+        return response($myyfileout, 200)->header('Content-Type', 'text/text');
     }
 
 
@@ -163,6 +163,15 @@ class Auto3dprintqueueController extends Controller
             return URL::to('auto3dprintcue/'.$id);
         }
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+
+
+
+
+
+        if(file_exists ("../storage/app/3dPrintFiles/".$id.".gcode") === FALSE) {
+            return response("<meta http-equiv=\"refresh\"
+   content=\"5\";> Please wail wile model is sliced", 200);
+        }
         $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
         return view('auto3dprintqueue.showGcode',compact('title','auto3dprintqueue')) ->with('MyGcode', $myyfileout);
     }
@@ -259,5 +268,20 @@ class Auto3dprintqueueController extends Controller
      	$auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
      	$auto3dprintqueue->delete();
         return URL::to('auto3dprintqueue');
+    }
+
+
+
+
+
+}
+
+function execInBackground($cmd)
+{
+    if (substr(php_uname(), 0, 7) == "Windows"){
+        pclose(popen("start /B ". $cmd, "r"));
+    }
+    else {
+        exec($cmd . " > /dev/null &");
     }
 }
