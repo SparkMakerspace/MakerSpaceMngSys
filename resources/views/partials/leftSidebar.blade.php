@@ -3,19 +3,20 @@
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
     </a>
 </li>
-<li class="treeview"><a href="{{url('./g/')}}"></i> <span>Groups</span></a></li>
-<li class="treeview"><a href="{{url('./post/')}}"></i> <span>Posts</span></a></li>
-<li class="treeview"><a href="{{url('./resource/')}}"></i> <span>Resources</span></a></li>
-<li class="treeview"><a href="{{url('./event/')}}"></i> <span>Events</span></a></li>
-<li class="treeview"><a href="{{url('./comment/')}}"></i> <span>Comments</span></a></li>
 
-<li class="treeview"><a href="{{url('./door/')}}"></i> <span>Doors</span></a></li>
-
-<li class="treeview"><a href="{{url('./image/')}}"></i> <span>Images</span></a></li>
-
-<li class="treeview"><a href="{{url('./auto3dprintqueue/')}}"></i> <span>3D Printer Queue</span></a></li>
-
-<li class="treeview"><a href="{{url('./test/')}}"></i> <span>TEST!!</span></a></li>
+@foreach(\App\sitenavigation::all() as $sitenavigation)
+    <li class="treeview">
+            <a href="../../../../../../../{!!$sitenavigation->LinkURL!!}" title="{!!$sitenavigation->LinkDescription!!}">
+                @if ($sitenavigation->LinkImage != "" )
+                    <img src="../../../{!!$sitenavigation->LinkImage!!}"  height="25" width="25">
+                @else
+                    <img src="../../../Images/noImage.svg"  height="25" width="25">
+                @endif
+                {!!$sitenavigation->LinkText!!}
+            </a>
+        </td>
+    </li>
+@endforeach
 
 @yield('sidebar.specific')
 
@@ -27,4 +28,8 @@
 <li class="treeview"><a href="{{url('/roles')}}"><i class="fa fa-user-plus"></i> <span>Role</span></a></li>
 
 <li class="treeview"><a href="{{url('/permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
+
+<li class="treeview"><a href="{{url('/sitenavigation')}}"><i class="fa fa-key"></i> <span>Site Navigation</span></a></li>
+
+
 @endhasanyrole

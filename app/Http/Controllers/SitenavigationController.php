@@ -25,8 +25,8 @@ class SitenavigationController extends Controller
     public function index()
     {
         $title = 'Index - sitenavigation';
-        $sitenavigations = Sitenavigation::paginate(6);
-        return view('sitenavigation.index',compact('sitenavigations','title'));
+        //return view('sitenavigation.index',compact('sitenavigations','title'));
+        return view('sitenavigation.index',compact('title'));
     }
 
     /**

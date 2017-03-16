@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(groupSeeder::class);
         $this->call(doorSeeder::class);
         $this->call(postSeeder::class);
+        $this->call(NavigationSeeder::class);
+
 
     }
 }

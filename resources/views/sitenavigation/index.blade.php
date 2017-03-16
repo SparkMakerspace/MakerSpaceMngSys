@@ -21,9 +21,18 @@
             <th>actions</th>
         </thead>
         <tbody>
-            @foreach($sitenavigations as $sitenavigation) 
+        @foreach(\App\sitenavigation::all() as $sitenavigation)
             <tr>
-                <td>{!!$sitenavigation->LinkText!!}</td>
+                <td>
+                    <a href="../../../../../../../{!!$sitenavigation->LinkURL!!}" title="{!!$sitenavigation->LinkDescription!!}">
+                        @if ($sitenavigation->LinkImage != "" )
+                            <img src="{!!$sitenavigation->LinkImage!!}"  height="42" width="42">
+                        @else
+                            <img src="../../../Images/noImage.svg"  height="42" width="42">
+                        @endif
+                        {!!$sitenavigation->LinkText!!}
+                    </a>
+                </td>
                 <td>{!!$sitenavigation->LinkImage!!}</td>
                 <td>{!!$sitenavigation->LinkLoginReqd!!}</td>
                 <td>{!!$sitenavigation->LinkURL!!}</td>
@@ -37,7 +46,7 @@
             @endforeach 
         </tbody>
     </table>
-    {!! $sitenavigations->render() !!}
+
 
 </section>
 @endsection
