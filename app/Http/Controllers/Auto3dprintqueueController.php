@@ -102,11 +102,13 @@ class Auto3dprintqueueController extends Controller
 
         $pusher = App::make('pusher');
 
+        $outputb = execInBackground("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
+
+
         $output = execInBackground("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path);
 
 
 
-        $outputb = execInBackground("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
 
         //default pusher notification.
         //by default channel=test-channel,event=test-event
@@ -193,7 +195,10 @@ class Auto3dprintqueueController extends Controller
 
         if(file_exists ("../storage/app/3dPrintFiles/".$id.".gcode") === FALSE) {
             return response("<meta http-equiv=\"refresh\"
-   content=\"5\";> Please wail wile model is sliced", 200);
+   content=\"5\";> Please wait while model is sliced
+   
+   
+   <img src=\"../../../../auto3dprintqueue/".$auto3dprintqueue->id."/thumb.png\" ></img>", 200);
         }
         $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
         return view('auto3dprintqueue.showGcode',compact('title','auto3dprintqueue')) ->with('MyGcode', $myyfileout);
