@@ -27,26 +27,26 @@ var p = {
   drawOutlines: function(){
     var printer = new THREE.Geometry();
     printer.vertices.push(
-      new THREE.Vector3( 000, 150, 205 ),
-      new THREE.Vector3( 150, 150, 205 ),
-      new THREE.Vector3( 150, 000, 205 ),
-      new THREE.Vector3( 000, 000, 205 ),
-      new THREE.Vector3( 000, 150, 205 ),
-      new THREE.Vector3( 000, 150, 000 ),
-      new THREE.Vector3( 000, 000, 000 ),
-      new THREE.Vector3( 150, 000, 000 ),
-      new THREE.Vector3( 150, 150, 000 ),
-      new THREE.Vector3( 150, 150, 205 ),
-      new THREE.Vector3( 000, 150, 205 ),
-      new THREE.Vector3( 000, 000, 205 ),
-      new THREE.Vector3( 000, 000, 000 ),
-      new THREE.Vector3( 150, 150, 000 ),
-      new THREE.Vector3( 000, 150, 000 ),
-      new THREE.Vector3( 000, 150, 205 ),
-      new THREE.Vector3( 000, 000, 205 ),
-      new THREE.Vector3( 150, 000, 205 ),
-      new THREE.Vector3( 150, 000, 000 ),
-      new THREE.Vector3( 000, 150, 000 )
+      new THREE.Vector3( 000,       p.size.y, p.size.z),
+      new THREE.Vector3( p.size.x,  p.size.y, p.size.z),
+      new THREE.Vector3( p.size.x,  000,      p.size.z ),
+      new THREE.Vector3( 000,       000,      p.size.z),
+      new THREE.Vector3( 000,       p.size.y, p.size.z),
+      new THREE.Vector3( 000,       p.size.y, 000 ),
+      new THREE.Vector3( 000,       000,      000 ),
+      new THREE.Vector3( p.size.x,  000,      000 ),
+      new THREE.Vector3( p.size.x,  p.size.y, 000 ),
+      new THREE.Vector3( p.size.x,  p.size.y, p.size.z),
+      new THREE.Vector3( 000,       p.size.y, p.size.z),
+      new THREE.Vector3( 000,       000,      p.size.z ),
+      new THREE.Vector3( 000,       000,      000 ),
+      new THREE.Vector3(  p.size.x, p.size.y, 000 ),
+      new THREE.Vector3( 000,       p.size.y, 000 ),
+      new THREE.Vector3( 000,       p.size.y, p.size.z),
+      new THREE.Vector3( 000,       000,      p.size.z ),
+      new THREE.Vector3(  p.size.x, 000,      p.size.z),
+      new THREE.Vector3(  p.size.x, 000,      000 ),
+      new THREE.Vector3(  000,      p.size.y, 000)
     );
 
     gcview.scene.add( new THREE.Line( printer, gclib.materials.mark ) );

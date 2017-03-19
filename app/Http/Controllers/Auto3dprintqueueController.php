@@ -145,7 +145,7 @@ class Auto3dprintqueueController extends Controller
             $auto3dprintqueue->Status = "print";
 
             $auto3dprintqueue->save();
-
+            return redirect('auto3dprintqueue/'.$auto3dprintqueue->id."/");
         }
 
 
@@ -192,31 +192,43 @@ class Auto3dprintqueueController extends Controller
 
     public function PrinterReceiveGcode(Request $request)
     {
-        try{
-            // try code
 
-        $id = Auto3dprintqueue::where('Status', 'print')->first()->id;
-        }
-        catch(\Exception $e){
-            $myyfileout = "No Print Jobs Available";
-            return response($myyfileout, 200)->header('Content-Type', 'text/text');
-        }
-        if ($request->input('name',"") != "")
+        if ($request->input('jobID',"") != "")
         {
-            $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+            $auto3dprintqueue = Auto3dprintqueue::findOrfail($request->jobID);
 
-            $auto3dprintqueue->Status = "Printing On :".$request->name;
+            $auto3dprintqueue->Status = $request->stat;
 
             $auto3dprintqueue->save();
-
-            $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
-            $myyfileout = ";start
-".$myyfileout.$request->mike;
+            $myyfileout = "Status Recorded";
         }
-        else
-        {
-            $myyfileout = "Must Supply Printer name";
+        else {
 
+
+            try {
+                // try code
+
+                $id = Auto3dprintqueue::where('Status', 'print')->first()->id;
+            } catch (\Exception $e) {
+                $myyfileout = "No Print Jobs Available";
+                return response($myyfileout, 200)->header('Content-Type', 'text/text');
+            }
+            if ($request->input('name', "") != "") {
+                $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+
+                $auto3dprintqueue->Status = "Printing On :" . $request->name;
+
+                $auto3dprintqueue->save();
+
+                $myyfileout = file_get_contents("../storage/app/3dPrintFiles/" . $id . ".gcode");
+                $myyfileout = ";start
+;Print id is
+;" . $id . "
+" . $myyfileout;
+            } else {
+                $myyfileout = "Must Supply Printer name";
+
+            }
         }
 
         return response($myyfileout, 200)->header('Content-Type', 'text/text');
