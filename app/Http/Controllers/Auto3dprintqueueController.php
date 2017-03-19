@@ -34,7 +34,7 @@ class Auto3dprintqueueController extends Controller
     public function index()
     {
         $title = 'Index - auto3dprintqueue';
-        $auto3dprintqueues = Auto3dprintqueue::paginate(20);
+        $auto3dprintqueues = Auto3dprintqueue::orderBy('updated_at','dec')->paginate(6);
 
         return view('auto3dprintqueue.index',compact('auto3dprintqueues','title'));
     }

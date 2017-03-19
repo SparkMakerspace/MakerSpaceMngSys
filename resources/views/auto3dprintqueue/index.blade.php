@@ -4,10 +4,10 @@
 
 <section class="content">
     <h1>
-        Auto3dprintqueue Index
+        3D Printer Queue - Yes. You must wait in line. Yes it might take longger than DMV
     </h1>
     <form class = 'col s3' method = 'get' action = '{!!url("auto3dprintqueue")!!}/create'>
-        <button class = 'btn btn-primary' type = 'submit'>Create New auto3dprintqueue</button>
+        <button class = 'btn btn-primary' type = 'submit'>Upload a new file to be printed!!!</button>
     </form>
     <br>
     <div class="dropdown">
