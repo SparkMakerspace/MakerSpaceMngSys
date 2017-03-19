@@ -123,6 +123,10 @@ Route::group(['middleware'=> ['web', 'auth']],function(){
   Route::get('auto3dprintqueue/{id}/viewer','\App\Http\Controllers\Auto3dprintqueueController@showGcodeViewer');
 });
 
+
+    Route::get('printerinterface/gcode','\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
+
+
 //sitenavigation Routes
 Route::group(['middleware'=> 'web'],function(){
   Route::resource('sitenavigation','\App\Http\Controllers\SitenavigationController');

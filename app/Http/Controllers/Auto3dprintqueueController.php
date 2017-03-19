@@ -35,6 +35,7 @@ class Auto3dprintqueueController extends Controller
     {
         $title = 'Index - auto3dprintqueue';
         $auto3dprintqueues = Auto3dprintqueue::paginate(20);
+
         return view('auto3dprintqueue.index',compact('auto3dprintqueues','title'));
     }
 
@@ -105,7 +106,7 @@ class Auto3dprintqueueController extends Controller
         $outputb = execInBackground("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
 
 
-        $output = execInBackground("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path);
+        $output = execInBackground("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\"  --print-center 75,75");
 
 
 
@@ -138,6 +139,18 @@ class Auto3dprintqueueController extends Controller
         }
 
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+
+        if ($request->printnow == "true")
+        {
+            $auto3dprintqueue->Status = "print";
+
+            $auto3dprintqueue->save();
+
+        }
+
+
+
+
         return view('auto3dprintqueue.show',compact('title','auto3dprintqueue'));
     }
 
@@ -171,8 +184,41 @@ class Auto3dprintqueueController extends Controller
         {
             return URL::to('auto3dprintcue/'.$id);
         }
-
         $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
+
+        return response($myyfileout, 200)->header('Content-Type', 'text/text');
+    }
+
+
+    public function PrinterReceiveGcode(Request $request)
+    {
+        try{
+            // try code
+
+        $id = Auto3dprintqueue::where('Status', 'print')->first()->id;
+        }
+        catch(\Exception $e){
+            $myyfileout = "No Print Jobs Available";
+            return response($myyfileout, 200)->header('Content-Type', 'text/text');
+        }
+        if ($request->input('name',"") != "")
+        {
+            $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+
+            $auto3dprintqueue->Status = "Printing On :".$request->name;
+
+            $auto3dprintqueue->save();
+
+            $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
+            $myyfileout = ";start
+".$myyfileout.$request->mike;
+        }
+        else
+        {
+            $myyfileout = "Must Supply Printer name";
+
+        }
+
         return response($myyfileout, 200)->header('Content-Type', 'text/text');
     }
 

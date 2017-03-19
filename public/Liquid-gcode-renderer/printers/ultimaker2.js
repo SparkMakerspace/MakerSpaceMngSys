@@ -8,8 +8,8 @@
 var p = {
   name: "Ultimaker 2",
   size: {
-    x: 230,
-    y: 225,
+    x: 150,
+    y: 150,
     z: 205,
     u: null,
     a: true
@@ -27,26 +27,26 @@ var p = {
   drawOutlines: function(){
     var printer = new THREE.Geometry();
     printer.vertices.push(
-      new THREE.Vector3( 000, 225, 205 ),
-      new THREE.Vector3( 230, 225, 205 ),
-      new THREE.Vector3( 230, 000, 205 ),
+      new THREE.Vector3( 000, 150, 205 ),
+      new THREE.Vector3( 150, 150, 205 ),
+      new THREE.Vector3( 150, 000, 205 ),
       new THREE.Vector3( 000, 000, 205 ),
-      new THREE.Vector3( 000, 225, 205 ),
-      new THREE.Vector3( 000, 225, 000 ),
+      new THREE.Vector3( 000, 150, 205 ),
+      new THREE.Vector3( 000, 150, 000 ),
       new THREE.Vector3( 000, 000, 000 ),
-      new THREE.Vector3( 230, 000, 000 ),
-      new THREE.Vector3( 230, 225, 000 ),
-      new THREE.Vector3( 230, 225, 205 ),
-      new THREE.Vector3( 000, 225, 205 ),
+      new THREE.Vector3( 150, 000, 000 ),
+      new THREE.Vector3( 150, 150, 000 ),
+      new THREE.Vector3( 150, 150, 205 ),
+      new THREE.Vector3( 000, 150, 205 ),
       new THREE.Vector3( 000, 000, 205 ),
       new THREE.Vector3( 000, 000, 000 ),
-      new THREE.Vector3( 230, 225, 000 ),
-      new THREE.Vector3( 000, 225, 000 ),
-      new THREE.Vector3( 000, 225, 205 ),
+      new THREE.Vector3( 150, 150, 000 ),
+      new THREE.Vector3( 000, 150, 000 ),
+      new THREE.Vector3( 000, 150, 205 ),
       new THREE.Vector3( 000, 000, 205 ),
-      new THREE.Vector3( 230, 000, 205 ),
-      new THREE.Vector3( 230, 000, 000 ),
-      new THREE.Vector3( 000, 225, 000 )
+      new THREE.Vector3( 150, 000, 205 ),
+      new THREE.Vector3( 150, 000, 000 ),
+      new THREE.Vector3( 000, 150, 000 )
     );
 
     gcview.scene.add( new THREE.Line( printer, gclib.materials.mark ) );
