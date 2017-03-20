@@ -31,10 +31,39 @@ class Auto3dprintqueueController extends Controller
      *
      * @return  \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Index - auto3dprintqueue';
-        $auto3dprintqueues = Auto3dprintqueue::orderBy('updated_at','dec')->paginate(6);
+
+        if ($request->id == "all")
+        {
+            $auto3dprintqueues = Auto3dprintqueue::orderBy('created_at','dec')->paginate(6);
+        }
+        else
+        {
+            if ($request->id == "")
+            {
+                $auto3dprintqueues = Auto3dprintqueue::where('user_id', \Auth::user()->id)->orderBy('created_at','dec')->paginate(6);
+
+            }
+            else
+            {
+                $auto3dprintqueues = Auto3dprintqueue::where('user_id', $request->id)->orderBy('created_at','dec')->paginate(6);
+
+            }
+       }
+
+
+        return view('auto3dprintqueue.index',compact('auto3dprintqueues','title'));
+    }
+
+    public function Userindex()
+    {
+        $title = 'Index - auto3dprintqueue';
+        $auto3dprintqueues = Auto3dprintqueue::where('user_id', $request->id)->orderBy('created_at','dec')->paginate(6);
+
+
+       // \Auth::user()->id
 
         return view('auto3dprintqueue.index',compact('auto3dprintqueues','title'));
     }

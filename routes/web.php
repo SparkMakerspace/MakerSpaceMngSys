@@ -115,6 +115,7 @@ Route::group(['middleware'=> 'web'],function(){
 //auto3dprintqueue Routes
 Route::group(['middleware'=> ['web', 'auth']],function(){
   Route::resource('auto3dprintqueue','\App\Http\Controllers\Auto3dprintqueueController');
+
   Route::post('auto3dprintqueue/{id}/update','\App\Http\Controllers\Auto3dprintqueueController@update');
   Route::get('auto3dprintqueue/{id}/delete','\App\Http\Controllers\Auto3dprintqueueController@destroy');
   Route::get('auto3dprintqueue/{id}/deleteMsg','\App\Http\Controllers\Auto3dprintqueueController@DeleteMsg');

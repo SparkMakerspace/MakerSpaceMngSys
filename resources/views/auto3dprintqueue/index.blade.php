@@ -6,9 +6,19 @@
     <h1>
         3D Printer Queue - Yes. You must wait in line. Yes it might take longger than DMV
     </h1>
+    <div style="float: left;">
     <form class = 'col s3' method = 'get' action = '{!!url("auto3dprintqueue")!!}/create'>
         <button class = 'btn btn-primary' type = 'submit'>Upload a new file to be printed!!!</button>
     </form>
+    </div>
+    <div style="float: left;">
+    <form class = 'col s3' method = 'get' action = '{!!url("auto3dprintqueue")!!}'>
+        <button class = 'btn btn-primary' type = 'submit'>Show files From users</button>
+        <input id="id" name = "id" type="hidden" class="form-control" value="all">
+    </form>
+    </div>
+    <hr>
+    <div style="width: 100%;">
     <br>
     <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Associate <span class="caret"></span> </button>
@@ -54,6 +64,7 @@
             @endforeach 
         </tbody>
     </table>
+    </div>
     {!! $auto3dprintqueues->render() !!}
 
 </section>
