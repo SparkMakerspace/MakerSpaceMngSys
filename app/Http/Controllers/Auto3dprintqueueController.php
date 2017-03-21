@@ -106,7 +106,7 @@ class Auto3dprintqueueController extends Controller
         $auto3dprintqueue->path = '';
 
         $auto3dprintqueue->Infill = $request->Infill;
-
+        if ($auto3dprintqueue->Infill > 99){$auto3dprintqueue->Infill = 99;}
 
         $auto3dprintqueue->Status = "";
 
@@ -135,7 +135,7 @@ class Auto3dprintqueueController extends Controller
         $outputb = execInBackground("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
 
 
-        $output = execInBackground("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\"  --print-center 75,75");
+        $output = execInBackground("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 75,75");
 
 
 
@@ -236,24 +236,31 @@ class Auto3dprintqueueController extends Controller
 
             try {
                 // try code
-
-                $id = Auto3dprintqueue::where('Status', 'print')->first()->id;
+                $auto3dprintqueue = Auto3dprintqueue::where('Status', 'print')->first();
             } catch (\Exception $e) {
                 $myyfileout = "No Print Jobs Available";
                 return response($myyfileout, 200)->header('Content-Type', 'text/text');
             }
             if ($request->input('name', "") != "") {
-                $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+                //$auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
 
                 $auto3dprintqueue->Status = "Printing On :" . $request->name;
 
                 $auto3dprintqueue->save();
 
-                $myyfileout = file_get_contents("../storage/app/3dPrintFiles/" . $id . ".gcode");
-                $myyfileout = ";start
-;Print id is
-;" . $id . "
-" . $myyfileout;
+                $myyfileout = file_get_contents("../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".gcode");
+                $myyfileout =
+                    ";start\n".
+                    ";Print id is\n".
+                    ";" . $auto3dprintqueue->id . "\n".
+                    "; User Name:" . $auto3dprintqueue->user->username."\n".
+                    ";          :" . $auto3dprintqueue->user->name."\n".
+                    ";User Phone:" . $auto3dprintqueue->user->phone."\n".
+                    ";"."\n".
+                    ";"."\n".
+                    ";"."\n".
+                    ";"."\n".
+                    $myyfileout;
             } else {
                 $myyfileout = "Must Supply Printer name";
 
