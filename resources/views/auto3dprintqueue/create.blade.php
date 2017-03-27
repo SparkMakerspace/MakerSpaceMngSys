@@ -12,7 +12,7 @@
     {{csrf_field()}}
         <div class="form-group">
             <label>Select File</label>
-            {!! Form::file('upload') !!}
+            {!! Form::file('upload', ['accept' =>'.stl']) !!}
         </div>
         <div class="form-group">
             <label for="Infill">Infill</label>
