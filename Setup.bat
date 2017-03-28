@@ -16,3 +16,5 @@ php artisan storage:link
 
 php artisan vendor:publish
 
+
+mkdir public/uploads
