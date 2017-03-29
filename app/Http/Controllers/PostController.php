@@ -74,7 +74,7 @@ class PostController extends Controller
                          'test-event',
                         ['message' => 'A new post has been created !!']);
 
-        return redirect('post');
+        return redirect('post/'.$post->id);
     }
 
     /**
@@ -137,7 +137,7 @@ class PostController extends Controller
         
         $post->save();
 
-        return redirect('post');
+        return redirect('post/'.$post->id);
     }
 
     /**

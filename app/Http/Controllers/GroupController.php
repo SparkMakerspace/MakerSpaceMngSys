@@ -81,7 +81,7 @@ class GroupController extends Controller
             'test-event',
             ['message' => 'A new group has been created !!']);
 
-        return redirect('g');
+        return redirect('g/'.$group->id);
     }
 
     /**
@@ -198,7 +198,7 @@ class GroupController extends Controller
             'defaultView'=>'month',
             'header'=>['left'=>'title','center'=>'','right'=>'today prev,next'],
         ]);
-        $posts = $group->posts()->paginate(10);
+        $posts = $group->posts()->orderBy('created_at','dec')->paginate(10);
         return view('group.dashboard')->with(compact('calendar','posts','group'));
     }
 }

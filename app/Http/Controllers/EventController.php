@@ -28,7 +28,14 @@ class EventController extends Controller
     {
         $title = 'Index - event';
         $events = Event::paginate(6);
-        return view('event.index',compact('events','title'));
+        $calendar = \FullCal::addEvents($events)->setCallbacks([
+            'eventClick'=> 'function(calEvent, jsEvent, view) {
+        window.location.assign(calEvent.url);
+    }'])->setOptions([
+            'defaultView'=>'month',
+            'header'=>['left'=>'title','center'=>'','right'=>'today prev,next'],
+        ]);
+        return view('event.index',compact('events','title','calendar'));
     }
 
     /**
