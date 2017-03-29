@@ -81,6 +81,5 @@ class NavigationSeeder extends Seeder
             'LinkDescription'=>'test',
         ]);
 
-
     }
 }

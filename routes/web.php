@@ -20,6 +20,9 @@ Route::group(['middleware'=> 'web'], function (){
 
     Route::get('/home', 'HomeController@index');
 
+
+
+
 //post Routes
     Route::resource('post','\App\Http\Controllers\PostController');
     Route::post('post/{id}/update','\App\Http\Controllers\PostController@update');
@@ -142,4 +145,10 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('sitepage/{id}/update','\App\Http\Controllers\SitepageController@update');
   Route::get('sitepage/{id}/delete','\App\Http\Controllers\SitepageController@destroy');
   Route::get('sitepage/{id}/deleteMsg','\App\Http\Controllers\SitepageController@DeleteMsg');
+});
+
+Route::group(['middleware'=> ['web', 'auth']],function() {
+    Route::get('/admin', function () {
+        return view('full_admin');
+    });
 });
