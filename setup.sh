@@ -1,12 +1,8 @@
-#! /bin/bash
-
-composer install
-
 cp ".env.example" ".env"
 
 mysql -u root -e "CREATE DATABASE homestead" 
 
-npm install
+npm update
 
 composer update
 
@@ -17,3 +13,8 @@ php artisan migrate
 php artisan db:seed
 
 php artisan storage:link
+
+php artisan vendor:publish
+
+
+mkdir public/uploads
