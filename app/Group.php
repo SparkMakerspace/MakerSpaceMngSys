@@ -58,6 +58,11 @@ class Group extends Model
         return $this->belongsToMany('App\Event','events_groups');
     }
 
+    public function masterEvents()
+    {
+        return $this->belongsToMany('App\MasterEent','groups_masterevents');
+    }
+
     /**
      * Assign a event.
      *
