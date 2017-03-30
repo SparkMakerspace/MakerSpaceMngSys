@@ -152,3 +152,11 @@ Route::group(['middleware'=> ['web', 'auth']],function() {
         return view('full_admin');
     });
 });
+
+//chore_list Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('chore_list','\App\Http\Controllers\Chore_listController');
+  Route::post('chore_list/{id}/update','\App\Http\Controllers\Chore_listController@update');
+  Route::get('chore_list/{id}/delete','\App\Http\Controllers\Chore_listController@destroy');
+  Route::get('chore_list/{id}/deleteMsg','\App\Http\Controllers\Chore_listController@DeleteMsg');
+});
