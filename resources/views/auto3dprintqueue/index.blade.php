@@ -23,8 +23,8 @@
     <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Associate <span class="caret"></span> </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="http://makerspacemngsys.dev/auto3dprintercolor">Auto3dprintercolor</a></li>
-            <li><a href="http://makerspacemngsys.dev/auto3dprintmaterial">Auto3dprintmaterial</a></li>
+            <li><a href='{{url('auto3dprintercolor')}}'>Auto3dprintercolor</a></li>
+            <li><a href='{{url('auto3dprintmaterial')}}'>Auto3dprintmaterial</a></li>
         </ul>
     </div>
     <br>
