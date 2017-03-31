@@ -35,6 +35,18 @@ class userSeeder extends Seeder
             'zipcode'=>'06385',
             'phone'=>'(203) 123-4567'
         ];
+
+        $drew = ['email'=>'hi@drew.ga',
+            'name'=>'Drew Gates',
+            'username'=>'drew',
+            'password'=>'secret',
+            'address1'=>'1 Main St',
+            'address2'=>'',
+            'city'=>'Anytown',
+            'state'=>'CT',
+            'zipcode'=>'06000',
+            'phone'=>'(555) 867-5309'
+        ];
         
         $mike = ['email'=>'spark@smbisoft.com',
             'name'=>'Mike Molinari',
@@ -48,7 +60,7 @@ class userSeeder extends Seeder
             'phone'=>'(860) 123-0000'
         ];
         
-        $users = [$builtIn,$john,$mike];
+        $users = [$builtIn,$john,$drew,$mike];
         
         foreach ($users as $u) {
             $user = new \App\User;
