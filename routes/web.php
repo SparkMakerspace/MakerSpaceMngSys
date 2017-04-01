@@ -139,13 +139,7 @@ Route::group(['middleware'=> 'web'],function(){
   Route::get('sitenavigation/{id}/deleteMsg','\App\Http\Controllers\SitenavigationController@DeleteMsg');
 });
 
-//sitepage Routes
-Route::group(['middleware'=> 'web'],function(){
-  Route::resource('sitepage','\App\Http\Controllers\SitepageController');
-  Route::post('sitepage/{id}/update','\App\Http\Controllers\SitepageController@update');
-  Route::get('sitepage/{id}/delete','\App\Http\Controllers\SitepageController@destroy');
-  Route::get('sitepage/{id}/deleteMsg','\App\Http\Controllers\SitepageController@DeleteMsg');
-});
+
 
 Route::group(['middleware'=> ['web', 'auth']],function() {
     Route::get('/admin', function () {
@@ -159,4 +153,19 @@ Route::group(['middleware'=> 'web'],function(){
   Route::post('chore_list/{id}/update','\App\Http\Controllers\Chore_listController@update');
   Route::get('chore_list/{id}/delete','\App\Http\Controllers\Chore_listController@destroy');
   Route::get('chore_list/{id}/deleteMsg','\App\Http\Controllers\Chore_listController@DeleteMsg');
+});
+
+
+
+
+//there is a reason these are at the bottom off the routs file.
+//Prevents it from interfeering with other routs for other pages
+//sitepage Routes
+Route::group(['middleware'=> 'web'],function(){
+    Route::resource('sitepage','\App\Http\Controllers\SitepageController');
+    Route::post('sitepage/{id}/update','\App\Http\Controllers\SitepageController@update');
+    Route::get('sitepage/{id}/delete','\App\Http\Controllers\SitepageController@destroy');
+    Route::get('sitepage/{id}/deleteMsg','\App\Http\Controllers\SitepageController@DeleteMsg');
+    Route::get('{mystub}','\App\Http\Controllers\SitepageController@showp');
+
 });

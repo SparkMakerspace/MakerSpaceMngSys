@@ -3,8 +3,9 @@
 <section class="content">
 <div class="box box-primary">
 <div class="box-header">
-	<h3>All Users</h3>
+	<h2>Redgistered users: {{$users->count()}}</h2>
 </div>
+
 	<div class="box-body">
 		<a href="{{url('/users/create')}}" class = "btn btn-success"><i class="fa fa-plus fa-md" aria-hidden="true"></i> New</a>
 		<table class = "table table-hover">

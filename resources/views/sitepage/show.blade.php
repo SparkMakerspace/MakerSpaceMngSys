@@ -1,7 +1,10 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Show')
+@section('title',$sitepage->PageTitle)
 @section('content')
-
+    Published on {!!$sitepage->PagePublishDate!!}
+<div>
+    {!!$sitepage->PageContent!!}
+</div>
 <section class="content">
     <h1>
         Show sitepage
@@ -62,4 +65,13 @@
         </tbody>
     </table>
 </section>
+    <style>
+        {!!$sitepage->PageCSS!!}
+    </style>
+
+    <script>
+        {!!$sitepage->PageJavaScript!!}
+    </script>
+
+
 @endsection
