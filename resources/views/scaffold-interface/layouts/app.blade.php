@@ -73,12 +73,18 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
+
                                 <li class="user-header">
-                                    <img src="{{url(Auth::user()->image->path)}}" class="img-circle" alt="User Image">
-                                    <p>
-                                        {{Auth::user()->name}}
-                                    </p>
+                                    <div class="btn btn-default btn-flat">
+                                    <A href="{{url("users/edit/".Auth::user()->id)}}"  >
+                                        <img src="{{url(Auth::user()->image->path)}}" class="img-circle" alt="User Image">
+                                        <p>
+                                            {{Auth::user()->name}}
+                                        </p>
+                                    </A>
+                                    </div>
                                 </li>
+
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-right">
