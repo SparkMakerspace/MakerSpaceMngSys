@@ -1,6 +1,6 @@
 
 
-<h1>Please wailt wile preview is generated</h1>
+<h1>Please wait while preview is generated</h1>
 
     <textarea id="gcode">
         {{$MyGcode}}

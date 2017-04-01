@@ -254,4 +254,36 @@ class User extends Authenticatable
         return $this->hasAnyRole('nonmember');
     }
 
+
+	/**
+     * chore_list.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function chore_lists()
+    {
+        return $this->belongsToMany('App\Chore_list');
+    }
+
+    /**
+     * Assign a chore_list.
+     *
+     * @param  $chore_list
+     * @return  mixed
+     */
+    public function assignChore_list($chore_list)
+    {
+        return $this->chore_lists()->attach($chore_list);
+    }
+    /**
+     * Remove a chore_list.
+     *
+     * @param  $chore_list
+     * @return  mixed
+     */
+    public function removeChore_list($chore_list)
+    {
+        return $this->chore_lists()->detach($chore_list);
+    }
+
 }

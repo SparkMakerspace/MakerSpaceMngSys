@@ -4,11 +4,11 @@
 
 <section class="content">
     <h1>
-        3D Printer Queue - Yes. You must wait in line. Yes it might take longger than DMV
+        3D Printer Queue - Yes, you must wait in line. Yes, it might take longer than the DMV.
     </h1>
     <div style="float: left;">
     <form class = 'col s3' method = 'get' action = '{!!url("auto3dprintqueue")!!}/create'>
-        <button class = 'btn btn-primary' type = 'submit'>Upload a new file to be printed!!!</button>
+        <button class = 'btn btn-primary' type = 'submit'>Upload a new file to be printed!</button>
     </form>
     </div>
     <div style="float: left;">

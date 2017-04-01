@@ -8,7 +8,7 @@
             <button class = 'btn btn-primary'>auto3dprintqueue Index</button>
         </form>
         @if($auto3dprintqueue->Status != "print" & $auto3dprintqueue->Status != "done")
-            <a href="{!!$auto3dprintqueue->id!!}?printnow=true" class = 'btn btn-info'>Aprove for printing</a>
+            <a href="{!!$auto3dprintqueue->id!!}?printnow=true" class = 'btn btn-info'>Approve for printing</a>
         @endif
 
         <section class="content">

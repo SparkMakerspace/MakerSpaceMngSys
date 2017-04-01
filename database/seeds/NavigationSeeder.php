@@ -56,7 +56,7 @@ class NavigationSeeder extends Seeder
             'LinkImage'=>'',
             'LinkLoginReqd'=>'',
             'LinkURL'=>'door',
-            'LinkDescription'=>'Doors for acces controll',
+            'LinkDescription'=>'Doors for access control',
         ]);
 
         \App\sitenavigation::create([

@@ -25,7 +25,7 @@ class SitepageController extends Controller
     public function index()
     {
         $title = 'Index - sitepage';
-        $sitepages = Sitepage::paginate(6);
+        $sitepages = Sitepage::paginate(10);
         return view('sitepage.index',compact('sitepages','title'));
     }
 
@@ -96,19 +96,28 @@ class SitepageController extends Controller
      * @param    int  $id
      * @return  \Illuminate\Http\Response
      */
-    public function show($id,Request $request)
+    public function show($id = "",Request $request)
     {
         $title = 'Show - sitepage';
+            if($request->ajax())
+            {
+                return URL::to('sitepage/'.$id);
+            }
 
-        if($request->ajax())
-        {
-            return URL::to('sitepage/'.$id);
-        }
+            $sitepage = Sitepage::findOrfail($id);
 
-        $sitepage = Sitepage::findOrfail($id);
+
         return view('sitepage.show',compact('title','sitepage'));
     }
 
+    public function showp( $mystub = "",Request $request)
+    {
+            $title = 'Show - sitepage';
+            $sitepage = Sitepage::where('PageStub' ,$mystub)->first();
+
+
+        return view('sitepage.show',compact('title','sitepage'));
+    }
     /**
      * Show the form for editing the specified resource.
      * @param    \Illuminate\Http\Request  $request

@@ -106,23 +106,29 @@ Route::group(['middleware'=> 'web'], function () {
     Route::get('sitenavigation/{id}/delete','\App\Http\Controllers\SitenavigationController@destroy');
     Route::get('sitenavigation/{id}/deleteMsg','\App\Http\Controllers\SitenavigationController@DeleteMsg');
 
+
+//admin route - obviously requires user to be logged in
+Route::group(['middleware'=> ['auth']],function() {
+    Route::get('/admin', function () {
+        return view('full_admin');
+    });
+});
+
+//chore_list Routes
+  Route::resource('chore_list','\App\Http\Controllers\Chore_listController');
+  Route::post('chore_list/{id}/update','\App\Http\Controllers\Chore_listController@update');
+  Route::get('chore_list/{id}/delete','\App\Http\Controllers\Chore_listController@destroy');
+  Route::get('chore_list/{id}/deleteMsg','\App\Http\Controllers\Chore_listController@DeleteMsg');
+
+
+
+
+//there is a reason these are at the bottom off the routs file.
+//Prevents it from interfeering with other routs for other pages
 //sitepage Routes
     Route::resource('sitepage','\App\Http\Controllers\SitepageController');
     Route::post('sitepage/{id}/update','\App\Http\Controllers\SitepageController@update');
     Route::get('sitepage/{id}/delete','\App\Http\Controllers\SitepageController@destroy');
     Route::get('sitepage/{id}/deleteMsg','\App\Http\Controllers\SitepageController@DeleteMsg');
-
-//admin Route
-    Route::get('/admin', function () {return view('full_admin');});
-
+    Route::get('{mystub}','\App\Http\Controllers\SitepageController@showp');
 });
-
-
-
-
-
-
-
-
-
-
