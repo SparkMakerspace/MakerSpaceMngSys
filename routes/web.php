@@ -75,27 +75,30 @@ Route::group(['middleware'=> 'web'], function () {
 //test Route
     Route::get('test',function () {return view('test');});
 
+//these routes require the user to be logged in.
+    Route::group(['middleware'=>['auth']], function (){
 //auto3dprintercolor Routes
-    Route::resource('auto3dprintercolor','\App\Http\Controllers\Auto3dprintercolorController');
-    Route::post('auto3dprintercolor/{id}/update','\App\Http\Controllers\Auto3dprintercolorController@update');
-    Route::get('auto3dprintercolor/{id}/delete','\App\Http\Controllers\Auto3dprintercolorController@destroy');
-    Route::get('auto3dprintercolor/{id}/deleteMsg','\App\Http\Controllers\Auto3dprintercolorController@DeleteMsg');
+        Route::resource('auto3dprintercolor', '\App\Http\Controllers\Auto3dprintercolorController');
+        Route::post('auto3dprintercolor/{id}/update', '\App\Http\Controllers\Auto3dprintercolorController@update');
+        Route::get('auto3dprintercolor/{id}/delete', '\App\Http\Controllers\Auto3dprintercolorController@destroy');
+        Route::get('auto3dprintercolor/{id}/deleteMsg', '\App\Http\Controllers\Auto3dprintercolorController@DeleteMsg');
 
 //auto3dprintmaterial Routes
-    Route::resource('auto3dprintmaterial','\App\Http\Controllers\Auto3dprintmaterialController');
-    Route::post('auto3dprintmaterial/{id}/update','\App\Http\Controllers\Auto3dprintmaterialController@update');
-    Route::get('auto3dprintmaterial/{id}/delete','\App\Http\Controllers\Auto3dprintmaterialController@destroy');
-    Route::get('auto3dprintmaterial/{id}/deleteMsg','\App\Http\Controllers\Auto3dprintmaterialController@DeleteMsg');
+        Route::resource('auto3dprintmaterial', '\App\Http\Controllers\Auto3dprintmaterialController');
+        Route::post('auto3dprintmaterial/{id}/update', '\App\Http\Controllers\Auto3dprintmaterialController@update');
+        Route::get('auto3dprintmaterial/{id}/delete', '\App\Http\Controllers\Auto3dprintmaterialController@destroy');
+        Route::get('auto3dprintmaterial/{id}/deleteMsg', '\App\Http\Controllers\Auto3dprintmaterialController@DeleteMsg');
 
 //auto3dprintqueue Routes
-    Route::resource('auto3dprintqueue','\App\Http\Controllers\Auto3dprintqueueController');
-    Route::post('auto3dprintqueue/{id}/update','\App\Http\Controllers\Auto3dprintqueueController@update');
-    Route::get('auto3dprintqueue/{id}/delete','\App\Http\Controllers\Auto3dprintqueueController@destroy');
-    Route::get('auto3dprintqueue/{id}/deleteMsg','\App\Http\Controllers\Auto3dprintqueueController@DeleteMsg');
-    Route::get('auto3dprintqueue/{id}/gcode','\App\Http\Controllers\Auto3dprintqueueController@showGcode');
-    Route::get('auto3dprintqueue/{id}/thumb.png','\App\Http\Controllers\Auto3dprintqueueController@showPNG');
-    Route::get('auto3dprintqueue/{id}/viewer','\App\Http\Controllers\Auto3dprintqueueController@showGcodeViewer');
-    Route::get('printerinterface/gcode','\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
+        Route::resource('auto3dprintqueue', '\App\Http\Controllers\Auto3dprintqueueController');
+        Route::post('auto3dprintqueue/{id}/update', '\App\Http\Controllers\Auto3dprintqueueController@update');
+        Route::get('auto3dprintqueue/{id}/delete', '\App\Http\Controllers\Auto3dprintqueueController@destroy');
+        Route::get('auto3dprintqueue/{id}/deleteMsg', '\App\Http\Controllers\Auto3dprintqueueController@DeleteMsg');
+        Route::get('auto3dprintqueue/{id}/gcode', '\App\Http\Controllers\Auto3dprintqueueController@showGcode');
+        Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
+        Route::get('auto3dprintqueue/{id}/viewer', '\App\Http\Controllers\Auto3dprintqueueController@showGcodeViewer');
+        Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
+    });
 
 //sitenavigation Routes
     Route::resource('sitenavigation','\App\Http\Controllers\SitenavigationController');

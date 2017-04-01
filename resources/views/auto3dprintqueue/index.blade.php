@@ -23,8 +23,8 @@
     <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Associate <span class="caret"></span> </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="http://makerspacemngsys.dev/auto3dprintercolor">Auto3dprintercolor</a></li>
-            <li><a href="http://makerspacemngsys.dev/auto3dprintmaterial">Auto3dprintmaterial</a></li>
+            <li><a href="{!! url('auto3dprintercolor') !!}">Auto3dprintercolor</a></li>
+            <li><a href="{!! url('auto3dprintmaterial') !!}">Auto3dprintmaterial</a></li>
         </ul>
     </div>
     <br>
@@ -44,10 +44,10 @@
             @foreach($auto3dprintqueues as $auto3dprintqueue)
             <tr>
                 <td>
-                    <a href="{{"../../../../auto3dprintqueue/".$auto3dprintqueue->id}}"> {!!$auto3dprintqueue->Name!!}</a>
+                    <a href="{!! url('auto3dprintqueue/'.$auto3dprintqueue->id) !!}"> {!!$auto3dprintqueue->Name!!}</a>
                 </td>
                 <td>
-                    <img src="../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/thumb.png" width="20%" height="20%" style="border:none;float:left"></img>
+                    <img src="{!! url('auto3dprintqueue/'.$auto3dprintqueue->id.'/thumb.png') !!}" width="20%" height="20%" style="border:none;float:left">
                 </td>
                 <td>{!!$auto3dprintqueue->Infill!!}</td>
                 <td>{!!$auto3dprintqueue->Status!!}</td>

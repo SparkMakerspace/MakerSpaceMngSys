@@ -66,6 +66,7 @@ class NavigationSeeder extends Seeder
             'LinkURL'=>'image',
             'LinkDescription'=>'An image index',
         ]);
+
         \App\sitenavigation::create([
             'LinkText'=>'3D Printer Queue ',
             'LinkImage'=>'',
