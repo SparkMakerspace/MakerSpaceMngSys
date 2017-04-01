@@ -120,11 +120,9 @@ Route::group(['middleware'=> ['auth']],function() {
   Route::get('chore_list/{id}/delete','\App\Http\Controllers\Chore_listController@destroy');
   Route::get('chore_list/{id}/deleteMsg','\App\Http\Controllers\Chore_listController@DeleteMsg');
 
-
-
-
-//there is a reason these are at the bottom off the routs file.
-//Prevents it from interfeering with other routs for other pages
+//There is a reason these are at the bottom of the routes file.
+//Prevents it from interfering with other routes.
+    //TODO: Do not allow users to choose stubs that would be inaccessible due to existing routes.
 //sitepage Routes
     Route::resource('sitepage','\App\Http\Controllers\SitepageController');
     Route::post('sitepage/{id}/update','\App\Http\Controllers\SitepageController@update');

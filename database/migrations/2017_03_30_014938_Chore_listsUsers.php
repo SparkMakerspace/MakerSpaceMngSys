@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Chore_listsUsers extends Migration
+class ChoreListsUsers extends Migration
 {
     /**
      * Run the migrations.
