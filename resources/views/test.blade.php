@@ -6,8 +6,7 @@
 
 {!! Form::open() !!}
     {!! Form::groups() !!}
+{!! Form::imageselector() !!}
 {!! Form::close() !!}
-
-
 
 @endsection
