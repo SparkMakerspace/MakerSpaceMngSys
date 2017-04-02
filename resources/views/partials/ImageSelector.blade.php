@@ -2,6 +2,7 @@
     // File Picker modification for FCK Editor v2.0 - www.fckeditor.net
     // by: Pete Forde <pete@unspace.ca> @ Unspace Interactive
     var urlobj;
+    var cWindow;
 
     function BrowseServer(obj)
     {
@@ -21,14 +22,29 @@
         sOptions += ",height=" + height ;
         sOptions += ",left=" + iLeft ;
         sOptions += ",top=" + iTop ;
-        var oWindow = window.open( url, "BrowseWindow", sOptions ) ;
+        oWindow = window.open( url, "BrowseWindow", sOptions ) ;
     }
 
     function SetUrl( url, width, height, alt )
     {
         document.getElementById(urlobj).value = url ;
-        oWindow = null;
+        oWindow.close();
     }
 </script>
-
-<button type="button" onclick="BrowseServer('{{$name}}');">Pick Image</button>{{ Form::text($name, $value, array_merge(['class' => 'form-control'], $attributes)) }}
+<div class="input-group">
+    <div class="input-group-btn">
+        {{ Form::button($buttonLabel,
+        [
+        'onclick'=>"BrowseServer('$name');",
+        'class'=>'btn'
+        ]) }}
+    </div>
+        {{ Form::text(
+            $name,
+            $value,
+            array_merge(
+                $attributes,
+                ['id' => $name, 'class'=>'form-control']
+                )
+        ) }}
+</div>

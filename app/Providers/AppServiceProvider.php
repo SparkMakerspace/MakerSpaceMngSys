@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Form::component('groups', 'partials.groupSelector', [ 'name' => 'group[]' , 'selectedGroups' => null ]);
 
-        Form::component('imageselector', 'partials.ImageSelector', ['name', 'value' => null, 'attributes' => []]);
+        Form::component('imageselector', 'partials.ImageSelector', [ 'name' => 'name', 'value' => null, 'attributes' => [], 'buttonLabel' => 'Pick Image']);
     }
 
     /**
