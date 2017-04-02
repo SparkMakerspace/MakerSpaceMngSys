@@ -15,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Form::component('groups', 'partials.groupSelector', [ 'name' => 'group[]' , 'selectedGroups' => null ]);
+
+        Form::component('imageselector', 'partials.ImageSelector', [ 'name' => 'name', 'value' => '' ]);
     }
 
     /**
