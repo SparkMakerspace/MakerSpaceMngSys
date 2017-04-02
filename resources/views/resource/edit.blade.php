@@ -18,7 +18,7 @@
     @endif
     <div class="form-group">
         {!! Form::label('name', 'Name') !!}
-        {!! Form::imageselector('name',$resource->name) !!}
+        {!! Form::imageselector('name') !!}
     </div>
     <div class="form-group">
         {!! Form::label('type', 'Type') !!}
