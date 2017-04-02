@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/css/skins/skin-blue.min.css">
     <link rel="stylesheet" href="{{url('css/fullcalendar.css')}}">
     <link rel="stylesheet" href="{{url('css/bootstrap-datetimepicker.min.css')}}">
-    @yield('head')
+    @stack('head')
 </head>
 <body class="hold-transition skin-blue">
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -173,7 +173,7 @@
         @stack('jquery.ready')
     });
 </script>
-@yield('script')
+@stack('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.js"></script>
 <script src="{{url('js/bootstrap-datetimepicker.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.5/js/app.min.js"></script>
