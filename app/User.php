@@ -60,6 +60,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
  * @method static \Illuminate\Database\Query\Builder|\App\User whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereImageId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Chore_list[] $chore_lists
  */
 class User extends Authenticatable
 {
