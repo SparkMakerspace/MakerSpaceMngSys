@@ -20,7 +20,7 @@ class CreateMasterEventsTable extends Migration
 
             $table->String('description')->nullable();
 
-            $table->String('status')->default('Not Approved');
+            $table->String('status')->default('Not Submitted');
 
             $table->time('duration');
 
