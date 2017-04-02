@@ -1,16 +1,3 @@
-@php
-
-        if(!isset($name))
-        {
-        $name = "";
-        }
-        if(!isset($value))
-        {
-        $value = "";
-        }
-@endphp
-
-
 <script type="text/javascript">
     // File Picker modification for FCK Editor v2.0 - www.fckeditor.net
     // by: Pete Forde <pete@unspace.ca> @ Unspace Interactive
@@ -45,4 +32,4 @@
 </script>
 
 <button type="button" onclick="BrowseServer('{{$name}}');">Pick Image</button>
-<input type="text" name="{{$name}}" value="{{$value}}" id="{{$name}}"/>
+<input type="text" name="{{$name}}" id="{{$name}}" value="{{$value}}"/>

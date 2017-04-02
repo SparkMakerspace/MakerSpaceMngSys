@@ -18,11 +18,15 @@
     @endif
     <div class="form-group">
         {!! Form::label('name', 'Name') !!}
-        {!! Form::imageselector('name') !!}
+        {!! Form::imageselector('name',$resource->name) !!}
     </div>
     <div class="form-group">
         {!! Form::label('type', 'Type') !!}
         {!! Form::text('type') !!}
+    </div>
+    <div class="form-group">
+        {!! Form::label('location', 'Location') !!}
+        {!! Form::text('location') !!}
     </div>
     <div class="form-group">
         {!! Form::label('description', 'Description') !!}
