@@ -41,6 +41,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $contactInfo
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Post[] $posts
  * @method static \Illuminate\Database\Query\Builder|\App\Group whereContactInfo($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\MasterEvent[] $masterEvents
  */
 class Group extends Model
 {
@@ -60,7 +61,7 @@ class Group extends Model
 
     public function masterEvents()
     {
-        return $this->belongsToMany('App\MasterEent','groups_masterevents');
+        return $this->belongsToMany('App\MasterEvent','groups_masterevents');
     }
 
     /**

@@ -23,7 +23,7 @@
             <tr>
                 <td><a href =  '{!!url('resource')!!}/{!!$resource->id!!}'>{!!$resource->name!!}</a></td>
                 <td>{!!$resource->location!!}</td>
-                <td>{!!\App\resource_type::findOrfail($resource->type)->value!!}</td>
+                <td>{!!$resource->type!!}</td>
                 <td>{!!$resource->description!!}</td>
                 <td>@if($resource->requiresAuth) Yes @else No @endif</td>
                 <td>

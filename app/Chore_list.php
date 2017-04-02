@@ -8,8 +8,36 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Chore_list.
  *
- * @author  The scaffold-interface created at 2017-03-30 01:48:44am
- * @link  https://github.com/amranidev/scaffold-interface
+ * @author The scaffold-interface created at 2017-03-30 01:48:44am
+ * @link https://github.com/amranidev/scaffold-interface
+ * @property int $id
+ * @property string $Name
+ * @property string $Description
+ * @property int $CompletedByUser
+ * @property string $TaskTimeReqd
+ * @property string $image
+ * @property string $NeedDate
+ * @property int $resource_id
+ * @property int $user_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property \Carbon\Carbon $deleted_at
+ * @property-read \App\Resource $resource
+ * @property-read \App\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereCompletedByUser($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereTaskTimeReqd($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereNeedDate($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereResourceId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Chore_list whereDeletedAt($value)
+ * @mixin \Eloquent
  */
 class Chore_list extends Model
 {

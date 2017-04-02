@@ -11,7 +11,6 @@
     </form>
     <br>
     <form method = 'POST' action = '{!!url("resource")!!}'>
-        <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
         <div class="form-group">
             <label for="name">name</label>
             <input id="name" name = "name" type="text" class="form-control">

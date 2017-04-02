@@ -53,6 +53,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\MasterEvent whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\MasterEvent whereDeletedAt($value)
  * @mixin \Eloquent
+ * @property string $status
+ * @property string $duration
+ * @property int $primaryMasterEventId
+ * @property float $percentRevenueToSpark
+ * @method static \Illuminate\Database\Query\Builder|\App\MasterEvent whereStatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\MasterEvent whereDuration($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\MasterEvent wherePrimaryMasterEventId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\MasterEvent wherePercentRevenueToSpark($value)
  */
 class MasterEvent extends Model
 {

@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-03-12.
+    * Generated on 2017-04-02.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -55,7 +55,6 @@ namespace PHPSTORM_META {
             'pusher.factory' instanceof \Vinkla\Pusher\PusherFactory,
             'pusher' instanceof \Vinkla\Pusher\PusherManager,
             'pusher.connection' instanceof \Pusher,
-            'image' instanceof \Intervention\Image\ImageManager,
             'laravel-fullcalendar' instanceof \MaddHatter\LaravelFullcalendar\Calendar,
             'command.make.models' instanceof \Iber\Generator\Commands\MakeModelsCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
@@ -193,7 +192,6 @@ namespace PHPSTORM_META {
             'pusher.factory' instanceof \Vinkla\Pusher\PusherFactory,
             'pusher' instanceof \Vinkla\Pusher\PusherManager,
             'pusher.connection' instanceof \Pusher,
-            'image' instanceof \Intervention\Image\ImageManager,
             'laravel-fullcalendar' instanceof \MaddHatter\LaravelFullcalendar\Calendar,
             'command.make.models' instanceof \Iber\Generator\Commands\MakeModelsCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
@@ -331,7 +329,6 @@ namespace PHPSTORM_META {
             'pusher.factory' instanceof \Vinkla\Pusher\PusherFactory,
             'pusher' instanceof \Vinkla\Pusher\PusherManager,
             'pusher.connection' instanceof \Pusher,
-            'image' instanceof \Intervention\Image\ImageManager,
             'laravel-fullcalendar' instanceof \MaddHatter\LaravelFullcalendar\Calendar,
             'command.make.models' instanceof \Iber\Generator\Commands\MakeModelsCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
@@ -469,7 +466,6 @@ namespace PHPSTORM_META {
             'pusher.factory' instanceof \Vinkla\Pusher\PusherFactory,
             'pusher' instanceof \Vinkla\Pusher\PusherManager,
             'pusher.connection' instanceof \Pusher,
-            'image' instanceof \Intervention\Image\ImageManager,
             'laravel-fullcalendar' instanceof \MaddHatter\LaravelFullcalendar\Calendar,
             'command.make.models' instanceof \Iber\Generator\Commands\MakeModelsCommand,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
