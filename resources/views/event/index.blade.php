@@ -3,9 +3,11 @@
 @section('content')
 
 <section class="content">
+    @can('create events')
     <form class = 'col s3' method = 'get' action = '{!!url("event")!!}/create'>
         <button class = 'btn btn-primary' type = 'submit'>Create New event</button>
     </form>
+    @endcan
 
 
     <div class="col-md-6">

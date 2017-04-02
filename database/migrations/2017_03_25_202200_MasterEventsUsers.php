@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChoreListsUsers extends Migration
+class MasterEventsUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class ChoreListsUsers extends Migration
      */
     public function up()
     {
-        Schema::create('chore_lists_users',function (Blueprint $table){
+        Schema::create('masterevents_users',function (Blueprint $table){
 			$table->increments('id')->unique()->index()->unsigned();
-			$table->integer('chore_list_id')->unsigned()->index();
-			$table->foreign('chore_list_id')->references('id')->on('chore_lists')->onDelete('cascade');
+			$table->integer('masterevent_id')->unsigned()->index();
+			$table->foreign('masterevent_id')->references('id')->on('masterevents')->onDelete('cascade');
+			$table->string('role')->default('owner');
 			$table->integer('user_id')->unsigned()->index();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			/**
@@ -32,6 +33,6 @@ class ChoreListsUsers extends Migration
      */
     public function down()
     {
-        Schema::drop('chore_lists_users');
+        Schema::drop('masterevents_users');
     }
 }

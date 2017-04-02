@@ -4,7 +4,9 @@
 
 @section('content')
 
-
+{!! Form::open() !!}
+    {!! Form::groups() !!}
+{!! Form::close() !!}
 
 
 

@@ -27,12 +27,14 @@ class Events extends Migration
         $table->dateTime('startDateTime');
         
         $table->dateTime('endDateTime');
+
+        $table->string('status')->default('Not Submitted');
         
         $table->String('description')->nullable();
 
         $table->boolean('allDay')->default(false);
 
-        $table->string('type')->default('meetup');
+        $table->string('type')->default('event');
 
         $table->boolean('nonMembersAllowed')->default(true);
 

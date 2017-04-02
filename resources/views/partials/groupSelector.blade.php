@@ -1,16 +1,15 @@
-{{--    Expects parameter:
-            selectedGroups: an optional array of group ids that should be selected
-        This partial should be surrounded by form tags.
---}}
+{{-- Use Form::group(name, selectedGroups) to instantiate this partial! --}}
+
+
 @foreach(\App\Group::all() as $group)
     <div class="checkbox">
         <label><input type="checkbox"
-                      @if(isset($selectedGroups))
+                      @if(!is_null($selectedGroups))
                           @if(in_array($group->id,$selectedGroups->pluck('id')->toArray()))
                               checked
                           @endif
                       @endif
-                      name="group[]" value="{{$group->id}}">
+                      name="{{$name}}" value="{{$group->id}}">
             {{$group->name}}
         </label>
     </div>

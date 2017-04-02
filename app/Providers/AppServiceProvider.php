@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Collective\Html\FormBuilder as Form;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Form::component('groups', 'partials.groupSelector', [ 'name' => 'group[]' , 'selectedGroups' => null ]);
     }
 
     /**
