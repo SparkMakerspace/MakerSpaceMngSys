@@ -18,7 +18,7 @@
     @endif
     <div class="form-group">
         {!! Form::label('name', 'Name') !!}
-        {!! Form::text('name') !!}
+        {!! Form::imageselector('name') !!}
     </div>
     <div class="form-group">
         {!! Form::label('type', 'Type') !!}
@@ -42,7 +42,7 @@
     {!! Form::close() !!}
 </section>
 @endsection
-
+@if(isset($resource))
 @section('adminBar')
     @hasanyrole(['superadmin','admin'])
     <form class = 'col s3' method = 'get' action = '{!!url("g")!!}/create'>
@@ -52,4 +52,4 @@
     </form>
     @endhasanyrole
 @endsection
-
+@endif
