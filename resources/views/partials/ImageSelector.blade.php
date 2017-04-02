@@ -32,4 +32,4 @@
 </script>
 
 <button type="button" onclick="BrowseServer('{{$name}}');">Pick Image</button>
-<input type="text" name="{{$name}}" id="{{$name}}" value="{{$value}}"/>
+{{ Form::text($name, $value, array_merge(['class' => 'form-control'], $attributes)) }}
