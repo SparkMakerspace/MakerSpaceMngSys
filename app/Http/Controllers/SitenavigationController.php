@@ -38,7 +38,7 @@ class SitenavigationController extends Controller
     {
         $title = 'Create - sitenavigation';
         
-        return view('sitenavigation.create');
+        return view('sitenavigation.edit');
     }
 
     /**
@@ -47,9 +47,19 @@ class SitenavigationController extends Controller
      * @param    \Illuminate\Http\Request  $request
      * @return  \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id = null, Request $request)
     {
-        $sitenavigation = new Sitenavigation();
+        If (isset($id))
+        {
+            $sitenavigation = Sitenavigation::findOrfail($id);
+        }
+        else
+        {
+            $sitenavigation = new Sitenavigation();
+        }
+
+
+
 
         
         $sitenavigation->LinkText = $request->LinkText;
@@ -129,8 +139,17 @@ class SitenavigationController extends Controller
      * @param    int  $id
      * @return  \Illuminate\Http\Response
      */
-    public function update($id,Request $request)
+    public function update($id = null, Request $request)
     {
+        If (isset($id))
+        {
+            $sitenavigation = Sitenavigation::findOrfail($id);
+        }
+        else
+        {
+            $sitenavigation = new Sitenavigation();
+        }
+
         $sitenavigation = Sitenavigation::findOrfail($id);
     	
         $sitenavigation->LinkText = $request->LinkText;
