@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Calendar;
 use App\Image;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -24,10 +25,14 @@ class EventController extends Controller
      *
      * @return  \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Index - event';
-        $events = Event::paginate(6);
+        if ($request->query('all')) {
+            $events = Event::paginate(100);
+        } else {
+            $events = Event::where('startDateTime', '>=', Carbon::today())->get();
+        }
         $calendar = \FullCal::addEvents($events)->setCallbacks([
             'eventClick'=> 'function(calEvent, jsEvent, view) {
         window.location.assign(calEvent.url);
