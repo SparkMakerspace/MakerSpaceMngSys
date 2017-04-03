@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class Auto3dprinterMaterialsSeeder extends Seeder
+class Auto3dPrinterMaterialSeeder extends Seeder
 {
     /**
      * Run the database seeds.

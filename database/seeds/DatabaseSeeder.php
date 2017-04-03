@@ -12,8 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(imageSeeder::class);
-        $this->call(Auto3dprintercolorSeeder::class);
-        $this->call(Auto3dprinterMaterialsSeeder::class);
+        $this->call(Auto3dPrinterColorSeeder::class);
+        $this->call(Auto3dPrinterMaterialSeeder::class);
         $this->call(permissionSeeder::class);
         $this->call(roleSeeder::class);
         $this->call(userSeeder::class);
