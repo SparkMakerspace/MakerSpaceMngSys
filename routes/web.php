@@ -122,6 +122,9 @@ Route::group(['middleware'=> ['auth']],function() {
   Route::get('chore_list/{id}/delete','\App\Http\Controllers\Chore_listController@destroy');
   Route::get('chore_list/{id}/deleteMsg','\App\Http\Controllers\Chore_listController@DeleteMsg');
 
+
+
+
 //There is a reason these are at the bottom of the routes file.
 //Prevents it from interfering with other routes.
     //TODO: Do not allow users to choose stubs that would be inaccessible due to existing routes.

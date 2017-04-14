@@ -137,6 +137,8 @@ class PostController extends Controller
         
         $post->save();
 
+        $post->groups()->sync($request->group);
+
         return redirect('post/'.$post->id);
     }
 

@@ -3,13 +3,19 @@
 @section('content')
 
     <section class="content">
-        <div class="col-md-6">
         @can('create events')
-            <form class = 'col s3' method = 'get' action = '{!!url("event")!!}/create'>
-                <button class = 'btn btn-primary' type = 'submit'>Create New event</button>
+            <div class="col-md-3">
+            <form class = 'col s3' method = 'get' action = '{!!url("event/create")!!}'>
+                <button class = 'btn btn-primary' type = 'submit'>Create new one-off event</button>
             </form>
-        @endcan
         </div>
+        <div class="col-md-3">
+            <form class = 'col s3' method = 'get' action = '{!!url("event/master/create")!!}'>
+                <button class = 'btn btn-primary' type = 'submit'>Create new event template</button>
+            </form>
+        </div>
+        @endcan
+
         <div class="col-md-6">
         @if(Request::query('all'))
             <form class = 'col s3' method = 'get' action = '{!!url("event")!!}'>

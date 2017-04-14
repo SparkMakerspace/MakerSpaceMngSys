@@ -37,7 +37,7 @@
             <label><input type="checkbox" id="allDay" name="allDay"
                 @if($event->allDay) checked @endif >All Day Event?</label>
         </div>
-        @include('partials.groupSelector',['selectedGroups'=>$event->groups()->get()])
+        {!! Form::groups('group[]', $event->groups()->get()) !!}
         <button class = 'btn btn-primary' type ='submit'>Update</button>
     </form>
     <script>

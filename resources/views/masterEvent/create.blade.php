@@ -27,7 +27,7 @@
             <div class="checkbox">
                 <label><input type="checkbox" id="allDay" name="allDay">All Day Event?</label>
             </div>
-            @include('partials.groupSelector')
+            {!! Form::groups() !!}
             <button class = 'btn btn-primary' type ='submit'>Create</button>
         </form>
         <script>

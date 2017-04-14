@@ -28,7 +28,7 @@
             <label for="image">image</label>
             <input id="image" name = "image" type="text" class="form-control">
         </div>
-        @include('partials.groupSelector')
+        {!! Form::groups() !!}
         <button class = 'btn btn-primary' type ='submit'>Create</button>
     </form>
 </section>

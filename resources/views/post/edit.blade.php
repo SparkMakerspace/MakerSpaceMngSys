@@ -83,9 +83,9 @@
         <div class="form-group">
             {!! Form::label('group','Post in groups:') !!}
             @if(isset($post))
-                @include('partials.groupSelector',['selectedGroups'=>$post->groups])
+                {!! Form::groups('group[]' ,$post->groups) !!}
             @else
-                @include('partials.groupSelector')
+                {!! Form::groups() !!}
             @endif
         </div>
 
