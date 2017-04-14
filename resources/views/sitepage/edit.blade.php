@@ -10,18 +10,26 @@
         <button class = 'btn btn-danger'>sitepage Index</button>
     </form>
     <br>
-    <form method = 'POST' action = '{!! url("sitepage")!!}/{!!$sitepage->
-        id!!}/update'> 
+
+
+
+
+
+    @if(isset($sitepage))
+        {!! Form::model($sitepage, ['action' => ['SitenavigationController@update', $sitepage->id]]) !!}
+    @else
+        {!! Form::open(['action' => 'SitenavigationController@update']) !!}
+    @endif
+
         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
         <div class="form-group">
             <label for="PageTitle">PageTitle</label>
-            <input id="PageTitle" name = "PageTitle" type="text" class="form-control" value="{!!$sitepage->
-            PageTitle!!}"> 
+            {!!  Form::text('PageTitle')!!}
         </div>
         <div class="form-group">
             <label for="PageContent">PageContent</label>
-            <input id="PageContent" name = "PageContent" type="text" class="form-control" value="{!!$sitepage->
-            PageContent!!}"> 
+            {!!  Form::wysiwyg('PageContent')!!}
+
         </div>
         <div class="form-group">
             <label for="PagePublishDate">PagePublishDate</label>
@@ -48,7 +56,7 @@
             <input id="PageKeywords" name = "PageKeywords" type="text" class="form-control" value="{!!$sitepage->
             PageKeywords!!}"> 
         </div>
-        <button class = 'btn btn-primary' type ='submit'>Update</button>
-    </form>
+    <button class = 'btn btn-primary' type ='submit'>Update</button>
+    {!! Form::close() !!}
 </section>
 @endsection
