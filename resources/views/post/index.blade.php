@@ -16,7 +16,6 @@
             <th>posted_at</th>
             <th>title</th>
             <th>body</th>
-            <th>image</th>
             <th>actions</th>
         </thead>
         <tbody>
@@ -25,7 +24,6 @@
                 <td>{!!$post->posted_at!!}</td>
                 <td>{!!$post->title!!}</td>
                 <td>{!!$post->body!!}</td>
-                {{--<td>{!!$post->image->path!!}</td>--}}
                 <td>
                     <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/post/{!!$post->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
                     <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/post/{!!$post->id!!}/edit'><i class = 'material-icons'>edit</i></a>

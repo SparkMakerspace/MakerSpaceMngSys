@@ -50,7 +50,7 @@
     })
 </script>
 
-<div class="input-group">
+<div class="input-group" style="width: 100%;">
 
         {{ Form::text(
             $name,
