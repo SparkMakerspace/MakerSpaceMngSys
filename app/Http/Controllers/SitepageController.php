@@ -36,9 +36,7 @@ class SitepageController extends Controller
      */
     public function create()
     {
-        $title = 'Create - sitepage';
-        
-        return view('sitepage.edit');
+        return $this->edit();
     }
 
     /**
@@ -124,17 +122,22 @@ class SitepageController extends Controller
      * @param    int  $id
      * @return  \Illuminate\Http\Response
      */
-    public function edit($id,Request $request)
+    public function edit($id = null, Request $request = null)
     {
-        $title = 'Edit - sitepage';
-        if($request->ajax())
-        {
-            return URL::to('sitepage/'. $id . '/edit');
+        if(!is_null($id)) {
+            $title = 'Edit Page';
+            $submit = 'Update';
+            $sitepage = Sitepage::findOrfail($id);
+            if ($request->ajax()) {
+                return URL::to('sitepage/' . $id . '/edit');
+            }
+            return view('sitepage.edit', compact('title','sitepage','submit'));
         }
-
-        
-        $sitepage = Sitepage::findOrfail($id);
-        return view('sitepage.edit',compact('title','sitepage'  ));
+        else {
+            $title = 'Create Page';
+            $submit = 'Create';
+            return view('sitepage.edit', compact('title','submit'));
+        }
     }
 
     /**
