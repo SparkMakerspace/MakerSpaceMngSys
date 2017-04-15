@@ -1,5 +1,15 @@
 @extends('scaffold-interface.layouts.app')
 @section('title',$sitepage->PageTitle)
+@section('head')
+    
+
+
+
+
+@endsection
+
+
+
 @section('content')
     Published on {!!$sitepage->PagePublishDate!!}
 <div>
@@ -19,31 +29,8 @@
             <th>Key</th>
             <th>Value</th>
         </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <b><i>PageTitle : </i></b>
-                </td>
-                <td>{!!$sitepage->PageTitle!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>PageContent : </i></b>
-                </td>
-                <td>{!!$sitepage->PageContent!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>PagePublishDate : </i></b>
-                </td>
-                <td>{!!$sitepage->PagePublishDate!!}</td>
-            </tr>
-            <tr>
-                <td>
-                    <b><i>PageStub : </i></b>
-                </td>
-                <td>{!!$sitepage->PageStub!!}</td>
-            </tr>
+
+
             <tr>
                 <td>
                     <b><i>PageCSS : </i></b>

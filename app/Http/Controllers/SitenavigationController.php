@@ -37,7 +37,7 @@ class SitenavigationController extends Controller
     public function create()
     {
         $title = 'Create - sitenavigation';
-        
+
         return view('sitenavigation.edit');
     }
 
@@ -47,37 +47,27 @@ class SitenavigationController extends Controller
      * @param    \Illuminate\Http\Request  $request
      * @return  \Illuminate\Http\Response
      */
-    public function store($id = null, Request $request)
+    public function store(Request $request)
     {
-        If (isset($id))
-        {
-            $sitenavigation = Sitenavigation::findOrfail($id);
-        }
-        else
-        {
-            $sitenavigation = new Sitenavigation();
-        }
+        $sitenavigation = new Sitenavigation();
 
 
-
-
-        
         $sitenavigation->LinkText = $request->LinkText;
 
-        
+
         $sitenavigation->LinkImage = $request->LinkImage;
 
-        
+
         $sitenavigation->LinkLoginReqd = $request->LinkLoginReqd;
 
-        
+
         $sitenavigation->LinkURL = $request->LinkURL;
 
-        
+
         $sitenavigation->LinkDescription = $request->LinkDescription;
 
-        
-        
+
+
         $sitenavigation->save();
 
         $pusher = App::make('pusher');
@@ -87,8 +77,8 @@ class SitenavigationController extends Controller
         //Here is a pusher notification example when you create a new resource in storage.
         //you can modify anything you want or use it wherever.
         $pusher->trigger('test-channel',
-                         'test-event',
-                        ['message' => 'A new sitenavigation has been created !!']);
+            'test-event',
+            ['message' => 'A new sitenavigation has been created !!']);
 
         return redirect('sitenavigation');
     }
@@ -127,7 +117,7 @@ class SitenavigationController extends Controller
             return URL::to('sitenavigation/'. $id . '/edit');
         }
 
-        
+
         $sitenavigation = Sitenavigation::findOrfail($id);
         return view('sitenavigation.edit',compact('title','sitenavigation'  ));
     }
@@ -139,34 +129,21 @@ class SitenavigationController extends Controller
      * @param    int  $id
      * @return  \Illuminate\Http\Response
      */
-    public function update( Request $request)
+    public function update($id,Request $request)
     {
-        if(isset($request->id))
-        {
-            $id = $request->id;
-        }
-        If (isset($id))
-        {
-            $sitenavigation = Sitenavigation::findOrfail($id);
-        }
-        else
-        {
-            $sitenavigation = new Sitenavigation();
-        }
-
         $sitenavigation = Sitenavigation::findOrfail($id);
-    	
+
         $sitenavigation->LinkText = $request->LinkText;
-        
+
         $sitenavigation->LinkImage = $request->LinkImage;
-        
+
         $sitenavigation->LinkLoginReqd = $request->LinkLoginReqd;
-        
+
         $sitenavigation->LinkURL = $request->LinkURL;
-        
+
         $sitenavigation->LinkDescription = $request->LinkDescription;
-        
-        
+
+
         $sitenavigation->save();
 
         return redirect('sitenavigation');
@@ -197,8 +174,8 @@ class SitenavigationController extends Controller
      */
     public function destroy($id)
     {
-     	$sitenavigation = Sitenavigation::findOrfail($id);
-     	$sitenavigation->delete();
+        $sitenavigation = Sitenavigation::findOrfail($id);
+        $sitenavigation->delete();
         return URL::to('sitenavigation');
     }
 }
