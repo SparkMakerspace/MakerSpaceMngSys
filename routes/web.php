@@ -101,12 +101,12 @@ Route::group(['middleware'=> 'web'], function () {
     });
 
 //sitenavigation Routes
-    Route::resource('sitenavigation','\App\Http\Controllers\SitenavigationController');
-    Route::post('sitenavigation/{id}/update','\App\Http\Controllers\SitenavigationController@update');
-    Route::post('sitenavigation/update','\App\Http\Controllers\SitenavigationController@update');
-
-    Route::get('sitenavigation/{id}/delete','\App\Http\Controllers\SitenavigationController@destroy');
-    Route::get('sitenavigation/{id}/deleteMsg','\App\Http\Controllers\SitenavigationController@DeleteMsg');
+    Route::group(['middleware'=> 'web'],function(){
+        Route::resource('sitenavigation','\App\Http\Controllers\SitenavigationController');
+        Route::post('sitenavigation/{id}/update','\App\Http\Controllers\SitenavigationController@update');
+        Route::get('sitenavigation/{id}/delete','\App\Http\Controllers\SitenavigationController@destroy');
+        Route::get('sitenavigation/{id}/deleteMsg','\App\Http\Controllers\SitenavigationController@DeleteMsg');
+    });
 
 
 //admin route - obviously requires user to be logged in
