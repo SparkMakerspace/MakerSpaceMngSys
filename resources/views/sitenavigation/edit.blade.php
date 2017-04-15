@@ -13,7 +13,7 @@
     @if(isset($sitenavigation))
         {!! Form::model($sitenavigation, ['action' => ['SitenavigationController@update', $sitenavigation->id]]) !!}
     @else
-        {!! Form::open(['action' => 'SitenavigationController@update']) !!}
+        {!! Form::open(['action' => 'SitenavigationController@store']) !!}
     @endif
 
         <div class="form-group">
