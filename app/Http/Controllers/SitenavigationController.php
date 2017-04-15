@@ -139,8 +139,12 @@ class SitenavigationController extends Controller
      * @param    int  $id
      * @return  \Illuminate\Http\Response
      */
-    public function update($id = null, Request $request)
+    public function update( Request $request)
     {
+        if(isset($request->id))
+        {
+            $id = $request->id;
+        }
         If (isset($id))
         {
             $sitenavigation = Sitenavigation::findOrfail($id);
