@@ -30,7 +30,7 @@
         {!!  Form::date('PagePublishDate',null,['class'=>'form-control'])!!}
     </div>
     <div class="form-group">
-        {!! Form::label('PageStub', 'Page Stub (spark.ccop/thisisastub):') !!}
+        {!! Form::label('PageStub', 'Page Stub (spark.coop/thisisastub):') !!}
         {!!  Form::text('PageStub',null,['class'=>'form-control'])!!}
     </div>
     <div class="form-group">
