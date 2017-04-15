@@ -46,6 +46,8 @@ class Post extends Model
 
     protected $break = '!!BREAK!!';
 
+    protected $guarded = [];
+
     protected $excerptLength = 50;
 
     /**

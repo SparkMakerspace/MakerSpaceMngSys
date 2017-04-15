@@ -48,17 +48,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post();
-        
-        $post->posted_at = $request->posted_at;
-
-        
-        $post->title = $request->title;
-
-        
-        $post->body = $request->body;
-        
-        $post->save();
+        $post = Post::create($request->except('group'));
 
         $post->groups()->sync($request->group);
 
@@ -123,21 +113,15 @@ class PostController extends Controller
      * @param    int  $id
      * @return  \Illuminate\Http\Response
      */
-    public function update($id,Request $request)
+    public function update($id, $request)
     {
         $post = Post::findOrfail($id);
 
-        $post->setOwner(\Auth::user());
-    	
-        $post->posted_at = $request->posted_at;
-        
-        $post->title = $request->title;
-        
-        $post->body = $request->body;
-        
-        $post->save();
+        $post->update($request->except('group'));
 
         $post->groups()->sync($request->group);
+
+        $post->setOwner(\Auth::user());
 
         return redirect('post/'.$post->id);
     }
