@@ -38,7 +38,7 @@ class SitepageController extends Controller
     {
         $title = 'Create - sitepage';
         
-        return view('sitepage.create');
+        return view('sitepage.edit');
     }
 
     /**
