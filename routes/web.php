@@ -124,14 +124,14 @@ Route::group(['middleware'=> ['auth']],function() {
 
 
   //webmail routes
-  Route::get('/webmail',function()
+  Route::get('/mail',function()
     {
       if(Auth::check())
         return File::get(public_path() . '/webmail/index.php');
-        return File::get(public_path() . '/webmail/index.php');
+      return File::get(public_path() . '/webmail/index.php');
     });
 
-    Route::get('/webmail/{slug}',function($slug)
+    Route::get('/mail/{slug}',function($slug)
     {
       if(Auth::check())
           return File::get(public_path() . '/webmail/' . $slug);
