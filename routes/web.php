@@ -123,6 +123,20 @@ Route::group(['middleware'=> ['auth']],function() {
   Route::get('chore_list/{id}/deleteMsg','\App\Http\Controllers\Chore_listController@DeleteMsg');
 
 
+  //webmail routes
+  Route::get('/webmail',function()
+    {
+      if(Auth::check())
+        return File::get(public_path() . '/webmail/index.php');
+        return File::get(public_path() . '/webmail/index.php');
+    });
+
+    Route::get('/webmail/{slug}',function($slug)
+    {
+      if(Auth::check())
+          return File::get(public_path() . '/webmail/' . $slug);
+      return File::get(public_path() . '/webmail/' . $slug);
+    });
 
 
 //There is a reason these are at the bottom of the routes file.
