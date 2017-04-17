@@ -18,8 +18,7 @@ Route::group(['middleware'=> 'web'], function () {
 
     Auth::routes();
 
-    Route::get('/home', 'HomeController@index');
-
+    Route::get('/home', 'DashboardController@show');
 
 //post Routes
     Route::resource('post', '\App\Http\Controllers\PostController');
@@ -64,6 +63,7 @@ Route::group(['middleware'=> 'web'], function () {
     Route::get('event/master/{id}/deleteMsg','\App\Http\Controllers\MasterEventController@DeleteMsg');
 
 //event Routes
+    Route::get('event/my','EventController@myEvents');
     Route::resource('event','\App\Http\Controllers\EventController');
     Route::post('event/{id}/update','\App\Http\Controllers\EventController@update');
     Route::get('event/{id}/delete','\App\Http\Controllers\EventController@destroy');

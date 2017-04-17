@@ -28,17 +28,21 @@ class EventController extends Controller
     public function index(Request $request)
     {
         $title = 'Index - event';
-        if ($request->query('all')) {
-            $events = Event::paginate(100);
+        if ($request->query('past')) {
+            $events = Event::orderBy('startDateTime','des')
+                ->where('startDateTime', '<', Carbon::today())
+                ->paginate(10);
         } else {
-            $events = Event::where('startDateTime', '>=', Carbon::today())->get();
+            $events = Event::orderBy('startDateTime')
+                ->where('startDateTime', '>', Carbon::today())
+                ->paginate(10);
         }
         $calendar = \FullCal::addEvents($events)->setCallbacks([
             'eventClick'=> 'function(calEvent, jsEvent, view) {
         window.location.assign(calEvent.url);
     }'])->setOptions([
             'defaultView'=>'month',
-            'header'=>['left'=>'title','center'=>'','right'=>'today prev,next'],
+//            'header'=>['left'=>'title','center'=>'','right'=>'today prev,next'],
         ]);
         return view('event.index',compact('events','title','calendar'));
     }
@@ -87,6 +91,8 @@ class EventController extends Controller
         $event->save();
 
         $event->groups()->sync($request->group);
+
+        $event->attendees()->attach(\Auth::id(),['eventOwner'=>'1']);
 
         $pusher = App::make('pusher');
 
@@ -204,5 +210,16 @@ class EventController extends Controller
      	$event = Event::findOrfail($id);
      	$event->delete();
         return URL::to('event');
+    }
+
+    public function myEvents()
+    {
+        $events = \Auth::user()->events()->wherePivot('EventOwner','=',1)->get()
+            ->sortBy('startDateTime')
+            ->where('startDateTime','>',Carbon::today()->addMonths(-6))
+            ->where('startDateTime','<',Carbon::today()->addMonths(12))
+            ->all();
+
+        return view('event.myEvents',compact('events'));
     }
 }
