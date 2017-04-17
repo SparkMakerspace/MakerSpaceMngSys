@@ -84,14 +84,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-	/**
+    /**
      * group.
-     *
-     * @return  \Illuminate\Support\Collection;
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany ;
      */
     public function groups()
     {
-        return $this->belongsToMany('App\Group');
+        return $this->belongsToMany('App\Group','groups_users')->withPivot('role');
     }
 
     /**
@@ -124,7 +123,7 @@ class User extends Authenticatable
      */
     public function events()
     {
-        return $this->belongsToMany('App\Event')->withPivot(['eventOwner','status','paid']);
+        return $this->belongsToMany('App\Event','events_users')->withPivot(['eventOwner','status','paid']);
     }
 
     /**
