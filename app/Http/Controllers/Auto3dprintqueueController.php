@@ -135,7 +135,7 @@ class Auto3dprintqueueController extends Controller
         $outputb = execInBackground("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
 
 
-        $output = execInBackground("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 75,75");
+        $output = execInBackground("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
 
 
 
