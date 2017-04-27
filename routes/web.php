@@ -18,8 +18,7 @@ Route::group(['middleware'=> 'web'], function () {
 
     Auth::routes();
 
-    Route::get('/home', 'HomeController@index');
-
+    Route::get('/home', 'DashboardController@show');
 
 //post Routes
     Route::resource('post', '\App\Http\Controllers\PostController');
@@ -64,6 +63,7 @@ Route::group(['middleware'=> 'web'], function () {
     Route::get('event/master/{id}/deleteMsg','\App\Http\Controllers\MasterEventController@DeleteMsg');
 
 //event Routes
+    Route::get('event/my','EventController@myEvents');
     Route::resource('event','\App\Http\Controllers\EventController');
     Route::post('event/{id}/update','\App\Http\Controllers\EventController@update');
     Route::get('event/{id}/delete','\App\Http\Controllers\EventController@destroy');
@@ -97,8 +97,9 @@ Route::group(['middleware'=> 'web'], function () {
         Route::get('auto3dprintqueue/{id}/gcode', '\App\Http\Controllers\Auto3dprintqueueController@showGcode');
         Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
         Route::get('auto3dprintqueue/{id}/viewer', '\App\Http\Controllers\Auto3dprintqueueController@showGcodeViewer');
-        Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
+
     });
+    Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
 
 //sitenavigation Routes
     Route::group(['middleware'=> 'web'],function(){

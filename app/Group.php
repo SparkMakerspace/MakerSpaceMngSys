@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -127,6 +128,11 @@ class Group extends Model
     public function removePost($post)
     {
         return $this->posts()->detach($post);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User','groups_users');
     }
 
 }

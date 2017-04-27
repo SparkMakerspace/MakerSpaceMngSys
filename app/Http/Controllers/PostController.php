@@ -61,8 +61,8 @@ class PostController extends Controller
         //Here is a pusher notification example when you create a new resource in storage.
         //you can modify anything you want or use it wherever.
         $pusher->trigger('test-channel',
-                         'test-event',
-                        ['message' => 'A new post has been created !!']);
+            'test-event',
+            ['message' => 'A new post has been created !!']);
 
         return redirect('post/'.$post->id);
     }
@@ -151,8 +151,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-     	$post = Post::findOrfail($id);
-     	$post->delete();
+        $post = Post::findOrfail($id);
+        $post->delete();
         return URL::to('post');
     }
 }
