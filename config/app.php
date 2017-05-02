@@ -185,6 +185,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Cognitus\Richfilemanager\RichfilemanagerServiceProvider::class,
+        BrianFaust\SocialShare\SocialShareServiceProvider::class,
     ],
 
     /*
@@ -231,6 +232,7 @@ return [
         'Response' => Illuminate\Support\Facades\Response::class,
         'Route' => Illuminate\Support\Facades\Route::class,
         'Schema' => Illuminate\Support\Facades\Schema::class,
+        'Share' => BrianFaust\SocialShare\Facades\SocialShare,
         'Session' => Illuminate\Support\Facades\Session::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'URL' => Illuminate\Support\Facades\URL::class,

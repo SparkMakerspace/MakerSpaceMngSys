@@ -15,7 +15,8 @@
         "maddhatter/laravel-fullcalendar": "^1.2",
         "laravelcollective/html": "^5.3.0",
         "stripe/stripe-php": "^4.4",
-        "cognitus/richfilemanager": "1.0.*"
+        "cognitus/richfilemanager": "1.0.*",
+        "faustbrian/laravel-social-share": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
