@@ -51,7 +51,7 @@ class Auto3dprintqueueController extends Controller
                 $auto3dprintqueues = Auto3dprintqueue::where('user_id', $request->id)->orderBy('created_at','dec')->paginate(6);
 
             }
-       }
+        }
 
 
         return view('auto3dprintqueue.index',compact('auto3dprintqueues','title'));
@@ -63,7 +63,7 @@ class Auto3dprintqueueController extends Controller
         $auto3dprintqueues = Auto3dprintqueue::where('user_id', $request->id)->orderBy('created_at','dec')->paginate(6);
 
 
-       // \Auth::user()->id
+        // \Auth::user()->id
 
         return view('auto3dprintqueue.index',compact('auto3dprintqueues','title'));
     }
@@ -76,13 +76,13 @@ class Auto3dprintqueueController extends Controller
     public function create()
     {
         $title = 'Create - auto3dprintqueue';
-        
+
         $auto3dprintercolors = Auto3dprintercolor::all()->pluck('color','id');
-        
+
         $auto3dprintmaterials = Auto3dprintmaterial::all()->pluck('material','id');
-        
+
         $users = User::all()->pluck('name','id');
-        
+
         return view('auto3dprintqueue.create',compact('title','auto3dprintercolors' , 'auto3dprintmaterials' , 'users'  ));
     }
 
@@ -100,7 +100,7 @@ class Auto3dprintqueueController extends Controller
 
         $auto3dprintqueue = new Auto3dprintqueue();
 
-        
+
         $auto3dprintqueue->Name = $request->file('upload')->getClientOriginalName();
 
         $auto3dprintqueue->path = '';
@@ -110,19 +110,19 @@ class Auto3dprintqueueController extends Controller
 
         $auto3dprintqueue->Status = "";
 
-        
+
         $auto3dprintqueue->Notified = 0;
 
 
         $auto3dprintqueue->auto3dprintercolor_id = $request->auto3dprintercolor_id;
 
-        
+
         $auto3dprintqueue->auto3dprintmaterial_id = $request->auto3dprintmaterial_id;
 
-        
+
         $auto3dprintqueue->user_id = \Auth::user()->id;
 
-        
+
         $auto3dprintqueue->save();
 
         $path = Storage::putFileAs('3dPrintFiles', $request->file('upload'),$auto3dprintqueue->id.".stl", 'public');
@@ -132,13 +132,10 @@ class Auto3dprintqueueController extends Controller
 
         $pusher = App::make('pusher');
 
-        $outputb = execInBackground("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
+        $outputb = shell_exec ("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
 
 
-
-        //$output = execInBackground("start ..\\MatterControl\\matterslice.exe -c \"..\\MatterControl\\settings.ini\" -o \"..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".gcode\" \"..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".stl\"");
-       // $output = execInBackground("start ..\\MatterControl\\matterslice.exe -c \"..\\MatterControl\\settings.ini\" -o \"..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".gcode\" \"..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".stl\"");
-        $output = execInBackground("start ..\slice.bat ".$auto3dprintqueue->id." ".$auto3dprintqueue->Infill );
+        $output = shell_exec ("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
 
 
 
@@ -148,8 +145,8 @@ class Auto3dprintqueueController extends Controller
         //Here is a pusher notification example when you create a new resource in storage.
         //you can modify anything you want or use it wherever.
         $pusher->trigger('test-channel',
-                         'test-event',
-                        ['message' => 'A new auto3dprintqueue has been created !!']);
+            'test-event',
+            ['message' => 'A new auto3dprintqueue has been created !!']);
 
         return redirect('auto3dprintqueue/'.$auto3dprintqueue->id."/");
     }
@@ -318,16 +315,16 @@ class Auto3dprintqueueController extends Controller
             return URL::to('auto3dprintqueue/'. $id . '/edit');
         }
 
-        
+
         $auto3dprintercolors = Auto3dprintercolor::all()->pluck('color','id');
 
-        
+
         $auto3dprintmaterials = Auto3dprintmaterial::all()->pluck('material','id');
 
-        
+
         $users = User::all()->pluck('name','id');
 
-        
+
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
         return view('auto3dprintqueue.edit',compact('title','auto3dprintqueue' ,'auto3dprintercolors', 'auto3dprintmaterials', 'users' ) );
     }
@@ -342,25 +339,25 @@ class Auto3dprintqueueController extends Controller
     public function update($id,Request $request)
     {
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
-    	
+
         $auto3dprintqueue->Name = $request->Name;
-        
+
         $auto3dprintqueue->Infill = $request->Infill;
-        
+
         $auto3dprintqueue->Status = $request->Status;
-        
+
         $auto3dprintqueue->Notified = $request->Notified;
-        
-        
+
+
         $auto3dprintqueue->auto3dprintercolor_id = $request->auto3dprintercolor_id;
 
-        
+
         $auto3dprintqueue->auto3dprintmaterial_id = $request->auto3dprintmaterial_id;
 
-        
+
         $auto3dprintqueue->user_id = $request->user_id;
 
-        
+
         $auto3dprintqueue->save();
 
         return redirect('auto3dprintqueue');
@@ -391,8 +388,8 @@ class Auto3dprintqueueController extends Controller
      */
     public function destroy($id)
     {
-     	$auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
-     	$auto3dprintqueue->delete();
+        $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+        $auto3dprintqueue->delete();
         return URL::to('auto3dprintqueue');
     }
 
