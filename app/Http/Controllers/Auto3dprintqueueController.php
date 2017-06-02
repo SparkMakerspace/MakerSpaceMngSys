@@ -143,10 +143,10 @@ class Auto3dprintqueueController extends Controller
 
         if (env('APP_PLATFORM') == 'MAC' ) {
 
-            $outputb = shell_exec ("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
+            $outputb = shell_exec ("../slic3r/openscad/openscad.com ../storage/app/3dPrintFiles/".$auto3dprintqueue->id.".scad -o ../storage/app/3dPrintFiles/".$auto3dprintqueue->id.".png");
 
 
-            $output = shell_exec ("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
+            $output = shell_exec ("start ../slic3r/slic3r-console.exe ../storage/app/".$path." --load \"../slic3r/test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
 
         }
 

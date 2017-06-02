@@ -28,4 +28,5 @@ php artisan vendor:publish
 mkdir public/uploads
 
 #mac slic3r installation
-cp -R /Applications/Slic3r.app/Contents/* slic3r/mac/
+cp -R /Applications/Slic3r.app/Contents/* slic3r/mac/slic3r/
+cp -R /Applications/OpenSCAD.app/Contents/* slic3r/mac/openscad/
