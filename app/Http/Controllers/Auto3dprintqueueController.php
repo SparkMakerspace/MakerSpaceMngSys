@@ -132,11 +132,23 @@ class Auto3dprintqueueController extends Controller
 
         $pusher = App::make('pusher');
 
-        $outputb = shell_exec ("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
+        if (env('APP_PLATFORM') = WIN ) {
+
+            $outputb = shell_exec ("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
 
 
-        $output = shell_exec ("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
+            $output = shell_exec ("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
 
+        }
+
+        if (env('APP_PLATFORM') = MAC ) {
+
+            $outputb = shell_exec ("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
+
+
+            $output = shell_exec ("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
+
+        }
 
 
 
@@ -291,8 +303,8 @@ class Auto3dprintqueueController extends Controller
         if(file_exists ("../storage/app/3dPrintFiles/".$id.".gcode") === FALSE) {
             return response("<meta http-equiv=\"refresh\"
    content=\"5\";> Please wait while model is sliced
-   
-   
+
+
    <img src=\"../../../../auto3dprintqueue/".$auto3dprintqueue->id."/thumb.png\" ></img>", 200);
         }
         $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");

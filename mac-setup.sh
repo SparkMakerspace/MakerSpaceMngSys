@@ -26,3 +26,6 @@ php artisan vendor:publish
 # https://gist.githubusercontent.com/rcubetrac/cc85589b837d58680a86e7b5cbb09a4f/raw/6a04577ae65c9a035404ea46f5861c939558c248/debian_install_mysql.sh%25E2%2580%258B
 
 mkdir public/uploads
+
+#mac slic3r installation
+cp -R /Applications/Slic3r.app/Contents/* slic3r/mac/
