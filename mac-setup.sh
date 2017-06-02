@@ -1,5 +1,7 @@
 cp ".env.example" ".env"
 
+sed -i 's/WIN/MAC/g' .env
+
 mysql -u root -e "CREATE DATABASE homestead"
 
 npm update
