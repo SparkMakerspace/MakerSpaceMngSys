@@ -132,7 +132,7 @@ class Auto3dprintqueueController extends Controller
 
         $pusher = App::make('pusher');
 
-        if (env('APP_PLATFORM') = WIN ) {
+        if (env('APP_PLATFORM') == 'WIN' ) {
 
             $outputb = shell_exec ("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
 
@@ -141,7 +141,7 @@ class Auto3dprintqueueController extends Controller
 
         }
 
-        if (env('APP_PLATFORM') = MAC ) {
+        if (env('APP_PLATFORM') == 'MAC' ) {
 
             $outputb = shell_exec ("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
 
