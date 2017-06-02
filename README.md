@@ -1,29 +1,12 @@
 # Spark Maker Space Management System (SMSMS for short)
-The SMSMS is witten in PHP using the Laravel Framework
 
-It has been developed for use at the park maker space. http://spark.coop
+The SMSMS is written in PHP using the Laravel Framework
+
+It has been developed for use at the Spark MakerSpace. http://spark.coop
+
+It's long-term functionality goals include management of membership, billing, building security, automated 3D printers, email, and the public-facing website.
 
 
+The project is licensed under the MIT License (see LICENSE.MD)
 
-MIT License
- 
- Copyright (c) 2017 John Scimone, Mike Molinari & Drew Gates 
- 
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in all
- copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE.
-
+Copyright (c) 2017 John Scimone, Mike Molinari & Drew Gates
