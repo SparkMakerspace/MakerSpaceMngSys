@@ -10,6 +10,8 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+Route::post('/pclogin','PCAuthController@loginRequest');
+
 
 Route::group(['middleware'=> 'web'], function () {
     Route::get('/', function () {
@@ -117,6 +119,7 @@ Route::group(['middleware'=> ['auth']],function() {
     });
 });
 
+
 //chore_list Routes
   Route::resource('chore_list','\App\Http\Controllers\Chore_listController');
   Route::post('chore_list/{id}/update','\App\Http\Controllers\Chore_listController@update');
@@ -136,3 +139,4 @@ Route::group(['middleware'=> ['auth']],function() {
     Route::get('sitepage/{id}/deleteMsg','\App\Http\Controllers\SitepageController@DeleteMsg');
     Route::get('{mystub}','\App\Http\Controllers\SitepageController@showp');
 });
+
