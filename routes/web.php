@@ -140,3 +140,10 @@ Route::group(['middleware'=> ['auth']],function() {
     Route::get('{mystub}','\App\Http\Controllers\SitepageController@showp');
 });
 
+//class_template Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('class_template','\App\Http\Controllers\Class_templateController');
+  Route::post('class_template/{id}/update','\App\Http\Controllers\Class_templateController@update');
+  Route::get('class_template/{id}/delete','\App\Http\Controllers\Class_templateController@destroy');
+  Route::get('class_template/{id}/deleteMsg','\App\Http\Controllers\Class_templateController@DeleteMsg');
+});

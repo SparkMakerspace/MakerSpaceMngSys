@@ -186,6 +186,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Cognitus\Richfilemanager\RichfilemanagerServiceProvider::class,
         BrianFaust\SocialShare\SocialShareServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
     ],
 
     /*

@@ -53,6 +53,12 @@ class Events extends Migration
         $table->integer('nonMemberAttendees')->default(0);
 
         $table->integer('image_id')->nullable();
+
+        $table->integer('minAttendance')->default(0);
+
+        $table->dateTime('cutoffDate')->nullable();
+
+        $table->integer('instructor_id')->nullable();
         
         /**
          * Foreignkeys section

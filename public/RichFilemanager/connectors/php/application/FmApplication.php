@@ -30,20 +30,30 @@ class FmApplication {
             require_once($plugin_path . $class_name . '.php');
             $plugin_config = require_once($plugin_path . 'config.php');
             $configuration = FmHelper::mergeConfigs($base_config, $plugin_config, $custom_config);
+            $this->applyConfig($configuration);
             $fm = new $class_name($configuration);
         } else {
             require_once(FM_ROOT_PATH . '/LocalFilemanager.php');
+            $this->applyConfig($configuration);
             $fm = new LocalFilemanager($configuration);
         }
 
-        if (isset($configuration['logger']) && $configuration['logger']['enabled'] == true ) {
-            $this->logger->enabled = true;
-        }
-
         if(!auth()) {
-            $fm->error($fm->lang('AUTHORIZATION_REQUIRED'));
+            $fm->error('AUTHORIZATION_REQUIRED');
         }
 
         return $fm;
+    }
+
+    public function applyConfig($configuration)
+    {
+        if (isset($configuration['logger'])) {
+            if ($configuration['logger']['enabled'] == true) {
+                $this->logger->enabled = true;
+            }
+            if (is_string($configuration['logger']['file'])) {
+                $this->logger->file = $configuration['logger']['file'];
+            }
+        }
     }
 }

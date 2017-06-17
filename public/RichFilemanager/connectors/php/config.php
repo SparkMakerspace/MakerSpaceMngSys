@@ -23,26 +23,21 @@ $config = [
      */
     "plugin" => null,
     /**
-     * Overrides client-side configuration options (in json file) with the counterparts in the current file.
-     * @see LocalFilemanager::actionInitiate() for the options map
-     */
-    "overrideClientConfig" => false,
-    /**
      * Configure Logger class
      */
     "logger" => [
-        "enabled" => true,
+        "enabled" => false,
+        /**
+         * Default value "null".
+         * Full path to log file, e.g. "/var/log/filemanager/logfile".
+         * By default the application writes logs to "filemanager.log" file that located at sys_get_temp_dir()
+         */
+        "file" => null,
     ],
     /**
      * General options section
      */
     "options" => [
-        /**
-         * Set culture to display localized messages.
-         * Available languages are listed in the languages folder
-         * See https://github.com/servocoder/RichFilemanager/tree/master/scripts/languages
-         */
-        "culture" => "en",
         /**
          * Default value "true".
          * By default the application will search `fileRoot` folder under server root folder.
@@ -78,21 +73,16 @@ $config = [
          * For the full list of capabilities @see BaseFilemanager::actions_list
          */
         "capabilities" => false,
-    ],
-    /**
-     * Security section
-     */
-    "security" => [
         /**
          * Default value "false".
          * Allow users to download a Zip archive of a specific folder and contents (including subfolders).
          */
         "allowFolderDownload" => false,
-        /**
-         * Default value "false".
-         * Allow users to change extension when renaming files.
-         */
-        "allowChangeExtensions" => false,
+    ],
+    /**
+     * Security section
+     */
+    "security" => [
         /**
          * Default value "false".
          * If set to "true", allow users to upload file with no extension.
@@ -155,18 +145,6 @@ $config = [
      * Upload section
      */
     "upload" => [
-        /**
-         * Default value "files".
-         * The parameter name for the file form data (the request argument name).
-         * See https://github.com/blueimp/jQuery-File-Upload/wiki/Options#paramname
-         */
-        "paramName" => "files",
-        /**
-         * Default value "files". By default files will be uploaded as a whole.
-         * To upload large files in smaller chunks, set this option to a preferred chunk size (in Bytes).
-         * See https://github.com/blueimp/jQuery-File-Upload/wiki/Options#maxchunksize
-         */
-        "chunkSize" => false,
         /**
          * Default value "16000000" (16 MB).
          * The maximum allowed file size (in Bytes). If set to "false", no size limitations applied.

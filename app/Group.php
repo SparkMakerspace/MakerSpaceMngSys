@@ -50,6 +50,7 @@ class Group extends Model
     use HasImage;
 	use SoftDeletes;
 
+	protected $guarded = [];
 	protected $dates = ['deleted_at'];
     
 	
@@ -84,16 +85,6 @@ class Group extends Model
     public function removeEvent($event)
     {
         return $this->events()->detach($event);
-    }
-
-    public static function create(array $attributes = [])
-    {
-        if (!array_has($attributes,'image_id')) {
-            return parent::create($attributes);
-        } else {
-            $attributes['image_id'] = Image::whereName('groupNoImage.svg')->first()->id;
-            return parent::create($attributes);
-        }
     }
 
     public function save(array $options = [])

@@ -30,7 +30,7 @@ electronics@spark.coop'
         \App\Group::create([
             'name'=>'Kitchen',
             'stub'=>'kitchen',
-            'about'=>'This is not the best group at Spark',
+            'about'=>'This is the kitchen',
             'image_id'=>2,
             'contactInfo'=>'Lead: Maple
 kitchen@spark.coop'

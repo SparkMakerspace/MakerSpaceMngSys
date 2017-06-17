@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
 
         Form::component('imageselector', 'partials.ImageSelector', [ 'name' => 'name', 'value' => null, 'attributes' => [], 'buttonLabel' => 'Pick Image']);
 
-        Form::component('wysiwyg', 'partials.wysiwyg', [ 'name' => 'name', 'value' => null, 'attributes' => [] ]);
+        Form::component('wysiwyg', 'partials.wysiwyg', [ 'name' => 'name', 'value' => null, 'attributes' => [], 'post' => false]);
 
 
     }

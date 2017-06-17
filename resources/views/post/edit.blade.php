@@ -22,7 +22,7 @@
         </div>
         <div class="form-group">
             {!! Form::label('body', 'Body:') !!}
-            {!! Form::wysiwyg('body',null,['class'=>'form-control']) !!}
+            {!! Form::wysiwyg('body',null,['class'=>'form-control'],true) !!}
         </div>
         <div class="form-group">
             {!! Form::label('posted_at','Publish post at:') !!}
