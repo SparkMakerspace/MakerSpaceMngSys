@@ -4,12 +4,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class Events.
+ * Class Class_templates.
  *
- * @author  The scaffold-interface created at 2017-01-24 02:17:15am
+ * @author  The scaffold-interface created at 2017-06-02 01:06:20am
  * @link  https://github.com/amranidev/scaffold-interface
  */
-class Events extends Migration
+class ClassTemplates extends Migration
 {
     /**
      * Run the migrations.
@@ -18,25 +18,13 @@ class Events extends Migration
      */
     public function up()
     {
-        Schema::create('events',function (Blueprint $table){
+        Schema::create('class_templates',function (Blueprint $table){
 
         $table->increments('id');
-        
-        $table->String('name');
-        
-        $table->dateTime('startDateTime')->nullable();
-        
-        $table->dateTime('endDateTime')->nullable();
-
-        $table->dateTime('duration')->nullable();
 
         $table->string('status')->default('Not Submitted');
-        
+
         $table->String('description')->nullable();
-
-        $table->boolean('allDay')->default(false);
-
-        $table->string('type')->default('event');
 
         $table->boolean('nonMembersAllowed')->default(true);
 
@@ -48,18 +36,16 @@ class Events extends Migration
 
         $table->float('additionalNonMemberTicketPrice')->default(0.0);
 
-        $table->integer('maxAttendance')->nullable();
+        $table->integer('minAttendance',false,true)->default(0);
+
+        $table->integer('maxAttendance',false,true)->defalt(20);
 
         $table->integer('image_id')->nullable();
-
-        $table->integer('minAttendance')->default(0);
 
         $table->dateTime('cutoffDate')->nullable();
 
         $table->integer('instructor_id')->nullable();
 
-        $table->boolean('isTemplate')->default(0);
-        
         /**
          * Foreignkeys section
          */
@@ -82,6 +68,6 @@ class Events extends Migration
      */
     public function down()
     {
-        Schema::drop('events');
+        Schema::drop('class_templates');
     }
 }

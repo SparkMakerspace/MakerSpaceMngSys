@@ -63,6 +63,8 @@ class Event extends Model implements IdentifiableEvent
 	use HasImage;
 	use SoftDeletes;
 
+	protected $guarded = [];
+
 	protected $dates = ['deleted_at','startDateTime','endDateTime'];
 
     protected $dateFormat = 'Y-m-d H:i:s';
@@ -123,7 +125,6 @@ class Event extends Model implements IdentifiableEvent
     public function getEnd(){
         return $this->endDateTime;
     }
-
 
 	/**
      * group.
