@@ -6,28 +6,37 @@
         <h1>
             Create event
         </h1>
-        <form method = 'get' action = '{!!url("event/master")!!}'>
+        <form method = 'get' action = '{!!url("event")!!}'>
             <button class = 'btn btn-danger'>event Index</button>
         </form>
         <br>
-        <form method = 'POST' action = '{!!url("event/master")!!}'>
+        <form method = 'POST' action = '{!!url("event")!!}'>
             <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
             <div class="form-group">
-                <label for="name">name</label>
+                <label for="name">Title</label>
                 <input id="name" name = "name" type="text" class="form-control">
             </div>
             <div class="form-group">
-                <label for="duration">Duration</label>
-                @include('partials.datePicker',['fieldName'=>'duration'])
+                <label for="startDateTime">Event Start Time</label>
+                @include('partials.datePicker',['fieldName'=>'startDateTime'])
             </div>
             <div class="form-group">
-                <label for="description">description</label>
+                <label for="endDateTime">Event End Time</label>
+                @include('partials.datePicker',['fieldName'=>'endDateTime'])
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label><input type="checkbox" id="allDay" name="allDay">All Day Event?</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
                 <input id="description" name = "description" type="text" class="form-control">
             </div>
-            <div class="checkbox">
-                <label><input type="checkbox" id="allDay" name="allDay">All Day Event?</label>
+            <div class="form-group">
+                <label>Select Groups Involved</label>
+                {!! Form::groups() !!}
             </div>
-            {!! Form::groups() !!}
             <button class = 'btn btn-primary' type ='submit'>Create</button>
         </form>
         <script>

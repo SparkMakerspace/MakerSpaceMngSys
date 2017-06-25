@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Calendar;
-use App\Image;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;

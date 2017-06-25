@@ -58,18 +58,17 @@ Route::group(['middleware'=> 'web'], function () {
     Route::get('resource_type/{id}/delete','\App\Http\Controllers\Resource_typeController@destroy');
     Route::get('resource_type/{id}/deleteMsg','\App\Http\Controllers\Resource_typeController@DeleteMsg');
 
-//masterevent Routes
-    Route::resource('event/master','\App\Http\Controllers\MasterEventController');
-    Route::post('event/master/{id}/update','\App\Http\Controllers\MasterEventController@update');
-    Route::get('event/master/{id}/delete','\App\Http\Controllers\MasterEventController@destroy');
-    Route::get('event/master/{id}/deleteMsg','\App\Http\Controllers\MasterEventController@DeleteMsg');
-
 //event Routes
     Route::get('event/my','EventController@myEvents');
+    Route::resource('event/template','EventTemplateController');
+    Route::post('event/template/{id}/update','\App\Http\Controllers\EventTemplateController@update');
+    Route::get('event/template/{id}/delete','\App\Http\Controllers\EventTemplateController@destroy');
+    Route::get('event/template/{id}/deleteMsg','\App\Http\Controllers\EventTemplateController@DeleteMsg');
     Route::resource('event','\App\Http\Controllers\EventController');
     Route::post('event/{id}/update','\App\Http\Controllers\EventController@update');
     Route::get('event/{id}/delete','\App\Http\Controllers\EventController@destroy');
     Route::get('event/{id}/deleteMsg','\App\Http\Controllers\EventController@DeleteMsg');
+
 
 //image Routes
     Route::resource('image','\App\Http\Controllers\ImageController');

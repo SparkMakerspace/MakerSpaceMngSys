@@ -6,32 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use MaddHatter\LaravelFullcalendar\IdentifiableEvent;
 
+
 /**
- * Class Event.
+ * App\Event
  *
- * @author The scaffold-interface created at 2017-01-24 02:17:15am
- * @link https://github.com/amranidev/scaffold-interface
  * @property int $id
  * @property string $name
- * @property string $startDateTime
- * @property string $endDateTime
+ * @property \Carbon\Carbon $startDateTime
+ * @property \Carbon\Carbon $endDateTime
+ * @property string $duration
+ * @property string $status
  * @property string $description
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $attendees
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereStartDateTime($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereEndDateTime($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereDeletedAt($value)
- * @mixin \Eloquent
  * @property bool $allDay
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $groups
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereAllDay($value)
  * @property string $type
  * @property bool $nonMembersAllowed
  * @property float $materialCostPerAttendee
@@ -39,23 +25,46 @@ use MaddHatter\LaravelFullcalendar\IdentifiableEvent;
  * @property float $memberTicketPrice
  * @property float $additionalNonMemberTicketPrice
  * @property int $maxAttendance
- * @property int $memberAttendees
- * @property int $nonMemberAttendees
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereNonMembersAllowed($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereMaterialCostPerAttendee($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event wherePercentCostToSpark($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereMemberTicketPrice($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereAdditionalNonMemberTicketPrice($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereMaxAttendance($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereMemberAttendees($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereNonMemberAttendees($value)
  * @property int $image_id
+ * @property int $minAttendance
+ * @property string $cutoffDate
+ * @property int $instructor_id
+ * @property bool $isTemplate
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property \Carbon\Carbon $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $attendees
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereImageId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Group[] $groups
  * @property-read \App\Image $image
- * @property string $status
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereAdditionalNonMemberTicketPrice($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereAllDay($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereCutoffDate($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereDuration($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereEndDateTime($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereImageId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereInstructorId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereIsTemplate($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereMaterialCostPerAttendee($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereMaxAttendance($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereMemberTicketPrice($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereMinAttendance($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereNonMembersAllowed($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event wherePercentCostToSpark($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereStartDateTime($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Event whereStatus($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @property int $durationMinutes
+ * @property int $source_id
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereDurationMinutes($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereSourceId($value)
  */
 class Event extends Model implements IdentifiableEvent
 {
@@ -192,5 +201,13 @@ class Event extends Model implements IdentifiableEvent
         return [
             'url' => url('event/'.$this->id)
         ];
+    }
+
+    public function sourceEvent(){
+        return $this->belongsTo('App\Event','source_id');
+    }
+
+    public function instructor(){
+        return $this->belongsTo('App\User');
     }
 }

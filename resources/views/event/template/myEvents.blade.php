@@ -1,40 +1,37 @@
 @extends('scaffold-interface.layouts.app')
-@section('title','Calendar and events')
+
 @section('content')
 
     <section class="content">
         @can('create events')
             <div class="col-md-3">
-            <form class = 'col s3' method = 'get' action = '{!!url("event/create")!!}'>
-                <button class = 'btn btn-primary' type = 'submit'>Create new one-off event</button>
-            </form>
-        </div>
-        <div class="col-md-3">
-            <form class = 'col s3' method = 'get' action = '{!!url("event/template")!!}'>
-                <button class = 'btn btn-primary' type = 'submit'>Event Templates</button>
-            </form>
-        </div>
+                <form class = 'col s3' method = 'get' action = '{!!url("event/create")!!}'>
+                    <button class = 'btn btn-primary' type = 'submit'>Create new one-off event</button>
+                </form>
+            </div>
+            <div class="col-md-3">
+                <form class = 'col s3' method = 'get' action = '{!!url("event/master/create")!!}'>
+                    <button class = 'btn btn-primary' type = 'submit'>Create new event template</button>
+                </form>
+            </div>
         @endcan
 
         <div class="col-md-6">
-        @if(Request::query('past'))
-            <form class = 'col s3' method = 'get' action = '{!!url("event")!!}'>
-                <button class = 'btn btn-default pull-right' type = 'submit'>Showing past events only</button>
-            </form>
-        @else
-            <form class = 'col s3' method = 'get' action = '{!!url("event")!!}'>
-                <input type='hidden' name='past' value='true' />
-                <button class = "btn btn-primary pull-right" type = "submit">Showing future events only</button>
-            </form>
-        @endif
+            @if(Request::query('all'))
+                <form class = 'col s3' method = 'get' action = '{!!url("event")!!}'>
+                    <button class = 'btn btn-default pull-right' type = 'submit'>Showing all events</button>
+                </form>
+            @else
+                <form class = 'col s3' method = 'get' action = '{!!url("event")!!}'>
+                    <input type='hidden' name='all' value='true' />
+                    <button class = "btn btn-primary pull-right" type = "submit">Showing future events only</button>
+                </form>
+            @endif
         </div>
         <br>
 
 
         <br>
-        <div class="col-md-6">
-            @include('partials.calendar')
-        </div>
 
         <div class="col-md-6">
             <div class="box">

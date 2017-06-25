@@ -21,6 +21,10 @@ class permissionSeeder extends Seeder
         Permission::create(['name'=>'read events']);
         Permission::create(['name'=>'update events']);
         Permission::create(['name'=>'delete events']);
+        Permission::create(['name'=>'create event templates']);
+        Permission::create(['name'=>'read event templates']);
+        Permission::create(['name'=>'update event templates']);
+        Permission::create(['name'=>'delete event templates']);
         Permission::create(['name'=>'create posts']);
         Permission::create(['name'=>'read posts']);
         Permission::create(['name'=>'update posts']);
