@@ -20,7 +20,6 @@ class EventsUsers extends Migration
 			$table->string('status')->default('attending');
 			$table->string('paid')->default(false);
 			$table->integer('user_id')->unsigned()->index();
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			/**
 			 * Type your addition here
 			 *
