@@ -58,13 +58,9 @@ class Events extends Migration
 
         $table->integer('instructor_id')->nullable();
 
-        $table->foreign('instructor_id')->references('id')->on('users')->onDelete('cascade');
-
         $table->boolean('isTemplate')->default(0);
 
         $table->integer('source_id')->nullable();
-
-        $table->foreign('source_id')->references('id')->on('events')->onDelete('cascade');
         
         /**
          * Foreignkeys section
