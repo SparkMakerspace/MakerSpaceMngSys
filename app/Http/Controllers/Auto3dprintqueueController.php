@@ -278,6 +278,8 @@ class Auto3dprintqueueController extends Controller
                 $myyfileout = "No Print Jobs Available";
                 return response($myyfileout, 200)->header('Content-Type', 'text/text');
             }
+
+
             if ($request->input('name', "") != "") {
                 //$auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
 

@@ -3,15 +3,15 @@
 @section('content')
 
     <div>
-    <div style="border:none;float:left">
+    <div style="float:left;width: 45%;">
         <form method = 'get' action = '{!!url("auto3dprintqueue")!!}'>
             <button class = 'btn btn-primary'>auto3dprintqueue Index</button>
-        </form>
+
         @if($auto3dprintqueue->Status != "print" & $auto3dprintqueue->Status != "done")
             <a href="{!!$auto3dprintqueue->id!!}?printnow=true" class = 'btn btn-info'>Approve for printing</a>
         @endif
-
-        <section class="content">
+        </form>
+        <section class="content" >
             <h1>
                 {!!$auto3dprintqueue->Name!!}
             </h1>
@@ -75,6 +75,30 @@
                     <td>{!!$auto3dprintqueue->user->phone!!}</td>
                 </tr>
 
+                <tr>
+                    <td>
+                        <b><i>Slicer Results : </i></b>
+                    </td>
+                    <td style="word-wrap: break-word;">{!!$auto3dprintqueue->SlicerResults!!}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b><i>Size X : </i></b>
+                    </td>
+                    <td>{!!$auto3dprintqueue->SizeX!!}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b><i>Size Y : </i></b>
+                    </td>
+                    <td>{!!$auto3dprintqueue->SizeY!!}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b><i>Size Z : </i></b>
+                    </td>
+                    <td>{!!$auto3dprintqueue->SizeZ!!}</td>
+                </tr>
 
                 </tbody>
             </table>
