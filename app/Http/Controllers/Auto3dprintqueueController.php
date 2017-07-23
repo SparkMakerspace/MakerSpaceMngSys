@@ -136,8 +136,13 @@ class Auto3dprintqueueController extends Controller
 
             $outputb = shell_exec ("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
 
+            $outputc = shell_exec ("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
 
-            $output = shell_exec ("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
+
+
+            $output = shell_exec ("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --info --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0 2>&1");
+            Storage::disk('local')->put("3dPrintFiles\\".$auto3dprintqueue->id.".log", $output);
+
 
         }
 
@@ -147,6 +152,7 @@ class Auto3dprintqueueController extends Controller
 
 
             $output = shell_exec ("../Slic3r/mac/slic3r/MacOS/slic3r ../storage/app/".$path." --load \"../slic3r/test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
+
 
         }
 
@@ -269,7 +275,7 @@ class Auto3dprintqueueController extends Controller
                     "; User Name:" . $auto3dprintqueue->user->username."\n".
                     ";          :" . $auto3dprintqueue->user->name."\n".
                     ";User Phone:" . $auto3dprintqueue->user->phone."\n".
-                    ";"."\n".
+                    "; File Name:".$auto3dprintqueue->Name."\n".
                     ";"."\n".
                     ";"."\n".
                     ";"."\n".
