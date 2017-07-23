@@ -156,6 +156,24 @@ class Auto3dprintqueueController extends Controller
 
         }
 
+        $output = strtoupper($output);
+        $output = str_replace("\n"," ",$output);
+
+
+
+        $auto3dprintqueue1 = Auto3dprintqueue::findOrfail($auto3dprintqueue->id);
+        $auto3dprintqueue1->SlicerResults = $output;
+
+        $pieces = array_filter(explode(" ", $output));
+        //dd($pieces);
+        $auto3dprintqueue1->SizeX = intval (str_after($pieces[19],"X="));
+        $auto3dprintqueue1->SizeY = intval (str_after($pieces[20],"Y="));
+        $auto3dprintqueue1->SizeZ = intval (str_after($pieces[21],"Z="));
+
+
+
+
+        $auto3dprintqueue1->save();
 
 
         //default pusher notification.
