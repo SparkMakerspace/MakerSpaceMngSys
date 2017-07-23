@@ -11,6 +11,9 @@ var p = {
     x: 150,
     y: 150,
     z: 205,
+	xx: -150,
+    yy: -150,
+    zz: -205,
     u: null,
     a: true
   },
@@ -27,26 +30,15 @@ var p = {
   drawOutlines: function(){
     var printer = new THREE.Geometry();
     printer.vertices.push(
-      new THREE.Vector3( 000,       p.size.y, p.size.z),
-      new THREE.Vector3( p.size.x,  p.size.y, p.size.z),
-      new THREE.Vector3( p.size.x,  000,      p.size.z ),
-      new THREE.Vector3( 000,       000,      p.size.z),
-      new THREE.Vector3( 000,       p.size.y, p.size.z),
-      new THREE.Vector3( 000,       p.size.y, 000 ),
-      new THREE.Vector3( 000,       000,      000 ),
-      new THREE.Vector3( p.size.x,  000,      000 ),
-      new THREE.Vector3( p.size.x,  p.size.y, 000 ),
-      new THREE.Vector3( p.size.x,  p.size.y, p.size.z),
-      new THREE.Vector3( 000,       p.size.y, p.size.z),
-      new THREE.Vector3( 000,       000,      p.size.z ),
-      new THREE.Vector3( 000,       000,      000 ),
-      new THREE.Vector3(  p.size.x, p.size.y, 000 ),
-      new THREE.Vector3( 000,       p.size.y, 000 ),
-      new THREE.Vector3( 000,       p.size.y, p.size.z),
-      new THREE.Vector3( 000,       000,      p.size.z ),
-      new THREE.Vector3(  p.size.x, 000,      p.size.z),
-      new THREE.Vector3(  p.size.x, 000,      000 ),
-      new THREE.Vector3(  000,      p.size.y, 000)
+       new THREE.Vector3( p.size.xx,	p.size.y,	000 ),
+       new THREE.Vector3( p.size.xx,	p.size.yy,	000 ),
+       new THREE.Vector3( p.size.x, 	p.size.yy,	000 ),
+       new THREE.Vector3( p.size.x, 	p.size.y,	000 ),
+       new THREE.Vector3( p.size.xx,    p.size.yy,	000 ),
+       new THREE.Vector3(  p.size.x,	p.size.y,	000 ),
+       new THREE.Vector3( p.size.xx,	p.size.y,	000 ),
+       new THREE.Vector3(  p.size.x,	p.size.yy,	000 ),
+       new THREE.Vector3(  p.size.xx,   p.size.y,	000)
     );
 
     gcview.scene.add( new THREE.Line( printer, gclib.materials.mark ) );

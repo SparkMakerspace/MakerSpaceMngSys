@@ -35,12 +35,12 @@ var gcview = {
 
     printer.drawOutlines();
 
-    gcview.buffer.camera.x = printer.size.x / 2;
-    gcview.buffer.camera.y = printer.size.y / 2;
+    gcview.buffer.camera.x = printer.size.x * 2;
+    gcview.buffer.camera.y = printer.size.y * 2;
     gcview.buffer.camera.z = 0;
 
     gcview.control = new THREE.OrbitControls( gcview.camera );
-    gcview.control.target = new THREE.Vector3(gcview.buffer.camera.x, gcview.buffer.camera.y, gcview.buffer.camera.z);
+    gcview.control.target = new THREE.Vector3(0,0,0);
 
     gcview._animate();
     user._update();
