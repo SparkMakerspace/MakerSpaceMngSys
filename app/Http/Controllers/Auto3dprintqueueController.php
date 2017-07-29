@@ -272,7 +272,12 @@ class Auto3dprintqueueController extends Controller
 
             try {
                 // try code
-                $auto3dprintqueue = Auto3dprintqueue::where('Status', 'print')->first();
+                $auto3dprintqueue = Auto3dprintqueue::where([
+                        ['Status', 'print'],
+                        ['SizeX', '<=', $request->SizeX],
+                        ['SizeY', '<=', $request->SizeY],
+                        ['SizeZ', '<=', $request->SizeZ],
+                ])->first();
                 $test = $auto3dprintqueue->id;
             } catch (\Exception $e) {
                 $myyfileout = "No Print Jobs Available";
