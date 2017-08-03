@@ -47,7 +47,7 @@
                     <a href="{!! url('auto3dprintqueue/'.$auto3dprintqueue->id) !!}"> {!!$auto3dprintqueue->Name!!}</a>
                 </td>
                 <td>
-                    <img src="{!! url('auto3dprintqueue/'.$auto3dprintqueue->id.'/thumb.png') !!}" width="20%" height="20%" style="border:none;float:left">
+                    <img src="{!! url('auto3dprintqueue/'.$auto3dprintqueue->id.'/thumb.png') !!}" style="width:100px;height:100px;">
                 </td>
                 <td>{!!$auto3dprintqueue->Infill!!}</td>
                 <td>{!!$auto3dprintqueue->Status!!}</td>
