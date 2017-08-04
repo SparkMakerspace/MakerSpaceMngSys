@@ -23,7 +23,7 @@
     <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Associate <span class="caret"></span> </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="{!! url('auto3dprintercolor') !!}">Auto3dprintercolor</a></li>
+
             <li><a href="{!! url('auto3dprintmaterial') !!}">Auto3dprintmaterial</a></li>
         </ul>
     </div>
@@ -35,7 +35,7 @@
             <th>Infill</th>
             <th>Status</th>
             <th>Notified</th>
-            <th>color</th>
+
             <th>material</th>
             <th>name</th>
             <th>actions</th>
@@ -52,7 +52,7 @@
                 <td>{!!$auto3dprintqueue->Infill!!}</td>
                 <td>{!!$auto3dprintqueue->Status!!}</td>
                 <td>{!!$auto3dprintqueue->Notified!!}</td>
-                <td>{!!$auto3dprintqueue->auto3dprintercolor->color!!}</td>
+
                 <td>{!!$auto3dprintqueue->auto3dprintmaterial->material!!}</td>
                 <td>{!!$auto3dprintqueue->user->name!!}</td>
                 <td>

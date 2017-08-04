@@ -44,12 +44,7 @@
                     </td>
                     <td>{!!$auto3dprintqueue->Notified!!}</td>
                 </tr>
-                <tr>
-                    <td>
-                        <b><i>color : </i></b>
-                    </td>
-                    <td>{!!$auto3dprintqueue->auto3dprintercolor->color!!}</td>
-                </tr>
+
                 <tr>
                     <td>
                         <b><i>material : </i></b>

@@ -34,14 +34,7 @@
             <input id="Notified" name = "Notified" type="text" class="form-control" value="{!!$auto3dprintqueue->
             Notified!!}"> 
         </div>
-        <div class="form-group">
-            <label>auto3dprintercolors Select</label>
-            <select name = 'auto3dprintercolor_id' class = "form-control">
-                @foreach($auto3dprintercolors as $key => $value) 
-                <option value="{{$key}}">{{$value}}</option>
-                @endforeach 
-            </select>
-        </div>
+
         <div class="form-group">
             <label>auto3dprintmaterials Select</label>
             <select name = 'auto3dprintmaterial_id' class = "form-control">

@@ -36,36 +36,30 @@ class Auto3dprintqueueController extends Controller
     {
         $title = 'Index - 3D Print Queue (Just You)';
 
-        if ($request->id == "all")
-        {
-            $auto3dprintqueues = Auto3dprintqueue::orderBy('created_at','dec')->paginate(50);
-        }
-        else
-        {
-            if ($request->id == "")
-            {
-                $auto3dprintqueues = Auto3dprintqueue::where('user_id', \Auth::user()->id)->orderBy('created_at','dec')->paginate(6);
+        if ($request->id == "all") {
+            $auto3dprintqueues = Auto3dprintqueue::orderBy('created_at', 'dec')->paginate(50);
+        } else {
+            if ($request->id == "") {
+                $auto3dprintqueues = Auto3dprintqueue::where('user_id', \Auth::user()->id)->orderBy('created_at', 'dec')->paginate(6);
 
-            }
-            else
-            {
-                $auto3dprintqueues = Auto3dprintqueue::where('user_id', $request->id)->orderBy('created_at','dec')->paginate(6);
+            } else {
+                $auto3dprintqueues = Auto3dprintqueue::where('user_id', $request->id)->orderBy('created_at', 'dec')->paginate(6);
 
             }
         }
 
 
-        return view('auto3dprintqueue.index',compact('auto3dprintqueues','title'));
+        return view('auto3dprintqueue.index', compact('auto3dprintqueues', 'title'));
     }
 
     public function AllUserindex()
     {
         $title = 'Index - 3D Print Queue (All Users)';
-        $auto3dprintqueues = Auto3dprintqueue::where('user_id', $request->id)->orderBy('created_at','dec')->paginate(6);
+        $auto3dprintqueues = Auto3dprintqueue::where('user_id', $request->id)->orderBy('created_at', 'dec')->paginate(6);
 
         // \Auth::user()->id
 
-        return view('auto3dprintqueue.index',compact('auto3dprintqueues','title'));
+        return view('auto3dprintqueue.index', compact('auto3dprintqueues', 'title'));
     }
 
     /**
@@ -77,25 +71,22 @@ class Auto3dprintqueueController extends Controller
     {
         $title = 'Create - auto3dprintqueue';
 
-        $auto3dprintercolors = Auto3dprintercolor::all()->pluck('color','id');
 
-        $auto3dprintmaterials = Auto3dprintmaterial::all()->pluck('material','id');
+        $auto3dprintmaterials = Auto3dprintmaterial::all()->pluck('material', 'id');
 
-        $users = User::all()->pluck('name','id');
+        $users = User::all()->pluck('name', 'id');
 
-        return view('auto3dprintqueue.create',compact('title','auto3dprintercolors' , 'auto3dprintmaterials' , 'users'  ));
+        return view('auto3dprintqueue.create', compact('title', 'auto3dprintmaterials', 'users'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param    \Illuminate\Http\Request  $request
+     * @param    \Illuminate\Http\Request $request
      * @return  \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-
-
 
 
         $auto3dprintqueue = new Auto3dprintqueue();
@@ -106,7 +97,9 @@ class Auto3dprintqueueController extends Controller
         $auto3dprintqueue->path = '';
 
         $auto3dprintqueue->Infill = $request->Infill;
-        if ($auto3dprintqueue->Infill > 99){$auto3dprintqueue->Infill = 99;}
+        if ($auto3dprintqueue->Infill > 99) {
+            $auto3dprintqueue->Infill = 99;
+        }
 
         $auto3dprintqueue->Status = "";
 
@@ -125,40 +118,38 @@ class Auto3dprintqueueController extends Controller
 
         $auto3dprintqueue->save();
 
-        $path = Storage::putFileAs('3dPrintFiles', $request->file('upload'),$auto3dprintqueue->id.".stl", 'public');
+        $path = Storage::putFileAs('3dPrintFiles', $request->file('upload'), $auto3dprintqueue->id . ".stl", 'public');
 
-        Storage::disk('local')->put("3dPrintFiles\\".$auto3dprintqueue->id.".scad", "import(\"".$auto3dprintqueue->id.".stl\");");
+        Storage::disk('local')->put("3dPrintFiles\\" . $auto3dprintqueue->id . ".scad", "import(\"" . $auto3dprintqueue->id . ".stl\");");
 
 
         $pusher = App::make('pusher');
 
-        if (env('APP_PLATFORM') == 'WIN' ) {
+        if (env('APP_PLATFORM') == 'WIN') {
 
-            $outputb = shell_exec ("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".scad -o ..\\storage\\app\\3dPrintFiles\\".$auto3dprintqueue->id.".png");
+            $outputb = shell_exec("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".scad -o ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".png");
 
-            $outputc = shell_exec ("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
+            $outputc = shell_exec("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\" . $path . " --load \"..\\slic3r\\test.ini\" --fill-density " . $auto3dprintqueue->Infill . "  --print-center 0,0");
 
 
-
-            $output = shell_exec ("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\".$path." --info --load \"..\\slic3r\\test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0 2>&1");
-            Storage::disk('local')->put("3dPrintFiles\\".$auto3dprintqueue->id.".log", $output);
+            $output = shell_exec("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\" . $path . " --info --load \"..\\slic3r\\test.ini\" --fill-density " . $auto3dprintqueue->Infill . "  --print-center 0,0 2>&1");
+            Storage::disk('local')->put("3dPrintFiles\\" . $auto3dprintqueue->id . ".log", $output);
 
 
         }
 
-        if (env('APP_PLATFORM') == 'MAC' ) {
+        if (env('APP_PLATFORM') == 'MAC') {
 
-            $outputb = shell_exec ("../Slic3r/mac/openscad/MacOS/OpenSCAD ../storage/app/3dPrintFiles/".$auto3dprintqueue->id.".scad -o ../storage/app/3dPrintFiles/".$auto3dprintqueue->id.".png");
+            $outputb = shell_exec("../Slic3r/mac/openscad/MacOS/OpenSCAD ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".scad -o ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".png");
 
 
-            $output = shell_exec ("../Slic3r/mac/slic3r/MacOS/slic3r ../storage/app/".$path." --load \"../slic3r/test.ini\" --fill-density ".$auto3dprintqueue->Infill."  --print-center 0,0");
+            $output = shell_exec("../Slic3r/mac/slic3r/MacOS/slic3r ../storage/app/" . $path . " --load \"../slic3r/test.ini\" --fill-density " . $auto3dprintqueue->Infill . "  --print-center 0,0");
 
 
         }
 
         $output = strtoupper($output);
-        $output = str_replace("\n"," ",$output);
-
+        $output = str_replace("\n", " ", $output);
 
 
         $auto3dprintqueue1 = Auto3dprintqueue::findOrfail($auto3dprintqueue->id);
@@ -166,11 +157,9 @@ class Auto3dprintqueueController extends Controller
 
         $pieces = array_filter(explode(" ", $output));
         //dd($pieces);
-        $auto3dprintqueue1->SizeX = intval (str_after($pieces[19],"X="));
-        $auto3dprintqueue1->SizeY = intval (str_after($pieces[20],"Y="));
-        $auto3dprintqueue1->SizeZ = intval (str_after($pieces[21],"Z="));
-
-
+        $auto3dprintqueue1->SizeX = intval(str_after($pieces[19], "X="));
+        $auto3dprintqueue1->SizeY = intval(str_after($pieces[20], "Y="));
+        $auto3dprintqueue1->SizeZ = intval(str_after($pieces[21], "Z="));
 
 
         $auto3dprintqueue1->save();
@@ -184,85 +173,74 @@ class Auto3dprintqueueController extends Controller
             'test-event',
             ['message' => 'A new auto3dprintqueue has been created !!']);
 
-        return redirect('auto3dprintqueue/'.$auto3dprintqueue->id."/");
+        return redirect('auto3dprintqueue/' . $auto3dprintqueue->id . "/");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param    \Illuminate\Http\Request  $request
-     * @param    int  $id
+     * @param    \Illuminate\Http\Request $request
+     * @param    int $id
      * @return  \Illuminate\Http\Response
      */
-    public function show($id,Request $request)
+    public function show($id, Request $request)
     {
         $title = 'Show - auto3dprintqueue';
 
-        if($request->ajax())
-        {
-            return URL::to('auto3dprintqueue/'.$id);
+        if ($request->ajax()) {
+            return URL::to('auto3dprintqueue/' . $id);
         }
 
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
 
-        if ($request->printnow == "true")
-        {
+        if ($request->printnow == "true") {
             $auto3dprintqueue->Status = "print";
 
             $auto3dprintqueue->save();
-            return redirect('auto3dprintqueue/'.$auto3dprintqueue->id."/");
+            return redirect('auto3dprintqueue/' . $auto3dprintqueue->id . "/");
         }
 
 
-
-
-        return view('auto3dprintqueue.show',compact('title','auto3dprintqueue'));
+        return view('auto3dprintqueue.show', compact('title', 'auto3dprintqueue'));
     }
 
 
-
-
-
-
-    public function showPNG($id,Request $request)
+    public function showPNG($id, Request $request)
     {
         $title = 'Show - auto3dprintcue';
 
-        if($request->ajax())
-        {
-            return URL::to('auto3dprintcue/'.$id);
+        if ($request->ajax()) {
+            return URL::to('auto3dprintcue/' . $id);
         }
 
 
-        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".png");
+        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/" . $id . ".png");
         return response($myyfileout, 200)->header('Content-Type', 'image/png');
     }
 
 
-    public function showSTL($id,Request $request)
+    public function showSTL($id, Request $request)
     {
         $title = 'Show - auto3dprintcue';
 
-        if($request->ajax())
-        {
-            return URL::to('auto3dprintcue/'.$id);
+        if ($request->ajax()) {
+            return URL::to('auto3dprintcue/' . $id);
         }
 
 
-        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".stl");
+        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/" . $id . ".stl");
         return response($myyfileout, 200)->header('Content-Type', 'application/octet-stream');
     }
 
 
-    public function showGcode($id,Request $request)
+    public function showGcode($id, Request $request)
     {
         $title = 'Show - auto3dprintcue';
 
-        if($request->ajax())
-        {
-            return URL::to('auto3dprintcue/'.$id);
+        if ($request->ajax()) {
+            return URL::to('auto3dprintcue/' . $id);
         }
-        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
+        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/" . $id . ".gcode");
 
         return response($myyfileout, 200)->header('Content-Type', 'text/text');
     }
@@ -271,8 +249,7 @@ class Auto3dprintqueueController extends Controller
     public function PrinterReceiveGcode(Request $request)
     {
 
-        if ($request->input('jobID',"") != "")
-        {
+        if ($request->input('jobID', "") != "") {
             $auto3dprintqueue = Auto3dprintqueue::findOrfail($request->jobID);
 
             $auto3dprintqueue->Status = $request->stat;
@@ -280,17 +257,16 @@ class Auto3dprintqueueController extends Controller
             $auto3dprintqueue->save();
             $myyfileout = "Status Recorded";
             sendEmailReminder($auto3dprintqueue->id);
-        }
-        else {
+        } else {
 
 
             try {
                 // try code
                 $auto3dprintqueue = Auto3dprintqueue::where([
-                        ['Status', 'print'],
-                        ['SizeX', '<=', $request->SizeX],
-                        ['SizeY', '<=', $request->SizeY],
-                        ['SizeZ', '<=', $request->SizeZ],
+                    ['Status', 'print'],
+                    ['SizeX', '<=', $request->SizeX],
+                    ['SizeY', '<=', $request->SizeY],
+                    ['SizeZ', '<=', $request->SizeZ],
                 ])->first();
                 $test = $auto3dprintqueue->id;
             } catch (\Exception $e) {
@@ -308,17 +284,20 @@ class Auto3dprintqueueController extends Controller
 
                 $myyfileout = file_get_contents("../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".gcode");
                 $myyfileout =
-                    ";start\n".
-                    ";Print id is\n".
-                    ";" . $auto3dprintqueue->id . "\n".
-                    "; User Name:" . $auto3dprintqueue->user->username."\n".
-                    ";          :" . $auto3dprintqueue->user->name."\n".
-                    ";User Phone:" . $auto3dprintqueue->user->phone."\n".
-                    "; File Name:".$auto3dprintqueue->Name."\n".
-                    ";"."\n".
-                    ";"."\n".
-                    ";"."\n".
+                    ";start\n" .
+                    ";Print id is\n" .
+                    ";" . $auto3dprintqueue->id . "\n" .
+                    "; User Name:" . $auto3dprintqueue->user->username . "\n" .
+                    ";          :" . $auto3dprintqueue->user->name . "\n" .
+                    ";User Phone:" . $auto3dprintqueue->user->phone . "\n" .
+                    "; File Name:" . $auto3dprintqueue->Name . "\n" .
+                    ";" . "\n" .
+                    ";" . "\n" .
+                    ";" . "\n" .
                     $myyfileout;
+
+                sendEmailReminder($auto3dprintqueue->id);
+
             } else {
                 $myyfileout = "Must Supply Printer name";
 
@@ -329,71 +308,63 @@ class Auto3dprintqueueController extends Controller
     }
 
 
-
-
-    public function showGcodeViewer($id,Request $request)
+    public function showGcodeViewer($id, Request $request)
     {
         $title = 'Show - auto3dprintcue';
 
-        if($request->ajax())
-        {
-            return URL::to('auto3dprintcue/'.$id);
+        if ($request->ajax()) {
+            return URL::to('auto3dprintcue/' . $id);
         }
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
 
 
-
-
-
-        if(file_exists ("../storage/app/3dPrintFiles/".$id.".gcode") === FALSE) {
+        if (file_exists("../storage/app/3dPrintFiles/" . $id . ".gcode") === FALSE) {
             return response("<meta http-equiv=\"refresh\"
    content=\"5\";> Please wait while model is sliced
 
 
-   <img src=\"../../../../auto3dprintqueue/".$auto3dprintqueue->id."/thumb.png\" ></img>", 200);
+   <img src=\"../../../../auto3dprintqueue/" . $auto3dprintqueue->id . "/thumb.png\" ></img>", 200);
         }
-        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".gcode");
-        return view('auto3dprintqueue.showGcode',compact('title','auto3dprintqueue')) ->with('MyGcode', $myyfileout);
+        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/" . $id . ".gcode");
+        return view('auto3dprintqueue.showGcode', compact('title', 'auto3dprintqueue'))->with('MyGcode', $myyfileout);
     }
-
 
 
     /**
      * Show the form for editing the specified resource.
-     * @param    \Illuminate\Http\Request  $request
-     * @param    int  $id
+     * @param    \Illuminate\Http\Request $request
+     * @param    int $id
      * @return  \Illuminate\Http\Response
      */
-    public function edit($id,Request $request)
+    public function edit($id, Request $request)
     {
         $title = 'Edit - auto3dprintqueue';
-        if($request->ajax())
-        {
-            return URL::to('auto3dprintqueue/'. $id . '/edit');
+        if ($request->ajax()) {
+            return URL::to('auto3dprintqueue/' . $id . '/edit');
         }
 
 
-        $auto3dprintercolors = Auto3dprintercolor::all()->pluck('color','id');
+        $auto3dprintercolors = Auto3dprintercolor::all()->pluck('color', 'id');
 
 
-        $auto3dprintmaterials = Auto3dprintmaterial::all()->pluck('material','id');
+        $auto3dprintmaterials = Auto3dprintmaterial::all()->pluck('material', 'id');
 
 
-        $users = User::all()->pluck('name','id');
+        $users = User::all()->pluck('name', 'id');
 
 
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
-        return view('auto3dprintqueue.edit',compact('title','auto3dprintqueue' ,'auto3dprintercolors', 'auto3dprintmaterials', 'users' ) );
+        return view('auto3dprintqueue.edit', compact('title', 'auto3dprintqueue', 'auto3dprintercolors', 'auto3dprintmaterials', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param    \Illuminate\Http\Request  $request
-     * @param    int  $id
+     * @param    \Illuminate\Http\Request $request
+     * @param    int $id
      * @return  \Illuminate\Http\Response
      */
-    public function update($id,Request $request)
+    public function update($id, Request $request)
     {
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
 
@@ -424,15 +395,14 @@ class Auto3dprintqueueController extends Controller
      * Delete confirmation message by Ajaxis.
      *
      * @link      https://github.com/amranidev/ajaxis
-     * @param    \Illuminate\Http\Request  $request
+     * @param    \Illuminate\Http\Request $request
      * @return  String
      */
-    public function DeleteMsg($id,Request $request)
+    public function DeleteMsg($id, Request $request)
     {
-        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/auto3dprintqueue/'. $id . '/delete');
+        $msg = Ajaxis::BtDeleting('Warning!!', 'Would you like to remove This?', '/auto3dprintqueue/' . $id . '/delete');
 
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             return $msg;
         }
     }
@@ -451,17 +421,13 @@ class Auto3dprintqueueController extends Controller
     }
 
 
-
-
-
 }
 
 function execInBackground($cmd)
 {
-    if (substr(php_uname(), 0, 7) == "Windows"){
-        pclose(popen("start /B ". $cmd, "r"));
-    }
-    else {
+    if (substr(php_uname(), 0, 7) == "Windows") {
+        pclose(popen("start /B " . $cmd, "r"));
+    } else {
         exec($cmd . " > /dev/null &");
     }
 }
@@ -473,11 +439,11 @@ function sendEmailReminder($id)
     $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
     $user = User::findOrFail($auto3dprintqueue->user->id);
 
-    Mail::send('auto3dprintqueue.email', ['user' => $user, 'auto3dprintqueue' =>$auto3dprintqueue ], function ($m) use ($user) {
+    Mail::send('auto3dprintqueue.email', ['user' => $user, 'auto3dprintqueue' => $auto3dprintqueue], function ($m) use ($user,$auto3dprintqueue) {
         $m->from('3dprinting@smbisoft.com', '3d Print Complete.');
 
 
-
-        $m->to($user->email, $user->name)->subject("3d print completed.");
+        $mysubject = "3d Print id # (" . $auto3dprintqueue->id . ")    Status has changed to ".$auto3dprintqueue->Status;
+        $m->to($user->email, $user->name)->subject($mysubject);
     });
 }

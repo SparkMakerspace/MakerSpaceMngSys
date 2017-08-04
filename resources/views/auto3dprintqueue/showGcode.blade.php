@@ -66,7 +66,7 @@
 <div>Infill: {!!$auto3dprintqueue->Infill!!}</div>div>
 <div>Status: {!!$auto3dprintqueue->Status!!}</div>
 <div>Notified: {!!$auto3dprintqueue->Notified!!}</div>
-<div>color: {!!$auto3dprintqueue->auto3dprintercolor->color!!}</div>
+
 <div>material: {!!$auto3dprintqueue->auto3dprintmaterial->material!!} </div>
 <div>name: {!!$auto3dprintqueue->user->name!!}</div>
 

@@ -50,10 +50,7 @@ class Auto3dprintqueue extends Model
     protected $table = 'auto3dprintqueues';
 
 	
-	public function auto3dprintercolor()
-	{
-		return $this->belongsTo('App\Auto3dprintercolor','auto3dprintercolor_id');
-	}
+
 
 	
 	public function auto3dprintmaterial()
