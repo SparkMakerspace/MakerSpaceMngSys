@@ -14,7 +14,7 @@ class AddDimensionsToAuto3dprintqueues extends Migration
     public function up()
     {
         Schema::table('auto3dprintqueues', function (Blueprint $table) {
-            $table->String('SlicerResults')->nullable();
+            $table->longText('SlicerResults')->nullable();
             $table->integer('SizeX')->nullable();
             $table->integer('SizeY')->nullable();
             $table->integer('SizeZ')->nullable();

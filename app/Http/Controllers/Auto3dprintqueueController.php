@@ -16,6 +16,7 @@ use App\Auto3dprintmaterial;
 
 use Storage;
 use App\User;
+use Mail;
 
 
 /**
@@ -33,11 +34,11 @@ class Auto3dprintqueueController extends Controller
      */
     public function index(Request $request)
     {
-        $title = 'Index - auto3dprintqueue';
+        $title = 'Index - 3D Print Queue (Just You)';
 
         if ($request->id == "all")
         {
-            $auto3dprintqueues = Auto3dprintqueue::orderBy('created_at','dec')->paginate(6);
+            $auto3dprintqueues = Auto3dprintqueue::orderBy('created_at','dec')->paginate(50);
         }
         else
         {
@@ -57,11 +58,10 @@ class Auto3dprintqueueController extends Controller
         return view('auto3dprintqueue.index',compact('auto3dprintqueues','title'));
     }
 
-    public function Userindex()
+    public function AllUserindex()
     {
-        $title = 'Index - auto3dprintqueue';
+        $title = 'Index - 3D Print Queue (All Users)';
         $auto3dprintqueues = Auto3dprintqueue::where('user_id', $request->id)->orderBy('created_at','dec')->paginate(6);
-
 
         // \Auth::user()->id
 
@@ -239,6 +239,19 @@ class Auto3dprintqueueController extends Controller
     }
 
 
+    public function showSTL($id,Request $request)
+    {
+        $title = 'Show - auto3dprintcue';
+
+        if($request->ajax())
+        {
+            return URL::to('auto3dprintcue/'.$id);
+        }
+
+
+        $myyfileout = file_get_contents("../storage/app/3dPrintFiles/".$id.".stl");
+        return response($myyfileout, 200)->header('Content-Type', 'application/octet-stream');
+    }
 
 
     public function showGcode($id,Request $request)
@@ -266,6 +279,7 @@ class Auto3dprintqueueController extends Controller
 
             $auto3dprintqueue->save();
             $myyfileout = "Status Recorded";
+            sendEmailReminder($auto3dprintqueue->id);
         }
         else {
 
@@ -450,4 +464,20 @@ function execInBackground($cmd)
     else {
         exec($cmd . " > /dev/null &");
     }
+}
+
+
+function sendEmailReminder($id)
+{
+
+    $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+    $user = User::findOrFail($auto3dprintqueue->user->id);
+
+    Mail::send('auto3dprintqueue.email', ['user' => $user, 'auto3dprintqueue' =>$auto3dprintqueue ], function ($m) use ($user) {
+        $m->from('3dprinting@smbisoft.com', '3d Print Complete.');
+
+
+
+        $m->to($user->email, $user->name)->subject("3d print completed.");
+    });
 }
