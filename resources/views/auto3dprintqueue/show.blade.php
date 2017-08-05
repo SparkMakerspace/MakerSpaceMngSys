@@ -2,8 +2,8 @@
 @section('title',"3d Print queue - View 3d Mod - ".$auto3dprintqueue->Name)
 @section('content')
 
-    <div>
-    <div style="float:left;width: 45%;">
+    <div class="row">
+        <div class="col-md-6">
         <form method = 'get' action = '{!!url("auto3dprintqueue")!!}'>
             <button class = 'btn btn-primary'>auto3dprintqueue Index</button>
 
@@ -100,7 +100,7 @@
         </section>
     </div>
 
-    <iframe src="../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/viewer" width="50%" height="500" style="border:none;float:right"></iframe>
+    <iframe src="../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/viewer" height="500px" class="col-md-6"></iframe>
 
 
 </div>

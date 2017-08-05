@@ -10,7 +10,7 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::post('/pclogin','PCAuthController@loginRequest');
+
 
 
 Route::group(['middleware'=> 'web'], function () {
@@ -110,6 +110,10 @@ Route::group(['middleware'=> 'web'], function () {
     });
     Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
     Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
+
+    Route::post('pclogin', '\App\Http\Controllers\PCAuthController@loginRequest');
+    Route::get('pclogin', '\App\Http\Controllers\PCAuthController@loginRequest');
+
 
 //sitenavigation Routes
     Route::group(['middleware'=> 'web'],function(){
