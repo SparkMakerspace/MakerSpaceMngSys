@@ -88,7 +88,7 @@ class Auto3dprintqueueController extends Controller
     public function store(Request $request)
     {
 
-
+        //dd($request);
         $auto3dprintqueue = new Auto3dprintqueue();
 
 
@@ -105,6 +105,8 @@ class Auto3dprintqueueController extends Controller
 
 
         $auto3dprintqueue->Notified = 0;
+
+        $auto3dprintqueue->genenerateSupport = $request->genenerateSupport;
 
 
         $auto3dprintqueue->auto3dprintercolor_id = $request->auto3dprintercolor_id;
@@ -125,44 +127,7 @@ class Auto3dprintqueueController extends Controller
 
         $pusher = App::make('pusher');
 
-        if (env('APP_PLATFORM') == 'WIN') {
-
-            $outputb = shell_exec("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".scad -o ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".png");
-
-            $outputc = shell_exec("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\" . $path . " --load \"..\\slic3r\\test.ini\" --fill-density " . $auto3dprintqueue->Infill . "  --print-center 0,0");
-
-
-            $output = shell_exec("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\" . $path . " --info --load \"..\\slic3r\\test.ini\" --fill-density " . $auto3dprintqueue->Infill . "  --print-center 0,0 2>&1");
-            Storage::disk('local')->put("3dPrintFiles\\" . $auto3dprintqueue->id . ".log", $output);
-
-
-        }
-
-        if (env('APP_PLATFORM') == 'MAC') {
-
-            $outputb = shell_exec("../Slic3r/mac/openscad/MacOS/OpenSCAD ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".scad -o ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".png");
-
-
-            $output = shell_exec("../Slic3r/mac/slic3r/MacOS/slic3r ../storage/app/" . $path . " --load \"../slic3r/test.ini\" --fill-density " . $auto3dprintqueue->Infill . "  --print-center 0,0");
-
-
-        }
-
-        $output = strtoupper($output);
-        $output = str_replace("\n", " ", $output);
-
-
-        $auto3dprintqueue1 = Auto3dprintqueue::findOrfail($auto3dprintqueue->id);
-        $auto3dprintqueue1->SlicerResults = $output;
-
-        $pieces = array_filter(explode(" ", $output));
-        //dd($pieces);
-        $auto3dprintqueue1->SizeX = intval(str_after($pieces[19], "X="));
-        $auto3dprintqueue1->SizeY = intval(str_after($pieces[20], "Y="));
-        $auto3dprintqueue1->SizeZ = intval(str_after($pieces[21], "Z="));
-
-
-        $auto3dprintqueue1->save();
+        SliceModel($auto3dprintqueue->id);
 
 
         //default pusher notification.
@@ -176,6 +141,16 @@ class Auto3dprintqueueController extends Controller
         return redirect('auto3dprintqueue/' . $auto3dprintqueue->id . "/");
     }
 
+
+    /**
+     * @param $auto3dprintqueue
+     */
+
+
+
+
+
+
     /**
      * Display the specified resource.
      *
@@ -187,21 +162,28 @@ class Auto3dprintqueueController extends Controller
     {
         $title = 'Show - auto3dprintqueue';
 
-        if ($request->ajax()) {
-            return URL::to('auto3dprintqueue/' . $id);
-        }
+
 
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+
+        $auto3dprintmaterials = Auto3dprintmaterial::all()->pluck('material', 'id');
 
         if ($request->printnow == "true") {
             $auto3dprintqueue->Status = "print";
 
             $auto3dprintqueue->save();
+
+            if ($request->ajax()) {
+                return URL::to('auto3dprintqueue');
+            }
+
+
+
             return redirect('auto3dprintqueue/' . $auto3dprintqueue->id . "/");
         }
 
 
-        return view('auto3dprintqueue.show', compact('title', 'auto3dprintqueue'));
+        return view('auto3dprintqueue.show', compact('title', 'auto3dprintqueue', 'auto3dprintmaterials'));
     }
 
 
@@ -368,14 +350,14 @@ class Auto3dprintqueueController extends Controller
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
 
         $auto3dprintqueue->Infill = $request->Infill;
-
+        $auto3dprintqueue->genenerateSupport = $request->genenerateSupport;
 
         $auto3dprintqueue->auto3dprintmaterial_id = $request->auto3dprintmaterial_id;
 
 
         $auto3dprintqueue->save();
-
-        return redirect('auto3dprintqueue');
+        SliceModel($auto3dprintqueue->id);
+        return redirect('auto3dprintqueue/' . $auto3dprintqueue->id . "/");
     }
 
     /**
@@ -393,6 +375,8 @@ class Auto3dprintqueueController extends Controller
             return $msg;
         }
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -433,4 +417,48 @@ function sendEmailReminder($id)
         $mysubject = "3d Print id # (" . $auto3dprintqueue->id . ")    Status has changed to ".$auto3dprintqueue->Status;
         $m->to($user->email, $user->name)->subject($mysubject);
     });
+}
+
+function SliceModel($id)
+{
+    $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
+    $path = "3dPrintFiles\\" . $auto3dprintqueue->id . ".stl";
+    if (env('APP_PLATFORM') == 'WIN') {
+
+        $outputb = shell_exec("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".scad -o ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".png");
+
+        $outputc = shell_exec("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id  . ".stl --load \"..\\slic3r\\test.ini\" --fill-density " . $auto3dprintqueue->Infill . "  --print-center 0,0");
+
+
+        $output = shell_exec("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\" . $path . " --info --load \"..\\slic3r\\test.ini\" --fill-density " . $auto3dprintqueue->Infill . "  --print-center 0,0 2>&1");
+        Storage::disk('local')->put("3dPrintFiles\\" . $auto3dprintqueue->id . ".log", $output);
+
+
+    }
+
+    if (env('APP_PLATFORM') == 'MAC') {
+
+        $outputb = shell_exec("../Slic3r/mac/openscad/MacOS/OpenSCAD ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".scad -o ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".png");
+
+
+        $output = shell_exec("../Slic3r/mac/slic3r/MacOS/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../slic3r/test.ini\" --fill-density " . $auto3dprintqueue->Infill . "  --print-center 0,0");
+
+
+    }
+
+    $output = strtoupper($output);
+    $output = str_replace("\n", " ", $output);
+
+
+    $auto3dprintqueue1 = Auto3dprintqueue::findOrfail($auto3dprintqueue->id);
+    $auto3dprintqueue1->SlicerResults = $output;
+
+    $pieces = array_filter(explode(" ", $output));
+    //dd($pieces);
+    $auto3dprintqueue1->SizeX = intval(str_after($pieces[19], "X="));
+    $auto3dprintqueue1->SizeY = intval(str_after($pieces[20], "Y="));
+    $auto3dprintqueue1->SizeZ = intval(str_after($pieces[21], "Z="));
+
+
+    $auto3dprintqueue1->save();
 }

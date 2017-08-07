@@ -17,6 +17,14 @@
                 <label for="Name">Name</label>
                 {!!$auto3dprintqueue->Name!!}
             </div>
+
+
+
+            <div class="form-group">
+                <label>Generate Support</label>
+                {{Form::select('genenerateSupport', array('1' => 'on', '0' => 'off'), $auto3dprintqueue->genenerateSupport)}}
+            </div>
+
             <div class="form-group">
                 <label for="Infill">Infill</label>
                 <input id="Infill" name="Infill" type="range" min="20" max="100"

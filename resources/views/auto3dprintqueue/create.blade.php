@@ -15,6 +15,12 @@
             <label>Select File</label>
             {!! Form::file('upload', ['accept' =>'.stl']) !!}
         </div>
+
+    <div class="form-group">
+        <label>Generate Support</label>
+        {{Form::select('genenerateSupport', array('1' => 'on', '0' => 'off'))}}
+    </div>
+
         <div class="form-group">
             <label for="Infill">Infill</label>
             <input id="Infill" name = "Infill" type="range" style="width:50%" min="20" max="100"  oninput="InfillOutput.value = Infill.value +'%'" value="20">
