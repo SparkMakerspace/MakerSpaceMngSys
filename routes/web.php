@@ -12,8 +12,7 @@
 */
 
 
-
-Route::group(['middleware'=> 'web'], function () {
+Route::group(['middleware' => 'web'], function () {
     Route::get('/', function () {
         return view('welcome');
     });
@@ -35,49 +34,51 @@ Route::group(['middleware'=> 'web'], function () {
     Route::get('comment/{id}/deleteMsg', '\App\Http\Controllers\CommentController@DeleteMsg');
 
 //group Routes
-    Route::resource('g','\App\Http\Controllers\GroupController');
-    Route::post('g/{id}/update','\App\Http\Controllers\GroupController@update');
-    Route::get('g/{id}/delete','\App\Http\Controllers\GroupController@destroy');
-    Route::get('g/{id}/deleteMsg','\App\Http\Controllers\GroupController@DeleteMsg');
+    Route::resource('g', '\App\Http\Controllers\GroupController');
+    Route::post('g/{id}/update', '\App\Http\Controllers\GroupController@update');
+    Route::get('g/{id}/delete', '\App\Http\Controllers\GroupController@destroy');
+    Route::get('g/{id}/deleteMsg', '\App\Http\Controllers\GroupController@DeleteMsg');
 
 //door Routes
-    Route::resource('door','\App\Http\Controllers\DoorController');
-    Route::post('door/{id}/update','\App\Http\Controllers\DoorController@update');
-    Route::get('door/{id}/delete','\App\Http\Controllers\DoorController@destroy');
-    Route::get('door/{id}/deleteMsg','\App\Http\Controllers\DoorController@DeleteMsg');
+    Route::resource('door', '\App\Http\Controllers\DoorController');
+    Route::post('door/{id}/update', '\App\Http\Controllers\DoorController@update');
+    Route::get('door/{id}/delete', '\App\Http\Controllers\DoorController@destroy');
+    Route::get('door/{id}/deleteMsg', '\App\Http\Controllers\DoorController@DeleteMsg');
 
 //resource Routes
-    Route::resource('resource','\App\Http\Controllers\ResourceController');
-    Route::post('resource/{id}/update','\App\Http\Controllers\ResourceController@update');
-    Route::get('resource/{id}/delete','\App\Http\Controllers\ResourceController@destroy');
-    Route::get('resource/{id}/deleteMsg','\App\Http\Controllers\ResourceController@DeleteMsg');
+    Route::resource('resource', '\App\Http\Controllers\ResourceController');
+    Route::post('resource/{id}/update', '\App\Http\Controllers\ResourceController@update');
+    Route::get('resource/{id}/delete', '\App\Http\Controllers\ResourceController@destroy');
+    Route::get('resource/{id}/deleteMsg', '\App\Http\Controllers\ResourceController@DeleteMsg');
 
 //resource_type Routes
-    Route::resource('resource_type','\App\Http\Controllers\Resource_typeController');
-    Route::post('resource_type/{id}/update','\App\Http\Controllers\Resource_typeController@update');
-    Route::get('resource_type/{id}/delete','\App\Http\Controllers\Resource_typeController@destroy');
-    Route::get('resource_type/{id}/deleteMsg','\App\Http\Controllers\Resource_typeController@DeleteMsg');
+    Route::resource('resource_type', '\App\Http\Controllers\Resource_typeController');
+    Route::post('resource_type/{id}/update', '\App\Http\Controllers\Resource_typeController@update');
+    Route::get('resource_type/{id}/delete', '\App\Http\Controllers\Resource_typeController@destroy');
+    Route::get('resource_type/{id}/deleteMsg', '\App\Http\Controllers\Resource_typeController@DeleteMsg');
 
 //event Routes
-    Route::get('event/my','EventController@myEvents');
-    Route::resource('event/template','EventTemplateController');
-    Route::post('event/template/{id}/update','\App\Http\Controllers\EventTemplateController@update');
-    Route::get('event/template/{id}/delete','\App\Http\Controllers\EventTemplateController@destroy');
-    Route::get('event/template/{id}/deleteMsg','\App\Http\Controllers\EventTemplateController@DeleteMsg');
-    Route::resource('event','\App\Http\Controllers\EventController');
-    Route::post('event/{id}/update','\App\Http\Controllers\EventController@update');
-    Route::get('event/{id}/delete','\App\Http\Controllers\EventController@destroy');
-    Route::get('event/{id}/deleteMsg','\App\Http\Controllers\EventController@DeleteMsg');
+    Route::get('event/my', 'EventController@myEvents');
+    Route::resource('event/template', 'EventTemplateController');
+    Route::post('event/template/{id}/update', '\App\Http\Controllers\EventTemplateController@update');
+    Route::get('event/template/{id}/delete', '\App\Http\Controllers\EventTemplateController@destroy');
+    Route::get('event/template/{id}/deleteMsg', '\App\Http\Controllers\EventTemplateController@DeleteMsg');
+    Route::resource('event', '\App\Http\Controllers\EventController');
+    Route::post('event/{id}/update', '\App\Http\Controllers\EventController@update');
+    Route::get('event/{id}/delete', '\App\Http\Controllers\EventController@destroy');
+    Route::get('event/{id}/deleteMsg', '\App\Http\Controllers\EventController@DeleteMsg');
 
 
 //image Routes
-    Route::resource('image','\App\Http\Controllers\ImageController');
+    Route::resource('image', '\App\Http\Controllers\ImageController');
 
 //test Route
-    Route::get('test',function () {return view('test');});
+    Route::get('test', function () {
+        return view('test');
+    });
 
 //these routes require the user to be logged in.
-    Route::group(['middleware'=>['auth']], function (){
+    Route::group(['middleware' => ['auth']], function () {
 //auto3dprintercolor Routes
         Route::resource('auto3dprintercolor', '\App\Http\Controllers\Auto3dprintercolorController');
         Route::post('auto3dprintercolor/{id}/update', '\App\Http\Controllers\Auto3dprintercolorController@update');
@@ -91,9 +92,9 @@ Route::group(['middleware'=> 'web'], function () {
         Route::get('auto3dprintmaterial/{id}/deleteMsg', '\App\Http\Controllers\Auto3dprintmaterialController@DeleteMsg');
 
 //auto3dprintqueue Routes
+        Route::get('auto3dprintqueueall', '\App\Http\Controllers\Auto3dprintqueueController@AllUserindex');
 
         Route::resource('auto3dprintqueue', '\App\Http\Controllers\Auto3dprintqueueController');
-
 
 
         Route::post('auto3dprintqueue/{id}/update', '\App\Http\Controllers\Auto3dprintqueueController@update');
@@ -105,8 +106,6 @@ Route::group(['middleware'=> 'web'], function () {
         Route::get('auto3dprintqueue/{id}/viewer', '\App\Http\Controllers\Auto3dprintqueueController@showGcodeViewer');
 
 
-
-
     });
     Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
     Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
@@ -116,46 +115,44 @@ Route::group(['middleware'=> 'web'], function () {
 
 
 //sitenavigation Routes
-    Route::group(['middleware'=> 'web'],function(){
-        Route::resource('sitenavigation','\App\Http\Controllers\SitenavigationController');
-        Route::post('sitenavigation/{id}/update','\App\Http\Controllers\SitenavigationController@update');
-        Route::get('sitenavigation/{id}/delete','\App\Http\Controllers\SitenavigationController@destroy');
-        Route::get('sitenavigation/{id}/deleteMsg','\App\Http\Controllers\SitenavigationController@DeleteMsg');
+    Route::group(['middleware' => 'web'], function () {
+        Route::resource('sitenavigation', '\App\Http\Controllers\SitenavigationController');
+        Route::post('sitenavigation/{id}/update', '\App\Http\Controllers\SitenavigationController@update');
+        Route::get('sitenavigation/{id}/delete', '\App\Http\Controllers\SitenavigationController@destroy');
+        Route::get('sitenavigation/{id}/deleteMsg', '\App\Http\Controllers\SitenavigationController@DeleteMsg');
     });
 
 
 //admin route - obviously requires user to be logged in
-Route::group(['middleware'=> ['auth']],function() {
-    Route::get('/admin', function () {
-        return view('full_admin');
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/admin', function () {
+            return view('full_admin');
+        });
     });
-});
 
 
 //chore_list Routes
-  Route::resource('chore_list','\App\Http\Controllers\Chore_listController');
-  Route::post('chore_list/{id}/update','\App\Http\Controllers\Chore_listController@update');
-  Route::get('chore_list/{id}/delete','\App\Http\Controllers\Chore_listController@destroy');
-  Route::get('chore_list/{id}/deleteMsg','\App\Http\Controllers\Chore_listController@DeleteMsg');
-
-
+    Route::resource('chore_list', '\App\Http\Controllers\Chore_listController');
+    Route::post('chore_list/{id}/update', '\App\Http\Controllers\Chore_listController@update');
+    Route::get('chore_list/{id}/delete', '\App\Http\Controllers\Chore_listController@destroy');
+    Route::get('chore_list/{id}/deleteMsg', '\App\Http\Controllers\Chore_listController@DeleteMsg');
 
 
 //There is a reason these are at the bottom of the routes file.
 //Prevents it from interfering with other routes.
     //TODO: Do not allow users to choose stubs that would be inaccessible due to existing routes.
 //sitepage Routes
-    Route::resource('sitepage','\App\Http\Controllers\SitepageController');
-    Route::post('sitepage/{id}/update','\App\Http\Controllers\SitepageController@update');
-    Route::get('sitepage/{id}/delete','\App\Http\Controllers\SitepageController@destroy');
-    Route::get('sitepage/{id}/deleteMsg','\App\Http\Controllers\SitepageController@DeleteMsg');
-    Route::get('{mystub}','\App\Http\Controllers\SitepageController@showp');
+    Route::resource('sitepage', '\App\Http\Controllers\SitepageController');
+    Route::post('sitepage/{id}/update', '\App\Http\Controllers\SitepageController@update');
+    Route::get('sitepage/{id}/delete', '\App\Http\Controllers\SitepageController@destroy');
+    Route::get('sitepage/{id}/deleteMsg', '\App\Http\Controllers\SitepageController@DeleteMsg');
+    Route::get('{mystub}', '\App\Http\Controllers\SitepageController@showp');
 });
 
 //class_template Routes
-Route::group(['middleware'=> 'web'],function(){
-  Route::resource('class_template','\App\Http\Controllers\Class_templateController');
-  Route::post('class_template/{id}/update','\App\Http\Controllers\Class_templateController@update');
-  Route::get('class_template/{id}/delete','\App\Http\Controllers\Class_templateController@destroy');
-  Route::get('class_template/{id}/deleteMsg','\App\Http\Controllers\Class_templateController@DeleteMsg');
+Route::group(['middleware' => 'web'], function () {
+    Route::resource('class_template', '\App\Http\Controllers\Class_templateController');
+    Route::post('class_template/{id}/update', '\App\Http\Controllers\Class_templateController@update');
+    Route::get('class_template/{id}/delete', '\App\Http\Controllers\Class_templateController@destroy');
+    Route::get('class_template/{id}/deleteMsg', '\App\Http\Controllers\Class_templateController@DeleteMsg');
 });

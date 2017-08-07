@@ -12,9 +12,9 @@
     </form>
     </div>
     <div style="float: left;">
-    <form class = 'col s3' method = 'get' action = '{!!url("auto3dprintqueue")!!}'>
+    <form class = 'col s3' method = 'get' action = '{!!url("auto3dprintqueueall")!!}'>
         <button class = 'btn btn-primary' type = 'submit'>Show files From users</button>
-        <input id="id" name = "id" type="hidden" class="form-control" value="all">
+        <input id="id" name = "id" type="hidden" class="form-control" >
     </form>
     </div>
     <hr>

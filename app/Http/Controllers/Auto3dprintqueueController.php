@@ -52,10 +52,10 @@ class Auto3dprintqueueController extends Controller
         return view('auto3dprintqueue.index', compact('auto3dprintqueues', 'title'));
     }
 
-    public function AllUserindex()
+    public function AllUserindex(Request $request)
     {
         $title = 'Index - 3D Print Queue (All Users)';
-        $auto3dprintqueues = Auto3dprintqueue::where('user_id', $request->id)->orderBy('created_at', 'dec')->paginate(6);
+        $auto3dprintqueues = Auto3dprintqueue::orderBy('created_at', 'dec')->paginate(6);
 
         // \Auth::user()->id
 
@@ -344,7 +344,6 @@ class Auto3dprintqueueController extends Controller
         }
 
 
-        $auto3dprintercolors = Auto3dprintercolor::all()->pluck('color', 'id');
 
 
         $auto3dprintmaterials = Auto3dprintmaterial::all()->pluck('material', 'id');
@@ -354,7 +353,7 @@ class Auto3dprintqueueController extends Controller
 
 
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
-        return view('auto3dprintqueue.edit', compact('title', 'auto3dprintqueue', 'auto3dprintercolors', 'auto3dprintmaterials', 'users'));
+        return view('auto3dprintqueue.edit', compact('title', 'auto3dprintqueue', 'auto3dprintmaterials', 'users'));
     }
 
     /**
@@ -368,22 +367,10 @@ class Auto3dprintqueueController extends Controller
     {
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
 
-        $auto3dprintqueue->Name = $request->Name;
-
         $auto3dprintqueue->Infill = $request->Infill;
-
-        $auto3dprintqueue->Status = $request->Status;
-
-        $auto3dprintqueue->Notified = $request->Notified;
-
-
-        $auto3dprintqueue->auto3dprintercolor_id = $request->auto3dprintercolor_id;
 
 
         $auto3dprintqueue->auto3dprintmaterial_id = $request->auto3dprintmaterial_id;
-
-
-        $auto3dprintqueue->user_id = $request->user_id;
 
 
         $auto3dprintqueue->save();

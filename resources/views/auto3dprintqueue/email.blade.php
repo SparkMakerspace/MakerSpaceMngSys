@@ -1,19 +1,16 @@
 
 
-Click here to view item
+
 <section class="content">
+    <a HREF="{{url("/auto3dprintqueue/".$auto3dprintqueue->id)}}" >
     <h1>
-        Your item has completed printing !!!!!!!!!<hr>
-        <a HREF="{{url("/auto3dprintqueue/".$auto3dprintqueue->id)}}" ><hr>
+        Click here to view item<br>
         {!!$auto3dprintqueue->Name!!}
     </h1>
-    <br>
-
-    lINK TO ITEM
 
     <img src="{{url("/auto3dprintqueue/".$auto3dprintqueue->id."/thumb.png")}}" width="20%" height="20%"
          style="border:none;float:left"></img>
-    <br>
+    <br></a>
     <table class='table table-bordered'>
         <thead>
         <th>Key</th>
@@ -94,5 +91,5 @@ Click here to view item
     </table>
 </section>
 </div>
-</a>
+
 

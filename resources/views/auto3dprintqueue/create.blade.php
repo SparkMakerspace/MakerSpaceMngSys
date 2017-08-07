@@ -2,6 +2,7 @@
 @section('title','Create')
 @section('content')
 
+
 <section class="content">
     <h1>
         Upload a new file to the print queue
@@ -16,13 +17,13 @@
         </div>
         <div class="form-group">
             <label for="Infill">Infill</label>
-            <input id="Infill" name = "Infill" type="range"  min="20" max="100"  oninput="InfillOutput.value = Infill.value +'%'" value="20">
+            <input id="Infill" name = "Infill" type="range" style="width:50%" min="20" max="100"  oninput="InfillOutput.value = Infill.value +'%'" value="20">
             <output name="InfillOutput" id="InfillOutput">20%</output>
         </div>
 
         <div class="form-group">
             <label>Select Material</label>
-            <select name = 'auto3dprintmaterial_id' class = 'form-control'>
+            <select name = 'auto3dprintmaterial_id' class = 'form-control' style="width:50%">
                 @foreach($auto3dprintmaterials as $key => $value) 
                 <option value="{{$key}}">{{$value}}</option>
                 @endforeach 
