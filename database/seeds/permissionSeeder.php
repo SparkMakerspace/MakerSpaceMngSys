@@ -18,10 +18,12 @@ class permissionSeeder extends Seeder
         Permission::create(['name'=>'update users']);
         Permission::create(['name'=>'delete users']);
         Permission::create(['name'=>'create events']);
+        Permission::create(['name'=>'approve events']);
         Permission::create(['name'=>'read events']);
         Permission::create(['name'=>'update events']);
         Permission::create(['name'=>'delete events']);
         Permission::create(['name'=>'create event templates']);
+        Permission::create(['name'=>'approve event templates']);
         Permission::create(['name'=>'read event templates']);
         Permission::create(['name'=>'update event templates']);
         Permission::create(['name'=>'delete event templates']);

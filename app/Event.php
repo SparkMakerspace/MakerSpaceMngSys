@@ -65,6 +65,13 @@ use MaddHatter\LaravelFullcalendar\IdentifiableEvent;
  * @property int $source_id
  * @method static \Illuminate\Database\Query\Builder|\App\Event whereDurationMinutes($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Event whereSourceId($value)
+ * @property bool $is_Template
+ * @property bool $is_Session
+ * @property bool $has_Sessions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $instructor
+ * @property-read \App\Event $sourceEvent
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereHasSessions($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Event whereIsSession($value)
  */
 class Event extends Model implements IdentifiableEvent
 {
@@ -90,8 +97,8 @@ class Event extends Model implements IdentifiableEvent
     /**
      * @return mixed
      */
-    public function owner() {
-        return $this->attendees()->wherePivot('eventOwner','=',true)->first();
+    public function owners() {
+        return $this->attendees()->wherePivot('eventOwner','=',1)->get();
     }
 
     public function getId()
@@ -138,7 +145,7 @@ class Event extends Model implements IdentifiableEvent
 	/**
      * group.
      *
-     * @return  \Illuminate\Support\Collection;
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function groups()
     {
@@ -175,7 +182,7 @@ class Event extends Model implements IdentifiableEvent
      * @param bool $paid
      * @return void
      */
-    public function assignAttendee($user, $eventOwner = false, $status = 'attending', $paid = true)
+    public function assignAttendee($user, $eventOwner = false, $status = 'attendee', $paid = false)
     {
         $this->attendees()->attach($user, compact('eventOwner','$status','paid'));
     }
@@ -203,11 +210,28 @@ class Event extends Model implements IdentifiableEvent
         ];
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function sourceEvent(){
         return $this->belongsTo('App\Event','source_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function instructor(){
-        return $this->belongsTo('App\User');
+        return $this->belongsToMany('App\User','events_users')->withPivot(['eventOwner','status','paid']);
+    }
+
+    /**
+     * @param $user
+     * @param bool $eventOwner
+     */
+    public function assignInstructor($user, $eventOwner = false) {
+        if($this->instructor()->find($user->id))
+        $this->instructor()->
+        $paid = true;
+        $this->instructor()->attach($user, compact('eventOwner'));
     }
 }
