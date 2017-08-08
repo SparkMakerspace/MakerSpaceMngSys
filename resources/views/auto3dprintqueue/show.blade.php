@@ -9,13 +9,11 @@
             <form method='get' action='{!!url("auto3dprintqueue")!!}'>
                 <button class='btn btn-primary'>auto3dprintqueue Index</button>
                 <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger'
-                   data-link="/auto3dprintqueue/{!!$auto3dprintqueue->id!!}/deleteMsg"><i
-                            class='material-icons'>delete</i></a>
+                   data-link="/auto3dprintqueue/{!!$auto3dprintqueue->id!!}/deleteMsg">delete</a>
                 @if($auto3dprintqueue->Status != "print" & $auto3dprintqueue->Status != "done")
 
                     <a data-toggle="modal" data-target="#myModal" class='viewShow btn btn-info'
-                       data-link='/auto3dprintqueue/{!!$auto3dprintqueue->id!!}?printnow=true'><i
-                                class='material-icons'>Aprove</i></a>
+                       data-link='/auto3dprintqueue/{!!$auto3dprintqueue->id!!}?printnow=true'>Aprove</a>
 
                 @endif
             </form>
