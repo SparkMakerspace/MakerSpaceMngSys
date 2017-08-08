@@ -6,6 +6,7 @@
 
 @foreach(\App\sitenavigation::all() as $sitenavigation)
     <li class="treeview">
+
             <a href="../../../../../../../{!!$sitenavigation->LinkURL!!}" title="{!!$sitenavigation->LinkDescription!!}">
                 @if ($sitenavigation->LinkImage != "" )
                     <img src="{!!url($sitenavigation->LinkImage)!!}"  height="25" width="25">
@@ -29,9 +30,7 @@
 
 <li class="treeview"><a href="{{url('/permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
 
-<li class="treeview"><a href="{{url('/sitenavigation')}}"><i class="fa fa-key"></i> <span>Site Navigation</span></a></li>
-
-<li class="treeview"><a href="{{url('/sitepage')}}"><i class="fa fa-key"></i> <span>Site Perminant Pages Manager</span></a></li>
+<li class="treeview"><a href="{{url('/sitenavigation')}}"><i class="fa fa-key"></i> <span>Site Navigation & Pages</span></a></li>
 
 
 

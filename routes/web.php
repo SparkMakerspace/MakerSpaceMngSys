@@ -142,13 +142,9 @@ Route::group(['middleware' => 'web'], function () {
 //Prevents it from interfering with other routes.
     //TODO: Do not allow users to choose stubs that would be inaccessible due to existing routes.
 //sitepage Routes
-    Route::resource('sitepage', '\App\Http\Controllers\SitepageController');
-    Route::post('sitepage/{id}/update', '\App\Http\Controllers\SitepageController@update');
-    Route::get('sitepage/{id}/delete', '\App\Http\Controllers\SitepageController@destroy');
-    Route::get('sitepage/{id}/deleteMsg', '\App\Http\Controllers\SitepageController@DeleteMsg');
-    Route::get('{mystub}', '\App\Http\Controllers\SitepageController@showp');
-});
 
+});
+Route::get('{mystub}', '\App\Http\Controllers\SitenavigationController@showp');
 //class_template Routes
 Route::group(['middleware' => 'web'], function () {
     Route::resource('class_template', '\App\Http\Controllers\Class_templateController');

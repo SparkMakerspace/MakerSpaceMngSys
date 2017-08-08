@@ -31,7 +31,26 @@ class Sitenavigations extends Migration
         $table->String('LinkURL');
         
         $table->String('LinkDescription');
-        
+
+
+
+            $table->String('PageTitle')->nullable();
+
+            $table->longText('PageContent')->nullable();
+
+            $table->date('PagePublishDate')->nullable();
+
+            $table->String('PageStub')->nullable();
+
+            $table->longText('PageCSS')->nullable();
+
+            $table->longText('PageJavaScript')->nullable();
+
+            $table->longText('PageKeywords')->nullable();
+
+
+
+
         /**
          * Foreignkeys section
          */

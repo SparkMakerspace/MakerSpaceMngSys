@@ -68,6 +68,28 @@ class SitenavigationController extends Controller
 
 
 
+        $sitenavigation->PageTitle = $request->PageTitle;
+
+
+        $sitenavigation->PageContent = $request->PageContent;
+
+
+        $sitenavigation->PagePublishDate = $request->PagePublishDate;
+
+
+        $sitenavigation->PageStub = $request->PageStub;
+
+
+        $sitenavigation->PageCSS = $request->PageCSS;
+
+
+        $sitenavigation->PageJavaScript = $request->PageJavaScript;
+
+
+        $sitenavigation->PageKeywords = $request->PageKeywords;
+
+
+
         $sitenavigation->save();
 
         $pusher = App::make('pusher');
@@ -103,6 +125,16 @@ class SitenavigationController extends Controller
         return view('sitenavigation.show',compact('title','sitenavigation'));
     }
 
+
+
+    public function showp( $mystub = "",Request $request)
+    {
+        $title = 'Show - sitepage';
+        $sitenavigation = Sitenavigation::where('LinkURL' ,$mystub)->first();
+
+
+        return view('sitenavigation.show',compact('title','sitenavigation'));
+    }
     /**
      * Show the form for editing the specified resource.
      * @param    \Illuminate\Http\Request  $request
@@ -142,6 +174,29 @@ class SitenavigationController extends Controller
         $sitenavigation->LinkURL = $request->LinkURL;
 
         $sitenavigation->LinkDescription = $request->LinkDescription;
+
+
+        $sitenavigation->PageTitle = $request->PageTitle;
+
+
+        $sitenavigation->PageContent = $request->PageContent;
+
+
+        $sitenavigation->PagePublishDate = $request->PagePublishDate;
+
+
+        $sitenavigation->PageStub = $request->PageStub;
+
+
+        $sitenavigation->PageCSS = $request->PageCSS;
+
+
+        $sitenavigation->PageJavaScript = $request->PageJavaScript;
+
+
+        $sitenavigation->PageKeywords = $request->PageKeywords;
+
+
 
 
         $sitenavigation->save();
