@@ -34,8 +34,6 @@
             <th>Thumbnail</th>
             <th>Infill</th>
             <th>Status</th>
-            <th>Notified</th>
-
             <th>material</th>
             <th>name</th>
             <th>actions</th>
@@ -51,8 +49,6 @@
                 </td>
                 <td>{!!$auto3dprintqueue->Infill!!}</td>
                 <td>{!!$auto3dprintqueue->Status!!}</td>
-                <td>{!!$auto3dprintqueue->Notified!!}</td>
-
                 <td>{!!$auto3dprintqueue->auto3dprintmaterial->material!!}</td>
                 <td>{!!$auto3dprintqueue->user->name!!}</td>
                 <td>
