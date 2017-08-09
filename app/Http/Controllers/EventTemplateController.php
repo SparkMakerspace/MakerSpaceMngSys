@@ -17,7 +17,7 @@ class EventTemplateController extends Controller
     public function index(Request $request)
     {
         $title = 'Index - Event Templates';
-        $events = Event::where('isTemplate','=',1)->get();
+        $events = Event::whereIsTemplate(1)->get();
         return view('event.template.index',compact('events','title'));
     }
 
@@ -29,7 +29,7 @@ class EventTemplateController extends Controller
      */
     public function create(EventController $eventController)
     {
-        //
+        return view('event.template.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class EventTemplateController extends Controller
      */
     public function store(Request $request, EventController $eventController)
     {
-        //
+        // TODO: Create logic to determine the number of sessions and create one object for each along with connections back to the master event template
     }
 
     /**

@@ -4,64 +4,90 @@
 
     <section class="content">
         <h1>
-            Create event
+            Create Event Template
         </h1>
         <form method = 'get' action = '{!!url("event")!!}'>
-            <button class = 'btn btn-danger'>event Index</button>
+            <button class = 'btn btn-danger'>Back to Event Templates</button>
         </form>
         <br>
-        <form method = 'POST' action = '{!!url("event")!!}'>
-            <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
-            <div class="form-group">
-                <label for="name">Title</label>
-                <input id="name" name = "name" type="text" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="startDateTime">Event Start Time</label>
-                @include('partials.datePicker',['fieldName'=>'startDateTime'])
-            </div>
-            <div class="form-group">
-                <label for="endDateTime">Event End Time</label>
-                @include('partials.datePicker',['fieldName'=>'endDateTime'])
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label><input type="checkbox" id="allDay" name="allDay">All Day Event?</label>
+        {!! Form::open(['url'=> 'event/template','method'=>'post']) !!}
+        <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
+        <select class="form-control" name="type" id="type">
+            <option disabled selected>Choose a template type</option>
+            <option value="event">Event</option>
+            <option value="class">Class</option>
+        </select>
+        <input type="hidden" name="is_template" value="1">
+        <br>
+        <div class="form-group">
+            {!! Form::label('name', 'Name');  !!}
+            {!! Form::text('name',null,['class'=>'form-control'])!!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('description', 'Description');  !!}
+            {!! Form::textarea('description',null,['class'=>'form-control','rows'=>3])!!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('num_Sessions', 'How many sessions make up this event?');  !!}
+            {!! Form::number('num_Sessions',1,['min'=>1,'class'=>'form-control']) !!}
+            <!-- TODO: Add javascript logic to create session fields-->
+        </div>
+        <div class="sessions">
+            <span session="1">
+                <h4>Session 1</h4>
+                <div class="form-group">
+                    {!! Form::label('session_title[]','Session Name') !!}
+                    {!! Form::text('session_title[]',null,['class'=>'form-control']) !!}
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <input id="description" name = "description" type="text" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Select Groups Involved</label>
-                {!! Form::groups() !!}
-            </div>
-            <button class = 'btn btn-primary' type ='submit'>Create</button>
-        </form>
+            </span>
+        </div>
+        <button type="submit" class="btn btn-default" id="submitbutton" value="save">Save Draft</button>
+        <button type="submit" class="btn btn-default" id="subitbutton" value="submit">Submit for Approval</button>
+        {!! Form::close() !!}
+
         <script>
-            $(function () {
-                $('#startDateTime').datetimepicker({format:'YYYY-MM-DD HH:mm'});
-                $('#startDateTime').on("dp.change", function (e) {
-                    $('#endDateTime').data("DateTimePicker").minDate(e.date);
-                });
-                $('#endDateTime').datetimepicker({format:'YYYY-MM-DD HH:mm',useCurrent:false});
-                $('#endDateTime').on("dp.change", function (e) {
-                    $('#startDateTime').data("DateTimePicker").maxDate(e.date);
-                });
-            });
-            $(function(){
-                $('#allDay').click(function () {
-                    if (this.checked){
-                        $('#startDateTime').data('DateTimePicker').format('YYYY-MM-DD');
-                        $('#endDateTime').data('DateTimePicker').format('YYYY-MM-DD');
+            var $numSessions = 1;
+            function hideOthers() {
+                $('#type option').map(
+                    function () {
+                        if ($(this).val() !== $("#type").val()) {
+                            $("." + $(this).val()).hide();
+                        }
                     }
-                    else {
-                        $('#startDateTime').data('DateTimePicker').format('YYYY-MM-DD HH:mm');
-                        $('#endDateTime').data('DateTimePicker').format('YYYY-MM-DD HH:mm');
+                );
+            }
+            function instantiateSessions($number){
+                if ($number > $numSessions) {
+                    while($number - $numSessions > 0) {
+                        $numSessions = $numSessions + 1;
+                        if ($('span[session='+$numSessions+']').length){
+                            $('span[session='+$numSessions+']').show();
+                        } else {
+                            var $temp = $('span[session="1"]').clone().attr('session', $numSessions);
+                            $temp.children('h4').html('Session ' + $numSessions);
+                            $temp.appendTo('.sessions');
+                        }
                     }
-                })
-            })
+                } else if ($number < $numSessions) {
+                    while ($number - $numSessions < 0){
+                        $('span[session='+$numSessions+']').hide();
+                        $numSessions = $numSessions - 1;
+                    }
+                }
+            }
+            $(document).ready(
+                function(){
+                    $("#type").change(
+                        function(){
+                            var $selected = $(this).val();
+                            $("." + $selected).show();
+                            hideOthers();
+                        });
+                    $("#num_Sessions").change(function(){
+                        instantiateSessions(parseInt($(this).val()));
+                    })
+                });
+            hideOthers();
         </script>
     </section>
 @endsection

@@ -38,15 +38,15 @@ class Events extends Migration
 
         $table->string('type')->default('event');
 
-        $table->boolean('nonMembersAllowed')->default(true);
+        $table->boolean('nonMembersAllowed')->nullable();
 
-        $table->float('materialCostPerAttendee')->default(0.0);
+        $table->float('materialCostPerAttendee')->nullable();
 
-        $table->float('percentCostToSpark')->default(0.0);
+        $table->float('percentCostToSpark')->nullable();
 
-        $table->float('memberTicketPrice')->default(0.0);
+        $table->float('memberTicketPrice')->nullable();
 
-        $table->float('additionalNonMemberTicketPrice')->default(0.0);
+        $table->float('additionalNonMemberTicketPrice')->nullable();
 
         $table->integer('maxAttendance')->nullable();
 
@@ -56,9 +56,11 @@ class Events extends Migration
 
         $table->dateTime('cutoffDate')->nullable();
 
-        $table->integer('instructor_id')->nullable();
+        $table->boolean('is_Template')->default(0);
 
-        $table->boolean('isTemplate')->default(0);
+        $table->boolean('is_Session')->default(0);
+
+        $table->boolean('has_Sessions')->default(0);
 
         $table->integer('source_id')->nullable();
         
