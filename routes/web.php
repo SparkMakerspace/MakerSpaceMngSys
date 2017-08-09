@@ -107,8 +107,7 @@ Route::group(['middleware' => 'web'], function () {
 
 
     });
-    Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
-    Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
+
 
     Route::post('pclogin', '\App\Http\Controllers\PCAuthController@loginRequest');
     Route::get('pclogin', '\App\Http\Controllers\PCAuthController@loginRequest');
@@ -152,3 +151,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('class_template/{id}/delete', '\App\Http\Controllers\Class_templateController@destroy');
     Route::get('class_template/{id}/deleteMsg', '\App\Http\Controllers\Class_templateController@DeleteMsg');
 });
+
+
+Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
+Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
