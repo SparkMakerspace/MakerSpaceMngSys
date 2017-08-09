@@ -56,7 +56,7 @@
 
                                     <div class="form-group">
                                         <label for="Infill">Infill</label>
-                                        <input id="Infill" name="Infill" type="range" min="20" max="100"
+                                        <input id="Infill" name="Infill" type="range" min="20" max="99"
                                                oninput="InfillOutput.value = Infill.value +'%'"
                                                value="{!!$auto3dprintqueue->Infill!!}">
                                         <output name="InfillOutput" id="InfillOutput">{!!$auto3dprintqueue->Infill!!}%

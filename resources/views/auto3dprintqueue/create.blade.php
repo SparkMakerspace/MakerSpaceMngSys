@@ -23,7 +23,7 @@
 
         <div class="form-group">
             <label for="Infill">Infill</label>
-            <input id="Infill" name = "Infill" type="range" style="width:50%" min="20" max="100"  oninput="InfillOutput.value = Infill.value +'%'" value="20">
+            <input id="Infill" name = "Infill" type="range" style="width:50%" min="20" max="99"  oninput="InfillOutput.value = Infill.value +'%'" value="20">
             <output name="InfillOutput" id="InfillOutput">20%</output>
         </div>
 
