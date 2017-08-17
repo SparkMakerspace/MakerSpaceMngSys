@@ -1,4 +1,4 @@
-cp ".env.example" ".env"
+rem cp ".env.example" ".env"
 
 mysql -u root -e "CREATE DATABASE homestead" 
 

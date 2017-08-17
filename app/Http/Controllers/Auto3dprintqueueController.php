@@ -406,7 +406,7 @@ function execInBackground($cmd)
 
 function sendEmailReminder($id)
 {
-return;
+
     $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
     $user = User::findOrFail($auto3dprintqueue->user->id);
 

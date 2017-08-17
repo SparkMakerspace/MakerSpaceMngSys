@@ -155,3 +155,5 @@ Route::group(['middleware' => 'web'], function () {
 
 Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
 Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
+Route::group(['middleware'=> 'web'],function(){
+});
