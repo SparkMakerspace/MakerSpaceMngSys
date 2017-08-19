@@ -6,10 +6,6 @@
 
 @section('content')
 
-
-
-
-    this is the text
     <div class="container row">
         <br>
         <div class="col-sm-12">
@@ -38,14 +34,14 @@
                                     Contact Info
                                 </h4>
                                 <img>
-                                    @foreach($group->users as $groupUser)
+                                    @foreach($group->leads as $groupUser)
                                         <br>
 
+                                            <A href = {{$groupUser->UserUrl()}} >
+                                            <img src="{{url($groupUser->image->path)}}" style="max-width: 50px;  height: auto;" alt="User Image">
+                                            {{$groupUser->name }} {{$groupUser->LeadPhone}} <br>
+                                            </A>
 
-                                        <A href = {{$groupUser->UserUrl()}} >
-                                        <img src="{{url($groupUser->image->path)}}" style="max-width: 50px;  height: auto;" alt="User Image">
-                                        {{$groupUser->name }} {{$groupUser->LeadPhone}} <br>
-                                        </A>
                                     @endforeach
 
                                 </p>
