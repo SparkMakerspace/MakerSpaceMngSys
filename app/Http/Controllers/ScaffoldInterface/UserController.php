@@ -92,8 +92,9 @@ class UserController extends Controller
         $userRoles = $user->roles;
         $userPermissions = $user->permissions;
         $posts = $user->posts()->orderBy('created_at','dec')->paginate(10);
+        $groups = $user->groups;
 
-        return view('scaffold-interface.users.show', compact('user', 'roles', 'permissions', 'userRoles', 'userPermissions', 'posts'));
+        return view('scaffold-interface.users.show', compact('user', 'roles', 'permissions', 'userRoles', 'userPermissions', 'posts','groups'));
     }
 
 

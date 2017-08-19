@@ -177,6 +177,9 @@
         </div>
     </div>
 
+
+    @include('partials.groupList')
+
 @endsection
 @section('script')
     <script>
