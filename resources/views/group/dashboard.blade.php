@@ -40,7 +40,9 @@
                                 <img>
                                     @foreach($group->users as $groupUser)
                                         <br>
-                                        <A href = {{url('u/' .$groupUser->username)}} >
+
+
+                                        <A href = {{$groupUser->UserUrl()}} >
                                         <img src="{{url($groupUser->image->path)}}" style="max-width: 50px;  height: auto;" alt="User Image">
                                         {{$groupUser->name }} {{$groupUser->LeadPhone}} <br>
                                         </A>

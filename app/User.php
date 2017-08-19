@@ -181,7 +181,10 @@ class User extends Authenticatable
         return $this->posts()->detach($post);
     }
 
-
+    public function UserUrl()
+    {
+        return url('u/' .$this->username);
+    }
 	/**
      * door.
      *

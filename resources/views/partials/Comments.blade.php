@@ -19,7 +19,7 @@ Required Parameter:
             @forelse($commentable->comments  as $comment)
                 <div class="direct-chat-msg">
                     <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-left">{{$comment->user()->first()->username}}</span>
+                        <span class="direct-chat-name pull-left"><a href = {{$comment->user()->first()->UserUrl()}}> {{$comment->user()->first()->username}}</a></span>
                         <span class="direct-chat-timestamp pull-right">{{ $comment->created_at }}</span>
                     </div><!-- /.direct-chat-info -->
                     <img class="direct-chat-img" src="{{url($comment->user()->first()->image->path)}}" alt="{{$comment->user()->first()->username}}"><!-- /.direct-chat-img -->

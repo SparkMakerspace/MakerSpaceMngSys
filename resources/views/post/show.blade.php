@@ -22,7 +22,7 @@
                         </h3>
                     </div>
                     <div class="col-md-4">
-                        <A href= {{url('u/' .$post->getOwner()->username)}} >
+                        <A href= {{$post->getOwner()->UserUrl()}}>
                             <img src="{{url($post->getOwner()->image->path)}}" style="max-width: 50px;  height: auto;"
                                  alt="User Image">
                             {{$post->getOwner()->name }}<br>
