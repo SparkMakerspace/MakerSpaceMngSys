@@ -76,7 +76,7 @@
 
                                 <li class="user-header">
                                     <div class="btn btn-default btn-flat">
-                                    <A href="{{url("users/edit/".Auth::user()->id)}}"  >
+                                    <A href="{{Auth::user()->UserUrl()}}"  >
                                         <img src="{{url(Auth::user()->image->path)}}" class="img-circle" alt="User Image">
                                         <p>
                                             {{Auth::user()->name}}
