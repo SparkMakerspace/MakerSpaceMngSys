@@ -80,6 +80,10 @@ class UserController extends Controller
     }
 
 
+    /**
+     * @param $username
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function view($username)
     {
         $user = \App\User::where('username', '=' ,$username)->firstOrFail();;
@@ -87,8 +91,9 @@ class UserController extends Controller
         $permissions = Permission::all()->pluck('name');
         $userRoles = $user->roles;
         $userPermissions = $user->permissions;
+        $posts = $user->posts()->orderBy('created_at','dec')->paginate(10);
 
-        return view('scaffold-interface.users.edit', compact('user', 'roles', 'permissions', 'userRoles', 'userPermissions'));
+        return view('scaffold-interface.users.show', compact('user', 'roles', 'permissions', 'userRoles', 'userPermissions', 'posts'));
     }
 
 

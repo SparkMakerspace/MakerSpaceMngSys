@@ -69,56 +69,12 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">
-                        Posts
-                    </h3>
-                </div>
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                    Create A New Post
-                </button>
 
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-
-                            <div class="modal-body">
-                                @include('post.editClean')
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
                 <!-- Posts Box -->
-                <div class="box-body">
-                    <ul class="products-list">
-                        @foreach($posts as $post)
-                            <li class="list-group-item">
-                                @if($post->image()->first())
-                                    <div class="product-img">
-                                        <img src="{{url($post->image()->first()->path)}}">
-                                    </div>
-                                @endif
-                                <span class="pull-right">
-                                    {{$post->getOwner()->name}}
-                                </span>
-                                <div class="product-info" style="margin-left: 0px">
-                                    <h3>{{$post->title}}</h3>
-                                </div>
-                                <div>
-                                    {!! $post->getExcerpt()!!}
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                    {!! $posts->links() !!}
-                </div><!-- /.box-body -->
+                @include("partials.postsList")
 
 
-            </div>
-        </div>
+
     </div>
 
 
