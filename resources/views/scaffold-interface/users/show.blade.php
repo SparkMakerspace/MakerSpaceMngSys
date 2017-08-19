@@ -16,6 +16,22 @@
             @include("partials.postsList")
         </div>
         <div class="col-md-4">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Group Memberships</a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            @include('partials.groupList')
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             @if (\Auth::user()->id == $user->id)
 
                 <div class="box box-primary">
@@ -176,6 +192,23 @@
             @endif
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @endsection
 @section('script')
