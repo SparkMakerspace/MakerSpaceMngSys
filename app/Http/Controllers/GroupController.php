@@ -186,10 +186,10 @@ class GroupController extends Controller
      * @param    string $stub
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function
-    dashboard($stub)
+    public function dashboard($stub)
     {
         $group = Group::whereStub($stub)->first();
+
         $events = $group->events()->get();
         $calendar = \FullCal::addEvents($events)->setCallbacks([
             'eventClick'=> 'function(calEvent, jsEvent, view) {

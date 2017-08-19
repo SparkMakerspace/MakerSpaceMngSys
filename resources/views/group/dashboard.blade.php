@@ -20,7 +20,8 @@
                             @if ($group->image_id != null)
                                 <img src="{{url(asset($group->image->path))}}" alt="{!!$group->name!!}">
                             @else
-                                <img src="{{url(asset(App\Image::whereName('groupNoImage.svg')->first()->path))}}" alt="{!! $group->name !!}">
+                                <img src="{{url(asset(App\Image::whereName('groupNoImage.svg')->first()->path))}}"
+                                     alt="{!! $group->name !!}">
                             @endif
                         </div>
                         <div class="col-sm-10 row">
@@ -36,8 +37,15 @@
                                 <h4>
                                     Contact Info
                                 </h4>
-                                <p>
-                                    {!! nl2br($group->contactInfo) !!}
+                                <img>
+                                    @foreach($group->users as $groupUser)
+                                        <br>
+                                        <A href = {{url('u/' .$groupUser->username)}} >
+                                        <img src="{{url($groupUser->image->path)}}" style="max-width: 50px;  height: auto;" alt="User Image">
+                                        {{$groupUser->name }} {{$groupUser->LeadPhone}} <br>
+                                        </A>
+                                    @endforeach
+
                                 </p>
                             </div>
                         </div>
@@ -66,24 +74,18 @@
                     </h3>
                 </div>
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                    Launch demo modal
+                    Create A New Post
                 </button>
 
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                            </div>
+
                             <div class="modal-body">
                                 @include('post.editClean')
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -123,8 +125,10 @@
 
 @section('adminBar')
     @hasanyrole(['superadmin','admin'])
-    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/g/{!!$group->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
-    <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/g/{!!$group->id!!}/edit'><i class = 'material-icons'>edit</i></a>
-    <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/g/{!!$group->stub!!}'><i class = 'material-icons'>info</i></a>
+    <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger btn-xs'
+       data-link="/g/{!!$group->id!!}/deleteMsg"><i class='material-icons'>delete</i></a>
+    <a href='#' class='viewEdit btn btn-primary btn-xs' data-link='/g/{!!$group->id!!}/edit'><i class='material-icons'>edit</i></a>
+    <a href='#' class='viewShow btn btn-warning btn-xs' data-link='/g/{!!$group->stub!!}'><i
+                class='material-icons'>info</i></a>
     @endhasanyrole
 @endsection

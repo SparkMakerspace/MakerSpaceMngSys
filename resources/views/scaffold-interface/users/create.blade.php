@@ -18,6 +18,10 @@
                         <input type="text" name = "name" class = "form-control" placeholder = "Name">
                     </div>
                     <div class="form-group">
+                        <label for="">User Name</label>
+                        <input type="text" name = "username" class = "form-control" placeholder = "Name">
+                    </div>
+                    <div class="form-group">
                         <label for="">Password</label>
                         <input type="password" name = "password" class = "form-control" placeholder = "Password">
                     </div>

@@ -6,9 +6,22 @@
     <h1>
         Post Index
     </h1>
-    <form class = 'col s3' method = 'get' action = '{!!url("post")!!}/create'>
-        <button class = 'btn btn-primary' type = 'submit'>Create New post</button>
-    </form>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        Create A New Post
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    @include('post.editClean')
+                </div>
+
+            </div>
+        </div>
+    </div>
     <br>
     <br>
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>

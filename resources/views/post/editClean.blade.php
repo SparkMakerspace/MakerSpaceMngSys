@@ -1,11 +1,4 @@
-
-
     <section class="content">
-
-        <form method = 'get' action = '{!!url("post")!!}'>
-            <button class = 'btn btn-danger'>Post Index</button>
-        </form>
-        <br>
 
         @if(isset($post))
             {!! Form::model($post, ['action' => ['PostController@update', $post->id]]) !!}

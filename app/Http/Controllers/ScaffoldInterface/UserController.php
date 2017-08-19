@@ -46,6 +46,7 @@ class UserController extends Controller
 
         $user->email = $request->email;
         $user->name = $request->name;
+        $user->username = $request->username;
         $user->password = Hash::make($request->password);
         $user->address1 = $request->address1;
         $user->address2 = $request->address2;
@@ -78,6 +79,19 @@ class UserController extends Controller
         return view('scaffold-interface.users.edit', compact('user', 'roles', 'permissions', 'userRoles', 'userPermissions'));
     }
 
+
+    public function view($username)
+    {
+        $user = \App\User::where('username', '=' ,$username)->firstOrFail();;
+        $roles = Role::all()->pluck('name');
+        $permissions = Permission::all()->pluck('name');
+        $userRoles = $user->roles;
+        $userPermissions = $user->permissions;
+
+        return view('scaffold-interface.users.edit', compact('user', 'roles', 'permissions', 'userRoles', 'userPermissions'));
+    }
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -88,6 +102,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = \App\User::findOrfail($request->user_id);
+        $user->username = $request->username;
         $user->email = $request->email;
         $user->name = $request->name;
         if($request->password)

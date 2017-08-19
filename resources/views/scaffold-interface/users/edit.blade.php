@@ -18,6 +18,10 @@
 						<input type="text" name = "name" value = "{{$user->name}}" class = "form-control" required>
 					</div>
 					<div class="form-group">
+						<label for="">User Name</label>
+						<input type="text" name = "username" value = "{{$user->username}}" class = "form-control" required>
+					</div>
+					<div class="form-group">
 						<label for="">Password</label>
 						<input type="password" name = "password" class = "form-control" placeholder = "password">
 					</div>

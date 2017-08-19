@@ -2,8 +2,10 @@
 @section('title','Post - View')
 @section('adminBar')
     @hasanyrole(['superadmin','admin'])
-    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/post/{!!$post->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
-    <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/post/{!!$post->id!!}/edit'><i class = 'material-icons'>edit</i></a>
+    <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger btn-xs'
+       data-link="/post/{!!$post->id!!}/deleteMsg"><i class='material-icons'>delete</i></a>
+    <a href='#' class='viewEdit btn btn-primary btn-xs' data-link='/post/{!!$post->id!!}/edit'><i
+                class='material-icons'>edit</i></a>
     @endhasanyrole
 @endsection
 @section('content')
@@ -20,37 +22,26 @@
                         </h3>
                     </div>
                     <div class="col-md-4">
-                        <div class="visible-sm visible-xs">
-                            <h4>
-                                <small>
-                                    <b>Posted by: </b>{!! $post->getOwner()->name !!}
-                                    <br>
-                                    <b>Posted at: </b>{!! $post->posted_at !!}
-                                    @if($post->created_at != $post->updated_at)
-                                        <br>
-                                        <b>Updated at: </b>{!! $post->updated_at !!}
-                                    @endif
-                                </small>
-                            </h4>
-                        </div>
-                        <div class="hidden-sm hidden-xs pull-right">
-                            <h4>
-                                <small>
-                                    <b>Posted by: </b>{!! $post->getOwner()->name !!}
-                                    <br>
-                                    <b>Posted at: </b>{!! $post->posted_at !!}
-                                    @if($post->created_at != $post->updated_at)
-                                        <br>
-                                        <b>Updated at: </b>{!! $post->updated_at !!}
-                                    @endif
-                                </small>
-                            </h4>
-                        </div>
+                        <A href= {{url('u/' .$post->getOwner()->username)}} >
+                            <img src="{{url($post->getOwner()->image->path)}}" style="max-width: 50px;  height: auto;"
+                                 alt="User Image">
+                            {{$post->getOwner()->name }}<br>
+                        </A>
+
+                        <br>
+                        <b>Posted at: </b>{!! $post->posted_at !!}
+                        @if($post->created_at != $post->updated_at)
+                            <br>
+                            <b>Updated at: </b>{!! $post->updated_at !!}
+                        @endif
+
+
                     </div>
                 </div>
             </div>
             <div class="panel-body">
                 {!! $post->getBody() !!}
+
             </div>
         </div>
 

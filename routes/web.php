@@ -79,6 +79,10 @@ Route::group(['middleware' => 'web'], function () {
 
 //these routes require the user to be logged in.
     Route::group(['middleware' => ['auth']], function () {
+
+        Route::get('u/{username}','\App\Http\Controllers\ScaffoldInterface\UserController@view');
+
+
 //auto3dprintercolor Routes
         Route::resource('auto3dprintercolor', '\App\Http\Controllers\Auto3dprintercolorController');
         Route::post('auto3dprintercolor/{id}/update', '\App\Http\Controllers\Auto3dprintercolorController@update');

@@ -26,7 +26,7 @@ class PostController extends Controller
     public function index()
     {
         $title = 'Index - post';
-        $posts = Post::paginate(6);
+        $posts = Post::orderBy('created_at', 'dec')->paginate(6);
         return view('post.index',compact('posts','title'));
     }
 
