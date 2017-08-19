@@ -119,7 +119,7 @@ class Group extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User','groups_users');
+        return $this->belongsToMany('App\User','groups_users')->withPivot('role');
     }
 
 
