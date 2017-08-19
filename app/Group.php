@@ -147,4 +147,11 @@ class Group extends Model
         }
         return $this->users()->attach($user,['role'=>'LEAD']);
     }
+
+    public function removeUser($user)
+    {
+        if ($this->users()->find($user)) {
+            $this->users()->detach($user);
+        }
+    }
 }
