@@ -124,17 +124,11 @@ class Group extends Model
 
     public function leads()
     {
-        return $this->belongsToMany('App\User')->wherePivot('role', '=','LEAD');
+        return $this->belongsToMany('App\User','groups_users')->wherePivot('role', '=','LEAD');
     }
 
     public function members()
     {
-        return $this->belongsToMany('App\User')->wherePivot('role', '=','MEMBER');
+        return $this->belongsToMany('App\User','groups_users')->wherePivot('role', '=','MEMBER');
     }
-
-
-
-
-
-
 }
