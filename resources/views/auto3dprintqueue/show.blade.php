@@ -13,7 +13,7 @@
                 @if($auto3dprintqueue->Status != "print" & $auto3dprintqueue->Status != "done")
 
                     <a data-toggle="modal" data-target="#myModal" class='viewShow btn btn-info'
-                       data-link='/auto3dprintqueue/{!!$auto3dprintqueue->id!!}?printnow=true'>Aprove</a>
+                       data-link='/auto3dprintqueue/{!!$auto3dprintqueue->id!!}?printnow=true'>Approve</a>
 
                 @endif
             </form>
