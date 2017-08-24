@@ -22,7 +22,7 @@
 
         <li class="treeview"><a href="{{url('/permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
 
-        <li class="treeview"><a href="{{url('/sitenavigation')}}"><i class="fa fa-key"></i> <span>Site Navigation</span></a></li>
+        <li class="treeview"><a href="{{url('/Sitenavigation')}}"><i class="fa fa-key"></i> <span>Site Navigation</span></a></li>
 
         <li class="treeview"><a href="{{url('/sitepage')}}"><i class="fa fa-key"></i> <span>Site Perminant Pages Manager</span></a></li>
 

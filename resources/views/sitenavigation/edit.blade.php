@@ -4,12 +4,12 @@
 
     <section class="content">
         <h1>
-            Edit sitenavigation
+            Edit Sitenavigation
         </h1>
 
         <br>
-        @if(isset($sitenavigation))
-            {!! Form::model($sitenavigation, ['action' => ['SitenavigationController@update', $sitenavigation->id]]) !!}
+        @if(isset($Sitenavigation))
+            {!! Form::model($Sitenavigation, ['action' => ['SitenavigationController@update', $Sitenavigation->id]]) !!}
         @else
             {!! Form::open(['action' => 'SitenavigationController@store']) !!}
         @endif

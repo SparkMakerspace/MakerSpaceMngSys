@@ -18,7 +18,7 @@ class Sitenavigations extends Migration
      */
     public function up()
     {
-        Schema::create('sitenavigations',function (Blueprint $table){
+        Schema::create('Sitenavigations',function (Blueprint $table){
 
         $table->increments('id');
         
@@ -73,6 +73,6 @@ class Sitenavigations extends Migration
      */
     public function down()
     {
-        Schema::drop('sitenavigations');
+        Schema::drop('Sitenavigations');
     }
 }

@@ -4,16 +4,16 @@
     </a>
 </li>
 
-@foreach(\App\sitenavigation::all() as $sitenavigation)
+@foreach(\App\Sitenavigation::all() as $Sitenavigation)
     <li class="treeview">
 
-            <a href="../../../../../../../{!!$sitenavigation->LinkURL!!}" title="{!!$sitenavigation->LinkDescription!!}">
-                @if ($sitenavigation->LinkImage != "" )
-                    <img src="{!!url($sitenavigation->LinkImage)!!}"  height="25" width="25">
+            <a href="../../../../../../../{!!$Sitenavigation->LinkURL!!}" title="{!!$Sitenavigation->LinkDescription!!}">
+                @if ($Sitenavigation->LinkImage != "" )
+                    <img src="{!!url($Sitenavigation->LinkImage)!!}"  height="25" width="25">
                 @else
                     <img src="{{url("Images/noImage.svg")}}"  height="25" width="25">
                 @endif
-                {!!$sitenavigation->LinkText!!}
+                {!!$Sitenavigation->LinkText!!}
             </a>
         </td>
     </li>
@@ -30,7 +30,7 @@
 
 <li class="treeview"><a href="{{url('/permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
 
-<li class="treeview"><a href="{{url('/sitenavigation')}}"><i class="fa fa-key"></i> <span>Site Navigation & Pages</span></a></li>
+<li class="treeview"><a href="{{url('/Sitenavigation')}}"><i class="fa fa-key"></i> <span>Site Navigation & Pages</span></a></li>
 
 
 

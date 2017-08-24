@@ -6,8 +6,8 @@
     <h1>
         Sitenavigation Index
     </h1>
-    <form class = 'col s3' method = 'get' action = '{!!url("sitenavigation")!!}/create'>
-        <button class = 'btn btn-primary' type = 'submit'>Create New sitenavigation</button>
+    <form class = 'col s3' method = 'get' action = '{!!url("Sitenavigation")!!}/create'>
+        <button class = 'btn btn-primary' type = 'submit'>Create New Sitenavigation</button>
     </form>
     <br>
     <br>
@@ -21,26 +21,26 @@
             <th>actions</th>
         </thead>
         <tbody>
-        @foreach(\App\sitenavigation::all() as $sitenavigation)
+        @foreach(\App\Sitenavigation::all() as $Sitenavigation)
             <tr>
                 <td>
-                    <a href="../../../../../../../{!!$sitenavigation->LinkURL!!}" title="{!!$sitenavigation->LinkDescription!!}">
-                        @if ($sitenavigation->LinkImage != "" )
-                            <img src="{!!$sitenavigation->LinkImage!!}"  height="42" width="42">
+                    <a href="../../../../../../../{!!$Sitenavigation->LinkURL!!}" title="{!!$Sitenavigation->LinkDescription!!}">
+                        @if ($Sitenavigation->LinkImage != "" )
+                            <img src="{!!$Sitenavigation->LinkImage!!}"  height="42" width="42">
                         @else
                             <img src="../../../Images/noImage.svg"  height="42" width="42">
                         @endif
-                        {!!$sitenavigation->LinkText!!}
+                        {!!$Sitenavigation->LinkText!!}
                     </a>
                 </td>
-                <td>{!!$sitenavigation->LinkImage!!}</td>
-                <td>{!!$sitenavigation->LinkLoginReqd!!}</td>
-                <td>{!!$sitenavigation->LinkURL!!}</td>
-                <td>{!!$sitenavigation->LinkDescription!!}</td>
+                <td>{!!$Sitenavigation->LinkImage!!}</td>
+                <td>{!!$Sitenavigation->LinkLoginReqd!!}</td>
+                <td>{!!$Sitenavigation->LinkURL!!}</td>
+                <td>{!!$Sitenavigation->LinkDescription!!}</td>
                 <td>
-                    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/sitenavigation/{!!$sitenavigation->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
-                    <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/sitenavigation/{!!$sitenavigation->id!!}/edit'><i class = 'material-icons'>edit</i></a>
-                    <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/sitenavigation/{!!$sitenavigation->id!!}'><i class = 'material-icons'>info</i></a>
+                    <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/Sitenavigation/{!!$Sitenavigation->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
+                    <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/Sitenavigation/{!!$Sitenavigation->id!!}/edit'><i class = 'material-icons'>edit</i></a>
+                    <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/Sitenavigation/{!!$Sitenavigation->id!!}'><i class = 'material-icons'>info</i></a>
                 </td>
             </tr>
             @endforeach 
