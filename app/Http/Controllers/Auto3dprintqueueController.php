@@ -462,11 +462,11 @@ function SliceModel($id)
 
     if (env('APP_PLATFORM') == 'LINUX') {
         $path = "3dPrintFiles/" . $auto3dprintqueue->id . ".stl";
-        $outputb = shell_exec("/usr/bin/openscad ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".scad -o ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".png");
+        $outputb = exec("/usr/bin/openscad ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".scad -o ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".png");
 
-        $outputc = shell_exec("/usr/bin/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../slic3r/test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
+        $outputc = exec("/usr/bin/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../slic3r/test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
 
-        $output = shell_exec("../Slic3r/mac/slic3r/MacOS/slic3r ../storage/app/" . $path . " --info --load \"../slic3r/test.ini\"   --fill-density " . $auto3dprintqueue->Infill . $gensupport. "  --print-center 0,0 2>&1");
+        $output = exec("/usr/bin/slic3r ../storage/app/" . $path . " --info --load \"../slic3r/test.ini\"   --fill-density " . $auto3dprintqueue->Infill . $gensupport. "  --print-center 0,0 2>&1");
         Storage::disk('local')->put("3dPrintFiles\/" . $auto3dprintqueue->id . ".log", $output);
 
 
