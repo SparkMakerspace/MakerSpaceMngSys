@@ -1,25 +1,25 @@
 @extends('scaffold-interface.layouts.app')
-@section('title',$sitenavigation->PageTitle)
+@section('title',$Sitenavigation->PageTitle)
 @section('head')
 
     <script>
-        {!!$sitenavigation->PageJavaScript!!}
+        {!!$Sitenavigation->PageJavaScript!!}
     </script>
 
 
     <style>
-        {!!$sitenavigation->PageCSS!!}
+        {!!$Sitenavigation->PageCSS!!}
     </style>
-    <meta name="keywords" content="{!!$sitenavigation->PageKeywords!!}">
+    <meta name="keywords" content="{!!$Sitenavigation->PageKeywords!!}">
 @endsection
 
 
 
 @section('content')
 
-    Published on {!!$sitenavigation->PagePublishDate!!}
+    Published on {!!$Sitenavigation->PagePublishDate!!}
     <div>
-        {!!$sitenavigation->PageContent!!}
+        {!!$Sitenavigation->PageContent!!}
     </div>
 
 

@@ -38,7 +38,7 @@ class Sitenavigation extends Model
 	protected $dates = ['deleted_at'];
     
 	
-    protected $table = 'sitenavigations';
+    protected $table = 'Sitenavigations';
 
 	
 }

@@ -406,6 +406,8 @@ function execInBackground($cmd)
 
 function sendEmailReminder($id)
 {
+    //add toggle for email on/off here
+    return;
 
     $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
     $user = User::findOrFail($auto3dprintqueue->user->id);
@@ -422,7 +424,7 @@ function sendEmailReminder($id)
 function SliceModel($id)
 {
     $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
-    $path = "3dPrintFiles\\" . $auto3dprintqueue->id . ".stl";
+
 
     $gensupport = "";
     if ($auto3dprintqueue->genenerateSupport == 1)
@@ -433,7 +435,7 @@ function SliceModel($id)
 
 
     if (env('APP_PLATFORM') == 'WIN') {
-
+        $path = "3dPrintFiles\\" . $auto3dprintqueue->id . ".stl";
         $outputb = shell_exec("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".scad -o ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".png");
 
         $outputc = shell_exec("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id  . ".stl --load \"..\\slic3r\\test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
@@ -446,11 +448,28 @@ function SliceModel($id)
     }
 
     if (env('APP_PLATFORM') == 'MAC') {
-
+        $path = "3dPrintFiles/" . $auto3dprintqueue->id . ".stl";
         $outputb = shell_exec("../Slic3r/mac/openscad/MacOS/OpenSCAD ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".scad -o ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".png");
 
+        $outputc = shell_exec("../Slic3r/mac/slic3r/MacOS/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../slic3r/test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
 
-        $output = shell_exec("../Slic3r/mac/slic3r/MacOS/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../slic3r/test.ini\" --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
+        $output = shell_exec("../Slic3r/mac/slic3r/MacOS/slic3r ../storage/app/" . $path . " --info --load \"../slic3r/test.ini\"   --fill-density " . $auto3dprintqueue->Infill . $gensupport. "  --print-center 0,0 2>&1");
+        Storage::disk('local')->put("3dPrintFiles\/" . $auto3dprintqueue->id . ".log", $output);
+
+
+
+    }
+
+    if (env('APP_PLATFORM') == 'LINUX') {
+        $path = "3dPrintFiles/" . $auto3dprintqueue->id . ".stl";
+        $outputb = exec("/usr/bin/openscad ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".scad -o ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".png");
+
+        $outputc = exec("/usr/bin/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../Slic3r/test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
+        $output = exec("/usr/bin/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../Slic3r/test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0 2>&1");
+
+        //$output = exec("/usr/bin/slic3r ../storage/app/" . $path . " --info --load \"../Slic3r/test.ini\"   --fill-density " . $auto3dprintqueue->Infill . $gensupport. "  --print-center 0,0 2>&1");
+        Storage::disk('local')->put("3dPrintFiles\/" . $auto3dprintqueue->id . ".log", $output);
+
 
 
     }

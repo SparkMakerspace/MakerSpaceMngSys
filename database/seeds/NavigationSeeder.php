@@ -11,7 +11,7 @@ class NavigationSeeder extends Seeder
      */
     public function run()
     {
-        \App\sitenavigation::create([
+        \App\Sitenavigation::create([
             'LinkText'=>'Groups',
             'LinkImage'=>'',
             'LinkLoginReqd'=>'',
@@ -19,7 +19,7 @@ class NavigationSeeder extends Seeder
             'LinkDescription'=>'Groups',
         ]);
 
-        \App\sitenavigation::create([
+        \App\Sitenavigation::create([
             'LinkText'=>'Posts',
             'LinkImage'=>'',
             'LinkLoginReqd'=>'',
@@ -27,7 +27,7 @@ class NavigationSeeder extends Seeder
             'LinkDescription'=>'A place for Posts',
         ]);
 
-        \App\sitenavigation::create([
+        \App\Sitenavigation::create([
             'LinkText'=>'Resources',
             'LinkImage'=>'',
             'LinkLoginReqd'=>'',
@@ -35,7 +35,7 @@ class NavigationSeeder extends Seeder
             'LinkDescription'=>'A list of resources available at spark',
         ]);
 
-        \App\sitenavigation::create([
+        \App\Sitenavigation::create([
             'LinkText'=>'Calendar',
             'LinkImage'=>'',
             'LinkLoginReqd'=>'',
@@ -43,7 +43,7 @@ class NavigationSeeder extends Seeder
             'LinkDescription'=>'calendar for events and stuff',
         ]);
 
-        \App\sitenavigation::create([
+        \App\Sitenavigation::create([
             'LinkText'=>'Comments',
             'LinkImage'=>'',
             'LinkLoginReqd'=>'',
@@ -51,7 +51,7 @@ class NavigationSeeder extends Seeder
             'LinkDescription'=>'Groups',
         ]);
 
-        \App\sitenavigation::create([
+        \App\Sitenavigation::create([
             'LinkText'=>'Doors',
             'LinkImage'=>'',
             'LinkLoginReqd'=>'',
@@ -59,7 +59,7 @@ class NavigationSeeder extends Seeder
             'LinkDescription'=>'Doors for access control',
         ]);
 
-        \App\sitenavigation::create([
+        \App\Sitenavigation::create([
             'LinkText'=>'Images',
             'LinkImage'=>'',
             'LinkLoginReqd'=>'',
@@ -67,14 +67,14 @@ class NavigationSeeder extends Seeder
             'LinkDescription'=>'An image index',
         ]);
 
-        \App\sitenavigation::create([
+        \App\Sitenavigation::create([
             'LinkText'=>'3D Printer Queue ',
             'LinkImage'=>'',
             'LinkLoginReqd'=>'',
             'LinkURL'=>'auto3dprintqueue',
             'LinkDescription'=>'Best part of the site',
         ]);
-        \App\sitenavigation::create([
+        \App\Sitenavigation::create([
             'LinkText'=>'test',
             'LinkImage'=>'',
             'LinkLoginReqd'=>'',
