@@ -438,10 +438,10 @@ function SliceModel($id)
         $path = "3dPrintFiles\\" . $auto3dprintqueue->id . ".stl";
         $outputb = shell_exec("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".scad -o ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".png");
 
-        $outputc = shell_exec("start ..\\slic3r\\slic3r-console.exe ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id  . ".stl --load \"..\\slic3r\\test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
+        $outputc = shell_exec("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id  . ".stl        --load \"..\\slic3r\\test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
 
 
-        $output = shell_exec("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\" . $path . " --info --load \"..\\slic3r\\test.ini\"   --fill-density " . $auto3dprintqueue->Infill . $gensupport. "  --print-center 0,0 2>&1");
+        $output =  shell_exec("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id  . ".stl --info --load \"..\\slic3r\\test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
         Storage::disk('local')->put("3dPrintFiles\\" . $auto3dprintqueue->id . ".log", $output);
 
 
@@ -488,5 +488,11 @@ function SliceModel($id)
     $auto3dprintqueue1->SizeZ = intval(str_after($pieces[21], "Z="));
 
 
+    $pieces = trim (array_filter(explode(":", $outputc))[1]);
+    $pieces = str_replace("mm", "",  $pieces);
+    $pieces = trim (array_filter(explode(" ", $pieces))[0]);
+
+    $auto3dprintqueue1->filament_used= intval($pieces);
     $auto3dprintqueue1->save();
+
 }

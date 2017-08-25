@@ -164,6 +164,14 @@
                         </td>
                         <td>{!!$auto3dprintqueue->SizeZ!!}</td>
                     </tr>
+                    <tr>
+                        <td>
+                            <b><i>Qty of Filament (mm): </i></b>
+                        </td>
+                        <td>{!!$auto3dprintqueue->filament_used!!}</td>
+                    </tr>
+
+
 
                     </tbody>
                 </table>
