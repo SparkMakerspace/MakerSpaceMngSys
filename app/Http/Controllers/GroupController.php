@@ -121,6 +121,20 @@ class GroupController extends Controller
         return view('group.edit',compact('title','group'  ));
     }
 
+    public function join($stub,Request $request)
+    {
+        $group = Group::whereStub($stub)->first();
+        $group -> assignMember(\Auth::user()->id);
+        return URL::to('g/'. $stub );
+    }
+
+
+    public function leave($stub,Request $request)
+    {
+        $group = Group::whereStub($stub)->first();
+        $group -> removeUser(\Auth::user()->id);
+        return URL::to('g/'. $stub );
+    }
     /**
      * Update the specified resource in storage.
      *

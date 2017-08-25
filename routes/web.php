@@ -38,6 +38,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('g/{id}/update', '\App\Http\Controllers\GroupController@update');
     Route::get('g/{id}/delete', '\App\Http\Controllers\GroupController@destroy');
     Route::get('g/{id}/deleteMsg', '\App\Http\Controllers\GroupController@DeleteMsg');
+    Route::get('g/{stub}/join', '\App\Http\Controllers\GroupController@join');
+    Route::get('g/{stub}/leave', '\App\Http\Controllers\GroupController@leave');
 
 //door Routes
     Route::resource('door', '\App\Http\Controllers\DoorController');

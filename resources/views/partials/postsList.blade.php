@@ -1,17 +1,17 @@
 <div class="box">
-    @if(Auth::user())
+    @if(Auth::user() != null)
 
         <div class="box-header with-border">
             <h3 class="box-title">
                 Posts
             </h3>
         </div>
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#PostWindow">
             Create A New Post
         </button>
 
         <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="PostWindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
 
@@ -38,21 +38,29 @@
                             {{$post->getOwner()->name}}
                         <br>
                         {!!$post->posted_at!!}
-                        @if(Auth::user())
-                            <br>
-                            <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger btn-xs'
-                               data-link="/post/{!!$post->id!!}/deleteMsg">
+                        @if( Auth::user())
+                            @if(Auth::user()->hasRole(["superadmin","admin"]) ||
+                            ($post->getOwner()->id == Auth::user()->id ) ||
+                            (isset($group) && $group->islead(Auth::user()))
+                            )
+
+
+                                <br>
+                                <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger btn-xs'
+                                   data-link="/post/{!!$post->id!!}/deleteMsg">
                                 <iclass='material-icons'>delete</i>
                             </a>
-                            <a href='#' class='viewEdit btn btn-primary btn-xs'
-                               data-link='/post/{!!$post->id!!}/edit'>
+                                <a href='#' class='viewEdit btn btn-primary btn-xs'
+                                   data-link='/post/{!!$post->id!!}/edit'>
                                 <i class='material-icons'>edit</i>
                             </a>
-                            <a href='#' class='viewShow btn btn-warning btn-xs' data-link='/post/{!!$post->id!!}'>
+                                <a href='#' class='viewShow btn btn-warning btn-xs' data-link='/post/{!!$post->id!!}'>
                                 <i class='material-icons'>info</i>
                             </a>
+                            @endif
+
                         @endif
-                            </span>
+                    </span>
                     <div class="product-info" style="margin-left: 0px">
                         <h3>{{$post->title}}</h3>
                     </div>
