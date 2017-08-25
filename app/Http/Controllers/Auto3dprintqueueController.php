@@ -465,8 +465,9 @@ function SliceModel($id)
         $outputb = exec("/usr/bin/openscad ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".scad -o ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".png");
 
         $outputc = exec("/usr/bin/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../Slic3r/test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
+        $output = exec("/usr/bin/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../Slic3r/test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0 2>&1");
 
-        $output = exec("/usr/bin/slic3r ../storage/app/" . $path . " --info --load \"../Slic3r/test.ini\"   --fill-density " . $auto3dprintqueue->Infill . $gensupport. "  --print-center 0,0 2>&1");
+        //$output = exec("/usr/bin/slic3r ../storage/app/" . $path . " --info --load \"../Slic3r/test.ini\"   --fill-density " . $auto3dprintqueue->Infill . $gensupport. "  --print-center 0,0 2>&1");
         Storage::disk('local')->put("3dPrintFiles\/" . $auto3dprintqueue->id . ".log", $output);
 
 
