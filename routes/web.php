@@ -85,11 +85,11 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('u/{username}','\App\Http\Controllers\ScaffoldInterface\UserController@view');
 
 
-//auto3dprintercolor Routes
-        Route::resource('auto3dprintercolor', '\App\Http\Controllers\Auto3dprintercolorController');
-        Route::post('auto3dprintercolor/{id}/update', '\App\Http\Controllers\Auto3dprintercolorController@update');
-        Route::get('auto3dprintercolor/{id}/delete', '\App\Http\Controllers\Auto3dprintercolorController@destroy');
-        Route::get('auto3dprintercolor/{id}/deleteMsg', '\App\Http\Controllers\Auto3dprintercolorController@DeleteMsg');
+////auto3dprintercolor Routes
+//        Route::resource('auto3dprintercolor', '\App\Http\Controllers\Auto3dprintercolorController');
+//        Route::post('auto3dprintercolor/{id}/update', '\App\Http\Controllers\Auto3dprintercolorController@update');
+//        Route::get('auto3dprintercolor/{id}/delete', '\App\Http\Controllers\Auto3dprintercolorController@destroy');
+//        Route::get('auto3dprintercolor/{id}/deleteMsg', '\App\Http\Controllers\Auto3dprintercolorController@DeleteMsg');
 
 //auto3dprintmaterial Routes
         Route::resource('auto3dprintmaterial', '\App\Http\Controllers\Auto3dprintmaterialController');
@@ -150,16 +150,14 @@ Route::group(['middleware' => 'web'], function () {
 
 });
 Route::get('{mystub}', '\App\Http\Controllers\SitenavigationController@showp');
-//class_template Routes
-Route::group(['middleware' => 'web'], function () {
-    Route::resource('class_template', '\App\Http\Controllers\Class_templateController');
-    Route::post('class_template/{id}/update', '\App\Http\Controllers\Class_templateController@update');
-    Route::get('class_template/{id}/delete', '\App\Http\Controllers\Class_templateController@destroy');
-    Route::get('class_template/{id}/deleteMsg', '\App\Http\Controllers\Class_templateController@DeleteMsg');
-});
+////class_template Routes
+//Route::group(['middleware' => 'web'], function () {
+//    Route::resource('class_template', '\App\Http\Controllers\Class_templateController');
+//    Route::post('class_template/{id}/update', '\App\Http\Controllers\Class_templateController@update');
+//    Route::get('class_template/{id}/delete', '\App\Http\Controllers\Class_templateController@destroy');
+//    Route::get('class_template/{id}/deleteMsg', '\App\Http\Controllers\Class_templateController@DeleteMsg');
+//});
 
 
 Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
 Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
-Route::group(['middleware'=> 'web'],function(){
-});
