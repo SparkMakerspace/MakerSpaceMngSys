@@ -64,7 +64,7 @@
                                             class='material-icons'>delete</i></a>
                                 <a data-toggle="modal" data-target="#myModal" class='viewShow btn btn-warning btn-xs'
                                    data-link='/auto3dprintqueue/{!!$auto3dprintqueue->id!!}?printnow=true'><i
-                                            class='material-icons'>Aprove</i></a>
+                                            class='material-icons'>Approve</i></a>
                                 </div>
                             </td>
                         </tr>

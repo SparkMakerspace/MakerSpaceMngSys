@@ -132,6 +132,27 @@ class Group extends Model
         return $this->belongsToMany('App\User','groups_users')->withPivot('role');
     }
 
+
+    public function ismember($user)
+    {
+        if ($this->users()->find($user)) {
+            return TRUE;
+        }
+        return false;
+    }
+
+    public function islead($user)
+    {
+
+
+
+        if ($this->leads->find($user) !=null)
+        {
+            return TRUE;
+        }
+        return false;
+    }
+
     public function assignMember($user)
     {
         if ($this->users()->find($user)) {

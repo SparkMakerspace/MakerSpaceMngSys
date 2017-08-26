@@ -38,6 +38,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('g/{id}/update', '\App\Http\Controllers\GroupController@update');
     Route::get('g/{id}/delete', '\App\Http\Controllers\GroupController@destroy');
     Route::get('g/{id}/deleteMsg', '\App\Http\Controllers\GroupController@DeleteMsg');
+    Route::get('g/{stub}/join', '\App\Http\Controllers\GroupController@join');
+    Route::get('g/{stub}/leave', '\App\Http\Controllers\GroupController@leave');
 
 //door Routes
     Route::resource('door', '\App\Http\Controllers\DoorController');
@@ -117,12 +119,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('pclogin', '\App\Http\Controllers\PCAuthController@loginRequest');
 
 
-//sitenavigation Routes
+//Sitenavigation Routes
     Route::group(['middleware' => 'web'], function () {
-        Route::resource('sitenavigation', '\App\Http\Controllers\SitenavigationController');
-        Route::post('sitenavigation/{id}/update', '\App\Http\Controllers\SitenavigationController@update');
-        Route::get('sitenavigation/{id}/delete', '\App\Http\Controllers\SitenavigationController@destroy');
-        Route::get('sitenavigation/{id}/deleteMsg', '\App\Http\Controllers\SitenavigationController@DeleteMsg');
+        Route::resource('Sitenavigation', '\App\Http\Controllers\SitenavigationController');
+        Route::post('Sitenavigation/{id}/update', '\App\Http\Controllers\SitenavigationController@update');
+        Route::get('Sitenavigation/{id}/delete', '\App\Http\Controllers\SitenavigationController@destroy');
+        Route::get('Sitenavigation/{id}/deleteMsg', '\App\Http\Controllers\SitenavigationController@DeleteMsg');
     });
 
 

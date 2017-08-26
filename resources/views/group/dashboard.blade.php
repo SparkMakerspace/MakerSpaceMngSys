@@ -20,10 +20,26 @@
                                      alt="{!! $group->name !!}">
                             @endif
                         </div>
+
+
                         <div class="col-sm-10 row">
                             <div class="col-md-8">
                                 <h1>
                                     {{$group->name}}
+                                    @if(Auth::user())
+                                        @IF(!$group->ismember(\Auth::user()->id) )
+                                            <a href='#' class='viewShow btn btn-warning'
+                                               data-link='/g/{!!$group->stub!!}/join'><i
+                                                        class='material-icons'><span class="glyphicon glyphicon-plus"
+                                                                                     aria-hidden="true"></span>Join</i></a>
+                                        @ELSE
+                                            <a href='#' class='viewShow btn btn-warning'
+                                               data-link='/g/{!!$group->stub!!}/leave'><i
+                                                        class='material-icons'><span class="glyphicon glyphicon-minus"
+                                                                                     aria-hidden="true"></span>Leave
+                                                    Group</i></a>
+                                        @ENDIF
+                                    @endif
                                 </h1>
                                 <p>
                                     {!!nl2br($group->about)!!}
@@ -34,17 +50,18 @@
                                     Contact Info
                                 </h4>
                                 <img>
-                                    @foreach($group->leads as $groupUser)
-                                        <br>
+                                @foreach($group->leads as $groupUser)
+                                    <br>
 
-                                            <A href = {{$groupUser->UserUrl()}} >
-                                            <img src="{{url($groupUser->image->path)}}" style="max-width: 50px;  height: auto;" alt="User Image">
-                                            {{$groupUser->name }} {{$groupUser->LeadPhone}} <br>
-                                            </A>
+                                    <A href= {{$groupUser->UserUrl()}} >
+                                        <img src="{{url($groupUser->image->path)}}"
+                                             style="max-width: 50px;  height: auto;" alt="User Image">
+                                        {{$groupUser->name }} {{$groupUser->LeadPhone}} <br>
+                                    </A>
 
-                                    @endforeach
+                                @endforeach
 
-                                </p>
+
                             </div>
                         </div>
                     </div>
@@ -66,23 +83,22 @@
         </div>
         <div class="col-md-6">
 
-                <!-- Posts Box -->
-                @include("partials.postsList")
+            <!-- Posts Box -->
+            @include("partials.postsList")
 
 
-
-    </div>
-
+        </div>
 
 
-@endsection
+        @endsection
 
-@section('adminBar')
-    @hasanyrole(['superadmin','admin'])
-    <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger btn-xs'
-       data-link="/g/{!!$group->id!!}/deleteMsg"><i class='material-icons'>delete</i></a>
-    <a href='#' class='viewEdit btn btn-primary btn-xs' data-link='/g/{!!$group->id!!}/edit'><i class='material-icons'>edit</i></a>
-    <a href='#' class='viewShow btn btn-warning btn-xs' data-link='/g/{!!$group->stub!!}'><i
-                class='material-icons'>info</i></a>
-    @endhasanyrole
+        @section('adminBar')
+            @hasanyrole(['superadmin','admin'])
+            <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger btn-xs'
+               data-link="/g/{!!$group->id!!}/deleteMsg"><i class='material-icons'>delete</i></a>
+            <a href='#' class='viewEdit btn btn-primary btn-xs' data-link='/g/{!!$group->id!!}/edit'><i
+                        class='material-icons'>edit</i></a>
+            <a href='#' class='viewShow btn btn-warning btn-xs' data-link='/g/{!!$group->stub!!}'><i
+                        class='material-icons'>info</i></a>
+            @endhasanyrole
 @endsection

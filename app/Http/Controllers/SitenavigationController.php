@@ -24,9 +24,9 @@ class SitenavigationController extends Controller
      */
     public function index()
     {
-        $title = 'Index - sitenavigation';
-        //return view('sitenavigation.index',compact('sitenavigations','title'));
-        return view('sitenavigation.index',compact('title'));
+        $title = 'Index - Sitenavigation';
+        //return view('Sitenavigation.index',compact('Sitenavigations','title'));
+        return view('Sitenavigation.index',compact('title'));
     }
 
     /**
@@ -36,9 +36,9 @@ class SitenavigationController extends Controller
      */
     public function create()
     {
-        $title = 'Create - sitenavigation';
+        $title = 'Create - Sitenavigation';
 
-        return view('sitenavigation.edit');
+        return view('Sitenavigation.edit');
     }
 
     /**
@@ -49,48 +49,48 @@ class SitenavigationController extends Controller
      */
     public function store(Request $request)
     {
-        $sitenavigation = new Sitenavigation();
+        $Sitenavigation = new Sitenavigation();
 
 
-        $sitenavigation->LinkText = $request->LinkText;
+        $Sitenavigation->LinkText = $request->LinkText;
 
 
-        $sitenavigation->LinkImage = $request->LinkImage;
+        $Sitenavigation->LinkImage = $request->LinkImage;
 
 
-        $sitenavigation->LinkLoginReqd = $request->LinkLoginReqd;
+        $Sitenavigation->LinkLoginReqd = $request->LinkLoginReqd;
 
 
-        $sitenavigation->LinkURL = $request->LinkURL;
+        $Sitenavigation->LinkURL = $request->LinkURL;
 
 
-        $sitenavigation->LinkDescription = $request->LinkDescription;
-
-
-
-        $sitenavigation->PageTitle = $request->PageTitle;
-
-
-        $sitenavigation->PageContent = $request->PageContent;
-
-
-        $sitenavigation->PagePublishDate = $request->PagePublishDate;
-
-
-        $sitenavigation->PageStub = $request->PageStub;
-
-
-        $sitenavigation->PageCSS = $request->PageCSS;
-
-
-        $sitenavigation->PageJavaScript = $request->PageJavaScript;
-
-
-        $sitenavigation->PageKeywords = $request->PageKeywords;
+        $Sitenavigation->LinkDescription = $request->LinkDescription;
 
 
 
-        $sitenavigation->save();
+        $Sitenavigation->PageTitle = $request->PageTitle;
+
+
+        $Sitenavigation->PageContent = $request->PageContent;
+
+
+        $Sitenavigation->PagePublishDate = $request->PagePublishDate;
+
+
+        $Sitenavigation->PageStub = $request->PageStub;
+
+
+        $Sitenavigation->PageCSS = $request->PageCSS;
+
+
+        $Sitenavigation->PageJavaScript = $request->PageJavaScript;
+
+
+        $Sitenavigation->PageKeywords = $request->PageKeywords;
+
+
+
+        $Sitenavigation->save();
 
         $pusher = App::make('pusher');
 
@@ -100,9 +100,9 @@ class SitenavigationController extends Controller
         //you can modify anything you want or use it wherever.
         $pusher->trigger('test-channel',
             'test-event',
-            ['message' => 'A new sitenavigation has been created !!']);
+            ['message' => 'A new Sitenavigation has been created !!']);
 
-        return redirect('sitenavigation');
+        return redirect('Sitenavigation');
     }
 
     /**
@@ -114,15 +114,15 @@ class SitenavigationController extends Controller
      */
     public function show($id,Request $request)
     {
-        $title = 'Show - sitenavigation';
+        $title = 'Show - Sitenavigation';
 
         if($request->ajax())
         {
-            return URL::to('sitenavigation/'.$id);
+            return URL::to('Sitenavigation/'.$id);
         }
 
-        $sitenavigation = Sitenavigation::findOrfail($id);
-        return view('sitenavigation.show',compact('title','sitenavigation'));
+        $Sitenavigation = Sitenavigation::findOrfail($id);
+        return view('Sitenavigation.show',compact('title','Sitenavigation'));
     }
 
 
@@ -130,10 +130,10 @@ class SitenavigationController extends Controller
     public function showp( $mystub = "",Request $request)
     {
         $title = 'Show - sitepage';
-        $sitenavigation = Sitenavigation::where('LinkURL' ,$mystub)->first();
+        $Sitenavigation = Sitenavigation::where('LinkURL' ,$mystub)->first();
 
 
-        return view('sitenavigation.show',compact('title','sitenavigation'));
+        return view('Sitenavigation.show',compact('title','Sitenavigation'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -143,15 +143,15 @@ class SitenavigationController extends Controller
      */
     public function edit($id,Request $request)
     {
-        $title = 'Edit - sitenavigation';
+        $title = 'Edit - Sitenavigation';
         if($request->ajax())
         {
-            return URL::to('sitenavigation/'. $id . '/edit');
+            return URL::to('Sitenavigation/'. $id . '/edit');
         }
 
 
-        $sitenavigation = Sitenavigation::findOrfail($id);
-        return view('sitenavigation.edit',compact('title','sitenavigation'  ));
+        $Sitenavigation = Sitenavigation::findOrfail($id);
+        return view('Sitenavigation.edit',compact('title','Sitenavigation'  ));
     }
 
     /**
@@ -163,45 +163,45 @@ class SitenavigationController extends Controller
      */
     public function update($id,Request $request)
     {
-        $sitenavigation = Sitenavigation::findOrfail($id);
+        $Sitenavigation = Sitenavigation::findOrfail($id);
 
-        $sitenavigation->LinkText = $request->LinkText;
+        $Sitenavigation->LinkText = $request->LinkText;
 
-        $sitenavigation->LinkImage = $request->LinkImage;
+        $Sitenavigation->LinkImage = $request->LinkImage;
 
-        $sitenavigation->LinkLoginReqd = $request->LinkLoginReqd;
+        $Sitenavigation->LinkLoginReqd = $request->LinkLoginReqd;
 
-        $sitenavigation->LinkURL = $request->LinkURL;
+        $Sitenavigation->LinkURL = $request->LinkURL;
 
-        $sitenavigation->LinkDescription = $request->LinkDescription;
-
-
-        $sitenavigation->PageTitle = $request->PageTitle;
+        $Sitenavigation->LinkDescription = $request->LinkDescription;
 
 
-        $sitenavigation->PageContent = $request->PageContent;
+        $Sitenavigation->PageTitle = $request->PageTitle;
 
 
-        $sitenavigation->PagePublishDate = $request->PagePublishDate;
+        $Sitenavigation->PageContent = $request->PageContent;
 
 
-        $sitenavigation->PageStub = $request->PageStub;
+        $Sitenavigation->PagePublishDate = $request->PagePublishDate;
 
 
-        $sitenavigation->PageCSS = $request->PageCSS;
+        $Sitenavigation->PageStub = $request->PageStub;
 
 
-        $sitenavigation->PageJavaScript = $request->PageJavaScript;
+        $Sitenavigation->PageCSS = $request->PageCSS;
 
 
-        $sitenavigation->PageKeywords = $request->PageKeywords;
+        $Sitenavigation->PageJavaScript = $request->PageJavaScript;
+
+
+        $Sitenavigation->PageKeywords = $request->PageKeywords;
 
 
 
 
-        $sitenavigation->save();
+        $Sitenavigation->save();
 
-        return redirect('sitenavigation');
+        return redirect('Sitenavigation');
     }
 
     /**
@@ -213,7 +213,7 @@ class SitenavigationController extends Controller
      */
     public function DeleteMsg($id,Request $request)
     {
-        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/sitenavigation/'. $id . '/delete');
+        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/Sitenavigation/'. $id . '/delete');
 
         if($request->ajax())
         {
@@ -229,8 +229,8 @@ class SitenavigationController extends Controller
      */
     public function destroy($id)
     {
-        $sitenavigation = Sitenavigation::findOrfail($id);
-        $sitenavigation->delete();
-        return URL::to('sitenavigation');
+        $Sitenavigation = Sitenavigation::findOrfail($id);
+        $Sitenavigation->delete();
+        return URL::to('Sitenavigation');
     }
 }

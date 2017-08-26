@@ -4,13 +4,13 @@
 
 <section class="content">
     <h1>
-        Create sitenavigation
+        Create Sitenavigation
     </h1>
-    <form method = 'get' action = '{!!url("sitenavigation")!!}'>
-        <button class = 'btn btn-danger'>sitenavigation Index</button>
+    <form method = 'get' action = '{!!url("Sitenavigation")!!}'>
+        <button class = 'btn btn-danger'>Sitenavigation Index</button>
     </form>
     <br>
-    <form method = 'POST' action = '{!!url("sitenavigation")!!}'>
+    <form method = 'POST' action = '{!!url("Sitenavigation")!!}'>
         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
         <div class="form-group">
             <label for="LinkText">LinkText</label>
