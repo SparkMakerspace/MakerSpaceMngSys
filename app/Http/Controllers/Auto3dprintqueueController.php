@@ -17,6 +17,8 @@ use App\Auto3dprintmaterial;
 use Storage;
 use App\User;
 use Mail;
+use Jenssegers\Agent\Agent;
+
 
 
 /**
@@ -161,7 +163,7 @@ class Auto3dprintqueueController extends Controller
     public function show($id, Request $request)
     {
         $title = 'Show - auto3dprintqueue';
-
+        $agent = new Agent();
 
 
         $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
@@ -183,7 +185,7 @@ class Auto3dprintqueueController extends Controller
         }
 
 
-        return view('auto3dprintqueue.show', compact('title', 'auto3dprintqueue', 'auto3dprintmaterials'));
+        return view('auto3dprintqueue.show', compact('title', 'auto3dprintqueue', 'auto3dprintmaterials', 'agent'));
     }
 
 

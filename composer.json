@@ -17,7 +17,8 @@
         "stripe/stripe-php": "^4.4",
         "cognitus/richfilemanager": "1.0.*",
         "faustbrian/laravel-social-share": "^2.0",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "jenssegers/agent": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

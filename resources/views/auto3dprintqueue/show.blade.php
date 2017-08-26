@@ -23,7 +23,8 @@
                 </h1>
                 <br>
 
-                <img src="../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/thumb.png" width="20%" height="20%" ></img>
+                <img src="../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/thumb.png" width="20%"
+                     height="20%"></img>
                 <br>
 
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#SlicerSettings">
@@ -172,15 +173,23 @@
                     </tr>
 
 
-
                     </tbody>
                 </table>
             </section>
         </div>
 
-        <iframe src="../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/viewer" height="500px"
-                class="col-md-6"></iframe>
 
+        @if($agent->isDesktop())
+            <iframe src="../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/viewer" height="500px"
+                    class="col-md-6"></iframe>
+        @else
+            <div class="row" style="padding: 50px">
+                <div class="col-md-6">
+            <a class='btn btn-primary'
+               href='../../../../auto3dprintqueue/{{$auto3dprintqueue->id}}/viewer'>Show Print Preview</a>
+            </div>
+            </div>
+        @endif
 
     </div>
 
