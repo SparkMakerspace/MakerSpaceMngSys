@@ -10,7 +10,12 @@
                 <button class='btn btn-primary'>auto3dprintqueue Index</button>
                 <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger'
                    data-link="/auto3dprintqueue/{!!$auto3dprintqueue->id!!}/deleteMsg">delete</a>
-                @if($auto3dprintqueue->Status != "print" & $auto3dprintqueue->Status != "done")
+
+                <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger'
+                   data-link="/auto3dprintqueue/{!!$auto3dprintqueue->id!!}/printagainmsg">Print Again</a>
+
+
+                @if($auto3dprintqueue->Status != "print" && $auto3dprintqueue->Status != "done")
 
                     <a data-toggle="modal" data-target="#myModal" class='viewShow btn btn-info'
                        data-link='/auto3dprintqueue/{!!$auto3dprintqueue->id!!}?printnow=true'>Approve</a>

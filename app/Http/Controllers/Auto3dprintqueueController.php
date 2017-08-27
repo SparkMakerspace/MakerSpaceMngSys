@@ -436,9 +436,9 @@ function SliceModel($id)
 
 
     if (env('APP_PLATFORM') == 'WIN') {
-        $slicerPath       = '..\\storage\\app\\3dPrintFiles\\';
+        $slicerPath       = '..\\slic3r\\slic3r-console.exe';
         $openScadPath     = '..\\slic3r\\openscad\\openscad.com';
-        $storagePath      = '..\\slic3r\\slic3r-console.exe';
+        $storagePath      = '..\\storage\\app\\3dPrintFiles\\';
         $SlicerConfigPath = '..\\slic3r\\test.ini';
     }
 
@@ -467,9 +467,8 @@ function SliceModel($id)
     $slicerResult     = shell_exec($RunSlicerToSlice );
     $slicerDimensions = shell_exec($runSlcerForDimensions);
 
-    
-    
-    
+//dd($OpenScadResult, $slicerResult, $slicerDimensions, $OpenScadThumnailGen, $RunSlicerToSlice, $runSlcerForDimensions);
+
     
 //Get Dimension of print to check bed size 
     $slicerDimensions = strtoupper($slicerDimensions);
