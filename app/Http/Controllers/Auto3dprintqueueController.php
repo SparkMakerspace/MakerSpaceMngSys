@@ -471,12 +471,9 @@ function SliceModel($id)
     $slicerResult     = shell_exec($RunSlicerToSlice );
     $slicerDimensions = shell_exec($runSlcerForDimensions);
 
-<<<<<<< HEAD
 //testing for platform command functionality. This line should remain commented out in production.
-dd($OpenScadResult, $slicerResult, $slicerDimensions, $OpenScadThumnailGen, $RunSlicerToSlice, $runSlcerForDimensions);
-=======
 //dd($OpenScadResult, $slicerResult, $slicerDimensions, $OpenScadThumnailGen, $RunSlicerToSlice, $runSlcerForDimensions);
->>>>>>> origin/master
+
 
     
 //Get Dimension of print to check bed size 
