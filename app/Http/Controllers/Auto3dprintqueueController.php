@@ -435,62 +435,58 @@ function SliceModel($id)
     }
 
 
-
     if (env('APP_PLATFORM') == 'WIN') {
-        $path = "3dPrintFiles\\" . $auto3dprintqueue->id . ".stl";
-        $outputb = shell_exec("..\\slic3r\\openscad\\openscad.com ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".scad -o ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id . ".png");
-
-        $outputc = shell_exec("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id  . ".stl        --load \"..\\slic3r\\test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
-
-
-        $output =  shell_exec("..\\slic3r\\slic3r-console.exe ..\\storage\\app\\3dPrintFiles\\" . $auto3dprintqueue->id  . ".stl --info --load \"..\\slic3r\\test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
-        Storage::disk('local')->put("3dPrintFiles\\" . $auto3dprintqueue->id . ".log", $output);
+        $slicerPath       = '..\\storage\\app\\3dPrintFiles\\';
+        $openScadPath     = '..\\slic3r\\openscad\\openscad.com';
+        $storagePath      = '..\\slic3r\\slic3r-console.exe';
+        $SlicerConfigPath = '..\\slic3r\\test.ini';
+    }
 
 
+    if (env('APP_PLATFORM') == 'LINUX') {
+        $slicerPath       = '..\\storage\\app\\3dPrintFiles\\';
+        $openScadPath     = '..\\slic3r\\openscad\\openscad.com';
+        $storagePath      = '..\\slic3r\\slic3r-console.exe';
+        $SlicerConfigPath = '..\\slic3r\\test.ini';
     }
 
     if (env('APP_PLATFORM') == 'MAC') {
-        $path = "3dPrintFiles/" . $auto3dprintqueue->id . ".stl";
-        $outputb = shell_exec("../Slic3r/mac/openscad/MacOS/OpenSCAD ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".scad -o ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".png");
-
-        $outputc = shell_exec("../Slic3r/mac/slic3r/MacOS/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../slic3r/test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
-
-        $output = shell_exec("../Slic3r/mac/slic3r/MacOS/slic3r ../storage/app/" . $path . " --info --load \"../slic3r/test.ini\"   --fill-density " . $auto3dprintqueue->Infill . $gensupport. "  --print-center 0,0 2>&1");
-        Storage::disk('local')->put("3dPrintFiles\/" . $auto3dprintqueue->id . ".log", $output);
-
-
-
+        $slicerPath       = '..\\storage\\app\\3dPrintFiles\\';
+        $openScadPath     = '..\\slic3r\\openscad\\openscad.com';
+        $storagePath      = '..\\slic3r\\slic3r-console.exe';
+        $SlicerConfigPath = '..\\slic3r\\test.ini';
     }
 
-    if (env('APP_PLATFORM') == 'LINUX') {
-        $path = "3dPrintFiles/" . $auto3dprintqueue->id . ".stl";
-        $outputb = exec("/usr/bin/openscad ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".scad -o ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id . ".png");
 
-        $outputc = exec("/usr/bin/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../Slic3r/test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0");
-        $output = exec("/usr/bin/slic3r ../storage/app/3dPrintFiles/" . $auto3dprintqueue->id  . ".stl --load \"../Slic3r/test.ini\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0 2>&1");
+    $OpenScadThumnailGen   = $openScadPath . " ". $storagePath . $auto3dprintqueue->id . ".scad -o " . $storagePath  . $auto3dprintqueue->id . ".png"  ;
+    $RunSlicerToSlice      = $slicerPath . " ". $storagePath . $auto3dprintqueue->id  . ".stl  --load \"" . $SlicerConfigPath . "\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0"   ;
+    $runSlcerForDimensions = $slicerPath . " ". $storagePath . $auto3dprintqueue->id  . ".stl --info --load \"" . $SlicerConfigPath . "\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0"   ;
+    
+    
+    $OpenScadResult   = shell_exec($OpenScadThumnailGen);
+    $slicerResult     = shell_exec($RunSlicerToSlice );
+    $slicerDimensions = shell_exec($runSlcerForDimensions);
 
-        //$output = exec("/usr/bin/slic3r ../storage/app/" . $path . " --info --load \"../Slic3r/test.ini\"   --fill-density " . $auto3dprintqueue->Infill . $gensupport. "  --print-center 0,0 2>&1");
-        Storage::disk('local')->put("3dPrintFiles\/" . $auto3dprintqueue->id . ".log", $output);
-
-
-
-    }
-
-    $output = strtoupper($output);
-    $output = str_replace("\n", " ", $output);
+    
+    
+    
+    
+//Get Dimension of print to check bed size 
+    $slicerDimensions = strtoupper($slicerDimensions);
+    $slicerDimensions = str_replace("\n", " ", $slicerDimensions);
 
 
     $auto3dprintqueue1 = Auto3dprintqueue::findOrfail($auto3dprintqueue->id);
-    $auto3dprintqueue1->SlicerResults = $output;
+    $auto3dprintqueue1->SlicerResults = $slicerDimensions;
 
-    $pieces = array_filter(explode(" ", $output));
-    //dd($pieces);
+    $pieces = array_filter(explode(" ", $slicerDimensions));
+
     $auto3dprintqueue1->SizeX = intval(str_after($pieces[19], "X="));
     $auto3dprintqueue1->SizeY = intval(str_after($pieces[20], "Y="));
     $auto3dprintqueue1->SizeZ = intval(str_after($pieces[21], "Z="));
 
-
-    $pieces = trim (array_filter(explode(":", $outputc))[1]);
+//get filament quanity
+    $pieces = trim (array_filter(explode(":", $slicerResult))[1]);
     $pieces = str_replace("mm", "",  $pieces);
     $pieces = trim (array_filter(explode(" ", $pieces))[0]);
 
