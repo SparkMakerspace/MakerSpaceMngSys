@@ -436,40 +436,44 @@ function SliceModel($id)
 
 
     if (env('APP_PLATFORM') == 'WIN') {
-        $slicerPath       = '..\\storage\\app\\3dPrintFiles\\';
+        $slicerPath       = '..\\slic3r\\slic3r-console.exe';
         $openScadPath     = '..\\slic3r\\openscad\\openscad.com';
-        $storagePath      = '..\\slic3r\\slic3r-console.exe';
+        $storagePath      = '..\\storage\\app\\3dPrintFiles\\';
         $SlicerConfigPath = '..\\slic3r\\test.ini';
     }
 
 
     if (env('APP_PLATFORM') == 'LINUX') {
-        $slicerPath       = '..\\storage\\app\\3dPrintFiles\\';
-        $openScadPath     = '..\\slic3r\\openscad\\openscad.com';
-        $storagePath      = '..\\slic3r\\slic3r-console.exe';
-        $SlicerConfigPath = '..\\slic3r\\test.ini';
+        $slicerPath       = '/usr/bin/slic3r';
+        $openScadPath     = '/usr/bin/openscad';
+        $storagePath      = '../storage/app/3dPrintFiles/';
+        $SlicerConfigPath = '../Slic3r/test.ini';
     }
 
     if (env('APP_PLATFORM') == 'MAC') {
-        $slicerPath       = '..\\storage\\app\\3dPrintFiles\\';
-        $openScadPath     = '..\\slic3r\\openscad\\openscad.com';
-        $storagePath      = '..\\slic3r\\slic3r-console.exe';
-        $SlicerConfigPath = '..\\slic3r\\test.ini';
+        $slicerPath       = '/Applications/Slic3r.app/Contents/MacOS/slic3r';
+        $openScadPath     = '/Applications/OpenSCAD.app/Contents/MacOS/openscad';
+        $storagePath      = '../storage/app/3dPrintFiles/';
+        $SlicerConfigPath = '../Slic3r/test.ini';
     }
+
 
 
     $OpenScadThumnailGen   = $openScadPath . " ". $storagePath . $auto3dprintqueue->id . ".scad -o " . $storagePath  . $auto3dprintqueue->id . ".png"  ;
     $RunSlicerToSlice      = $slicerPath . " ". $storagePath . $auto3dprintqueue->id  . ".stl  --load \"" . $SlicerConfigPath . "\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0"   ;
     $runSlcerForDimensions = $slicerPath . " ". $storagePath . $auto3dprintqueue->id  . ".stl --info --load \"" . $SlicerConfigPath . "\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0"   ;
+
+
+
     
     
     $OpenScadResult   = shell_exec($OpenScadThumnailGen);
     $slicerResult     = shell_exec($RunSlicerToSlice );
     $slicerDimensions = shell_exec($runSlcerForDimensions);
 
-    
-    
-    
+//testing for platform command functionality. This line should remain commented out in production.
+dd($OpenScadResult, $slicerResult, $slicerDimensions, $OpenScadThumnailGen, $RunSlicerToSlice, $runSlcerForDimensions);
+
     
 //Get Dimension of print to check bed size 
     $slicerDimensions = strtoupper($slicerDimensions);
