@@ -22,7 +22,7 @@ class PCAuthController extends Controller
 
         if (!Hash::check($password,$user->password))
         {
-            return "***INVALID LOGIN***";
+            return "***BAD PASSWORD***";
         }
 
         // Authenticated!!
@@ -31,6 +31,6 @@ class PCAuthController extends Controller
 ".$user->username."
 ".$user->name."
 ".$user->email."
-".($user->hasRole('admin')?'Administrators':'');
+USERS;".($user->hasRole('admin')?'Administrators;':'');
     }
 }
