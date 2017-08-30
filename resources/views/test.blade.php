@@ -46,4 +46,19 @@
     ...
 
 </ul>
+
+
+
+<form action="/charge" method="POST">
+    <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
+    <script
+            src="https://checkout.stripe.com/checkout.js"
+            class="stripe-button"
+            data-key="{{env('STRIPE_KEY')}}"
+            data-image="/square-image.png"
+            data-name="Demo Site"
+            data-description="2 widgets ($20.00)"
+            data-amount="2000">
+    </script>
+</form>
 @endsection

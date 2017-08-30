@@ -125,6 +125,21 @@ class UserController extends Controller
         return redirect('users');
     }
 
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function addCreditCard(Request $request)
+    {
+
+        \Auth::user()->updateCard($request->stripeToken);
+
+
+        return redirect('users');
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *

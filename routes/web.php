@@ -79,6 +79,16 @@ Route::group(['middleware' => 'web'], function () {
         return view('test');
     });
 
+    Route::get('test1', function () {
+        dd(\Auth::user()->charge(100));
+    });
+
+
+    Route::post('charge','\App\Http\Controllers\ScaffoldInterface\UserController@addCreditCard');
+
+
+
+
 //these routes require the user to be logged in.
     Route::group(['middleware' => ['auth']], function () {
 
@@ -118,6 +128,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('pclogin', '\App\Http\Controllers\PCAuthController@loginRequest');
     Route::get('pclogin', '\App\Http\Controllers\PCAuthController@loginRequest');
 
+    Route::post('stripe/webhook', '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook');
+
 
 //Sitenavigation Routes
     Route::group(['middleware' => 'web'], function () {
@@ -141,6 +153,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('chore_list/{id}/update', '\App\Http\Controllers\Chore_listController@update');
     Route::get('chore_list/{id}/delete', '\App\Http\Controllers\Chore_listController@destroy');
     Route::get('chore_list/{id}/deleteMsg', '\App\Http\Controllers\Chore_listController@DeleteMsg');
+
+
 
 
 //There is a reason these are at the bottom of the routes file.
