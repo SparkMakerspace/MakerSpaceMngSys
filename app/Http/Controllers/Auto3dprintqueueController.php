@@ -242,15 +242,18 @@ class Auto3dprintqueueController extends Controller
             $myyfileout = "Status Recorded";
             sendEmailReminder($auto3dprintqueue->id);
         } else {
+//Color
 
 
             try {
                 // try code
+                $materialinfo = Auto3dprintmaterial::where('material', $request->material)->firstOrFail();
                 $auto3dprintqueue = Auto3dprintqueue::where([
                     ['Status', 'print'],
                     ['SizeX', '<=', $request->SizeX],
                     ['SizeY', '<=', $request->SizeY],
                     ['SizeZ', '<=', $request->SizeZ],
+                    ['auto3dprintmaterial_id', $materialinfo->id],
                 ])->first();
                 $test = $auto3dprintqueue->id;
             } catch (\Exception $e) {
