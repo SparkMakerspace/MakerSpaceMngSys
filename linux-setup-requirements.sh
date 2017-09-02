@@ -10,7 +10,7 @@ mv ./linux.nginx.default.conf /etc/nginx/conf.d/default.conf
 sed -i 's/localhost/nonstop3d.com/g' /etc/nginx/conf.d/default.conf
 echo ‘cgi.fix_pathinfo=0’ >> /etc/php/7.1/fpm/php.ini
 /etc/init.d/nginx restart
-/etc/init.d/php7.0-fpm restart
+/etc/init.d/php7.1-fpm restart
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 cd /var/www/html
