@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ScaffoldInterface;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use \App\User;
 use Hash;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
@@ -211,10 +211,21 @@ class UserController extends Controller
      */
     public function revokeRole($role, $user_id)
     {
-        $user = \App\User::findorfail($user_id);
+        $user = User::findorfail($user_id);
 
         $user->removeRole(str_slug($role, ' '));
 
         return redirect('users/edit/'.$user_id);
+    }
+
+    public function searchUser(Request $request){
+        $query = $request->get('query');
+        if ($query) {
+            $results = User::where('username', 'like', '%' . $query . '%')->orWhere('name', 'like', '%' . $query . '%')->with('image')->get();
+            $results = $results->makeHidden('bio')->toJson();
+        } else{
+            $results = '';
+        }
+        return $results;
     }
 }

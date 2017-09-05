@@ -71,20 +71,18 @@ class User extends Authenticatable
 
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are not mass assignable.
      *
      * @var array
      */
     protected $guarded = [];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be visible in serialization.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $visible = ['id','username','name','image','accountType','bio'];
 
     /**
      * group.
@@ -217,11 +215,6 @@ class User extends Authenticatable
     public function removeDoor($door)
     {
         return $this->doors()->detach($door);
-    }
-
-    public function images()
-    {
-        return $this->hasMany('App\Image');
     }
 
     public function comments()
