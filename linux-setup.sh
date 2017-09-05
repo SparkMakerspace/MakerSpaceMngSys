@@ -1,6 +1,8 @@
 cp ".env.example.linux" ".env"
 
 mysql -u root -e "CREATE DATABASE homestead"
+mysql -u root -e "CREATE USER 'laravel'@'localhost'"
+mysql -u root -e "GRANT ALL ON *.* TO 'laravel'@'localhost'"
 
 npm update
 
