@@ -77,7 +77,7 @@ class CadmodelController extends Controller
                          'test-event',
                         ['message' => 'A new cadmodel has been created !!']);
 
-        return redirect('cadmodel');
+        return redirect('cadmodel/'.$cadmodel->id.'/edit');
     }
 
     /**

@@ -15,16 +15,16 @@
         <thead>
             <th>Name</th>
             <th>Description</th>
-            <th>ModelFile</th>
             <th>Material</th>
             <th>actions</th>
         </thead>
         <tbody>
             @foreach($cadmodels as $cadmodel) 
             <tr>
-                <td>{!!$cadmodel->Name!!}</td>
+                <td>
+                    <a href = '/cadmodel/{!!$cadmodel->id!!}/edit'>
+                    {!!$cadmodel->Name!!}</a></td>
                 <td>{!!$cadmodel->Description!!}</td>
-                <td>{!!$cadmodel->ModelFile!!}</td>
                 <td>{!!$cadmodel->Material!!}</td>
                 <td>
                     <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/cadmodel/{!!$cadmodel->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
