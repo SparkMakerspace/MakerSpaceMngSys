@@ -1,0 +1,126 @@
+<!doctype html>
+<meta charset=utf-8>
+<html>
+<head>
+  <title>sketcher.js</title>
+  <link rel="shortcut icon" href="img/tgn.png" />
+  <link rel="stylesheet" href="css/toolkit.css">
+  <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+  <script src="static/sketcher.bundle.js"></script>
+</head>
+<body>
+  <a id="downloader" style="display: none;" ></a>
+  <div class="panel b-bot" style="width: 100%; height: 35px; text-align:right;">
+       <span class="logo" style="float:left">sketcher <sup> 2D</sup></span>
+
+       <button class="btn tbtn act-undo" ><i class="fa fa-arrow-left"></i></button><!--
+    --><button class="btn tbtn act-redo sep" ><i class="fa fa-arrow-right"></i></button><!--
+    -- <button class="btn tbtn act-checkpoint sep" ><i class="fa fa-check-circle"></i></button><!--
+    --><button class="btn tbtn act-new" ><i class="fa fa-file-o"></i></button><!--
+    --><button class="btn tbtn act-clone" ><i class="fa fa-files-o"></i></button><!--
+    --><button class="btn tbtn act-open" ><i class="fa fa-folder-open-o"></i></button><!--
+    --><button class="btn tbtn act-save" ><i class="fa fa-floppy-o"></i></button><!--
+    --><button class="btn tbtn act-export sep" ><i class="fa fa-upload"></i></button><!--
+    --><button class="btn tbtn act-fit" ><i class="fa fa-globe"></i></button><!--
+    --><button class="btn tbtn act-pan sep" ><i class="fa fa-arrows"></i></button><!--
+    --><button class="btn tbtn act-referencePoint"  type="submit" value="">O</button><!--
+    --><button class="btn tbtn act-addPoint" style="background-image: url(img/dot.png);" type="submit" value=""></button><!--
+    --><button class="btn tbtn act-addSegment" style="background-image: url(img/line.png);" type="submit" value=""></button><!--
+    --><button class="btn tbtn act-addMultiSegment" style="background-image: url(img/mline.png);" type="submit" value=""></button><!--
+    --><button class="btn tbtn act-addCircle" style="background-image: url(img/circle.png);" type="submit" value=""></button><!--
+    --><button class="btn tbtn act-addArc" style="background-image: url(img/arc.png);" type="submit" value=""></button><!--
+    --><button class="btn tbtn act-addEllipse" type="submit" value="">E</button><!--
+    --><button class="btn tbtn act-addEllipticalArc" type="submit" value="">EA</button><!--
+    --><button class="btn tbtn act-addBezierCurve sep" type="submit" value="">BZ</button><!--
+    --><button class="btn tbtn act-addRectangle" type="submit" value="">R</button><!--
+    --><button class="btn tbtn act-offsetTool sep" type="submit" value="">F</button><!--
+    --><button class="btn tbtn act-addHDim" style="background-image: url(img/hdim.png);" type="submit" value=""></button><!--
+    --><button class="btn tbtn act-addVDim" style="background-image: url(img/vdim.png);" type="submit" value=""></button><!--
+    --><button class="btn tbtn act-addDim" style="background-image: url(img/dim.png);" type="submit" value=""></button><!--
+    --><button class="btn tbtn act-addCircleDim" style="background-image: url(img/ddim.png);" type="submit" value=""></button><!--
+    -->
+  </div>
+  <div style="width: 100%; height: calc(100% - 59px);">
+
+    <div id="dock" class="panel b-right scroll" style="float: left; width: 245px; height: 100%;"></div>
+    <div id="right-toolbar" class="panel b-left scroll" style="width: 50px; float: right; height: 100%; ">
+      <div style="width:50%; height: 2px"></div>  
+      <button class="btn rbtn act-coincident" style="background-image: url(img/coi.png);"></button>
+      <button class="btn rbtn act-verticalConstraint" style="background-image: url(img/vert.png);"></button>
+      <button class="btn rbtn act-horizontalConstraint" style="background-image: url(img/hor.png);"></button>
+      <button class="btn rbtn act-parallelConstraint" style="background-image: url(img/par.png);"></button>
+      <button class="btn rbtn act-perpendicularConstraint" style="background-image: url(img/per.png);"></button>
+      <button class="btn rbtn act-P2LDistanceConstraint" style="background-image: url(img/p2l.png);"></button>
+      <button class="btn rbtn act-P2PDistanceConstraint" style="background-image: url(img/p2p.png);"></button>
+      <button class="btn rbtn act-EntityEqualityConstraint" style="background-image: url(img/eq.png);"></button>
+      <button class="btn rbtn act-tangentConstraint" style="background-image: url(img/tgn.png);"></button>
+      <button class="btn rbtn act-RadiusConstraint" style="background-image: url(img/rad.png);"></button>
+      <button class="btn rbtn act-pointOnLine" style="background-image: url(img/vec/pointOnLine.svg);"></button>
+      <button class="btn rbtn act-pointOnArc" style="background-image: url(img/vec/pointOnArc.svg);" ></button>
+      <button class="btn rbtn act-pointInMiddle" style="background-image: url(img/vec/pointInMiddle.svg);"></button>
+      <button class="btn rbtn act-llAngle" style="background-image: url(img/vec/angle.svg);"></button>
+      <button class="btn rbtn act-symmetry" style="background-image: url(img/vec/symmetry.svg);"></button>
+      <button class="btn rbtn act-lockConvex" style="background-image: url(img/vec/convex.svg);"></button>
+      <button class="btn rbtn act-lockConstraint" ><i class="fa fa-lock"></i></button>
+      <div style="height: 10px;"></div>
+      <button class="btn rbtn act-addFillet" style="background-image: url(img/vec/fillet.svg);"></button>
+    </div>
+    <div id="viewer-container" style="background: black; overflow: hidden; height: 100%; position: relative">
+      <div class="tool-hint" style="position: absolute; bottom: 5px; right: 5px;"></div>
+      <canvas width="300" height="300" id="viewer"></canvas>
+    </div>
+  </div>
+  
+  <div id="status" class="panel b-top" style="width: 100%; height:22px;">
+    <div class="button-group" style="float: left">
+      <span id='showActions' class="dock-btn" ><i class="fa fa-slack"></i></span>
+    </div>
+    <div class="status-item coordinates-info">0.000:0.000</div>
+    <div class="status-item tool-info"></div>
+  </div>
+
+  <div id="actions" class="scroll win" style="display: none;">
+    <div class="tool-caption" >ACTIONS</div>
+    <div class="content">
+      <div><input class="btn txt-btn" style="width: 100%;" type="submit" value="$value$"></div>
+    </div>
+  </div>
+
+  <div id="sketchManager" class="win" style="display: none; height: 300px;">
+    <div class="tool-caption" >SKETCHES</div>
+    <div class="content panel scroll" style="padding: 0;">
+    </div>
+  </div>
+
+  <div id="exportManager" class="scroll win" style="display: none;">
+    <div class="tool-caption" >FORMAT</div>
+    <div class="content panel" style="padding: 0;">
+      <ul class="tlist">
+        <li class="act-exportSVG">SVG</li>
+        <li class="act-exportDXF">DXF</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="commands" class="win" style="display: none; height: 200px; width: 700px;">
+    <div class="tool-caption" >COMMANDS</div>
+    <div class="content panel" style="padding: 0;">
+      <div class='terminal-output-area scroll'>
+        <div class='terminal-pusher'></div>
+        <div class='terminal-output'></div>
+      </div>
+      <div class='terminal-input'>
+        <input type="text" placeholder="(type a command)"/>
+      </div>
+    </div>
+  </div>
+
+  <div id="constrFilter" class="win" style="display: none; height: 300px;width:170px;">
+    <div class="tool-caption" >CONSTRAINT&nbsp;FILTER</div>
+    <div class="content panel scroll" style="padding: 0;">
+    </div>
+  </div>
+
+  <!--<div id="log" style="position:absolute; width: 500px; height: 300px; top:500px; pxleft:0; overflow: scroll;background-color: salmon;">-->
+</body>
+</html>

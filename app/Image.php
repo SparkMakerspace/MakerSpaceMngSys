@@ -39,6 +39,8 @@ class Image extends Model
 
     public $table = 'images';
 
+    protected $visible = ['name','description','path'];
+
     protected $dates = ['deleted_at'];
 
     public function user()
