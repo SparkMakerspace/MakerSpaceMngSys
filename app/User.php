@@ -55,7 +55,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $events
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Post[] $posts
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Door[] $doors
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Image[] $images
  * @property string $username
  * @property int $image_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
@@ -65,7 +64,6 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use HasImage;
     use Notifiable;
     use HasRoles;
 
@@ -82,7 +80,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $visible = ['id','username','name','image','accountType','bio'];
+    protected $visible = ['id','username','name','accountType','bio'];
 
     /**
      * group.
@@ -220,14 +218,6 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany('App\Comment');
-    }
-
-    public function save(array $options = [])
-    {
-        if (is_null($this->image_id)){
-            $this->image_id = Image::whereName('userNoImage.svg')->first()->id;
-        }
-        return parent::save($options);
     }
 
     public function accessMediasAll()

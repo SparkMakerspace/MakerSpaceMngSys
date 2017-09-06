@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Image;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -28,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -83,7 +82,6 @@ class RegisterController extends Controller
             'accountType' => 'member',
             'password' => bcrypt($data['password']),
         ]);
-        $user->image()->associate(Image::find(1));
         return $user;
     }
 }

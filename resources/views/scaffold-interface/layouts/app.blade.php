@@ -68,7 +68,7 @@
                     @if(Auth::user())
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{url(Auth::user()->image->path)}}" class="user-image" alt="User Image">
+                                {{--<img src="{{url(Auth::user()->image->path)}}" class="user-image" alt="User Image">--}}
                                 <span class="hidden-xs">{{Auth::user()->name}}</span>
                             </a>
                             <ul class="dropdown-menu">
@@ -77,7 +77,7 @@
                                 <li class="user-header">
                                     <div class="btn btn-default btn-flat">
                                     <A href="{{Auth::user()->UserUrl()}}"  >
-                                        <img src="{{url(Auth::user()->image->path)}}" class="img-circle" alt="User Image">
+                                        {{--<img src="{{url(Auth::user()->image->path)}}" class="img-circle" alt="User Image">--}}
                                         <p>
                                             {{Auth::user()->name}}
                                         </p>

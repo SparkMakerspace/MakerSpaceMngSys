@@ -12,9 +12,6 @@
 
 
     <div class="row">
-        <div class="col-md-8">
-            @include("partials.postsList")
-        </div>
         <div class="col-md-4">
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
@@ -24,9 +21,6 @@
                         </h4>
                     </div>
                     <div id="collapse1" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            @include('partials.groupList')
-                        </div>
                     </div>
                 </div>
             </div>
