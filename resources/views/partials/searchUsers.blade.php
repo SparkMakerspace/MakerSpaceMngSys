@@ -13,8 +13,6 @@ Optional Parameters:
     $selectedUsers: the default selection as a collection of Users
         else, no user selected
 --}}
-<!-- TODO: DELETE THIS NEXT LINE -->
-@extends('scaffold-interface.layouts.app')
 
 @section('content')
     @php
