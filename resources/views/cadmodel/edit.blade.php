@@ -2,41 +2,60 @@
 @section('title','Edit')
 @section('content')
 
+    <body onload="updatelistbox();">
+
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Group Memberships</a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
 
 
-<section class="content">
-    <h1>
-        Edit cadmodel
-    </h1>
-    <form method = 'get' action = '{!!url("cadmodel")!!}'>
-        <button class = 'btn btn-danger'>cadmodel Index</button>
-    </form>
-    <br>
-    <form method = 'POST' action = '{!! url("cadmodel")!!}/{!!$cadmodel->
-        id!!}/update'> 
-        <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
-        <div class="form-group">
-            <label for="Name">Name</label>
-            <input id="Name" name = "Name" type="text" class="form-control" value="{!!$cadmodel->
-            Name!!}"> 
-        </div>
-        <div class="form-group">
-            <label for="Description">Description</label>
-            <input id="Description" name = "Description" type="text" class="form-control" value="{!!$cadmodel->
-            Description!!}"> 
-        </div>
-        <div class="form-group">
-            <label for="ModelFile">ModelFile</label>
-            <textarea id="ModelFile" name = "ModelFile" type="textarea"  >{!!$cadmodel->ModelFile!!}</textarea>
-        </div>
-        <div class="form-group">
-            <label for="Material">Material</label>
-            <input id="Material" name = "Material" type="text" class="form-control" value="{!!$cadmodel->
+                    <form method = 'get' action = '{!!url("cadmodel")!!}'>
+                        <button class = 'btn btn-danger'>cadmodel Index</button>
+                    </form>
+                    <br>
+                    <form method = 'POST' action = '{!! url("cadmodel")!!}/{!!$cadmodel->
+        id!!}/update'>
+                        <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
+                        <div class="form-group">
+                            <label for="Name">Name</label>
+                            <input id="Name" name = "Name" type="text" class="form-control" value="{!!$cadmodel->
+            Name!!}">
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <input id="Description" name = "Description" type="text" class="form-control" value="{!!$cadmodel->
+            Description!!}">
+                        </div>
+                        <div class="form-group">
+                            <label for="ModelFile">ModelFile</label>
+                            <textarea id="ModelFile" name = "ModelFile" type="textarea"  >{!!$cadmodel->ModelFile!!}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="Material">Material</label>
+                            <input id="Material" name = "Material" type="text" class="form-control" value="{!!$cadmodel->
             Material!!}">
+                        </div>
+                        <button class = 'btn btn-primary' type ='submit'>Update</button>
+                    </form>
+
+                </div>
+            </div>
         </div>
-        <button class = 'btn btn-primary' type ='submit'>Update</button>
-    </form>
-</section>
+    </div>
+
+
+
+
+
+
+
+
 
 
     <script>
@@ -122,6 +141,13 @@
         ExportToLocalFile();
 
     </script>
+
+
+<iframe src="../../../../../webcad/?{!!$cadmodel->id!!}}" style="position: absolute;
+
+bottom: 0;
+height:85%;
+width:85%;"></iframe>
 
 
 @endsection
