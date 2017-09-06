@@ -101,6 +101,16 @@ Route::group(['middleware' => 'web'], function () {
 //        Route::get('auto3dprintercolor/{id}/delete', '\App\Http\Controllers\Auto3dprintercolorController@destroy');
 //        Route::get('auto3dprintercolor/{id}/deleteMsg', '\App\Http\Controllers\Auto3dprintercolorController@DeleteMsg');
 
+        //cadmodel Routes
+        Route::group(['middleware'=> 'web'],function(){
+            Route::resource('cadmodel','\App\Http\Controllers\CadmodelController');
+            Route::post('cadmodel/{id}/update','\App\Http\Controllers\CadmodelController@update');
+            Route::get('cadmodel/{id}/delete','\App\Http\Controllers\CadmodelController@destroy');
+            Route::get('cadmodel/{id}/deleteMsg','\App\Http\Controllers\CadmodelController@DeleteMsg');
+        });
+
+
+
 //auto3dprintmaterial Routes
         Route::resource('auto3dprintmaterial', '\App\Http\Controllers\Auto3dprintmaterialController');
         Route::post('auto3dprintmaterial/{id}/update', '\App\Http\Controllers\Auto3dprintmaterialController@update');
@@ -175,3 +185,4 @@ Route::get('{mystub}', '\App\Http\Controllers\SitenavigationController@showp');
 
 Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
 Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
+
