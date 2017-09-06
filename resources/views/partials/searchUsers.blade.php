@@ -20,7 +20,7 @@ Optional Parameters:
     @php
         if(!isset($selectedUsers))
         {
-        $selectedUsers = App\User::all();
+        $selectedUsers = [];
         }
         if(!isset($name))
         {
@@ -33,18 +33,17 @@ Optional Parameters:
     @endphp
 
     <label for="{{$name}}">{{$label}}</label>
-    <input id="{{$name}}" class="user-search form-control" name="{{$name}}" placeholder="Type a user's name here">
+    <input id="{{$name}}" class="user-search form-control" name="{{$name}}" placeholder="Type a user's name here and click on a suggestion to add">
     <div class="list-group">
         <div class="user-search-suggestions">
 
         </div>
     </div>
-    <div class="user-search-list">
-        <div class="list-group user-search-selected-list">
-            @foreach($selectedUsers as $user)
-                <a href="#" onclick="removeUser({{$user->id}})" id="{{$user->id}}" class="list-group-item user-search-selected" data-toggle="tooltip" title="Click to remove">{{$user->username}}&emsp;{{$user->name}} {!! Form::hidden($name.'[]',$user->id) !!}</a>
-            @endforeach()
-        </div>
+    <label>Selected Users</label>
+    <div class="list-group user-search-selected-list">
+        @foreach($selectedUsers as $user)
+            <a href="#" onclick="removeUser({{$user->id}})" id="{{$user->id}}" class="list-group-item user-search-selected" data-toggle="tooltip" title="Click to remove">{{$user->username}}&emsp;{{$user->name}} {!! Form::hidden($name.'[]',$user->id) !!}</a>
+        @endforeach()
     </div>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
