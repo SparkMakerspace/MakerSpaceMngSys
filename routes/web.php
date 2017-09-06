@@ -94,26 +94,19 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::get('u/{username}','\App\Http\Controllers\ScaffoldInterface\UserController@view');
 
-<<<<<<< HEAD
-
-////auto3dprintercolor Routes
-//        Route::resource('auto3dprintercolor', '\App\Http\Controllers\Auto3dprintercolorController');
-//        Route::post('auto3dprintercolor/{id}/update', '\App\Http\Controllers\Auto3dprintercolorController@update');
-//        Route::get('auto3dprintercolor/{id}/delete', '\App\Http\Controllers\Auto3dprintercolorController@destroy');
-//        Route::get('auto3dprintercolor/{id}/deleteMsg', '\App\Http\Controllers\Auto3dprintercolorController@DeleteMsg');
 
         //cadmodel Routes
         Route::group(['middleware'=> 'web'],function(){
             Route::resource('cadmodel','\App\Http\Controllers\CadmodelController');
             Route::post('cadmodel/{id}/update','\App\Http\Controllers\CadmodelController@update');
+            Route::post('cadmodel/{id}/updatemodel','\App\Http\Controllers\CadmodelController@updatemodel');
             Route::get('cadmodel/{id}/delete','\App\Http\Controllers\CadmodelController@destroy');
             Route::get('cadmodel/{id}/deleteMsg','\App\Http\Controllers\CadmodelController@DeleteMsg');
         });
 
 
 
-=======
->>>>>>> 4b98969d97709709d7680f352a3440579ee17904
+
 //auto3dprintmaterial Routes
         Route::resource('auto3dprintmaterial', '\App\Http\Controllers\Auto3dprintmaterialController');
         Route::post('auto3dprintmaterial/{id}/update', '\App\Http\Controllers\Auto3dprintmaterialController@update');
@@ -181,10 +174,9 @@ Route::get('{mystub}', '\App\Http\Controllers\SitenavigationController@showp');
 Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
 Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
 
-<<<<<<< HEAD
-=======
+
 Route::get('test',function(){
     return view('partials.searchUsers');
 });
 Route::post('searchUsers','ScaffoldInterface\UserController@searchUser');
->>>>>>> 4b98969d97709709d7680f352a3440579ee17904
+

@@ -126,6 +126,18 @@ class CadmodelController extends Controller
      * @param    int  $id
      * @return  \Illuminate\Http\Response
      */
+
+    public function updatemodel($id,Request $request)
+    {
+        $cadmodel = Cadmodel::findOrfail($id);
+        $cadmodel->ModelFile = $request->ModelFile;
+        $cadmodel->save();
+
+        return redirect('cadmodel');
+    }
+
+
+
     public function update($id,Request $request)
     {
         $cadmodel = Cadmodel::findOrfail($id);
