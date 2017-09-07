@@ -60,14 +60,35 @@ function openSelectedItem()
   filetoopen.replace("TCAD.projects.", "");
   if (filetoopen.search("sketch") < 0)
   {
-    window.location.href = "./index.html#" + filetoopen.replace("TCAD.projects.", "");
+    window.location.href = "/index.html?" + filetoopen.replace("TCAD.projects.", "");
   }
   else
   {
-    window.location.href = "./sketcher.html#" + filetoopen.replace("TCAD.projects.", "");
+    window.location.href = "/sketcher.html#" + filetoopen.replace("TCAD.projects.", "");
   }
 
 }
+
+
+
+
+function listKeys()
+{
+   var keyIndex = 0;
+ var thisKey = window.localStorage.key(keyIndex);
+
+ while(thisKey != '' && thisKey != undefined)
+ {
+    if (thisKey.substr(0, 2) == 'TC')
+    {
+       alert(thisKey);
+    }
+
+    keyIndex+= 1;
+    thisKey = window.localStorage.key(keyIndex);
+ }
+}
+
 
 
 
@@ -91,7 +112,6 @@ function ExportToLocalFile()
 function readSingleFile(e) {
   var file = e.target.files[0];
   if (!file) {
-	  updatelistbox();
     return;
   }
   var reader = new FileReader();
@@ -99,18 +119,18 @@ function readSingleFile(e) {
   {
     var data = e.target.result;
     var arrayOfLines = data.split("\n");
-    //alert(arrayOfLines[0]);
-	updatelistbox();
+    alert(arrayOfLines[0]);
 
-    for (i = 0; i < arrayOfLines[0]; i++)
+    for (var i = 0; i < arrayOfLines[0]; i++)
     {
       localStorage.setItem(arrayOfLines[i*2+1],arrayOfLines[i*2+2]);
-	  updatelistbox();
     }
   };
   reader.readAsText(file);
-  
 }
+
+window.onload = function () {document.getElementById('file-input').addEventListener('change', readSingleFile, false);}
+
 
 
 
@@ -121,6 +141,4 @@ function exportTextData(data, fileName)
   link.download = fileName;
   link.click();
   //console.log(app.viewer.io.svgExport());
-};
-
- document.getElementById('file-input').addEventListener('change', readSingleFile, false);
+}

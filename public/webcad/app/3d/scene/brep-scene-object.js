@@ -1,7 +1,10 @@
 import Vector from '../../math/vector'
-import {EDGE_AUX} from '../../brep/stitching'
-import {Triangulate} from '../../3d/triangulation'
+import {EDGE_AUX, FACE_CHUNK} from '../../brep/stitching'
+import {normalOfCCWSeq} from '../cad-utils'
+import {TriangulateFace} from '../../3d/triangulation'
 import {SceneSolid, SceneFace, WIREFRAME_MATERIAL} from './scene-object'
+
+const SMOOTH_RENDERING = false //true;
 
 export class BREPSceneSolid extends SceneSolid {
 
@@ -32,7 +35,7 @@ export class BREPSceneSolid extends SceneSolid {
         sceneFace.registerMeshFace(face);
       }
     }
-    geom.mergeVertices();
+    //geom.mergeVertices();
   }
 
   createEdges() {
@@ -79,6 +82,10 @@ class BREPSceneFace extends SceneFace {
     return this.brepFace.surface.w;
   }
 
+  surface() {
+    return this.brepFace.surface;
+  }
+  
   getBounds() {
     const bounds = [];
     for (let loop of this.brepFace.loops) {
@@ -88,60 +95,73 @@ class BREPSceneFace extends SceneFace {
   }
 }
 
-function triangulate(face) {
-  function v(data) {
-    return new Vector(data[0], data[1], data[2]);
-  }
-  function data(v) {
-    return [v.x, v.y, v.z];
-  }
-  
-  const triangled = [];
-  if (face.surface.constructor.name == 'Plane') {
-    const contours = [];
-    for (let loop of face.loops) {
-      contours.push(loop.asPolygon().map(point => data(point)));
-    }
-    let vertices = Triangulate(contours, data(face.surface.normal));
-    for (let i = 0;  i < vertices.length; i += 3 ) {
-      var a = v(vertices[i]);
-      var b = v(vertices[i + 1]);
-      var c = v(vertices[i + 2]);
-      triangled.push([a, b, c]);
-    }
-  } else {
-    throw 'unsupported;'
-  }
-  return triangled;
-}
-
 export function triangulateToThree(shell, geom) {    
   const result = [];
-  let off = 0;
   let gIdx = 0;
+  function addFace(face) {
+    face.materialIndex = gIdx ++;
+    geom.faces.push(face);
+  }
   for (let brepFace of shell.faces) {
-    const polygons = triangulate(brepFace);
     const groupStart = geom.faces.length;
-    for (let p = 0; p < polygons.length; ++p) {
-      const poly = polygons[p];
-      const vLength = poly.length;
-      if (vLength < 3) continue;
-      const firstVertex = poly[0];
-      geom.vertices.push(threeV(firstVertex));
-      geom.vertices.push(threeV(poly[1]));
-      const normal = threeV(brepFace.surface.normal);
-      for (let i = 2; i < vLength; i++) {
-        geom.vertices.push(threeV(poly[i]));
-        const a = off;
-        const b = i - 1 + off;
-        const c = i + off;
-        const face = new THREE.Face3(a, b, c);
-        face.normal = normal;
-        face.materialIndex = gIdx ++;
-        geom.faces.push(face);
+    if (brepFace.surface.constructor.name == 'Plane') {
+      const polygons = TriangulateFace(brepFace);
+      const stitchedSurface = brepFace.data[FACE_CHUNK];
+      const nurbs = stitchedSurface ? stitchedSurface.origin : undefined;
+      let normalOrNormals = threeV(brepFace.surface.normal);
+      for (let p = 0; p < polygons.length; ++p) {
+        const off = geom.vertices.length;
+        const poly = polygons[p];
+        const vLength = poly.length;
+        if (vLength < 3) continue;
+        const firstVertex = poly[0];
+        geom.vertices.push(firstVertex.point.three());
+        geom.vertices.push(poly[1].point.three());
+        for (let i = 2; i < vLength; i++) {
+          geom.vertices.push(poly[i].point.three());
+          const a = off;
+          const b = i - 1 + off;
+          const c = i + off;
+
+          if (nurbs && SMOOTH_RENDERING) {
+            function normal(v) {
+              const uv = nurbs.closestParam(v.point.data());
+              const vec = new THREE.Vector3();
+              vec.set.apply(vec, nurbs.normal(uv[0], uv[1]));
+              vec.normalize();
+              if (brepFace.data.INVERTED) {
+                vec.negate();
+              }
+              return vec;
+            }
+
+            normalOrNormals = [firstVertex, poly[i - 1], poly[i]].map(v => normal(v));
+          }
+          const face = new THREE.Face3(a, b, c, normalOrNormals);
+          addFace(face);
+        }
+        //view.setFaceColor(sceneFace, utils.isSmoothPiece(group.shared) ? 0xFF0000 : null);
       }
-      //view.setFaceColor(sceneFace, utils.isSmoothPiece(group.shared) ? 0xFF0000 : null);
-      off = geom.vertices.length;
+    } else if (brepFace.surface.constructor.name == 'NurbsSurface') {
+      const off = geom.vertices.length;
+      const tess = brepFace.surface.verb.tessellate({maxDepth: 3});
+      tess.points.forEach(p => geom.vertices.push(new THREE.Vector3().fromArray(p))); 
+      for (let faceIndices of tess.faces) {
+        let normalOrNormals;
+        if (SMOOTH_RENDERING) {
+          normalOrNormals  = faceIndices.map(function(x){
+            var vn = tess.normals[x];
+            return new THREE.Vector3( vn[0], vn[1], vn[2] );
+          });
+        } else {
+          normalOrNormals = normalOfCCWSeq(faceIndices.map(i => new Vector().set3(tess.points[i]))).three();
+        }
+        
+        const face = new THREE.Face3(faceIndices[0] + off, faceIndices[1] + off, faceIndices[2] + off, normalOrNormals);
+        addFace(face);
+      }
+    } else {
+      throw 'unsupported;'
     }
     result.push(new FaceGroup(brepFace, groupStart, geom.faces.length));
   }
