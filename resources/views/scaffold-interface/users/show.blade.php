@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-md-1">
-            <img src="{{url(Auth::user()->image->path)}}" class="img-circle" alt="User Image">
+            {{--<img src="{{url(Auth::user()->image->path)}}" class="img-circle" alt="User Image">--}}
         </div>
         <div class="col-md-8">
             <h3>({{$user->name}})</h3>
