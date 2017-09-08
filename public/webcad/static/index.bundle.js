@@ -10196,6 +10196,13 @@
 	  var data = {};
 	  data.history = this.craft.history;
 	  localStorage.setItem(this.projectStorageKey(), JSON.stringify(data));
+
+        var allPolygons = cad_utils.arrFlatten1L(this.findAllSolids().map(function (s) {
+            return s.csg.toPolygons();
+        }));
+        var stl = CSG.fromPolygons(allPolygons).toStlString();
+
+        localStorage.setItem(this.projectStorageKey()+".stl", stl.data[0]);
 	};
 	
 	App.prototype.load = function () {
