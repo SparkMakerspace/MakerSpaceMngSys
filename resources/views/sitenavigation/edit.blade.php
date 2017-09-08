@@ -25,10 +25,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 form-group">
-                <label for="LinkImage">Thumbnail</label>
-                {!!  Form::imageselector('LinkImage')!!}
-            </div>
+            {{--<div class="col-md-6 form-group">--}}
+                {{--<label for="LinkImage">Thumbnail</label>--}}
+                {{--{!!  Form::imageselector('LinkImage')!!}--}}
+            {{--</div>--}}
             <div class="col-md-6 form-group">
                 <label for="LinkLoginReqd">LinkLoginReqd</label>
                 {!!  Form::text('LinkLoginReqd',null,['class'=>'form-control'])!!}

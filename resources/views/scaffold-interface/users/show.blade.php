@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-md-1">
-            <img src="{{url(Auth::user()->image->path)}}" class="img-circle" alt="User Image">
+            {{--<img src="{{url(Auth::user()->image->path)}}" class="img-circle" alt="User Image">--}}
         </div>
         <div class="col-md-8">
             <h3>({{$user->name}})</h3>
@@ -12,9 +12,6 @@
 
 
     <div class="row">
-        <div class="col-md-8">
-            @include("partials.postsList")
-        </div>
         <div class="col-md-4">
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
@@ -24,9 +21,6 @@
                         </h4>
                     </div>
                     <div id="collapse1" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            @include('partials.groupList')
-                        </div>
                     </div>
                 </div>
             </div>
