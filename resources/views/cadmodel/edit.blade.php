@@ -14,42 +14,35 @@
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
                     <div class="panel-body">
+                        <a href="{!! url('auto3dprintqueue/create?CadModelImport='.$cadmodel->id) !!}"
+                           class='btn btn-primary'>
+                            3d Print Model
+                        </a>
 
-
-                        <form method='get' action='{!!url("cadmodel")!!}'>
-                            <button class='btn btn-danger'>cadmodel Index</button>
-                        </form>
                         <br>
-                        <form method='POST' action='{!! url("cadmodel")!!}/{!!$cadmodel->
-        id!!}/update'>
+                        <form method='POST' action='{!! url("cadmodel")!!}/{!!$cadmodel->id!!}/update'>
                             <input type='hidden' name='_token' value='{{Session::token()}}'>
                             <div class="form-group">
                                 <label for="Name">Name</label>
-                                <input id="Name" name="Name" type="text" class="form-control" value="{!!$cadmodel->
-            Name!!}">
+                                <input id="Name" name="Name" type="text" class="form-control"
+                                       value="{!!$cadmodel->Name!!}">
                             </div>
                             <div class="form-group">
                                 <label for="Description">Description</label>
-                                <input id="Description" name="Description" type="text" class="form-control" value="{!!$cadmodel->
-            Description!!}">
+                                <input id="Description" name="Description" type="text" class="form-control"
+                                       value="{!!$cadmodel->Description!!}">
                             </div>
-                            <div class="form-group">
-                                <label for="ModelFile">ModelFile</label>
-                                <textarea id="ModelFile" name="ModelFile"
-                                          type="textarea">{!!$cadmodel->ModelFile!!}</textarea>
-                            </div>
+
                             <div class="form-group">
                                 <label for="Material">Material</label>
-                                <input id="Material" name="Material" type="text" class="form-control" value="{!!$cadmodel->
-            Material!!}">
+                                <input id="Material" name="Material" type="text" class="form-control"
+                                       value="{!!$cadmodel->Material!!}">
                             </div>
 
-                            <div class="form-group">
-                                <label for="STLFile">ModelFile</label>
-                                <textarea id="STLFile" name="STLFile"
-                                          type="textarea"></textarea>
-                            </div>
+                            <textarea id="ModelFile" name="ModelFile" style="display:none;"
+                                      type="textarea">{!!$cadmodel->ModelFile!!}</textarea>
 
+                            <textarea id="STLFile" name="STLFile" style="display:none;" type="textarea"></textarea>
 
                             <button class='btn btn-primary' type='submit'>Update</button>
                         </form>
@@ -75,7 +68,7 @@
                 len = localStorage.length
                 for (var i = 0; i < len; i++) {
 
-                        localStorage.removeItem(bla[i]);
+                    localStorage.removeItem(bla[i]);
 
                 }
 
@@ -94,7 +87,6 @@
             }
 
 
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -108,24 +100,21 @@
                 var lengthOfLocalStorage = localStorage.length;
                 bla = lengthOfLocalStorage.toString();
                 for (var i = 0, len = localStorage.length; i < len; i++) {
-                    if (localStorage.key(i).substr(0, {!! strlen('TCAD.projects.'. $cadmodel->id) !!}) == '{!! 'TCAD.projects.'. $cadmodel->id !!}')
-                    {
+                    if (localStorage.key(i).substr(0, {!! strlen('TCAD.projects.'. $cadmodel->id) !!}) == '{!! 'TCAD.projects.'. $cadmodel->id !!}') {
 
-                        if (localStorage.key(i).indexOf(".stl") == -1)
-                        {
+                        if (localStorage.key(i).indexOf(".stl") == -1) {
 
                             var key = localStorage.key(i);
                             var value = localStorage[key];
 
                             bla += "\n" + key + "\n" + value;
                         }
-                        else
-                        {
+                        else {
                             var key = localStorage.key(i);
                             var value = localStorage[key];
-                            alert(value);
-                            $('#STLFile').val( value);
-                            $.post( "updatemodelstl", $( "#STLFile" ).serialize() );
+                            //alert(value);
+                            $('#STLFile').val(value);
+                            $.post("updatemodelstl", $("#STLFile").serialize());
                         }
 
                     }
@@ -134,13 +123,9 @@
 
                 //alert(localStorage[key]);
                 $('#ModelFile').val(bla);
-                $.post( "updatemodel", $( "#ModelFile" ).serialize() );
+                $.post("updatemodel", $("#ModelFile").serialize());
                 //exportTextData(bla,"export.web-cad");
             }
-
-
-
-
 
 
             $(function () {
@@ -152,8 +137,6 @@
                 localStorage.setItem('a', 'test');
 
             });
-
-
 
 
             //ExportToLocalFile();

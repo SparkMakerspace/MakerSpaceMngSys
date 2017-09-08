@@ -27,7 +27,7 @@ class CadmodelController extends Controller
     public function index()
     {
         $title = 'Index - cadmodel';
-        $cadmodels = Cadmodel::paginate(6);
+        $cadmodels = Cadmodel::orderBy('created_at', 'dec')->paginate(10);
         return view('cadmodel.index',compact('cadmodels','title'));
     }
 
