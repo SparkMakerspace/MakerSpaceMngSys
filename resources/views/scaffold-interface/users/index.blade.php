@@ -3,7 +3,7 @@
 <section class="content">
 <div class="box box-primary">
 <div class="box-header">
-	<h2>Redgistered users: {{$users->count()}}</h2>
+	<h2>Registered users: {{$users->count()}}</h2>
 </div>
 
 	<div class="box-body">
