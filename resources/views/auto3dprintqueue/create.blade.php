@@ -11,10 +11,17 @@
         <a href="./" class = 'btn btn-danger'>auto3dprintqueue Index</a>
         {!! Form::open(array('route' => 'auto3dprintqueue.store', 'files'=>true)) !!}
     {{csrf_field()}}
+
+
+    @if($CadModelImport)
+        {!! Form::hidden('CadModelImport',$CadModelImport) !!}
+
+        @else
         <div class="form-group">
             <label>Select File</label>
             {!! Form::file('upload', ['accept' =>'.stl']) !!}
         </div>
+    @endif
 
     <div class="form-group">
         <label>Generate Support</label>

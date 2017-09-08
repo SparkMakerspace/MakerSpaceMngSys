@@ -100,6 +100,7 @@ Route::group(['middleware' => 'web'], function () {
             Route::resource('cadmodel','\App\Http\Controllers\CadmodelController');
             Route::post('cadmodel/{id}/update','\App\Http\Controllers\CadmodelController@update');
             Route::post('cadmodel/{id}/updatemodel','\App\Http\Controllers\CadmodelController@updatemodel');
+            Route::post('cadmodel/{id}/updatemodelstl','\App\Http\Controllers\CadmodelController@updatemodelSTL');
             Route::get('cadmodel/{id}/delete','\App\Http\Controllers\CadmodelController@destroy');
             Route::get('cadmodel/{id}/deleteMsg','\App\Http\Controllers\CadmodelController@DeleteMsg');
         });

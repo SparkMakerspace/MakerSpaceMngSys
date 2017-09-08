@@ -18,7 +18,7 @@ use Storage;
 use App\User;
 use Mail;
 use Jenssegers\Agent\Agent;
-
+use App\Cadmodel;
 
 
 /**
@@ -69,16 +69,19 @@ class Auto3dprintqueueController extends Controller
      *
      * @return  \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $title = 'Create - auto3dprintqueue';
-
+        $CadModelImport = "";
+        if ($request->CadModelImport != null) {
+            $CadModelImport = $request->CadModelImport;
+        }
 
         $auto3dprintmaterials = Auto3dprintmaterial::all()->pluck('material', 'id');
 
         $users = User::all()->pluck('name', 'id');
 
-        return view('auto3dprintqueue.create', compact('title', 'auto3dprintmaterials', 'users'));
+        return view('auto3dprintqueue.create', compact('title', 'auto3dprintmaterials', 'users', 'CadModelImport'));
     }
 
     /**
@@ -93,8 +96,6 @@ class Auto3dprintqueueController extends Controller
         //dd($request);
         $auto3dprintqueue = new Auto3dprintqueue();
 
-
-        $auto3dprintqueue->Name = $request->file('upload')->getClientOriginalName();
 
         $auto3dprintqueue->path = '';
 
@@ -119,13 +120,28 @@ class Auto3dprintqueueController extends Controller
 
         $auto3dprintqueue->user_id = \Auth::user()->id;
 
+        if ($request->CadModelImport)
+        {
+            $cadModelrecord = Cadmodel::findOrfail($request->CadModelImport);
+            $auto3dprintqueue->Name = $cadmodel = $cadModelrecord->Name;
+            $auto3dprintqueue->save();
+            ;
 
-        $auto3dprintqueue->save();
+            Storage::disk('local')->put("3dPrintFiles\\" . $auto3dprintqueue->id . ".stl", file_get_contents("../storage/app/3dCadModels/" . $request->CadModelImport . ".stl"));
 
-        $path = Storage::putFileAs('3dPrintFiles', $request->file('upload'), $auto3dprintqueue->id . ".stl", 'public');
+
+        }
+        else
+        {
+
+            $auto3dprintqueue->Name = $request->file('upload')->getClientOriginalName();
+            $auto3dprintqueue->save();
+            $path = Storage::putFileAs('3dPrintFiles', $request->file('upload'), $auto3dprintqueue->id . ".stl", 'public');
+
+
+        }
 
         Storage::disk('local')->put("3dPrintFiles\\" . $auto3dprintqueue->id . ".scad", "import(\"" . $auto3dprintqueue->id . ".stl\");");
-
 
         $pusher = App::make('pusher');
 
@@ -147,10 +163,6 @@ class Auto3dprintqueueController extends Controller
     /**
      * @param $auto3dprintqueue
      */
-
-
-
-
 
 
     /**
@@ -178,7 +190,6 @@ class Auto3dprintqueueController extends Controller
             if ($request->ajax()) {
                 return URL::to('auto3dprintqueue');
             }
-
 
 
             return redirect('auto3dprintqueue/' . $auto3dprintqueue->id . "/");
@@ -331,8 +342,6 @@ class Auto3dprintqueueController extends Controller
         }
 
 
-
-
         $auto3dprintmaterials = Auto3dprintmaterial::all()->pluck('material', 'id');
 
 
@@ -382,7 +391,6 @@ class Auto3dprintqueueController extends Controller
     }
 
 
-
     /**
      * Remove the specified resource from storage.
      *
@@ -417,11 +425,11 @@ function sendEmailReminder($id)
     $auto3dprintqueue = Auto3dprintqueue::findOrfail($id);
     $user = User::findOrFail($auto3dprintqueue->user->id);
 
-    Mail::send('auto3dprintqueue.email', ['user' => $user, 'auto3dprintqueue' => $auto3dprintqueue], function ($m) use ($user,$auto3dprintqueue) {
+    Mail::send('auto3dprintqueue.email', ['user' => $user, 'auto3dprintqueue' => $auto3dprintqueue], function ($m) use ($user, $auto3dprintqueue) {
         $m->from('3dprinting@smbisoft.com', '3d Print Complete.');
 
 
-        $mysubject = "3d Print id # (" . $auto3dprintqueue->id . ")    Status has changed to ".$auto3dprintqueue->Status;
+        $mysubject = "3d Print id # (" . $auto3dprintqueue->id . ")    Status has changed to " . $auto3dprintqueue->Status;
         $m->to($user->email, $user->name)->subject($mysubject);
     });
 }
@@ -432,54 +440,48 @@ function SliceModel($id)
 
 
     $gensupport = "";
-    if ($auto3dprintqueue->genenerateSupport == 1)
-    {
-        $gensupport =  "  --support-material  ";
+    if ($auto3dprintqueue->genenerateSupport == 1) {
+        $gensupport = "  --support-material  ";
     }
 
 
     if (env('APP_PLATFORM') == 'WIN') {
-        $slicerPath       = '..\\slic3r\\slic3r-console.exe';
-        $openScadPath     = '..\\slic3r\\openscad\\openscad.com';
-        $storagePath      = '..\\storage\\app\\3dPrintFiles\\';
+        $slicerPath = '..\\slic3r\\slic3r-console.exe';
+        $openScadPath = '..\\slic3r\\openscad\\openscad.com';
+        $storagePath = '..\\storage\\app\\3dPrintFiles\\';
         $SlicerConfigPath = '..\\slic3r\\test.ini';
     }
 
 
     if (env('APP_PLATFORM') == 'LINUX') {
-        $slicerPath       = '/usr/bin/slic3r';
-        $openScadPath     = '/usr/bin/openscad';
-        $storagePath      = '../storage/app/3dPrintFiles/';
+        $slicerPath = '/usr/bin/slic3r';
+        $openScadPath = '/usr/bin/openscad';
+        $storagePath = '../storage/app/3dPrintFiles/';
         $SlicerConfigPath = '../Slic3r/test.ini';
     }
 
     if (env('APP_PLATFORM') == 'MAC') {
-        $slicerPath       = '/Applications/Slic3r.app/Contents/MacOS/slic3r';
-        $openScadPath     = '/Applications/OpenSCAD.app/Contents/MacOS/openscad';
-        $storagePath      = '../storage/app/3dPrintFiles/';
+        $slicerPath = '/Applications/Slic3r.app/Contents/MacOS/slic3r';
+        $openScadPath = '/Applications/OpenSCAD.app/Contents/MacOS/openscad';
+        $storagePath = '../storage/app/3dPrintFiles/';
         $SlicerConfigPath = '../Slic3r/test.ini';
     }
 
 
-
-    $OpenScadThumnailGen   = $openScadPath . " ". $storagePath . $auto3dprintqueue->id . ".scad -o " . $storagePath  . $auto3dprintqueue->id . ".png"  ;
-    $RunSlicerToSlice      = $slicerPath . " ". $storagePath . $auto3dprintqueue->id  . ".stl  --load \"" . $SlicerConfigPath . "\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0"   ;
-    $runSlcerForDimensions = $slicerPath . " ". $storagePath . $auto3dprintqueue->id  . ".stl --info --load \"" . $SlicerConfigPath . "\"  --fill-density " . $auto3dprintqueue->Infill .  $gensupport."  --print-center 0,0"   ;
-
+    $OpenScadThumnailGen = $openScadPath . " " . $storagePath . $auto3dprintqueue->id . ".scad -o " . $storagePath . $auto3dprintqueue->id . ".png";
+    $RunSlicerToSlice = $slicerPath . " " . $storagePath . $auto3dprintqueue->id . ".stl  --load \"" . $SlicerConfigPath . "\"  --fill-density " . $auto3dprintqueue->Infill . $gensupport . "  --print-center 0,0";
+    $runSlcerForDimensions = $slicerPath . " " . $storagePath . $auto3dprintqueue->id . ".stl --info --load \"" . $SlicerConfigPath . "\"  --fill-density " . $auto3dprintqueue->Infill . $gensupport . "  --print-center 0,0";
 
 
-    
-    
-    $OpenScadResult   = shell_exec($OpenScadThumnailGen);
-    $slicerResult     = shell_exec($RunSlicerToSlice );
+    $OpenScadResult = shell_exec($OpenScadThumnailGen);
+    $slicerResult = shell_exec($RunSlicerToSlice);
     $slicerDimensions = shell_exec($runSlcerForDimensions);
 
 //testing for platform command functionality. This line should remain commented out in production.
 //dd($OpenScadResult, $slicerResult, $slicerDimensions, $OpenScadThumnailGen, $RunSlicerToSlice, $runSlcerForDimensions);
 
 
-    
-//Get Dimension of print to check bed size 
+//Get Dimension of print to check bed size
     $slicerDimensions = strtoupper($slicerDimensions);
     $slicerDimensions = str_replace("\n", " ", $slicerDimensions);
 
@@ -494,11 +496,11 @@ function SliceModel($id)
     $auto3dprintqueue1->SizeZ = intval(str_after($pieces[21], "Z="));
 
 //get filament quanity
-    $pieces = trim (array_filter(explode(":", $slicerResult))[1]);
-    $pieces = str_replace("mm", "",  $pieces);
-    $pieces = trim (array_filter(explode(" ", $pieces))[0]);
+    $pieces = trim(array_filter(explode(":", $slicerResult))[1]);
+    $pieces = str_replace("mm", "", $pieces);
+    $pieces = trim(array_filter(explode(" ", $pieces))[0]);
 
-    $auto3dprintqueue1->filament_used= intval($pieces);
+    $auto3dprintqueue1->filament_used = intval($pieces);
     $auto3dprintqueue1->save();
 
 }

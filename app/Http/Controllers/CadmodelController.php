@@ -9,6 +9,8 @@ use App\Cadmodel;
 use Amranidev\Ajaxis\Ajaxis;
 use URL;
 
+use Storage;
+
 /**
  * Class CadmodelController.
  *
@@ -132,6 +134,17 @@ class CadmodelController extends Controller
         $cadmodel = Cadmodel::findOrfail($id);
         $cadmodel->ModelFile = $request->ModelFile;
         $cadmodel->save();
+
+        return redirect('cadmodel');
+    }
+
+
+    public function updatemodelSTL($id,Request $request)
+    {
+
+        Storage::disk('local')->put("3dCadModels\\" . $id. ".stl", $request->STLFile);
+
+
 
         return redirect('cadmodel');
     }

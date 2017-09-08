@@ -43,6 +43,14 @@
                                 <input id="Material" name="Material" type="text" class="form-control" value="{!!$cadmodel->
             Material!!}">
                             </div>
+
+                            <div class="form-group">
+                                <label for="STLFile">ModelFile</label>
+                                <textarea id="STLFile" name="STLFile"
+                                          type="textarea"></textarea>
+                            </div>
+
+
                             <button class='btn btn-primary' type='submit'>Update</button>
                         </form>
 
@@ -100,12 +108,26 @@
                 var lengthOfLocalStorage = localStorage.length;
                 bla = lengthOfLocalStorage.toString();
                 for (var i = 0, len = localStorage.length; i < len; i++) {
-                    if (localStorage.key(i).substr(0, {!! strlen('TCAD.projects.'. $cadmodel->id) !!}) == '{!! 'TCAD.projects.'. $cadmodel->id !!}') {
+                    if (localStorage.key(i).substr(0, {!! strlen('TCAD.projects.'. $cadmodel->id) !!}) == '{!! 'TCAD.projects.'. $cadmodel->id !!}')
+                    {
 
-                        var key = localStorage.key(i);
-                        var value = localStorage[key];
+                        if (localStorage.key(i).indexOf(".stl") == -1)
+                        {
 
-                        bla += "\n" + key + "\n" + value;
+                            var key = localStorage.key(i);
+                            var value = localStorage[key];
+
+                            bla += "\n" + key + "\n" + value;
+                        }
+                        else
+                        {
+                            var key = localStorage.key(i);
+                            var value = localStorage[key];
+                            alert(value);
+                            $('#STLFile').val( value);
+                            $.post( "updatemodelstl", $( "#STLFile" ).serialize() );
+                        }
+
                     }
 
                 }
