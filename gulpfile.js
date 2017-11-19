@@ -15,13 +15,7 @@ require('laravel-elixir-vue-2');
 
 elixir(function(mix) {
     mix.copy(
-        'node_modules/fullcalendar/dist/fullcalendar.css',
-        'resources/assets/css'
-    ).copy(
-        'node_modules/fullcalendar/dist/fullcalendar.js',
-        'public/js'
-    ).copy(
-        'node_modules/moment/moment.js',
+        'resources/assets/js/jquery.mask.min.js',
         'public/js'
     ).copy(
         'resources/assets/js/bootstrap-datetimepicker.min.js',
