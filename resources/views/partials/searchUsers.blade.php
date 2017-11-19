@@ -88,18 +88,17 @@ Optional Parameters:
         }
         
         function addUser(id) {
+            // Do nothing if the user is already selected
             if ($('a.user-search-selected[id='+id+']').length){
                 return;
             }
-            var user = users.map(function (user_inner) {
+            var user;
+            users.map(function (user_inner) {
                 if (user_inner['id'] === id) {
-                    return user_inner;
-                } else {
-                    return null;
+                    user = user_inner;
                 }
             });
             var result = document.createElement("A");
-            user = user[0];
             result.setAttribute('href','#');
             result.setAttribute('class','list-group-item user-search-selected');
             result.setAttribute('id',user['id']);
