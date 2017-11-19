@@ -220,11 +220,14 @@ class UserController extends Controller
 
     public function searchUser(Request $request){
         $query = $request->get('query');
-        if ($query) {
-            $results = User::where('username', 'like', '%' . $query . '%')->orWhere('name', 'like', '%' . $query . '%')->with('image')->get();
+        if($query == ''){
+            $results = '[]';
+        }
+        else if ($query) {
+            $results = User::where('username', 'like', '%' . $query . '%')->orWhere('name', 'like', '%' . $query . '%')->get();
             $results = $results->makeHidden('bio')->toJson();
         } else{
-            $results = '';
+            $results = '[]';
         }
         return $results;
     }
