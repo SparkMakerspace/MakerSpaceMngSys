@@ -79,9 +79,11 @@ class RegisterController extends Controller
             'zipcode' => $data['zipcode'],
             'phone' => $data['phone'],
             'active' => false,
+            'acceptedTerms' => false,
             'accountType' => 'member',
             'password' => bcrypt($data['password']),
         ]);
+        $user->assignRole('member');
         return $user;
     }
 }
