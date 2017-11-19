@@ -103,7 +103,7 @@
                             <a href="{{url('/login')}}">Login</a>
                         </li>
                         <li class="">
-                            <a href="{{url('/register')}}">Register</a>
+                            <a href="{{url('/register')}}">Join!</a>
                         </li>
                     @endif
                 </ul>
