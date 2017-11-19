@@ -86,14 +86,14 @@ Route::group(['middleware' => 'web'], function () {
 //sitepage Routes
 
 });
-Route::get('{mystub}', '\App\Http\Controllers\SitenavigationController@showp');
-
-Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
-Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
-
 Route::get('test',function(){
     return view('partials.searchUsers');
 });
 
-Route::post('searchUsers','ScaffoldInterface\UserController@searchUser');
+Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
+Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
 
+
+
+Route::post('searchUsers','ScaffoldInterface\UserController@searchUser');
+Route::get('{mystub}', '\App\Http\Controllers\SitenavigationController@showp');
