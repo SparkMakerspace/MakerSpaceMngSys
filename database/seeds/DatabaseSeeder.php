@@ -11,12 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(Auto3dPrinterMaterialSeeder::class);
         $this->call(permissionSeeder::class);
         $this->call(roleSeeder::class);
         $this->call(userSeeder::class);
         $this->call(NavigationSeeder::class);
-
-
+        $this->call(contractSeeder::class);
     }
 }

@@ -61,6 +61,10 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Query\Builder|\App\User whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereImageId($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Chore_list[] $chore_lists
+ * @property string|null $signature
+ * @property int|null $contractRev
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereContractRev($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSignature($value)
  */
 class User extends Authenticatable
 {
@@ -82,186 +86,17 @@ class User extends Authenticatable
      */
     protected $visible = ['id','username','name','accountType','bio'];
 
-    /**
-     * group.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany ;
-     */
-    public function groups()
-    {
-        return $this->belongsToMany('App\Group','groups_users')->withPivot('role');
-    }
-
-    /**
-     * Assign a group.
-     *
-     * @param  $group
-     * @return  mixed
-     */
-    public function assignGroup($group)
-    {
-        return $this->groups()->attach($group);
-    }
-
-    /**
-     * Remove a group.
-     *
-     * @param  $group
-     * @return  mixed
-     */
-    public function removeGroup($group)
-    {
-        return $this->groups()->detach($group);
-    }
-
-
-	/**
-     * event.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function events()
-    {
-        return $this->belongsToMany('App\Event','events_users')->withPivot(['eventOwner','status','paid']);
-    }
-
-    /**
-     * Assign a event.
-     *
-     * @param  $event
-     * @return  mixed
-     */
-    public function assignEvent($event)
-    {
-        return $this->events()->attach($event);
-    }
-
-    /**
-     * Remove a event.
-     *
-     * @param  $event
-     * @return  mixed
-     */
-    public function removeEvent($event)
-    {
-        return $this->events()->detach($event);
-    }
-
-
-	/**
-     * post.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function posts()
-    {
-        return $this->belongsToMany('App\Post','posts_users')->withPivot('postOwner');
-    }
-
-    /**
-     * Assign a post.
-     *
-     * @param  $post
-     * @return  mixed
-     */
-    public function assignPost($post)
-    {
-        return $this->posts()->attach($post);
-    }
-
-    /**
-     * Remove a post.
-     *
-     * @param  $post
-     * @return  mixed
-     */
-    public function removePost($post)
-    {
-        return $this->posts()->detach($post);
-    }
-
     public function UserUrl()
     {
         return url('u/' .$this->username);
     }
-	/**
-     * door.
-     *
-     * @return  \Illuminate\Support\Collection;
-     */
-    public function doors()
-    {
-        return $this->belongsToMany('App\Door');
+
+    public function payment_tokens(){
+        return $this->hasMany('App\Payment_token');
     }
 
-    /**
-     * Assign a door.
-     *
-     * @param  $door
-     * @return  mixed
-     */
-    public function assignDoor($door)
-    {
-        return $this->doors()->attach($door);
-    }
-
-    /**
-     * Remove a door.
-     *
-     * @param  $door
-     * @return  mixed
-     */
-    public function removeDoor($door)
-    {
-        return $this->doors()->detach($door);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany('App\Comment');
-    }
-
-    public function accessMediasAll()
-    {
-        // return true for access to all medias
-        return $this->hasAnyRole(['admin','superadmin']);
-    }
-
-    public function accessMediasFolder()
-    {
-        // return true for access to one folder
-        return $this->hasAnyRole('nonmember');
-    }
-
-
-	/**
-     * chore_list.
-     *
-     * @return  \Illuminate\Support\Collection;
-     */
-    public function chore_lists()
-    {
-        return $this->belongsToMany('App\Chore_list');
-    }
-
-    /**
-     * Assign a chore_list.
-     *
-     * @param  $chore_list
-     * @return  mixed
-     */
-    public function assignChore_list($chore_list)
-    {
-        return $this->chore_lists()->attach($chore_list);
-    }
-    /**
-     * Remove a chore_list.
-     *
-     * @param  $chore_list
-     * @return  mixed
-     */
-    public function removeChore_list($chore_list)
-    {
-        return $this->chore_lists()->detach($chore_list);
+    public function selected_payment(){
+        return $this->payment_tokens()->where('selected',1);
     }
 
 }

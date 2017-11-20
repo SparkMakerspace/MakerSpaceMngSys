@@ -1,5 +1,6 @@
 <?php
 
+use App\Sitenavigation;
 use Illuminate\Database\Seeder;
 
 class NavigationSeeder extends Seeder
@@ -11,14 +12,12 @@ class NavigationSeeder extends Seeder
      */
     public function run()
     {
-
-        \App\Sitenavigation::create([
-            'LinkText'=>'3D Printer Queue ',
+        $obj = Sitenavigation::firstOrCreate([
+            'LinkText'=>'Member Contract',
             'LinkImage'=>'',
-            'LinkLoginReqd'=>'',
-            'LinkURL'=>'auto3dprintqueue',
-            'LinkDescription'=>'Best part of the site',
+            'LinkLoginReqd'=>1,
+            'LinkURL'=>'terms',
+            'LinkDescription'=>'Read the latest member contract'
         ]);
-
     }
 }

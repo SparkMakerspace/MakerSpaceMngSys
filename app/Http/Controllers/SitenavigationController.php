@@ -130,7 +130,7 @@ class SitenavigationController extends Controller
     public function showp( $mystub = "",Request $request)
     {
         $title = 'Show - sitepage';
-        $Sitenavigation = Sitenavigation::where('LinkURL' ,$mystub)->first();
+        $Sitenavigation = Sitenavigation::where('LinkURL' ,$mystub)->firstOrFail();
 
 
         return view('Sitenavigation.show',compact('title','Sitenavigation'));

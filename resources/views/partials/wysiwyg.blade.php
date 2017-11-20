@@ -1,5 +1,15 @@
 <script src="{{url('/js/tinymce/tinymce.min.js')}}"></script>
-
+@php
+if(!isset($post)){
+    $post = false;
+};
+if(!isset($value)){
+    $value = '';
+}
+if(!isset($attributes)){
+    $attributes = [];
+}
+@endphp
 <script>
     tinymce.init({
         selector: '#{!!$name!!}',

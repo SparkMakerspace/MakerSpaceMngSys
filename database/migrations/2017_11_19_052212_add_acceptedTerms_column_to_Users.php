@@ -15,7 +15,8 @@ class AddAcceptedTermsColumnToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
-            $table->boolean('acceptedTerms')->nullable();
+            $table->text('signature')->nullable();
+            $table->integer('contract_id')->nullable();
         });
     }
 
@@ -28,7 +29,7 @@ class AddAcceptedTermsColumnToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
-            $table->dropColumn('acceptedTerms');
+            $table->dropColumn('signature');
         });
     }
 }

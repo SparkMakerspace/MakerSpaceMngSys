@@ -46,7 +46,7 @@ class RoleController extends Controller
             $role->syncPermissions(array_keys($request->permission));
         }
 
-        return redirect('roles');
+        return redirect('scaffold-roles');
     }
 
     /**
@@ -86,7 +86,7 @@ class RoleController extends Controller
 
         $role->update();
 
-        return redirect('roles');
+        return redirect('scaffold-roles');
     }
 
     /**
@@ -102,6 +102,6 @@ class RoleController extends Controller
 
         $role->delete();
 
-        return redirect('roles');
+        return redirect('scaffold-roles');
     }
 }

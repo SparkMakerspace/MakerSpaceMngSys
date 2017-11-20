@@ -1,4 +1,4 @@
-<li class="active treeview">
+    <li class="active treeview">
     <a href="{{url('scaffold-dashboard')}}">
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
     </a>

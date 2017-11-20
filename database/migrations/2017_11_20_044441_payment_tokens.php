@@ -4,12 +4,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class Cadmodels.
+ * Class Payment_tokens.
  *
- * @author  The scaffold-interface created at 2017-09-05 08:07:22pm
+ * @author  The scaffold-interface created at 2017-11-20 04:44:41am
  * @link  https://github.com/amranidev/scaffold-interface
  */
-class Cadmodels extends Migration
+class PaymentTokens extends Migration
 {
     /**
      * Run the migrations.
@@ -18,17 +18,15 @@ class Cadmodels extends Migration
      */
     public function up()
     {
-        Schema::create('cadmodels',function (Blueprint $table){
+        Schema::create('payment_tokens',function (Blueprint $table){
 
         $table->increments('id');
         
-        $table->String('Name');
+        $table->String('token');
         
-        $table->String('Description');
-        
-        $table->longText('ModelFile');
-        
-        $table->String('Material');
+        $table->boolean('selected');
+
+        $table->integer('user_id');
         
         /**
          * Foreignkeys section
@@ -37,8 +35,6 @@ class Cadmodels extends Migration
         
         $table->timestamps();
         
-        
-        $table->softDeletes();
         
         // type your addition here
 
@@ -52,6 +48,6 @@ class Cadmodels extends Migration
      */
     public function down()
     {
-        Schema::drop('cadmodels');
+        Schema::drop('payment_tokens');
     }
 }

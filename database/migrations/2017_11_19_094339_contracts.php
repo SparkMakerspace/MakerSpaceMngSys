@@ -4,12 +4,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class Auto3dprintmaterials.
+ * Class Contracts.
  *
- * @author  The scaffold-interface created at 2017-03-14 05:49:10am
+ * @author  The scaffold-interface created at 2017-11-19 09:43:39pm
  * @link  https://github.com/amranidev/scaffold-interface
  */
-class Auto3dprintmaterials extends Migration
+class Contracts extends Migration
 {
     /**
      * Run the migrations.
@@ -18,11 +18,13 @@ class Auto3dprintmaterials extends Migration
      */
     public function up()
     {
-        Schema::create('auto3dprintmaterials',function (Blueprint $table){
+        Schema::create('contracts',function (Blueprint $table){
 
         $table->increments('id');
         
-        $table->String('material');
+        $table->longText('text');
+        
+        $table->String('revision');
         
         /**
          * Foreignkeys section
@@ -46,6 +48,6 @@ class Auto3dprintmaterials extends Migration
      */
     public function down()
     {
-        Schema::drop('auto3dprintmaterials');
+        Schema::drop('contracts');
     }
 }

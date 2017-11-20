@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/terms';
 
     /**
      * Create a new controller instance.
@@ -79,11 +79,11 @@ class RegisterController extends Controller
             'zipcode' => $data['zipcode'],
             'phone' => $data['phone'],
             'active' => false,
-            'acceptedTerms' => false,
             'accountType' => 'member',
             'password' => bcrypt($data['password']),
         ]);
         $user->assignRole('member');
         return $user;
     }
+
 }

@@ -4,12 +4,10 @@
 
 <section class="content">
     <h1>
-        Show auto3dprintmaterial
+        Show contract
     </h1>
     <br>
-    <form method = 'get' action = '{!!url("auto3dprintmaterial")!!}'>
-        <button class = 'btn btn-primary'>auto3dprintmaterial Index</button>
-    </form>
+    <a href='{!!url("contract")!!}' class = 'btn btn-primary'><i class="fa fa-home"></i>Contract Index</a>
     <br>
     <table class = 'table table-bordered'>
         <thead>
@@ -18,10 +16,12 @@
         </thead>
         <tbody>
             <tr>
-                <td>
-                    <b><i>material : </i></b>
-                </td>
-                <td>{!!$auto3dprintmaterial->material!!}</td>
+                <td> <b>text</b> </td>
+                <td>{!!$contract->text!!}</td>
+            </tr>
+            <tr>
+                <td> <b>revision</b> </td>
+                <td>{!!$contract->revision!!}</td>
             </tr>
         </tbody>
     </table>
