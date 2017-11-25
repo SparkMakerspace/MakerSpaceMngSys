@@ -21,7 +21,9 @@ class userSeeder extends Seeder
             'city'=>'',
             'state'=>'',
             'zipcode'=>'',
-            'phone'=>'(000) 000-0000'
+            'phone'=>'(000) 000-0000',
+            'over13'=>1,
+            'over16'=>1
         ];
 
         $john = ['email'=>'john@scimone.net',
@@ -33,7 +35,9 @@ class userSeeder extends Seeder
             'city'=>'Waterford',
             'state'=>'CT',
             'zipcode'=>'06385',
-            'phone'=>'(203) 123-4567'
+            'phone'=>'(203) 123-4567',
+            'over13'=>1,
+            'over16'=>1
         ];
 
         $drew = ['email'=>'hi@drew.ga',
@@ -45,7 +49,9 @@ class userSeeder extends Seeder
             'city'=>'Anytown',
             'state'=>'CT',
             'zipcode'=>'06000',
-            'phone'=>'(555) 867-5309'
+            'phone'=>'(555) 867-5309',
+            'over13'=>1,
+            'over16'=>1
         ];
         
         $mike = ['email'=>'spark@smbisoft.com',
@@ -57,7 +63,9 @@ class userSeeder extends Seeder
             'city'=>'New London',
             'state'=>'CT',
             'zipcode'=>'06325',
-            'phone'=>'(860) 123-0000'
+            'phone'=>'(860) 123-0000',
+            'over13'=>1,
+            'over16'=>1
         ];
         
         $users = [$builtIn,$john,$drew,$mike];
@@ -74,6 +82,8 @@ class userSeeder extends Seeder
             $user->state = $u['state'];
             $user->zipcode = $u['zipcode'];
             $user->phone = $u['phone'];
+            $user->over13 = $u['over13'];
+            $user->over16 = $u['over16'];
             $user->save();
             $user->assignRole('superadmin');
         }

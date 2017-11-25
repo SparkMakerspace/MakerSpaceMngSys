@@ -16,12 +16,37 @@
                                 <div class="col-md-4"><h4>The Basics</h4></div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('over13') ? ' has-error' : '' }}">
+                                <label for="over13" class="col-md-4 control-label">Are you over the age of 13</label>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="over13" name="over13" autofocus> Yup! </label>
+                                    </div>
+                                    @if ($errors->has('over13'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('over13') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="over16" class="col-md-4 control-label">Are you over the age of 16</label>
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="over16" name="over16"> Also Yup! </label>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">Name</label>
+                                <label for="name" class="col-md-4 control-label">Legal Name</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control" name="name"
-                                           placeholder="name" value="{{ old('name') }}" required autofocus>
+                                           placeholder="name" value="{{ old('name') }}" required>
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -187,7 +212,7 @@
     <script src="{{url('js/jquery.mask.min.js')}}"></script>
     <script>
         $(function ($) {
-            $('#state').mask('AA');
+            $('#state').mask('SS');
             $('#phone').mask('(999) 999-9999');
             $('#fax').mask('(999) 999-9999');
             $('#zipcode').mask('99999');

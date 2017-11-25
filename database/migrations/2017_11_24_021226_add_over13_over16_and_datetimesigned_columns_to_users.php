@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAcceptedTermsColumnToUsers extends Migration
+class AddOver13Over16AndDatetimesignedColumnsToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,10 @@ class AddAcceptedTermsColumnToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
-            $table->text('signature')->nullable();
-            $table->integer('contract_id')->nullable();
+            $table->boolean('over13');
+            $table->boolean('over16');
+            $table->dateTime('acceptedTerms_timestamp')->nullable();
+            $table->string('registration_state')->nullable();
         });
     }
 
@@ -29,8 +31,10 @@ class AddAcceptedTermsColumnToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
-            $table->dropColumn('signature');
-            $table->dropColumn('contract_id');
+            $table->dropColumn('over13');
+            $table->dropColumn('over16');
+            $table->dropColumn('acceptedTerms_timestamp');
+            $table->dropColumn('registration_state');
         });
     }
 }

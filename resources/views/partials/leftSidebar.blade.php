@@ -5,6 +5,7 @@
 </li>
 
 @foreach(\App\Sitenavigation::all() as $Sitenavigation)
+    @if($Sitenavigation->LinkLoginReqd && Auth::check() || !($Sitenavigation->LinkLoginReqd))
     <li class="treeview">
 
             <a href="../../../../../../../{!!$Sitenavigation->LinkURL!!}" title="{!!$Sitenavigation->LinkDescription!!}">
@@ -17,6 +18,7 @@
             </a>
         </td>
     </li>
+    @endif
 @endforeach
 
 @yield('sidebar.specific')
@@ -31,7 +33,5 @@
 <li class="treeview"><a href="{{url('scaffold-permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
 
 <li class="treeview"><a href="{{url('/Sitenavigation')}}"><i class="fa fa-key"></i> <span>Site Navigation & Pages</span></a></li>
-
-
 
 @endhasanyrole

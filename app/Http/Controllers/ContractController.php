@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Contract;
 use Amranidev\Ajaxis\Ajaxis;
+use Illuminate\Validation\Rule;
 use URL;
 
 /**
@@ -173,6 +174,10 @@ class ContractController extends Controller
     public function acceptTerms(Request $request)
     {
         $user = \Auth::user();
+        $this->validate($request, [
+           'Signature' => Rule::in([$user->name])
+        ]);
+
         if ($request->input('Signature',null)) {
             $user->signature = $request->Signature;
             $user->contract_id = Contract::all()->sortByDesc('revision')->first()->id;
