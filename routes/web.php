@@ -21,6 +21,7 @@ Auth::routes();
 //these routes require the user to be logged in.
 Route::group(['middleware' => ['auth']], function () {
     Route::get('u/{username}', '\App\Http\Controllers\ScaffoldInterface\UserController@view');
+    Route::get('subscription/payment',function (){return view('partials.searchUsers');});
 });
 
 //Sitenavigation Routes

@@ -65,9 +65,9 @@
         $(function(){
             $('input').keyup(function(){
                 if($(this).val() === '{!! Auth::user()->name !!}'){
-                    $('input#submit').removeAttr('disabled');
+                    $('input#submit').prop('disabled',false);
                 } else {
-                    $('input#submit').attr('disabled');
+                    $('input#submit').prop('disabled',true);
                 }
             });
         })

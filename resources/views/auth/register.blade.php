@@ -7,7 +7,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><h3 style="margin: 0px">Welcome</h3></div>
                     <div class="panel-body">
-                        <p>Well hey there! We're glad you've decided to join Spark Makerspace. We think that you'll love everything that we have to offer. To start the registration process, we'll need some basic information so we can contact you.</p>
+                        <p>Well hey there! We're glad you've decided to join Spark Makerspace. We think that you'll love
+                            everything that we have to offer. To start the registration process, we'll need some basic
+                            information so we can contact you.</p>
                         <p>Don't worry, we won't share your information... much (lol just kidding)</p>
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                             {{ csrf_field() }}
@@ -21,7 +23,7 @@
                                 <div class="col-md-6">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" id="over13" name="over13" autofocus> Yup! </label>
+                                            <input type="checkbox" id="over13" name="over13" value="1" autofocus> Yup! (We need to ask this for legal reasons)</label>
                                     </div>
                                     @if ($errors->has('over13'))
                                         <span class="help-block">
@@ -32,14 +34,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="over16" class="col-md-4 control-label">Are you over the age of 16</label>
+                                <label for="birthday" class="col-md-4 control-label">Birthday</label>
                                 <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="over16" name="over16"> Also Yup! </label>
-                                    </div>
+                                    <input class="form-control" id="birthday" placeholder="mm/dd/yyyy" name="birthday">
                                 </div>
                             </div>
+
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">Legal Name</label>
@@ -106,7 +106,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password"  class="col-md-4 control-label">Password</label>
+                                <label for="password" class="col-md-4 control-label">Password</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control "
@@ -121,7 +121,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="password-confirm"  class="col-md-4 control-label">Confirm Password</label>
+                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
@@ -208,10 +208,19 @@
     </div>
 @endsection
 
+
+
 @push('script')
+    <link rel="stylesheet" href="{{url('css/jquery.datetimepicker.min.css')}}">
+    <script src="{{url('js/jquery.datetimepicker.full.min.js')}}"></script>
     <script src="{{url('js/jquery.mask.min.js')}}"></script>
     <script>
         $(function ($) {
+            jQuery.datetimepicker.setLocale('en');
+            $('#birthday').datetimepicker({
+                timepicker:false,
+                format:'Y/m/d',
+                inline:true});
             $('#state').mask('SS');
             $('#phone').mask('(999) 999-9999');
             $('#fax').mask('(999) 999-9999');

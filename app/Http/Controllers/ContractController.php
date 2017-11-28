@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -180,6 +181,8 @@ class ContractController extends Controller
 
         if ($request->input('Signature',null)) {
             $user->signature = $request->Signature;
+            $user->registration_state = 'payment';
+            $user->acceptedTerms_timestamp = Carbon::now();
             $user->contract_id = Contract::all()->sortByDesc('revision')->first()->id;
             $user->save();
         } else {

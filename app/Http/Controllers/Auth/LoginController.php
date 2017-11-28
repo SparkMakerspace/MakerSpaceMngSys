@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,20 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected function redirectTo()
+    {
+        $user = Auth::user();
+        switch ($user->registration_state) {
+            case 'contract':
+                \Session::flash('message','You have not yet signed the member contract');
+                return '/terms';
+            case 'payment':
+                \Session::flash('message','Welcome back. You last left off');
+                return 'subscription/payment';
+            default:
+                return '/';
+        }
+    }
 
     /**
      * Create a new controller instance.

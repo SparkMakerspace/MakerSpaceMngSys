@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Carbon\Carbon;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -68,6 +69,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $birthday = Carbon::parse($data['birthday']);
+        $over16 = ($birthday->diffInYears(Carbon::today()) >= 16);
         $user = User::create([
             'name' => $data['name'],
             'username' => $data['username'],
@@ -81,6 +84,10 @@ class RegisterController extends Controller
             'active' => false,
             'accountType' => 'member',
             'password' => bcrypt($data['password']),
+            'over13' => $data['over13'],
+            'over16' => $over16,
+            'birthday' => $data['birthday'],
+            'registration_state' => 'contract'
         ]);
         $user->assignRole('member');
         return $user;

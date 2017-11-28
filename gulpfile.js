@@ -18,12 +18,14 @@ elixir(function(mix) {
         'resources/assets/js/jquery.mask.min.js',
         'public/js'
     ).copy(
-        'resources/assets/js/bootstrap-datetimepicker.min.js',
+        'node_modules/jquery-datetimepicker/build/jquery.datetimepicker.full.min.js',
         'public/js'
+    ).copy(
+        'node_modules/jquery-datetimepicker/build/jquery.datetimepicker.min.css',
+        'public/css'
     );
 
     mix.styles('fullcalendar.css');
-    mix.styles('bootstrap-datetimepicker.min.css');
 
     mix.sass('app.scss')
        .webpack('app.js');

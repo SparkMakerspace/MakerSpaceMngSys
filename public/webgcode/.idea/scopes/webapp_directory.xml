@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="webapp directory" pattern="file[webgcode]:webapp//*&amp;&amp;!file[webgcode]:webapp/templates/*" />
-</component>
