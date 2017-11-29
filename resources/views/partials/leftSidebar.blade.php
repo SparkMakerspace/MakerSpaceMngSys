@@ -1,11 +1,10 @@
-    <li class="active treeview">
-    <a href="{{url('scaffold-dashboard')}}">
+<li class="active treeview">
+    <a href="{{url('dashboard')}}">
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
     </a>
 </li>
 
 @foreach(\App\Sitenavigation::all() as $Sitenavigation)
-    @if($Sitenavigation->LinkLoginReqd && Auth::check() || !($Sitenavigation->LinkLoginReqd))
     <li class="treeview">
 
             <a href="../../../../../../../{!!$Sitenavigation->LinkURL!!}" title="{!!$Sitenavigation->LinkDescription!!}">
@@ -18,7 +17,6 @@
             </a>
         </td>
     </li>
-    @endif
 @endforeach
 
 @yield('sidebar.specific')
@@ -26,12 +24,14 @@
 @hasanyrole(['superadmin','admin'])
 <li class="header">ADMINISTRATOR</li>
 
-<li class="treeview"><a href="{{url('scaffold-users')}}"><i class="fa fa-users"></i> <span>Users</span></a></li>
+<li class="treeview"><a href="{{url('/users')}}"><i class="fa fa-users"></i> <span>Users</span></a></li>
 
-<li class="treeview"><a href="{{url('scaffold-roles')}}"><i class="fa fa-user-plus"></i> <span>Role</span></a></li>
+<li class="treeview"><a href="{{url('/roles')}}"><i class="fa fa-user-plus"></i> <span>Role</span></a></li>
 
-<li class="treeview"><a href="{{url('scaffold-permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
+<li class="treeview"><a href="{{url('/permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
 
 <li class="treeview"><a href="{{url('/Sitenavigation')}}"><i class="fa fa-key"></i> <span>Site Navigation & Pages</span></a></li>
+
+
 
 @endhasanyrole

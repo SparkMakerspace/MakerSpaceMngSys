@@ -13,8 +13,6 @@ Optional Parameters:
     $selectedUsers: the default selection as a collection of Users
         else, no user selected
 --}}
-<!-- TODO: DELETE THIS NEXT LINE -->
-@extends('scaffold-interface.layouts.app')
 
 @section('content')
     @php
@@ -88,17 +86,18 @@ Optional Parameters:
         }
         
         function addUser(id) {
-            // Do nothing if the user is already selected
             if ($('a.user-search-selected[id='+id+']').length){
                 return;
             }
-            var user;
-            users.map(function (user_inner) {
+            var user = users.map(function (user_inner) {
                 if (user_inner['id'] === id) {
-                    user = user_inner;
+                    return user_inner;
+                } else {
+                    return null;
                 }
             });
             var result = document.createElement("A");
+            user = user[0];
             result.setAttribute('href','#');
             result.setAttribute('class','list-group-item user-search-selected');
             result.setAttribute('id',user['id']);

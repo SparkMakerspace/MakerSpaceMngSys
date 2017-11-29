@@ -15,9 +15,4 @@
     <input type='text' class="form-control" id='{{$fieldName}}' name="{{$fieldName}}" @if(isset($value)) value="{{$value}}" @endif />
 </div>
 
-<script type="text/javascript">
-    $(function () {
-        $('#{{$fieldName}}').datetimepicker();
-    });
-</script>
 
