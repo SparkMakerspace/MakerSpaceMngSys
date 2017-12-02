@@ -125,7 +125,7 @@
             <ul class="sidebar-menu">
                 {{--<li class="header">MAIN NAVIGATION</li>--}}
                 <li class="active treeview">
-                    <a href="{{url('dashboard')}}">
+                    <a href="{{url('scaffold-dashboard')}}">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>
@@ -147,9 +147,9 @@
 
                 @hasanyrole(['superadmin','admin'])
                 <li class="header">ADMINISTRATOR</li>
-                <li class="treeview"><a href="{{url('/users')}}"><i class="fa fa-users"></i> <span>Users</span></a></li>
-                <li class="treeview"><a href="{{url('/roles')}}"><i class="fa fa-user-plus"></i> <span>Role</span></a></li>
-                <li class="treeview"><a href="{{url('/permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
+                <li class="treeview"><a href="{{url('/scaffold-users')}}"><i class="fa fa-users"></i> <span>Users</span></a></li>
+                <li class="treeview"><a href="{{url('/scaffold-roles')}}"><i class="fa fa-user-plus"></i> <span>Role</span></a></li>
+                <li class="treeview"><a href="{{url('/scaffold-permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
                 @endhasanyrole
                 @yield('someSideBarJunk')
 

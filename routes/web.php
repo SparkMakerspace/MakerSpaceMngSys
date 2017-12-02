@@ -84,27 +84,25 @@ Route::group(['middleware' => 'web'], function () {
     });
 
 
-    Route::post('charge','\App\Http\Controllers\ScaffoldInterface\UserController@addCreditCard');
-
-
+    Route::post('charge', '\App\Http\Controllers\ScaffoldInterface\UserController@addCreditCard');
 
 
 //these routes require the user to be logged in.
     Route::group(['middleware' => ['auth']], function () {
 
-        Route::get('u/{username}','\App\Http\Controllers\ScaffoldInterface\UserController@view');
-
-
-        //cadmodel Routes
-        Route::group(['middleware'=> 'web'],function(){
-            Route::resource('cadmodel','\App\Http\Controllers\CadmodelController');
-            Route::post('cadmodel/{id}/update','\App\Http\Controllers\CadmodelController@update');
-            Route::post('cadmodel/{id}/updatemodel','\App\Http\Controllers\CadmodelController@updatemodel');
-            Route::get('cadmodel/{id}/delete','\App\Http\Controllers\CadmodelController@destroy');
-            Route::get('cadmodel/{id}/deleteMsg','\App\Http\Controllers\CadmodelController@DeleteMsg');
+        Route::get('u/{username}', '\App\Http\Controllers\ScaffoldInterface\UserController@view');
+        Route::get('subscription/payment', function () {
+            return view('partials.searchUsers');
         });
 
-
+        //cadmodel Routes
+        Route::group(['middleware' => 'web'], function () {
+            Route::resource('cadmodel', '\App\Http\Controllers\CadmodelController');
+            Route::post('cadmodel/{id}/update', '\App\Http\Controllers\CadmodelController@update');
+            Route::post('cadmodel/{id}/updatemodel', '\App\Http\Controllers\CadmodelController@updatemodel');
+            Route::get('cadmodel/{id}/delete', '\App\Http\Controllers\CadmodelController@destroy');
+            Route::get('cadmodel/{id}/deleteMsg', '\App\Http\Controllers\CadmodelController@DeleteMsg');
+        });
 
 
 //auto3dprintmaterial Routes
@@ -127,7 +125,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::get('auto3dprintqueue/{id}/file.stl', '\App\Http\Controllers\Auto3dprintqueueController@showSTL');
         Route::get('auto3dprintqueue/{id}/viewer', '\App\Http\Controllers\Auto3dprintqueueController@showGcodeViewer');
 
-
+        Route::post('searchUsers', 'ScaffoldInterface\UserController@searchUser');
     });
 
 
@@ -161,22 +159,37 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('chore_list/{id}/deleteMsg', '\App\Http\Controllers\Chore_listController@DeleteMsg');
 
 
-
-
-//There is a reason these are at the bottom of the routes file.
-//Prevents it from interfering with other routes.
-    //TODO: Do not allow users to choose stubs that would be inaccessible due to existing routes.
-//sitepage Routes
-
 });
-Route::get('{mystub}', '\App\Http\Controllers\SitenavigationController@showp');
+
+
+//contract Routes
+Route::group(['middleware' => 'web'], function () {
+    Route::resource('contract', '\App\Http\Controllers\ContractController');
+    Route::post('contract/{id}/update', '\App\Http\Controllers\ContractController@update');
+    Route::get('contract/{id}/delete', '\App\Http\Controllers\ContractController@destroy');
+    Route::get('contract/{id}/deleteMsg', '\App\Http\Controllers\ContractController@DeleteMsg');
+    Route::get('terms', 'ContractController@showLatest');
+    Route::post('terms', 'ContractController@acceptTerms');
+});
+
+//payment_token Routes
+Route::group(['middleware' => 'web'], function () {
+    Route::resource('payment_token', '\App\Http\Controllers\Payment_tokenController');
+    Route::post('payment_token/{id}/update', '\App\Http\Controllers\Payment_tokenController@update');
+    Route::get('payment_token/{id}/delete', '\App\Http\Controllers\Payment_tokenController@destroy');
+    Route::get('payment_token/{id}/deleteMsg', '\App\Http\Controllers\Payment_tokenController@DeleteMsg');
+});
 
 Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
 Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
 
 
-Route::get('test',function(){
+Route::get('test', function () {
     return view('partials.searchUsers');
 });
-Route::post('searchUsers','ScaffoldInterface\UserController@searchUser');
 
+//There is a reason these are at the bottom of the routes file.
+//Prevents it from interfering with other routes.
+//TODO: Do not allow users to choose stubs that would be inaccessible due to existing routes.
+//sitepage Routes
+Route::get('{mystub}', '\App\Http\Controllers\SitenavigationController@showp');

@@ -99,6 +99,192 @@ class User extends Authenticatable
         return $this->payment_tokens()->where('selected',1);
     }
 
+    /**
+     * group.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany ;
+     */
+    public function groups()
+    {
+        return $this->belongsToMany('App\Group','groups_users')->withPivot('role');
+    }
+
+    /**
+     * Assign a group.
+     *
+     * @param  $group
+     * @return  mixed
+     */
+    public function assignGroup($group)
+    {
+        return $this->groups()->attach($group);
+    }
+
+    /**
+     * Remove a group.
+     *
+     * @param  $group
+     * @return  mixed
+     */
+    public function removeGroup($group)
+    {
+        return $this->groups()->detach($group);
+    }
+
+
+    /**
+     * event.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function events()
+    {
+        return $this->belongsToMany('App\Event','events_users')->withPivot(['eventOwner','status','paid']);
+    }
+
+    /**
+     * Assign a event.
+     *
+     * @param  $event
+     * @return  mixed
+     */
+    public function assignEvent($event)
+    {
+        return $this->events()->attach($event);
+    }
+
+    /**
+     * Remove a event.
+     *
+     * @param  $event
+     * @return  mixed
+     */
+    public function removeEvent($event)
+    {
+        return $this->events()->detach($event);
+    }
+
+
+    /**
+     * post.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function posts()
+    {
+        return $this->belongsToMany('App\Post','posts_users')->withPivot('postOwner');
+    }
+
+    /**
+     * Assign a post.
+     *
+     * @param  $post
+     * @return  mixed
+     */
+    public function assignPost($post)
+    {
+        return $this->posts()->attach($post);
+    }
+
+    /**
+     * Remove a post.
+     *
+     * @param  $post
+     * @return  mixed
+     */
+    public function removePost($post)
+    {
+        return $this->posts()->detach($post);
+    }
+
+    /**
+     * door.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function doors()
+    {
+        return $this->belongsToMany('App\Door');
+    }
+
+    /**
+     * Assign a door.
+     *
+     * @param  $door
+     * @return  mixed
+     */
+    public function assignDoor($door)
+    {
+        return $this->doors()->attach($door);
+    }
+
+    /**
+     * Remove a door.
+     *
+     * @param  $door
+     * @return  mixed
+     */
+    public function removeDoor($door)
+    {
+        return $this->doors()->detach($door);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
+    public function save(array $options = [])
+    {
+        if (is_null($this->image_id)){
+            $this->image_id = Image::whereName('userNoImage.svg')->first()->id;
+        }
+        return parent::save($options);
+    }
+
+    public function accessMediasAll()
+    {
+        // return true for access to all medias
+        return $this->hasAnyRole(['admin','superadmin']);
+    }
+
+    public function accessMediasFolder()
+    {
+        // return true for access to one folder
+        return $this->hasAnyRole('nonmember');
+    }
+
+
+    /**
+     * chore_list.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function chore_lists()
+    {
+        return $this->belongsToMany('App\Chore_list');
+    }
+
+    /**
+     * Assign a chore_list.
+     *
+     * @param  $chore_list
+     * @return  mixed
+     */
+    public function assignChore_list($chore_list)
+    {
+        return $this->chore_lists()->attach($chore_list);
+    }
+    /**
+     * Remove a chore_list.
+     *
+     * @param  $chore_list
+     * @return  mixed
+     */
+    public function removeChore_list($chore_list)
+    {
+        return $this->chore_lists()->detach($chore_list);
+    }
+
 }
 
 
