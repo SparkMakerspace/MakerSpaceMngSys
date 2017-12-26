@@ -18,6 +18,7 @@
                         </h4>
                     </div>
                     <div id="collapse1" class="panel-collapse collapse">
+                        @include('partials.groupList')
                     </div>
                 </div>
             </div>
