@@ -1,15 +1,21 @@
 @extends('scaffold-interface.layouts.app')
 @section('content')
-<div class="container">
+
     <div class="row">
-        <div class="col-md-offset-2 col-md-8">
-            <h3>{{$user->name}}</h3>
+        <div class="col-md-1">
+            <img src="{{url(Auth::user()->image->path)}}" class="img-circle" alt="User Image">
+        </div>
+        <div class="col-md-8">
+            <h3>({{$user->name}})</h3>
         </div>
     </div>
 
 
     <div class="row">
-        <div class="col-md-offset-2 col-md-8">
+        <div class="col-md-8">
+            @include("partials.postsList")
+        </div>
+        <div class="col-md-4">
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -18,7 +24,9 @@
                         </h4>
                     </div>
                     <div id="collapse1" class="panel-collapse collapse">
-                        @include('partials.groupList')
+                        <div class="panel-body">
+                            @include('partials.groupList')
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,7 +147,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div>
                         <div class="box box-primary">
                             <div class="box-header">
@@ -185,7 +192,24 @@
             @endif
         </div>
     </div>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @endsection
 @section('script')
     <script>
