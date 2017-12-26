@@ -50,6 +50,7 @@
                                     Contact Info
                                 </h4>
                                 <img>
+
                                 @foreach($group->leads as $groupUser)
                                     <br>
 

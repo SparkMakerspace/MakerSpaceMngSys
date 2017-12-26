@@ -68,6 +68,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
+    use HasImage;
     use Notifiable;
     use HasRoles;
 
@@ -284,6 +285,10 @@ class User extends Authenticatable
     {
         return $this->chore_lists()->detach($chore_list);
     }
+
+
+
+
 
 }
 
