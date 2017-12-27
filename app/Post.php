@@ -40,7 +40,9 @@ class Post extends Model
     use Commentable;
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+
+
+    protected $dates = [ 'created_at', 'updated_at', 'deleted_at', 'posted_at' ];
 
     protected $table = 'posts';
 
@@ -49,6 +51,8 @@ class Post extends Model
     protected $guarded = [];
 
     protected $excerptLength = 50;
+
+
 
     /**
      * Get the excerpt for the post

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Image;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -48,11 +49,26 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
+        //todo make date and time auto populate if not supplied with the request.
+
+        if($request->input('posted_at') == null )
+        {
+            //dd($request);
+            $request->merge(['posted_at' => date($format = 'Y-m-d H:i:s')]);
+            //$request->posted_at = date($format = 'Y-m-d H:i:s');
+            //dd($request->posted_at);
+        }
+
         $post = Post::create($request->except('group'));
 
         $post->groups()->sync($request->group);
 
         $post->setOwner(\Auth::user());
+
+
 
         $pusher = App::make('pusher');
 
@@ -89,6 +105,7 @@ class PostController extends Controller
 
     public function edit($id = null, Request $request = null)
     {
+        dd($request);
         if(!is_null($id)) {
             $title = 'Edit Post';
             $submit = 'Update';
@@ -115,6 +132,7 @@ class PostController extends Controller
      */
     public function update($id, $request)
     {
+        dd($request);
         $post = Post::findOrfail($id);
 
         $post->update($request->except('group'));
@@ -122,6 +140,9 @@ class PostController extends Controller
         $post->groups()->sync($request->group);
 
         $post->setOwner(\Auth::user());
+
+
+
 
         return redirect('post/'.$post->id);
     }
