@@ -185,7 +185,7 @@ Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprint
 
 
 Route::get('test', function () {
-    return view('partials.searchUsers');
+    return view('test');
 });
 
 //There is a reason these are at the bottom of the routes file.

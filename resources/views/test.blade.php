@@ -51,7 +51,7 @@
     <script
             src="https://checkout.stripe.com/checkout.js"
             class="stripe-button"
-            data-key="{{env('STRIPE_KEY')}}"
+            data-key="{{env('STRIPE_KEY_PUBLIC')}}"
             data-image="/square-image.png"
             data-name="Demo Site"
             data-description="2 widgets ($20.00)"
