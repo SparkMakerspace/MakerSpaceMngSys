@@ -18,7 +18,7 @@
         "faustbrian/laravel-social-share": "^2.0",
         "laravel/tinker": "^1.0",
         "jenssegers/agent": "^2.5",
-        "stripe/stripe-php": "^5.2"
+        "stripe/stripe-php": "^5.8"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
