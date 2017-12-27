@@ -52,7 +52,6 @@ class PostController extends Controller
 
 
 
-        //todo make date and time auto populate if not supplied with the request.
 
         if($request->input('posted_at') == null )
         {
