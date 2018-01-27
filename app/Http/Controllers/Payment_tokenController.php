@@ -49,6 +49,7 @@ class Payment_tokenController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         $payment_token = new Payment_token();
 
         
