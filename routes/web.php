@@ -116,7 +116,6 @@ Route::group(['middleware' => 'web'], function () {
 
         Route::resource('auto3dprintqueue', '\App\Http\Controllers\Auto3dprintqueueController');
 
-
         Route::post('auto3dprintqueue/{id}/update', '\App\Http\Controllers\Auto3dprintqueueController@update');
         Route::get('auto3dprintqueue/{id}/delete', '\App\Http\Controllers\Auto3dprintqueueController@destroy');
         Route::get('auto3dprintqueue/{id}/deleteMsg', '\App\Http\Controllers\Auto3dprintqueueController@DeleteMsg');
@@ -128,12 +127,10 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('searchUsers', 'ScaffoldInterface\UserController@searchUser');
     });
 
-
     Route::post('pclogin', '\App\Http\Controllers\PCAuthController@loginRequest');
     Route::get('pclogin', '\App\Http\Controllers\PCAuthController@loginRequest');
 
     Route::post('stripe/webhook', '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook');
-
 
 //Sitenavigation Routes
     Route::group(['middleware' => 'web'], function () {
@@ -193,3 +190,10 @@ Route::get('test', function () {
 //TODO: Do not allow users to choose stubs that would be inaccessible due to existing routes.
 //sitepage Routes
 Route::get('{mystub}', '\App\Http\Controllers\SitenavigationController@showp');
+//testing Routes
+Route::group(['middleware'=> 'web'],function(){
+  Route::resource('testing','\App\Http\Controllers\TestingController');
+  Route::post('testing/{id}/update','\App\Http\Controllers\TestingController@update');
+  Route::get('testing/{id}/delete','\App\Http\Controllers\TestingController@destroy');
+  Route::get('testing/{id}/deleteMsg','\App\Http\Controllers\TestingController@DeleteMsg');
+});

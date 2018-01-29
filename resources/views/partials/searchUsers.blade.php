@@ -13,8 +13,6 @@ Optional Parameters:
     $selectedUsers: the default selection as a collection of Users
         else, no user selected
 --}}
-
-@section('content')
     @php
         if(!isset($selectedUsers))
         {
@@ -24,13 +22,9 @@ Optional Parameters:
         {
         $name = 'user';
         }
-        if(!isset($label))
-        {
-        $label = 'Search Users';
-        }
     @endphp
 
-    <label for="{{$name}}">{{$label}}</label>
+    <label for="{{$name}}">Search Users</label>
     <input id="{{$name}}" class="user-search form-control" name="{{$name}}" placeholder="Type a user's name here and click on a suggestion to add">
     <div class="list-group">
         <div class="user-search-suggestions">
@@ -58,7 +52,7 @@ Optional Parameters:
 
         function searchUsers() {
             var searchString = $('#{{$name}}').val();
-            $.post('searchUsers',
+            $.post('/searchUsers',
                 {query: searchString
                 }, showSuggestions,'json');
         }
@@ -81,6 +75,9 @@ Optional Parameters:
             result.setAttribute('id',user['id']);
             result.setAttribute('onClick','addUser('+user['id']+')');
             var text = document.createTextNode(user["username"]+' '+user['name']);
+            result.setAttribute('data-toggle','tooltip');
+            result.setAttribute('title','');
+            result.setAttribute('data-original-title','Click to add');
             result.appendChild(text);
             return result;
         }
@@ -121,4 +118,3 @@ Optional Parameters:
             return false;
         }
     </script>
-@endsection()
