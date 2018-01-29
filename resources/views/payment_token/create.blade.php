@@ -10,15 +10,23 @@
     <br>
     <form method = 'POST' action = '{!!url("payment_token")!!}'>
         <input type = 'hidden' name = '_token' value = '{{Session::token()}}'>
-        <div class="form-group">
-            <label for="token">token</label>
-            <input id="token" name = "token" type="text" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="selected">selected</label>
-            <input id="selected" name = "selected" type="text" class="form-control">
-        </div>
-        <button class = 'btn btn-success' type ='submit'> <i class="fa fa-floppy-o"></i> Save</button>
-    </form>
+        <script
+                src="https://checkout.stripe.com/checkout.js"
+                class="stripe-button"
+                data-key="{{env('STRIPE_KEY_PUBLIC')}}"
+
+                data-name="Demo Site"
+
+        </script>
 </section>
+
+
+
+<form action="/charge" method="POST">
+
+</form>
+
+
+
+
 @endsection
