@@ -6,7 +6,8 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
-        "laravel/framework": "5.4.*",
+        "laravel/framework": "5.6.*",
+		"fideloper/proxy": "~4.0",
         "doctrine/dbal": "~2.3",
         "Amranidev/scaffold-interface": "^1.6.0",
         "barryvdh/laravel-ide-helper": ">=2.2.2",
@@ -23,7 +24,8 @@
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7",
+        "phpunit/phpunit": "~6.0",
+		"filp/whoops": "~2.0",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
         "ignasbernotas/laravel-model-generator": "^1.1"
@@ -49,16 +51,19 @@
             "php artisan key:generate"
         ],
         "post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
+            "Illuminate\\Foundation\\ComposerScripts::postInstall"
         ],
         "post-update-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "php artisan optimize"
-        ]
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate"
+        ],
+		"post-autoload-dump": [
+        "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+        "@php artisan package:discover"
+		]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+		"optimize-autoloader": true
     },
     "minimum-stability": "dev",
     "prefer-stable": true
