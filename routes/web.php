@@ -130,8 +130,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('pclogin', '\App\Http\Controllers\PCAuthController@loginRequest');
     Route::get('pclogin', '\App\Http\Controllers\PCAuthController@loginRequest');
 
-    Route::post('stripe/webhook', '\Laravel\Cashier\Http\Controllers\WebhookController@handleWebhook');
-
 //Sitenavigation Routes
     Route::group(['middleware' => 'web'], function () {
         Route::resource('Sitenavigation', '\App\Http\Controllers\SitenavigationController');
