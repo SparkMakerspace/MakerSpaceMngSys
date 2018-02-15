@@ -25,8 +25,8 @@ class SitenavigationController extends Controller
     public function index()
     {
         $title = 'Index - Sitenavigation';
-        //return view('Sitenavigation.index',compact('Sitenavigations','title'));
-        return view('Sitenavigation.index',compact('title'));
+        //return view('sitenavigation.index',compact('Sitenavigations','title'));
+        return view('sitenavigation.index',compact('title'));
     }
 
     /**
@@ -38,7 +38,7 @@ class SitenavigationController extends Controller
     {
         $title = 'Create - Sitenavigation';
 
-        return view('Sitenavigation.edit');
+        return view('sitenavigation.edit');
     }
 
     /**
@@ -122,7 +122,7 @@ class SitenavigationController extends Controller
         }
 
         $Sitenavigation = Sitenavigation::findOrfail($id);
-        return view('Sitenavigation.show',compact('title','Sitenavigation'));
+        return view('sitenavigation.show',compact('title','Sitenavigation'));
     }
 
 
@@ -133,7 +133,7 @@ class SitenavigationController extends Controller
         $Sitenavigation = Sitenavigation::where('LinkURL' ,$mystub)->firstOrFail();
 
 
-        return view('Sitenavigation.show',compact('title','Sitenavigation'));
+        return view('sitenavigation.show',compact('title','Sitenavigation'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -151,7 +151,7 @@ class SitenavigationController extends Controller
 
 
         $Sitenavigation = Sitenavigation::findOrfail($id);
-        return view('Sitenavigation.edit',compact('title','Sitenavigation'  ));
+        return view('sitenavigation.edit',compact('title','Sitenavigation'  ));
     }
 
     /**
