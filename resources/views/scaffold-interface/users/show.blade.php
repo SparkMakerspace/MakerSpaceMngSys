@@ -39,7 +39,7 @@
                         <h3>Edit User ({{$user->name}})</h3>
                     </div>
                     <div class="box-body">
-                        <form action="{{url('/scaffold-users/update')}}" method="post">
+                        <form action="{{url('users/update')}}" method="post">
                             {!! csrf_field() !!}
                             <input type="hidden" name="user_id" value="{{$user->id}}">
                             <div class="form-group">
@@ -141,7 +141,7 @@
                                 <h3>{{$user->name}} Groups</h3>
                             </div>
                             <div class="box-body">
-                                <form action="{{url('/scaffold-users/selectGroups')}}" method="post">
+                                <form action="{{url('users/selectGroups')}}" method="post">
 
                                 </form>
                             </div>
@@ -153,7 +153,7 @@
                                 <h3>{{$user->name}} Permissions</h3>
                             </div>
                             <div class="box-body">
-                                <form action="{{url('/scaffold-users/addPermission')}}" method="post">
+                                <form action="{{url('users/addPermission')}}" method="post">
                                     {!! csrf_field() !!}
                                     <input type="hidden" name="user_id" value="{{$user->id}}">
                                     <div class="form-group">
@@ -177,7 +177,7 @@
                                         <tr>
                                             <td>{{$permission->name}}</td>
                                             <td>
-                                                <a href="{{url('/scaffold-users/removePermission')}}/{{str_slug($permission->name,'-')}}/{{$user->id}}"
+                                                <a href="{{url('users/removePermission')}}/{{str_slug($permission->name,'-')}}/{{$user->id}}"
                                                    class="btn btn-danger btn-sm"><i class="fa fa-trash-o"
                                                                                     aria-hidden="true"></i></a></td>
                                         </tr>

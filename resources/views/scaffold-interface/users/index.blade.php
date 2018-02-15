@@ -7,7 +7,7 @@
 </div>
 
 	<div class="box-body">
-		<a href="{{url('/scaffold-users/create')}}" class = "btn btn-success"><i class="fa fa-plus fa-md" aria-hidden="true"></i> New</a>
+		<a href="{{url('users/create')}}" class = "btn btn-success"><i class="fa fa-plus fa-md" aria-hidden="true"></i> New</a>
 		<table class = "table table-hover">
 		<thead>
 			<th>Actions</th>
@@ -20,8 +20,8 @@
 			@foreach($users as $user)
 			<tr>
 				<td>
-					<a href="{{url('/scaffold-users/edit')}}/{{$user->id}}" class = 'btn btn-primary btn-sm'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-					<a href="{{url('/scaffold-users/delete')}}/{{$user->id}}" class = "btn btn-danger btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+					<a href="{{url('users/edit')}}/{{$user->id}}" class = 'btn btn-primary btn-sm'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+					<a href="{{url('users/delete')}}/{{$user->id}}" class = "btn btn-danger btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 				</td>
 				<td>{{$user->name}}</td>
 				<td>{{$user->email}}</td>
