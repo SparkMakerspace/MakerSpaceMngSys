@@ -17,17 +17,17 @@ class AddChoreList extends Migration
 
             $table->increments('id');
 
-            $table->String('Name');
+            $table->String('Name')->nullable();;
 
-            $table->String('Description');
+            $table->String('Description')->nullable();;
 
-            $table->integer('CompletedByUser');
+            $table->integer('CompletedByUser')->nullable();;
 
             $table->String('TaskTimeReqd');
 
-            $table->String('image');
+            $table->String('image')->nullable();;
 
-            $table->date('NeedDate');
+            $table->date('NeedDate')->nullable();
 
             /**
              * Foreignkeys section

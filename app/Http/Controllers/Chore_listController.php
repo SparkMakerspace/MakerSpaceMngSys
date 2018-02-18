@@ -67,8 +67,9 @@ class Chore_listController extends Controller
         
         $chore_list->Description = $request->Description;
 
-        
-        $chore_list->CompletedByUser = $request->CompletedByUser;
+        if ($request->CompletedByUser ){
+            $chore_list->CompletedByUser = $request->CompletedByUser;
+        }
 
         
         $chore_list->TaskTimeReqd = $request->TaskTimeReqd;
