@@ -62,15 +62,6 @@ class Payment_tokenController extends Controller
         
         $payment_token->save();
 
-        $pusher = App::make('pusher');
-
-        //default pusher notification.
-        //by default channel=test-channel,event=test-event
-        //Here is a pusher notification example when you create a new resource in storage.
-        //you can modify anything you want or use it wherever.
-        $pusher->trigger('test-channel',
-                         'test-event',
-                        ['message' => 'A new payment_token has been created !!']);
 
         return redirect('payment_token');
     }

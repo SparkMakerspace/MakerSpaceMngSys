@@ -99,15 +99,6 @@ class DoorController extends Controller
         
         $door->save();
 
-        $pusher = App::make('pusher');
-
-        //default pusher notification.
-        //by default channel=test-channel,event=test-event
-        //Here is a pusher notification example when you create a new resource in storage.
-        //you can modify anything you want or use it wherever.
-        $pusher->trigger('test-channel',
-                         'test-event',
-                        ['message' => 'A new door has been created !!']);
 
         return redirect('door');
     }
