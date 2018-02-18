@@ -1,9 +1,3 @@
-<li class="active treeview">
-    <a href="{{url('dashboard')}}">
-        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-    </a>
-</li>
-
 @foreach(\App\Sitenavigation::all() as $Sitenavigation)
     <li class="treeview">
 

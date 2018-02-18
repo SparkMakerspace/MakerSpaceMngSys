@@ -29,14 +29,6 @@ class NavigationSeeder extends Seeder
         ]);
 
         Sitenavigation::create([
-            'LinkText'=>'Resources',
-            'LinkImage'=>'',
-            'LinkLoginReqd'=>'',
-            'LinkURL'=>'resource',
-            'LinkDescription'=>'A list of resources available at spark',
-        ]);
-
-        Sitenavigation::create([
             'LinkText'=>'Calendar',
             'LinkImage'=>'',
             'LinkLoginReqd'=>'',
@@ -66,14 +58,6 @@ class NavigationSeeder extends Seeder
             'LinkLoginReqd'=>'',
             'LinkURL'=>'image',
             'LinkDescription'=>'An image index',
-        ]);
-
-        Sitenavigation::create([
-            'LinkText'=>'3D Printer Queue ',
-            'LinkImage'=>'',
-            'LinkLoginReqd'=>'',
-            'LinkURL'=>'auto3dprintqueue',
-            'LinkDescription'=>'Best part of the site',
         ]);
 
         Sitenavigation::firstOrCreate([
