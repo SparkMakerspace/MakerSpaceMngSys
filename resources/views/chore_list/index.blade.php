@@ -26,31 +26,6 @@
             <th>TaskTimeReqd</th>
             <th>image</th>
             <th>NeedDate</th>
-            <th>name</th>
-            <th>location</th>
-            <th>type</th>
-            <th>description</th>
-            <th>requiresAuth</th>
-            <th>created_at</th>
-            <th>updated_at</th>
-            <th>deleted_at</th>
-            <th>name</th>
-            <th>email</th>
-            <th>password</th>
-            <th>remember_token</th>
-            <th>created_at</th>
-            <th>updated_at</th>
-            <th>username</th>
-            <th>address1</th>
-            <th>address2</th>
-            <th>city</th>
-            <th>state</th>
-            <th>zipcode</th>
-            <th>phone</th>
-            <th>active</th>
-            <th>accountType</th>
-            <th>bio</th>
-            <th>actions</th>
         </thead>
         <tbody>
             @foreach($chore_lists as $chore_list) 
