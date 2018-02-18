@@ -58,7 +58,7 @@ class UserController extends Controller
         $user->save();
         $user->syncRoles([$request->role]);
 
-        return redirect('scaffold-users');
+        return redirect('users');
     }
 
     /**
@@ -136,7 +136,7 @@ class UserController extends Controller
         \Auth::user()->updateCard($request->stripeToken);
 
 
-        return redirect('scaffold-users');
+        return redirect('users');
     }
 
 
@@ -153,7 +153,7 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect('scaffold-users');
+        return redirect('users');
     }
 
     /**
@@ -183,7 +183,7 @@ class UserController extends Controller
         $user = \App\User::findorfail($request->user_id);
         $user->givePermissionTo($request->permission_name);
 
-        return redirect('scaffold-users/edit/'.$request->user_id);
+        return redirect('users/edit/'.$request->user_id);
     }
 
     /**
@@ -199,7 +199,7 @@ class UserController extends Controller
 
         $user->revokePermissionTo(str_slug($permission, ' '));
 
-        return redirect('scaffold-users/edit/'.$user_id);
+        return redirect('users/edit/'.$user_id);
     }
 
     /**
@@ -215,7 +215,7 @@ class UserController extends Controller
 
         $user->removeRole(str_slug($role, ' '));
 
-        return redirect('scaffold-users/edit/'.$user_id);
+        return redirect('users/edit/'.$user_id);
     }
 
     public function searchUser(Request $request){

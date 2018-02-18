@@ -61,30 +61,7 @@
                 <td>{!!$chore_list->TaskTimeReqd!!}</td>
                 <td>{!!$chore_list->image!!}</td>
                 <td>{!!$chore_list->NeedDate!!}</td>
-                <td>{!!$chore_list->resource->name!!}</td>
-                <td>{!!$chore_list->resource->location!!}</td>
-                <td>{!!$chore_list->resource->type!!}</td>
-                <td>{!!$chore_list->resource->description!!}</td>
-                <td>{!!$chore_list->resource->requiresAuth!!}</td>
-                <td>{!!$chore_list->resource->created_at!!}</td>
-                <td>{!!$chore_list->resource->updated_at!!}</td>
-                <td>{!!$chore_list->resource->deleted_at!!}</td>
-                <td>{!!$chore_list->user->name!!}</td>
-                <td>{!!$chore_list->user->email!!}</td>
-                <td>{!!$chore_list->user->password!!}</td>
-                <td>{!!$chore_list->user->remember_token!!}</td>
-                <td>{!!$chore_list->user->created_at!!}</td>
-                <td>{!!$chore_list->user->updated_at!!}</td>
-                <td>{!!$chore_list->user->username!!}</td>
-                <td>{!!$chore_list->user->address1!!}</td>
-                <td>{!!$chore_list->user->address2!!}</td>
-                <td>{!!$chore_list->user->city!!}</td>
-                <td>{!!$chore_list->user->state!!}</td>
-                <td>{!!$chore_list->user->zipcode!!}</td>
-                <td>{!!$chore_list->user->phone!!}</td>
-                <td>{!!$chore_list->user->active!!}</td>
-                <td>{!!$chore_list->user->accountType!!}</td>
-                <td>{!!$chore_list->user->bio!!}</td>
+
                 <td>
                     <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/chore_list/{!!$chore_list->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
                     <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/chore_list/{!!$chore_list->id!!}/edit'><i class = 'material-icons'>edit</i></a>

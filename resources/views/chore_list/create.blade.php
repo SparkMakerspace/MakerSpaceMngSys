@@ -55,4 +55,19 @@
         <button class = 'btn btn-primary' type ='submit'>Create</button>
     </form>
 </section>
+
+@push('script')
+    <link rel="stylesheet" href="{{url('css/jquery.datetimepicker.min.css')}}">
+    <script src="{{url('js/jquery.datetimepicker.full.min.js')}}"></script>
+    <script src="{{url('js/jquery.mask.min.js')}}"></script>
+    <script>
+        $(function ($) {
+            jQuery.datetimepicker.setLocale('en');
+            $('#NeedDate').datetimepicker({
+                timepicker:false,
+                format:'Y/m/d',
+                inline:true});
+        });
+    </script>
+@endpush
 @endsection
