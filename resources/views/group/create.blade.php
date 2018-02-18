@@ -29,10 +29,6 @@
             <input id="image" name = "image" type="text" class="form-control">
         </div>
         <div class="form-group">
-            <label for="contactUser">contactUser</label>
-            <input id="contactUser" name = "contactUser" type="text" class="form-control">
-        </div>
-        <div class="form-group">
             <label for="visibility">visibility</label>
             <input id="visibility" name = "visibility" type="text" class="form-control">
         </div>
