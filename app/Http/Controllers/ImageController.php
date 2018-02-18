@@ -20,7 +20,7 @@ class ImageController extends Controller
     public function index()
     {
         $title = 'Index - post';
-        $images = Image::paginate(10);
+        $images = Image::orderBy('id', 'desc')->paginate(10);
 
         return view('image.index')->with('images', $images);
     }
