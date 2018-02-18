@@ -16,8 +16,7 @@ class EventsResources extends Migration
 			$table->increments('id')->unique()->index()->unsigned();
 			$table->integer('event_id')->unsigned()->index();
 			$table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
-			$table->integer('resource_id')->unsigned()->index();
-			$table->foreign('resource_id')->references('id')->on('resources')->onDelete('cascade');
+
 			/**
 			 * Type your addition here
 			 *

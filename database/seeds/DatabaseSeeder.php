@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(contractSeeder::class);
         $this->call(Auto3dPrinterMaterialSeeder::class);
         $this->call(permissionSeeder::class);
-        $this->call(resourceTypeSeeder::class);
         $this->call(groupSeeder::class);
         $this->call(roleSeeder::class);
         $this->call(userSeeder::class);
