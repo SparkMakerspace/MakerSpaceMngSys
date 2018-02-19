@@ -46,6 +46,7 @@
                     <b><i>contactUser : </i></b>
                 </td>
                 <td>{!!$group->contactUser!!}</td>
+                <td>{!!$group->contactUser!!}</td>
             </tr>
             <tr>
                 <td>

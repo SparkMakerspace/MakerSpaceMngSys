@@ -62,13 +62,14 @@
 
                                 @endforeach
 
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
+
         <div class="col-md-6">
             <div class="box">
                 <div class="box-header with-border">
@@ -87,8 +88,25 @@
             <!-- Posts Box -->
             @include("partials.postsList")
 
-
         </div>
+
+        <div class="col-sm-2">
+                Member list
+            <br>
+
+
+            @foreach($group->users as $groupUser)
+                <br>
+
+                <A href= {{$groupUser->UserUrl()}} >
+                    <img src="{{url($groupUser->image->path)}}"
+                         style="max-width: 50px;  height: auto;" alt="User Image">
+                    {{$groupUser->name }}<br>
+                </A>
+
+            @endforeach
+        </div>
+    </div>
 
 
         @endsection

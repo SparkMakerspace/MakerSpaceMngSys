@@ -61,11 +61,7 @@ class GroupController extends Controller
         $group->about = $request->about;
 
 
-        $group->image = $request->image;
-
-
-        $group->contactUser = $request->contactUser;
-
+        $group->image_id = $request->image;
 
         $group->visibility = $request->visibility;
 
@@ -143,9 +139,8 @@ class GroupController extends Controller
 
         $group->about = $request->about;
 
-        $group->image = $request->image;
+        $group->image_id = $request->image;
 
-        $group->contactUser = $request->contactUser;
 
         $group->visibility = $request->visibility;
 
