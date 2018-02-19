@@ -6,9 +6,9 @@
 
 @section('content')
 
-    <div class="container row">
+    <div class="row">
         <br>
-        <div class="col-sm-12">
+        <div class="col-sm-10">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <div class="row">
@@ -69,42 +69,38 @@
             </div>
 
         </div>
-
-        <div class="col-md-6">
+        <div class="col-sm-2">
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        Calendar
+                        Member list
                     </h3>
                 </div>
+                <div class="box-body">
+                @foreach($group->users as $groupUser)
+                    <br>
+                    <a href= {{$groupUser->UserUrl()}} >
+                        <img src="{{url($groupUser->image->path)}}"
+                             style="max-width: 50px;  height: auto;" alt="User Image">
+                        {{$groupUser->name }}<br>
+                    </a>
+                @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="box">
                 <div class="box-body">
                     {!! $calendar->calendar() !!}
                     {!! $calendar->script() !!}
                 </div><!-- /.box-body -->
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
 
             <!-- Posts Box -->
             @include("partials.postsList")
 
-        </div>
-
-        <div class="col-sm-2">
-                Member list
-            <br>
-
-
-            @foreach($group->users as $groupUser)
-                <br>
-
-                <A href= {{$groupUser->UserUrl()}} >
-                    <img src="{{url($groupUser->image->path)}}"
-                         style="max-width: 50px;  height: auto;" alt="User Image">
-                    {{$groupUser->name }}<br>
-                </A>
-
-            @endforeach
         </div>
     </div>
 
