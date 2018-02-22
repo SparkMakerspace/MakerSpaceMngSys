@@ -60,6 +60,14 @@ class NavigationSeeder extends Seeder
             'LinkDescription'=>'An image index',
         ]);
 
+        Sitenavigation::create([
+            'LinkText'=>'Chore List',
+            'LinkImage'=>'',
+            'LinkLoginReqd'=>'',
+            'LinkURL'=>'chorelist',
+            'LinkDescription'=>'An image index',
+        ]);
+
         Sitenavigation::firstOrCreate([
             'LinkText'=>'Member Contract',
             'LinkImage'=>'',

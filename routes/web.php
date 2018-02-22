@@ -146,12 +146,17 @@ Route::group(['middleware' => 'web'], function () {
         });
     });
 
+    Route::get('chorelist/completed','\App\Http\Controllers\ChorelistController@completed');
 
-//chore_list Routes
-    Route::resource('chore_list', '\App\Http\Controllers\Chore_listController');
-    Route::post('chore_list/{id}/update', '\App\Http\Controllers\Chore_listController@update');
-    Route::get('chore_list/{id}/delete', '\App\Http\Controllers\Chore_listController@destroy');
-    Route::get('chore_list/{id}/deleteMsg', '\App\Http\Controllers\Chore_listController@DeleteMsg');
+
+    Route::resource('chorelist','\App\Http\Controllers\ChorelistController');
+
+    Route::post('chorelist/{id}/update','\App\Http\Controllers\ChorelistController@update');
+    Route::get('chorelist/{id}/delete','\App\Http\Controllers\ChorelistController@destroy');
+    Route::get('chorelist/{id}/ididit','\App\Http\Controllers\ChorelistController@ididit');
+    Route::get('chorelist/{id}/deleteMsg','\App\Http\Controllers\ChorelistController@DeleteMsg');
+    /********************* chorelist ***********************************************/
+
 
 
 });
@@ -195,3 +200,4 @@ Route::group(['middleware'=> 'web'],function(){
   Route::get('testing/{id}/delete','\App\Http\Controllers\TestingController@destroy');
   Route::get('testing/{id}/deleteMsg','\App\Http\Controllers\TestingController@DeleteMsg');
 });
+
