@@ -21,5 +21,19 @@ class Chorelist extends Model
 	
     protected $table = 'chorelists';
 
-	
+
+    public function CreatorUser()
+    {
+       return User::find($this->CreatorID);
+    }
+
+
+    public function CompleterUser()
+    {
+        $MyReturnValue = User::find($this->CompleterID);
+
+        return $MyReturnValue;
+    }
+
+
 }

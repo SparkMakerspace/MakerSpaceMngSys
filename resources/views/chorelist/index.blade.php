@@ -47,9 +47,11 @@
                         
                         <td>{{$Chorelist->CompletedDate}}</td>
                         
-                        <td>{{$Chorelist->CreatorID}}</td>
+                        <td>{{$Chorelist->CreatorUser()->username}}</td>
                         
-                        <td>{{$Chorelist->CompleterID}}</td>
+                        <td>
+                            {{($Chorelist->CompleterUser() !==  null ? $Chorelist->CompleterUser()->username: "")}}
+                        </td>
                         
                         <td>{{$Chorelist->ChoreDescription}}</td>
                         
