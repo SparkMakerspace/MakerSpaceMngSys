@@ -21,6 +21,28 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'DashboardController@show');
 
+    //
+    Route::group(['middleware'=>'auth'], function() {
+        Route::get('gitpull', function() {
+            if(env('APP_PLATFORM',"LINUX") == "WIN"){
+                // Assume laragon on Windows
+                $gitpath = "c:\\laragon\\bin\\git\\bin\\git.exe";
+            } else {
+                // Linux or Mac should have git in the PATH variable
+                $gitpath = "git";
+            }
+            return exec("cd .. && ".$gitpath." pull");
+        });
+
+        Route::get('artisanmigrate', function(){
+            if (Artisan::call('migrate')){
+                return "Uwu We made a fucky wucky";
+            } else {
+                return "Database Changes Migrated";
+            }
+        });
+    });
+
 //post Routes
     Route::resource('post', '\App\Http\Controllers\PostController');
     Route::post('post/{id}/update', '\App\Http\Controllers\PostController@update');
@@ -82,7 +104,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('test1', function () {
         dd(\Auth::user()->charge(100));
     });
-
 
     Route::post('charge', '\App\Http\Controllers\ScaffoldInterface\UserController@addCreditCard');
 

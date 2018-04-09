@@ -9,3 +9,5 @@ composer.lock
 /public/uploads/*
 /slic3r/mac/openscad/*
 /slic3r/mac/slic3r/*
+/.buildpath
+/.project
