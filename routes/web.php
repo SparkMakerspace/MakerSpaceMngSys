@@ -41,6 +41,22 @@ Route::group(['middleware' => 'web'], function () {
                 return "Database Changes Migrated";
             }
         });
+
+        Route::get('artisanmigraterefreshseed', function(){
+            if (Artisan::call('migrate:refresh',['--seed'=> true])){
+                return "Uwu We made a fucky wucky";
+            } else {
+                return "Database Changes Migrated";
+            }
+        });
+
+        Route::get('dbseed/{class}', function($class){
+            if (Artisan::call('db:seed',['--class'=>$class])){
+                return "Uwu We made a fucky wucky";
+            } else {
+                return "Database Changes Migrated";
+            }
+        });
     });
 
 //post Routes
