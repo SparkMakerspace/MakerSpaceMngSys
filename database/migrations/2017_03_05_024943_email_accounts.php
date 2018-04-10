@@ -16,9 +16,7 @@ class EmailAccounts extends Migration
         Schema::create('email_accounts', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->string('username');
-            $table->foreign('username')->references('username')->on('users')->onDelete('cascade');
             $table->string('domain');
-            $table->foreign('domain')->references('domain')->on('email_domains')->onDelete('cascade');
             $table->string('password');
             $table->integer('quota')->unsigned()->default(0);
             $table->boolean('enabled')->default(0);

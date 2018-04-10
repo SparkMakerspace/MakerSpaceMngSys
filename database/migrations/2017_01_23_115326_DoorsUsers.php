@@ -15,9 +15,7 @@ class DoorsUsers extends Migration
         Schema::create('doors_users',function (Blueprint $table){
 			$table->increments('id')->unique()->index()->unsigned();
 			$table->integer('door_id')->unsigned()->index();
-			$table->foreign('door_id')->references('id')->on('doors')->onDelete('cascade');
 			$table->integer('user_id')->unsigned()->index();
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			/**
 			 * Type your addition here
 			 *

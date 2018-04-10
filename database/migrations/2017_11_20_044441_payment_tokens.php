@@ -19,25 +19,16 @@ class PaymentTokens extends Migration
     public function up()
     {
         Schema::create('payment_tokens',function (Blueprint $table){
-
         $table->increments('id');
-        
         $table->String('token');
-        
         $table->boolean('selected');
-
         $table->integer('user_id');
-        
+
         /**
          * Foreignkeys section
          */
-        
-        
-        $table->timestamps();
-        
-        
+        $table->timestamps();        
         // type your addition here
-
         });
     }
 

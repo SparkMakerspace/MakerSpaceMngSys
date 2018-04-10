@@ -21,19 +21,21 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'DashboardController@show');
 
-    //
-    Route::group(['middleware'=>'auth'], function() {
-        Route::get('gitpull', function() {
-            if(env('APP_PLATFORM',"LINUX") == "WIN"){
-                // Assume laragon on Windows
-                $gitpath = "c:\\laragon\\bin\\git\\bin\\git.exe";
-            } else {
-                // Linux or Mac should have git in the PATH variable
-                $gitpath = "git";
-            }
-            return exec("cd .. && ".$gitpath." pull");
-        });
 
+    Route::get('composerdumpautoload', function() {
+        return exec("cd .. && "."composer dump-autoload");
+    });
+    Route::get('gitpull', function() {
+        if(env('APP_PLATFORM',"LINUX") == "WIN"){
+            // Assume laragon on Windows
+            $gitpath = "c:\\laragon\\bin\\git\\bin\\git.exe";
+        } else {
+            // Linux or Mac should have git in the PATH variable
+            $gitpath = "git";
+        }
+        return exec("cd .. && ".$gitpath." pull");
+    });
+    Route::group(['middleware'=>'auth'], function() {
         Route::get('artisanmigrate', function(){
             if (Artisan::call('migrate')){
                 return "Uwu We made a fucky wucky";
