@@ -57,6 +57,11 @@ class Group extends Model
 	
     protected $table = 'groups';
 
+    /**
+     * Groups have multiple events
+     * 
+     * @return mixed
+     */
     public function events()
     {
         return $this->belongsToMany('App\Event','events_groups');
@@ -72,6 +77,7 @@ class Group extends Model
     {
         return $this->events()->attach($event);
     }
+
     /**
      * Remove a event.
      *
@@ -83,6 +89,12 @@ class Group extends Model
         return $this->events()->detach($event);
     }
 
+    /**
+     * Override the save function so give new groups a default image
+     * 
+     * @param  array  $options
+     * @return bool   whatever the save function normally does...
+     */
     public function save(array $options = [])
     {
         if (is_null($this->image_id)){
@@ -91,6 +103,11 @@ class Group extends Model
         return parent::save($options);
     }
 
+    /**
+     * Groups have multiple posts
+     * 
+     * @return mixed
+     */
     public function posts()
     {
         return $this->belongsToMany('App\Post','groups_posts');
@@ -99,53 +116,77 @@ class Group extends Model
     /**
      * Assign a post.
      *
-     * @param  $post
+     * @param  Post $post
      * @return  mixed
      */
-    public function assignPost($post)
+    public function assignPost(Post $post)
     {
         return $this->posts()->attach($post);
     }
+
     /**
      * Remove a post.
      *
-     * @param  $post
+     * @param  Post $post
      * @return  mixed
      */
-    public function removePost($post)
+    public function removePost(Post $post)
     {
         return $this->posts()->detach($post);
     }
 
+    /**
+     * Groups have many users
+     * 
+     * @return mixed
+     */
     public function users()
     {
         return $this->belongsToMany('App\User','groups_users')->withPivot('role');
     }
 
+    /**
+     * Groups have many leads (which are secretly just users with the LEAD role)
+     * 
+     * @return mixed
+     */
     public function leads()
     {
-        return $this->belongsToMany('App\User','groups_users')->wherePivot('role', '=','LEAD');
+        return $this->belongsToMany('App\User','groups_users')->wherePivot('role', '=','lead');
     }
 
+    /**
+     * Groups have many members (which are secretly users with the MEMBER role)
+     * 
+     * @return mixed
+     */
     public function members()
     {
-        return $this->belongsToMany('App\User','groups_users')->withPivot('role');
+        return $this->belongsToMany('App\User','groups_users')->wherePivot('role','=','member');
     }
 
-
-    public function ismember($user)
+    /**
+     * Returns true if the given user is a general member of the group
+     * 
+     * @param  User   $user
+     * @return bool
+     */
+    public function isMember(User $user)
     {
-        if ($this->users()->find($user)) {
+        if ($this->members()->find($user)) {
             return TRUE;
         }
         return false;
     }
 
-    public function islead($user)
+    /**
+     * Returns true if the given user is a lead of the group
+     * 
+     * @param  User   $user
+     * @return bool
+     */
+    public function isLead(User $user)
     {
-
-
-
         if ($this->leads->find($user) !=null)
         {
             return TRUE;
@@ -153,26 +194,62 @@ class Group extends Model
         return false;
     }
 
-    public function assignMember($user)
+    /**
+     * assignMember makes the given user a member of the group (forcefully)
+     * 
+     * @param  User   $user
+     * @return void
+     */
+    public function assignMember(User $user)
     {
-        if ($this->users()->find($user)) {
-            return $this->users()->detach($user);
+        if ($this->isMember($user) || $this->isLead($user)) {
+            $this->users()->detach($user);
         }
-        return $this->users()->attach($user,['role'=>'MEMBER']);
+        $this->users()->attach($user,['role'=>'member']);
     }
 
-    public function assignLead($user)
-    {
-        if ($this->users()->find($user)) {
-            return $this->users()->detach($user);
-        }
-        return $this->users()->attach($user,['role'=>'LEAD']);
-    }
-
-    public function removeUser($user)
+    /**
+     * assignLead makes the given user a lead of the group (forcefully)
+     * 
+     * @param  User   $user 
+     * @return void
+     */
+    public function assignLead(User $user)
     {
         if ($this->users()->find($user)) {
             $this->users()->detach($user);
         }
+        $this->users()->attach($user,['role'=>'lead']);
+    }
+
+    /**
+     * Remove the passed user from the group
+     * 
+     * @param  User   $user
+     * @return void
+     */
+    public function removeUser(User $user)
+    {
+        if ($this->users()->find($user)) {
+            $this->users()->detach($user);
+        }
+    }
+
+    /**
+     * Returns the built-in Admin group
+     * @return [type] [description]
+     */
+    static public function getAdminGroup()
+    {
+        return Group::whereStub("Admin")->first();
+    }
+
+    /**
+     * Returns the built-in Admin group
+     * @return [type] [description]
+     */
+    static public function getCalAdminGroup()
+    {
+        return Group::whereStub("CalAdmin")->first();
     }
 }

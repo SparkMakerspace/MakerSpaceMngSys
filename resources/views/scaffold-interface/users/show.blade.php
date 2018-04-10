@@ -33,7 +33,7 @@
 
 
             @if (\Auth::user()->id == $user->id)
-
+            <div class="col-md-4">
                 <div class="box box-primary">
                     <div class="box-header">
                         <h3>Edit User ({{$user->name}})</h3>
@@ -188,7 +188,7 @@
                         </div>
                     </div>
                 </div>
-                </section>
+            </div>
             @endif
         </div>
     </div>

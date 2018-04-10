@@ -11,7 +11,6 @@ class userSeeder extends Seeder
      */
     public function run()
     {
-
         $builtIn = ['email'=>'builtin@mail.com',
             'name'=>'Built In Account',
             'username'=>'builtIn',
@@ -85,7 +84,6 @@ class userSeeder extends Seeder
             $user->over13 = $u['over13'];
             $user->over16 = $u['over16'];
             $user->save();
-            $user->assignRole('superadmin');
         }
     }
 }
