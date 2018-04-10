@@ -3,14 +3,12 @@
 @section('content')
 
     <section class="content">
-        @can('create event templates')
         <div class="col-md-3">
             <form class = 'col s3' method = 'get' action = '{!!url("event/template/create")!!}'>
                 <button class = 'btn btn-primary' type = 'submit'>Create new event template</button>
             </form>
         </div>
-        @endcan
-
+        
         <br>
         <br>
 

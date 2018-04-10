@@ -32,7 +32,7 @@ Required Parameter:
             @endforelse
 
         </div><!-- /.box-body -->
-        @can('create comment')
+
             <div class="box-footer">
 
                 {!! Form::open(['url'=>'comment']) !!}
@@ -43,6 +43,6 @@ Required Parameter:
                 {!! Form::close() !!}
 
             </div><!-- /.box-footer-->
-        @endcan
+
     </div><!--/.direct-chat -->
 </div>
