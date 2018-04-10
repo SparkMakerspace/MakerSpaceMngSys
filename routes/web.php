@@ -23,7 +23,7 @@ Route::group(['middleware' => 'web'], function () {
 
 
     Route::get('composerdumpautoload', function() {
-        return exec("cd .. && "."composer dump-autoload");
+        return exec("cd .. && composer dump-autoload");
     });
     Route::get('gitpull', function() {
         if(env('APP_PLATFORM',"LINUX") == "WIN"){
