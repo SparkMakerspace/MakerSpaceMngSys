@@ -22,6 +22,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('composerdumpautoload', function() {
         return exec("cd .. && composer dump-autoload");
     });
+
     Route::get('gitpull', function() {
         if(env('APP_PLATFORM',"LINUX") == "WIN"){
             // Assume laragon on Windows
@@ -32,26 +33,32 @@ Route::group(['middleware' => 'web'], function () {
         }
         return exec("cd .. && ".$gitpath." pull");
     });
-    Route::group(['middleware'=>'auth'], function() {
 
-        Route::get('artisanmigraterefreshseed', function(){
-            if (Artisan::call('migrate:refresh',['--seed'=> true])){
-                return "Uwu We made a fucky wucky";
-            } else {
-                return "Database Changes Migrated";
-            }
-        });
-
-        Route::get('dbseed/{class}', function($class){
-            if (Artisan::call('db:seed',['--class'=>$class])){
-                return "Uwu We made a fucky wucky";
-            } else {
-                return "Database Changes Migrated";
-            }
-        });
+    Route::get('artisanmigrate', function(){
+        if (Artisan::call('migrate')){
+            return "Uwu We made a fucky wucky";
+        } else {
+            return "Database Changes Migrated";
+        }
     });
 
-        Route::get('/home', 'DashboardController@show');
+    Route::get('artisanmigraterefreshseed', function(){
+        if (Artisan::call('migrate:refresh',['--seed'=> true])){
+            return "Uwu We made a fucky wucky";
+        } else {
+            return "Database Changes Migrated";
+        }
+    });
+
+    Route::get('dbseed/{class}', function($class){
+        if (Artisan::call('db:seed',['--class'=>$class])){
+            return "Uwu We made a fucky wucky";
+        } else {
+            return "Database Changes Migrated";
+        }
+    });
+
+    Route::get('/home', 'DashboardController@show');
 
     //post Routes
     Route::resource('post', '\App\Http\Controllers\PostController');
