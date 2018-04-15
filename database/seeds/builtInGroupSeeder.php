@@ -11,24 +11,19 @@ class builtInGroupSeeder extends Seeder
      */
     public function run()
     {
-        // for upgradeability
-        $old = App\Group::getAdminGroup();
-        if (!is_null($old))
-        {
-            $old->delete();
-        }
-        
         App\Group::create([
             'name'=>'Administrators',
             'stub'=>'Admin',
             'about'=>'Administrators Group',
+            'visibility'=>'hidden',
             'image_id'=>2,
         ]);
         
         App\Group::create([
-            'name'=>'CalendarAdministrators',
+            'name'=>'Calendar Administrators',
             'stub'=>'CalAdmin',
             'about'=>'Calendar Admin Group',
+            'visibility'=>'hidden',
             'image_id'=>2,
         ]);
     }

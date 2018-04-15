@@ -33,8 +33,23 @@ class groupPolicy
         return $group->isLead($user);
     }
 
+    public function create(User $user, Group $group)
+    {
+        return false;
+    }
+
+    public function view(User $user, Group $group)
+    {
+        return ($group->visibility == 'all');
+    }    
+
     public function delete(User $user, Group $group)
     {
-        return ($group->isLead($user) || Group::getAdmin);
+        return $group->isLead($user);
+    }
+
+    public function before($user, $ability)
+    {
+        return Group::getAdminGroup()->isUser($user);
     }
 }

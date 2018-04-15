@@ -195,6 +195,21 @@ class Group extends Model
     }
 
     /**
+     * Returns true if the given user is a user of the group (member or lead)
+     * 
+     * @param  User   $user
+     * @return string
+     */
+    public function isUser(User $user)
+    {
+        if ($this->users->find($user) !=null)
+        {
+            return ($this->);
+        }
+        return false;
+    }
+
+    /**
      * assignMember makes the given user a member of the group (forcefully)
      * 
      * @param  User   $user
