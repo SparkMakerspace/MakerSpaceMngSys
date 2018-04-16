@@ -174,7 +174,7 @@ class Group extends Model
     public function isMember(User $user)
     {
         if ($this->members()->find($user)) {
-            return TRUE;
+            return true;
         }
         return false;
     }
@@ -189,7 +189,7 @@ class Group extends Model
     {
         if ($this->leads->find($user) !=null)
         {
-            return TRUE;
+            return true;
         }
         return false;
     }
@@ -202,9 +202,10 @@ class Group extends Model
      */
     public function isUser(User $user)
     {
-        if ($this->users->find($user) !=null)
+        $tmp = $this->users->find($user);
+        if ($tmp !=null)
         {
-            return ($this->);
+            return $tmp->pivot->role;
         }
         return false;
     }
@@ -217,7 +218,7 @@ class Group extends Model
      */
     public function assignMember(User $user)
     {
-        if ($this->isMember($user) || $this->isLead($user)) {
+        if ($this->isUser($user)) {
             $this->users()->detach($user);
         }
         $this->users()->attach($user,['role'=>'member']);
@@ -238,7 +239,7 @@ class Group extends Model
     }
 
     /**
-     * Remove the passed user from the group
+     * Remove the user from the group
      * 
      * @param  User   $user
      * @return void

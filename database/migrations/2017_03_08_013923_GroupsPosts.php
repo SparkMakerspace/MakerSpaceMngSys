@@ -15,7 +15,9 @@ class GroupsPosts extends Migration
         Schema::create('groups_posts',function (Blueprint $table){
 			$table->increments('id')->unique()->index()->unsigned();
 			$table->integer('group_id')->unsigned()->index();
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
 			$table->integer('post_id')->unsigned()->index();
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
 			/**
 			 * Type your addition here
 			 *

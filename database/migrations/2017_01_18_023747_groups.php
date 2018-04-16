@@ -19,29 +19,19 @@ class Groups extends Migration
     public function up()
     {
         Schema::create('groups',function (Blueprint $table){
-
         $table->increments('id');
-        
-        $table->String('name');
-        
-        $table->String('stub');
-        
-        $table->longText('about');
-        
-        $table->longText('contactInfo')->nullable();
-        
+        $table->String('name');        
+        $table->String('stub');        
+        $table->longText('about');        
+        $table->longText('contactInfo')->nullable();        
         $table->String('visibility')->default('all');
-
         $table->integer('image_id')->nullable();
         
         /**
          * Foreignkeys section
          */
         
-        
         $table->timestamps();
-        
-        
         $table->softDeletes();
         
         // type your addition here

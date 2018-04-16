@@ -30,18 +30,46 @@ class CreatePermissionTables extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('permission_id')->unsigned();
             $table->primary(['user_id', 'permission_id']);
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on($config['users'])
+                ->onDelete('cascade');
+
+            $table->foreign('permission_id')
+                ->references('id')
+                ->on($config['permissions'])
+                ->onDelete('cascade');
         });
 
         Schema::create($config['user_has_roles'], function (Blueprint $table) use ($config) {
             $table->integer('role_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->primary(['role_id', 'user_id']);
+            $table->foreign('role_id')
+                ->references('id')
+                ->on($config['roles'])
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on($config['users'])
+                ->onDelete('cascade');
         });
 
         Schema::create($config['role_has_permissions'], function (Blueprint $table) use ($config) {
             $table->integer('permission_id')->unsigned();
             $table->integer('role_id')->unsigned();
             $table->primary(['permission_id', 'role_id']);
+            $table->foreign('permission_id')
+                ->references('id')
+                ->on($config['permissions'])
+                ->onDelete('cascade');
+
+            $table->foreign('role_id')
+                ->references('id')
+                ->on($config['roles'])
+                ->onDelete('cascade');
         });
     }
 

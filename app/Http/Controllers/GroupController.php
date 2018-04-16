@@ -50,23 +50,13 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $group = new Group();
-
-
         $group->name = $request->name;
-
-
         $group->stub = $request->stub;
-
-
         $group->about = $request->about;
-
-
         $group->image_id = $request->image;
-
         $group->visibility = $request->visibility;
 
         $group->save();
-
 
         return redirect('g/'.$group->id);
     }

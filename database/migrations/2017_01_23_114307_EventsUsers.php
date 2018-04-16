@@ -15,6 +15,7 @@ class EventsUsers extends Migration
         Schema::create('events_users',function (Blueprint $table){
 			$table->increments('id')->unique()->index()->unsigned();
 			$table->integer('event_id')->unsigned()->index();
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
 			$table->boolean('eventOwner')->default(false);
 			$table->string('status')->default('attending');
 			$table->string('paid')->default(false);

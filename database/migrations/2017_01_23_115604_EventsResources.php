@@ -15,7 +15,7 @@ class EventsResources extends Migration
         Schema::create('events_resources',function (Blueprint $table){
 			$table->increments('id')->unique()->index()->unsigned();
 			$table->integer('event_id')->unsigned()->index();
-
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
 			/**
 			 * Type your addition here
 			 *

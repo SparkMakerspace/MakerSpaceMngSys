@@ -17,6 +17,7 @@ class EmailAliases extends Migration
             $table->increments('alias_id')->unsigned();
             $table->string('source_username');
             $table->string('source_domain');
+            $table->foreign('source_domain')->references('domain')->on('email_domains')->onDelete('cascade');
             $table->string('destination_username');
             $table->string('destination_domain');
             $table->boolean('enabled')->default(0);
