@@ -27,7 +27,7 @@
                                 <h1>
                                     {{$group->name}}
                                     @if(Auth::user())
-                                        @IF(!$group->ismember(\Auth::user()->id) )
+                                        @IF(!$group->isMember(\Auth::user()) )
                                             <a href='#' class='viewShow btn btn-warning'
                                                data-link='/g/{!!$group->stub!!}/join'><i
                                                         class='material-icons'><span class="glyphicon glyphicon-plus"
