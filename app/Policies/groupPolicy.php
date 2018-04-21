@@ -2,9 +2,10 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Group;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Log;
 
 class groupPolicy
 {
@@ -41,6 +42,7 @@ class groupPolicy
     */
     public function create(User $user)
     {
+        Log::debug('group create policy check');
         return false;
     }
 
@@ -80,6 +82,22 @@ class groupPolicy
     }
 
    /**
+    * Determine whether the acting user can delete a group
+    * 
+    * @param  User   $user
+    * @param  Group  $group
+    * @return bool
+    */
+    public function join(User $user, Group $group)
+    {
+        if ($group === Group::getAdminGroup() || $group === Group::getCalAdminGroup())
+        {
+            return false;
+        }
+        return true;
+    }
+
+   /**
     * This function is called before any ability herein and if it returns true,
     * the user is granted permission. This is useful for superadmin checking. 
     * 
@@ -89,6 +107,10 @@ class groupPolicy
     */
     public function before(User $user, $ability)
     {
-        return Group::getAdminGroup()->isUser($user);
+        Log::debug('before called!');
+        if (Group::getAdminGroup()->isUser($user))
+        {
+            return true;
+        }
     }
 }

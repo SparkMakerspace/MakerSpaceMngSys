@@ -2,16 +2,17 @@
 @section('title','Groups')
 @section('content')
 
-<section class="content">
-@include('partials.groupList')
+<section class="content">   
 
-    @hasanyrole(['superadmin','admin'])
-    <h1>
-        Group Index
-    </h1>
-    <form class = 'col s3' method = 'get' action = '{!!url("g")!!}/create'>
-        <button class = 'btn btn-primary' type = 'submit'>Create New group</button>
-    </form>
+    @if (Auth::user()->can('create', App\Group::class))
+        <form class = 'col s3' method = 'get' action = '{!!url("g")!!}/create'>
+            <button class = 'btn btn-primary' type = 'submit'>Create New group</button>
+        </form>
+    @endif
+    @include('partials.groupList')
+
+
+
     <br>
     <br>
     <table class = "table table-striped table-bordered table-hover" style = 'background:#fff'>
@@ -43,7 +44,6 @@
         </tbody>
     </table>
     {!! $groups->render() !!}
-    @endhasanyrole
 
 
 </section>
@@ -51,9 +51,7 @@
 
 
 @section('adminBar')
-    @hasanyrole(['superadmin','admin'])
     <form class = 'col s3' method = 'get' action = '{!!url("g")!!}/create'>
         <button class = 'btn btn-primary' type = 'submit'>Create New group</button>
     </form>
-    @endhasanyrole
 @endsection

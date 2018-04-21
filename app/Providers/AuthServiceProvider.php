@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Event;
+use App\Group;
 use App\Policies\EventPolicy;
+use App\Policies\GroupPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 

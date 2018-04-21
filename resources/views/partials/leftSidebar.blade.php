@@ -15,7 +15,6 @@
 
 @yield('sidebar.specific')
 
-@hasanyrole(['superadmin','admin'])
 <li class="header">ADMINISTRATOR</li>
 
 <li class="treeview"><a href="{{url('users')}}"><i class="fa fa-users"></i> <span>Users</span></a></li>
@@ -25,7 +24,3 @@
 <li class="treeview"><a href="{{url('permissions')}}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
 
 <li class="treeview"><a href="{{url('/Sitenavigation')}}"><i class="fa fa-key"></i> <span>Site Navigation & Pages</span></a></li>
-
-
-
-@endhasanyrole

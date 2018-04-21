@@ -58,11 +58,9 @@
                             <li class="footer"><a href="#">View all</a></li>
                         </ul>
                     </li>
-                    @hasanyrole(['superadmin','admin'])
                     <li class="">
                         <button class="nav navbar-brand btn-link" data-toggle="control-sidebar"><i class="fa fa-cog"></i></button>
                     </li>
-                    @endhasanyrole
                     <!-- END notification navbar list-->
                     @if(Auth::user())
                         <li class="dropdown user user-menu">
