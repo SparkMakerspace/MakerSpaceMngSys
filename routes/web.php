@@ -72,32 +72,6 @@ Route::group(['middleware' => 'web'], function () {
         //user info edit page
             Route::get('u/{username}', '\App\Http\Controllers\ScaffoldInterface\UserController@view');
 
-        //cadmodel Routes
-            Route::resource('cadmodel', '\App\Http\Controllers\CadmodelController');
-            Route::post('cadmodel/{id}/update', '\App\Http\Controllers\CadmodelController@update');
-            Route::post('cadmodel/{id}/updatemodel', '\App\Http\Controllers\CadmodelController@updatemodel');
-            Route::get('cadmodel/{id}/delete', '\App\Http\Controllers\CadmodelController@destroy');
-            Route::get('cadmodel/{id}/deleteMsg', '\App\Http\Controllers\CadmodelController@DeleteMsg');
-
-
-        //auto3dprintmaterial Routes
-            Route::resource('auto3dprintmaterial', '\App\Http\Controllers\Auto3dprintmaterialController');
-            Route::post('auto3dprintmaterial/{id}/update', '\App\Http\Controllers\Auto3dprintmaterialController@update');
-            Route::get('auto3dprintmaterial/{id}/delete', '\App\Http\Controllers\Auto3dprintmaterialController@destroy');
-            Route::get('auto3dprintmaterial/{id}/deleteMsg', '\App\Http\Controllers\Auto3dprintmaterialController@DeleteMsg');
-
-
-        //auto3dprintqueue Routes
-            Route::get('auto3dprintqueueall', '\App\Http\Controllers\Auto3dprintqueueController@AllUserindex');
-            Route::resource('auto3dprintqueue', '\App\Http\Controllers\Auto3dprintqueueController');
-            Route::post('auto3dprintqueue/{id}/update', '\App\Http\Controllers\Auto3dprintqueueController@update');
-            Route::get('auto3dprintqueue/{id}/delete', '\App\Http\Controllers\Auto3dprintqueueController@destroy');
-            Route::get('auto3dprintqueue/{id}/deleteMsg', '\App\Http\Controllers\Auto3dprintqueueController@DeleteMsg');
-            Route::get('auto3dprintqueue/{id}/gcode', '\App\Http\Controllers\Auto3dprintqueueController@showGcode');
-            Route::get('auto3dprintqueue/{id}/file.stl', '\App\Http\Controllers\Auto3dprintqueueController@showSTL');
-            Route::get('auto3dprintqueue/{id}/viewer', '\App\Http\Controllers\Auto3dprintqueueController@showGcodeViewer');
-            Route::get('printerinterface/gcode', '\App\Http\Controllers\Auto3dprintqueueController@PrinterReceiveGcode');
-            Route::get('auto3dprintqueue/{id}/thumb.png', '\App\Http\Controllers\Auto3dprintqueueController@showPNG');
 
         //User search route
             Route::post('searchUsers', 'ScaffoldInterface\UserController@searchUser');
@@ -109,12 +83,6 @@ Route::group(['middleware' => 'web'], function () {
 
         // User's home route
             Route::get('/home', 'DashboardController@show');
-
-        //resource_type Routes
-            Route::resource('resource_type', '\App\Http\Controllers\Resource_typeController');
-            Route::post('resource_type/{id}/update', '\App\Http\Controllers\Resource_typeController@update');
-            Route::get('resource_type/{id}/delete', '\App\Http\Controllers\Resource_typeController@destroy');
-            Route::get('resource_type/{id}/deleteMsg', '\App\Http\Controllers\Resource_typeController@DeleteMsg');
 
         //chorelist routes
             Route::get('chorelist/completed','\App\Http\Controllers\ChorelistController@completed');
@@ -159,11 +127,11 @@ Route::group(['middleware' => 'web'], function () {
 
     //group Routes
         Route::resource('g', '\App\Http\Controllers\GroupController');
-        Route::post('g/{id}/update', '\App\Http\Controllers\GroupController@update')->middleware('can:update,id');
-        Route::get('g/{id}/delete', '\App\Http\Controllers\GroupController@destroy')->middleware('can:delete,id');
-        Route::get('g/{id}/deleteMsg', '\App\Http\Controllers\GroupController@DeleteMsg')->middleware('can:delete,id');
-        Route::get('g/{stub}/join', '\App\Http\Controllers\GroupController@join')->middleware('can:join,id');
-        Route::get('g/{stub}/leave', '\App\Http\Controllers\GroupController@leave');
+        Route::post('g/{g}/update', '\App\Http\Controllers\GroupController@update')->middleware('can:update,g');
+        Route::get('g/{g}/delete', '\App\Http\Controllers\GroupController@destroy')->middleware('can:delete,g');
+        Route::get('g/{g}/deleteMsg', '\App\Http\Controllers\GroupController@DeleteMsg')->middleware('can:delete,g');
+        Route::get('g/{g}/join', '\App\Http\Controllers\GroupController@join')->middleware('can:join,g');
+        Route::get('g/{g}/leave', '\App\Http\Controllers\GroupController@leave');
 
 
     //door Routes
@@ -171,13 +139,6 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('door/{id}/update', '\App\Http\Controllers\DoorController@update');
         Route::get('door/{id}/delete', '\App\Http\Controllers\DoorController@destroy');
         Route::get('door/{id}/deleteMsg', '\App\Http\Controllers\DoorController@DeleteMsg');
-
-
-    //resource Routes
-        Route::resource('resource', '\App\Http\Controllers\ResourceController');
-        Route::post('resource/{id}/update', '\App\Http\Controllers\ResourceController@update');
-        Route::get('resource/{id}/delete', '\App\Http\Controllers\ResourceController@destroy');
-        Route::get('resource/{id}/deleteMsg', '\App\Http\Controllers\ResourceController@DeleteMsg');
 
 
     //event Routes

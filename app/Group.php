@@ -53,7 +53,10 @@ class Group extends Model
 
 	protected $guarded = [];
 	protected $dates = ['deleted_at'];
-    
+
+    public function getRouteKeyName() {
+        return 'stub';
+    }    
 	
     protected $table = 'groups';
 
@@ -246,7 +249,7 @@ class Group extends Model
      */
     public function removeUser(User $user)
     {
-        if ($this->users()->find($user)) {
+        if ($this->isUser($user)) {
             $this->users()->detach($user);
         }
     }

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Group;
 use Amranidev\Ajaxis\Ajaxis;
-use URL;
+use App\Group;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Class GroupController.
@@ -49,16 +49,16 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $group = new Group();
-        $group->name = $request->name;
-        $group->stub = $request->stub;
-        $group->about = $request->about;
-        $group->image_id = $request->image;
-        $group->visibility = $request->visibility;
+        $g = new Group();
+        $g->name = $request->name;
+        $g->stub = $request->stub;
+        $g->about = $request->about;
+        $g->image_id = $request->image;
+        $g->visibility = $request->visibility;
 
-        $group->save();
+        $g->save();
 
-        return redirect('g/'.$group->id);
+        return redirect('g/'.$g->stub);
     }
 
     /**
@@ -68,15 +68,14 @@ class GroupController extends Controller
      * @param    int  $id
      * @return  \Illuminate\Http\Response
      */
-    public function show($stub,Request $request)
+    public function show(Group $g,Request $request)
     {
-
         if($request->ajax())
         {
-            return URL::to('g/'.$stub);
+            return URL::to('g/'.$g->stub);
         }
 
-        return $this->dashboard($stub);
+        return $this->dashboard($g);
     }
 
     /**
@@ -85,57 +84,43 @@ class GroupController extends Controller
      * @param    int  $id
      * @return  \Illuminate\Http\Response
      */
-    public function edit($id,Request $request)
+    public function edit(Group $g,Request $request)
     {
         $title = 'Edit - group';
         if($request->ajax())
         {
-            return URL::to('g/'. $id . '/edit');
+            return URL::to('g/'. $g->stub . '/edit');
         }
-
-
-        $group = Group::findOrfail($id);
-        return view('group.edit',compact('title','group'  ));
+        return view('group.edit',compact('title','group'));
     }
 
-    public function join($stub,Request $request)
+    public function join(Group $g,Request $request)
     {
-        $group = Group::whereStub($stub)->first();
-        $group -> assignMember(\Auth::user()->id);
-        return URL::to('g/'. $stub );
+        $g -> assignMember(\Auth::user());
+        return URL::to('g/'. $g->stub );
     }
 
 
-    public function leave($stub,Request $request)
+    public function leave(Group $g,Request $request)
     {
-        $group = Group::whereStub($stub)->first();
-        $group -> removeUser(\Auth::user()->id);
-        return URL::to('g/'. $stub );
+        $g -> removeUser(\Auth::user());
+        return URL::to('g/'. $g->stub );
     }
     /**
      * Update the specified resource in storage.
      *
      * @param    \Illuminate\Http\Request  $request
-     * @param    int  $id
+     * @param    Group $g
      * @return  \Illuminate\Http\Response
      */
-    public function update($id,Request $request)
+    public function update(Group $g,Request $request)
     {
-        $group = Group::findOrfail($id);
-
-        $group->name = $request->name;
-
-        $group->stub = $request->stub;
-
-        $group->about = $request->about;
-
-        $group->image_id = $request->image;
-
-
-        $group->visibility = $request->visibility;
-
-
-        $group->save();
+        $g->name = $request->name;
+        $g->stub = $request->stub;
+        $g->about = $request->about;
+        $g->image_id = $request->image;
+        $g->visibility = $request->visibility;
+        $g->save();
 
         return redirect('g');
     }
@@ -144,12 +129,13 @@ class GroupController extends Controller
      * Delete confirmation message by Ajaxis.
      *
      * @link      https://github.com/amranidev/ajaxis
-     * @param    \Illuminate\Http\Request  $request
+     * @param    \Illuminate\Http\Request   $request
+     * @param    Group $g
      * @return  String
      */
-    public function DeleteMsg($id,Request $request)
+    public function DeleteMsg(Group $g,Request $request)
     {
-        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/g/'. $id . '/delete');
+        $msg = Ajaxis::BtDeleting('Warning!!','Would you like to remove This?','/g/'. $g->stub . '/delete');
 
         if($request->ajax())
         {
@@ -160,27 +146,25 @@ class GroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param    int $id
-     * @return \Illuminate\Http\Response|string
+     * @param   Group $g
+     * @return  \Illuminate\Http\Response|string
      */
-    public function destroy($id)
+    public function destroy(Group $g)
     {
-        $group = Group::findOrfail($id);
-        $group->delete();
+        $g->delete();
         return URL::to('g');
     }
 
     /**
      * Compile everything needed to display the group page
      *
-     * @param    string $stub
+     * @param    Group $g
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function dashboard($stub)
+    public function dashboard(Group $g)
     {
-        $group = Group::whereStub($stub)->first();
-
-        $events = $group->events()->get();
+        $group = $g;
+        $events = $g->events()->get();
         $calendar = \FullCal::addEvents($events)->setCallbacks([
             'eventClick'=> 'function(calEvent, jsEvent, view) {
         window.location.assign(calEvent.url);
@@ -188,7 +172,7 @@ class GroupController extends Controller
             'defaultView'=>'month',
             'header'=>['left'=>'title','center'=>'','right'=>'today prev,next'],
         ]);
-        $posts = $group->posts()->orderBy('created_at','dec')->paginate(10);
+        $posts = $g->posts()->orderBy('created_at','dec')->paginate(10);
         return view('group.dashboard')->with(compact('calendar','posts','group'));
     }
 }

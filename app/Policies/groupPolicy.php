@@ -88,8 +88,9 @@ class groupPolicy
     * @param  Group  $group
     * @return bool
     */
-    public function join(User $user, Group $group)
+    public function join(User $user, $stub)
     {
+        $group = Group::whereStub($stub)->first();
         if ($group === Group::getAdminGroup() || $group === Group::getCalAdminGroup())
         {
             return false;

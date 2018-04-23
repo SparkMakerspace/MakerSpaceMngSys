@@ -31,26 +31,18 @@
             {!! Form::submit('Submit') !!}
         </div>
 
-        <script>
-            $(function () {
-                $('#posted_at').datetimepicker({
-                    format: 'YYYY-MM-DD HH:mm'
-                });
-            });
-        </script>
-
-
         {!! Form::close() !!}
     </section>
 
 
 
-    @hasanyrole(['superadmin','admin'])
-    @if(isset($post))
-        <form class = 'col s3' method = 'get' action = '{!!url("g")!!}/create'>
-            <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/post/{!!$post->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
-            <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/post/{!!$post->id!!}/edit'><i class = 'material-icons'>edit</i></a>
-            <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/post/{!!$post->id!!}'><i class = 'material-icons'>info</i></a>
-        </form>
+    @if(App\User::isAdmin(Auth::user()))
+        @if(isset($post))
+            <form class = 'col s3' method = 'get' action = '{!!url("g")!!}/create'>
+                <a data-toggle="modal" data-target="#myModal" class = 'delete btn btn-danger btn-xs' data-link = "/post/{!!$post->id!!}/deleteMsg" ><i class = 'material-icons'>delete</i></a>
+                <a href = '#' class = 'viewEdit btn btn-primary btn-xs' data-link = '/post/{!!$post->id!!}/edit'><i class = 'material-icons'>edit</i></a>
+                <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/post/{!!$post->id!!}'><i class = 'material-icons'>info</i></a>
+            </form>
+        @endif
     @endif
-    @endhasanyrole
+

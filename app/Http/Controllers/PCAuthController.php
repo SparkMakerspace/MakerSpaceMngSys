@@ -31,6 +31,6 @@ class PCAuthController extends Controller
 ".$user->username."
 ".$user->name."
 ".$user->email."
-USERS;".($user->hasRole('admin')?'Administrators;':'');
+USERS;".(User::isAdmin($user)?'Administrators;':'');
     }
 }

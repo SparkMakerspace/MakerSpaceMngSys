@@ -30,6 +30,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // Gates - minimize this list
+        
     }
 }

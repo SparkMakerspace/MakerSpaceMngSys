@@ -285,9 +285,19 @@ class User extends Authenticatable
     }
 
 
-
-
-
+    /**
+     * Returns true if the passed user is in the Built-in Admin group.
+     * @param  User    $user [description]
+     * @return boolean       [description]
+     */
+    static public function isAdmin($user)
+    {
+        if (!is_null($user))
+        {
+            return Group::getAdminGroup()->isUser($user);
+        }
+        return false;
+    }
 }
 
 

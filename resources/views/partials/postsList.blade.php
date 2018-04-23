@@ -38,27 +38,24 @@
                             {{$post->getOwner()->name}}
                         <br>
                         {!!$post->posted_at!!}
-                        @if( Auth::user())
-                            @if(Auth::user()->hasRole(["superadmin","admin"]) ||
-                            ($post->getOwner()->id == Auth::user()->id ) ||
-                            (isset($group) && $group->islead(Auth::user()))
+                        @if(Auth::user() &&
+                            (
+                                App\User::isAdmin(Auth::user()) ||
+                                ($post->getOwner() == Auth::user())
                             )
-
-
-                                <br>
-                                <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger btn-xs'
+                        )
+                            <br>
+                            <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger btn-xs'
                                    data-link="/post/{!!$post->id!!}/deleteMsg">
                                 <iclass='material-icons'>delete</i>
                             </a>
-                                <a href='#' class='viewEdit btn btn-primary btn-xs'
+                            <a href='#' class='viewEdit btn btn-primary btn-xs'
                                    data-link='/post/{!!$post->id!!}/edit'>
                                 <i class='material-icons'>edit</i>
                             </a>
-                                <a href='#' class='viewShow btn btn-warning btn-xs' data-link='/post/{!!$post->id!!}'>
+                            <a href='#' class='viewShow btn btn-warning btn-xs' data-link='/post/{!!$post->id!!}'>
                                 <i class='material-icons'>info</i>
                             </a>
-                            @endif
-
                         @endif
                     </span>
                     <div class="product-info" style="margin-left: 0px">

@@ -208,8 +208,6 @@
     </div>
 @endsection
 
-
-
 @push('script')
     <link rel="stylesheet" href="{{url('css/jquery.datetimepicker.min.css')}}">
     <script src="{{url('js/jquery.datetimepicker.full.min.js')}}"></script>
@@ -228,3 +226,4 @@
         });
     </script>
 @endpush
+

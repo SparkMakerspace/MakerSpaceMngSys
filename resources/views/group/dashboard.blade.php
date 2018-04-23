@@ -27,18 +27,23 @@
                                 <h1>
                                     {{$group->name}}
                                     @if(Auth::user())
-                                        @IF(!$group->isMember(\Auth::user()) )
-                                            <a href='#' class='viewShow btn btn-warning'
-                                               data-link='/g/{!!$group->stub!!}/join'><i
-                                                        class='material-icons'><span class="glyphicon glyphicon-plus"
-                                                                                     aria-hidden="true"></span>Join</i></a>
-                                        @ELSE
-                                            <a href='#' class='viewShow btn btn-warning'
-                                               data-link='/g/{!!$group->stub!!}/leave'><i
-                                                        class='material-icons'><span class="glyphicon glyphicon-minus"
-                                                                                     aria-hidden="true"></span>Leave
-                                                    Group</i></a>
-                                        @ENDIF
+                                        @if(!$group->isUser(\Auth::user()) )
+                                            <a href='#' class='viewShow btn btn-warning' data-link='/g/{!!$group->stub!!}/join'>
+                                                <i class='material-icons'>
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                                    </span>
+                                                    Join
+                                                </i>
+                                            </a>
+                                        @else
+                                            <a href='#' class='viewShow btn btn-warning' data-link='/g/{!!$group->stub!!}/leave'>
+                                                <i class='material-icons'>
+                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true">
+                                                    </span>
+                                                    Leave Group
+                                                </i>
+                                            </a>
+                                        @endif
                                     @endif
                                 </h1>
                                 <p>
@@ -49,8 +54,6 @@
                                 <h4>
                                     Contact Info
                                 </h4>
-                                <img>
-
                                 @foreach($group->leads as $groupUser)
                                     <br>
 
@@ -105,15 +108,4 @@
     </div>
 
 
-        @endsection
-
-        @section('adminBar')
-            @hasanyrole(['superadmin','admin'])
-            <a data-toggle="modal" data-target="#myModal" class='delete btn btn-danger btn-xs'
-               data-link="/g/{!!$group->id!!}/deleteMsg"><i class='material-icons'>delete</i></a>
-            <a href='#' class='viewEdit btn btn-primary btn-xs' data-link='/g/{!!$group->id!!}/edit'><i
-                        class='material-icons'>edit</i></a>
-            <a href='#' class='viewShow btn btn-warning btn-xs' data-link='/g/{!!$group->stub!!}'><i
-                        class='material-icons'>info</i></a>
-            @endhasanyrole
 @endsection
